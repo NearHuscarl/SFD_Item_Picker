@@ -1,5 +1,5 @@
 {
-  "name": "sfd_profile",
+  "name": "sfd_item_picker",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -18,6 +18,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
+    "gen-data": "node scripts/genData.js",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
@@ -39,5 +40,15 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@types/fs-extra": "^9.0.6",
+    "@types/react-redux": "^7.1.16",
+    "chalk": "^4.1.0",
+    "dotenv": "^8.2.0",
+    "fs-extra": "^9.1.0",
+    "glob": "^7.1.6",
+    "prettier": "^2.2.1",
+    "xnbcli": "git+https://github.com/nearhuscarl/xnbcli.git"
   }
 }
