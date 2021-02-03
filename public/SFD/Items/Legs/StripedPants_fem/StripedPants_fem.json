@@ -1,0 +1,128 @@
+{
+    "header": {
+        "target": "w",
+        "formatVersion": 5,
+        "hidef": false,
+        "compressed": 128
+    },
+    "readers": [
+        {
+            "type": "SFD.Content.ItemsContentTypeReader, SFD.Content",
+            "version": 0
+        }
+    ],
+    "content": {
+        "gameName": "Striped Pants",
+        "fileName": "StripedPants_fem",
+        "equipmentLayer": 2,
+        "id": "StripedPants_fem",
+        "jacketUnderBelt": false,
+        "canEquip": true,
+        "canScript": true,
+        "colorPalette": "Clothing1",
+        "export": {
+            "type": "SFDItem",
+            "data": [
+                {
+                    "textures": [],
+                    "type": 0
+                },
+                {
+                    "textures": [
+                        "StripedPants_fem_1_0.png",
+                        "StripedPants_fem_1_1.png",
+                        "StripedPants_fem_1_2.png",
+                        "StripedPants_fem_1_3.png",
+                        "StripedPants_fem_1_4.png",
+                        "StripedPants_fem_1_5.png",
+                        "StripedPants_fem_1_6.png",
+                        null,
+                        "StripedPants_fem_1_8.png",
+                        "StripedPants_fem_1_9.png",
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null
+                    ],
+                    "type": 1
+                },
+                {
+                    "textures": [],
+                    "type": 2
+                },
+                {
+                    "textures": [
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        "StripedPants_fem_3_9.png",
+                        "StripedPants_fem_3_10.png",
+                        "StripedPants_fem_3_11.png",
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null
+                    ],
+                    "type": 3
+                },
+                {
+                    "textures": [
+                        "StripedPants_fem_4_0.png",
+                        "StripedPants_fem_4_1.png",
+                        "StripedPants_fem_4_2.png",
+                        "StripedPants_fem_4_3.png",
+                        "StripedPants_fem_4_4.png",
+                        "StripedPants_fem_4_5.png",
+                        "StripedPants_fem_4_6.png",
+                        "StripedPants_fem_4_7.png",
+                        "StripedPants_fem_4_8.png",
+                        "StripedPants_fem_4_9.png",
+                        "StripedPants_fem_4_10.png",
+                        "StripedPants_fem_4_11.png",
+                        "StripedPants_fem_4_12.png",
+                        "StripedPants_fem_4_13.png",
+                        "StripedPants_fem_4_14.png",
+                        "StripedPants_fem_4_15.png",
+                        "StripedPants_fem_4_16.png",
+                        "StripedPants_fem_4_17.png",
+                        "StripedPants_fem_4_18.png",
+                        "StripedPants_fem_4_19.png",
+                        "StripedPants_fem_4_20.png",
+                        null,
+                        null,
+                        null
+                    ],
+                    "type": 4
+                },
+                {
+                    "textures": [],
+                    "type": 5
+                }
+            ]
+        }
+    }
+}

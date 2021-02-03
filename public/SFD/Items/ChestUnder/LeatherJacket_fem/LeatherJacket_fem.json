@@ -1,0 +1,153 @@
+{
+    "header": {
+        "target": "w",
+        "formatVersion": 5,
+        "hidef": false,
+        "compressed": 128
+    },
+    "readers": [
+        {
+            "type": "SFD.Content.ItemsContentTypeReader, SFD.Content",
+            "version": 0
+        }
+    ],
+    "content": {
+        "gameName": "Leather Jacket",
+        "fileName": "LeatherJacket_fem",
+        "equipmentLayer": 1,
+        "id": "LeatherJacket_fem",
+        "jacketUnderBelt": false,
+        "canEquip": true,
+        "canScript": true,
+        "colorPalette": "Clothing1",
+        "export": {
+            "type": "SFDItem",
+            "data": [
+                {
+                    "textures": [
+                        "LeatherJacket_fem_0_0.png",
+                        "LeatherJacket_fem_0_1.png",
+                        "LeatherJacket_fem_0_2.png",
+                        "LeatherJacket_fem_0_3.png",
+                        "LeatherJacket_fem_0_4.png",
+                        "LeatherJacket_fem_0_5.png",
+                        "LeatherJacket_fem_0_6.png",
+                        "LeatherJacket_fem_0_7.png",
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null
+                    ],
+                    "type": 0
+                },
+                {
+                    "textures": [
+                        "LeatherJacket_fem_1_0.png",
+                        "LeatherJacket_fem_1_1.png",
+                        "LeatherJacket_fem_1_2.png",
+                        "LeatherJacket_fem_1_3.png",
+                        "LeatherJacket_fem_1_4.png",
+                        "LeatherJacket_fem_1_5.png",
+                        "LeatherJacket_fem_1_6.png",
+                        "LeatherJacket_fem_1_7.png",
+                        "LeatherJacket_fem_1_8.png",
+                        "LeatherJacket_fem_1_9.png",
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null
+                    ],
+                    "type": 1
+                },
+                {
+                    "textures": [
+                        "LeatherJacket_fem_2_0.png",
+                        "LeatherJacket_fem_2_1.png",
+                        "LeatherJacket_fem_2_2.png",
+                        "LeatherJacket_fem_2_3.png",
+                        "LeatherJacket_fem_2_4.png",
+                        "LeatherJacket_fem_2_5.png",
+                        "LeatherJacket_fem_2_6.png",
+                        "LeatherJacket_fem_2_7.png",
+                        "LeatherJacket_fem_2_8.png",
+                        "LeatherJacket_fem_2_9.png",
+                        "LeatherJacket_fem_2_10.png",
+                        "LeatherJacket_fem_2_11.png",
+                        "LeatherJacket_fem_2_12.png",
+                        "LeatherJacket_fem_2_13.png",
+                        "LeatherJacket_fem_2_14.png",
+                        "LeatherJacket_fem_2_15.png",
+                        "LeatherJacket_fem_2_16.png",
+                        "LeatherJacket_fem_2_17.png",
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null
+                    ],
+                    "type": 2
+                },
+                {
+                    "textures": [
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        "LeatherJacket_fem_3_9.png",
+                        "LeatherJacket_fem_3_10.png",
+                        "LeatherJacket_fem_3_11.png",
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null
+                    ],
+                    "type": 3
+                },
+                {
+                    "textures": [],
+                    "type": 4
+                },
+                {
+                    "textures": [],
+                    "type": 5
+                }
+            ]
+        }
+    }
+}

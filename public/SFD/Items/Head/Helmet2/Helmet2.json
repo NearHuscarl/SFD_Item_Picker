@@ -1,0 +1,78 @@
+{
+    "header": {
+        "target": "w",
+        "formatVersion": 5,
+        "hidef": false,
+        "compressed": 128
+    },
+    "readers": [
+        {
+            "type": "SFD.Content.ItemsContentTypeReader, SFD.Content",
+            "version": 0
+        }
+    ],
+    "content": {
+        "gameName": "Helmet 2",
+        "fileName": "Helmet2",
+        "equipmentLayer": 8,
+        "id": "Helmet2",
+        "jacketUnderBelt": false,
+        "canEquip": true,
+        "canScript": true,
+        "colorPalette": "Clothing1",
+        "export": {
+            "type": "SFDItem",
+            "data": [
+                {
+                    "textures": [
+                        "Helmet2_0_0.png",
+                        "Helmet2_0_1.png",
+                        "Helmet2_0_2.png",
+                        "Helmet2_0_3.png",
+                        "Helmet2_0_4.png",
+                        "Helmet2_0_5.png",
+                        "Helmet2_0_6.png",
+                        "Helmet2_0_7.png",
+                        "Helmet2_0_8.png",
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null
+                    ],
+                    "type": 0
+                },
+                {
+                    "textures": [],
+                    "type": 1
+                },
+                {
+                    "textures": [],
+                    "type": 2
+                },
+                {
+                    "textures": [],
+                    "type": 3
+                },
+                {
+                    "textures": [],
+                    "type": 4
+                },
+                {
+                    "textures": [],
+                    "type": 5
+                }
+            ]
+        }
+    }
+}

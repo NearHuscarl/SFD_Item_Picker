@@ -1,0 +1,78 @@
+{
+    "header": {
+        "target": "w",
+        "formatVersion": 5,
+        "hidef": false,
+        "compressed": 128
+    },
+    "readers": [
+        {
+            "type": "SFD.Content.ItemsContentTypeReader, SFD.Content",
+            "version": 0
+        }
+    ],
+    "content": {
+        "gameName": "Sombrero",
+        "fileName": "Sombrero",
+        "equipmentLayer": 8,
+        "id": "Sombrero",
+        "jacketUnderBelt": false,
+        "canEquip": true,
+        "canScript": true,
+        "colorPalette": "Clothing1",
+        "export": {
+            "type": "SFDItem",
+            "data": [
+                {
+                    "textures": [
+                        "Sombrero_0_0.png",
+                        "Sombrero_0_1.png",
+                        "Sombrero_0_2.png",
+                        "Sombrero_0_3.png",
+                        "Sombrero_0_4.png",
+                        "Sombrero_0_5.png",
+                        "Sombrero_0_6.png",
+                        "Sombrero_0_7.png",
+                        "Sombrero_0_8.png",
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null
+                    ],
+                    "type": 0
+                },
+                {
+                    "textures": [],
+                    "type": 1
+                },
+                {
+                    "textures": [],
+                    "type": 2
+                },
+                {
+                    "textures": [],
+                    "type": 3
+                },
+                {
+                    "textures": [],
+                    "type": 4
+                },
+                {
+                    "textures": [],
+                    "type": 5
+                }
+            ]
+        }
+    }
+}

@@ -1,0 +1,103 @@
+{
+    "header": {
+        "target": "w",
+        "formatVersion": 5,
+        "hidef": false,
+        "compressed": 128
+    },
+    "readers": [
+        {
+            "type": "SFD.Content.ItemsContentTypeReader, SFD.Content",
+            "version": 0
+        }
+    ],
+    "content": {
+        "gameName": "Vest (Black)",
+        "fileName": "VestBlack",
+        "equipmentLayer": 5,
+        "id": "VestBlack",
+        "jacketUnderBelt": false,
+        "canEquip": true,
+        "canScript": true,
+        "colorPalette": "ClothingDark1",
+        "export": {
+            "type": "SFDItem",
+            "data": [
+                {
+                    "textures": [],
+                    "type": 0
+                },
+                {
+                    "textures": [
+                        "VestBlack_1_0.png",
+                        "VestBlack_1_1.png",
+                        "VestBlack_1_2.png",
+                        "VestBlack_1_3.png",
+                        "VestBlack_1_4.png",
+                        "VestBlack_1_5.png",
+                        "VestBlack_1_6.png",
+                        "VestBlack_1_7.png",
+                        "VestBlack_1_8.png",
+                        "VestBlack_1_9.png",
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null
+                    ],
+                    "type": 1
+                },
+                {
+                    "textures": [
+                        "VestBlack_2_0.png",
+                        "VestBlack_2_1.png",
+                        "VestBlack_2_2.png",
+                        "VestBlack_2_3.png",
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null
+                    ],
+                    "type": 2
+                },
+                {
+                    "textures": [],
+                    "type": 3
+                },
+                {
+                    "textures": [],
+                    "type": 4
+                },
+                {
+                    "textures": [],
+                    "type": 5
+                }
+            ]
+        }
+    }
+}

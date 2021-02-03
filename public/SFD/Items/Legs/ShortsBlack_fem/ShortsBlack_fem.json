@@ -1,0 +1,128 @@
+{
+    "header": {
+        "target": "w",
+        "formatVersion": 5,
+        "hidef": false,
+        "compressed": 128
+    },
+    "readers": [
+        {
+            "type": "SFD.Content.ItemsContentTypeReader, SFD.Content",
+            "version": 0
+        }
+    ],
+    "content": {
+        "gameName": "Shorts (Black)",
+        "fileName": "ShortsBlack_fem",
+        "equipmentLayer": 2,
+        "id": "ShortsBlack_fem",
+        "jacketUnderBelt": false,
+        "canEquip": true,
+        "canScript": true,
+        "colorPalette": "ClothingDark1",
+        "export": {
+            "type": "SFDItem",
+            "data": [
+                {
+                    "textures": [],
+                    "type": 0
+                },
+                {
+                    "textures": [
+                        "ShortsBlack_fem_1_0.png",
+                        "ShortsBlack_fem_1_1.png",
+                        "ShortsBlack_fem_1_2.png",
+                        "ShortsBlack_fem_1_3.png",
+                        "ShortsBlack_fem_1_4.png",
+                        "ShortsBlack_fem_1_5.png",
+                        "ShortsBlack_fem_1_6.png",
+                        null,
+                        "ShortsBlack_fem_1_8.png",
+                        "ShortsBlack_fem_1_9.png",
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null
+                    ],
+                    "type": 1
+                },
+                {
+                    "textures": [],
+                    "type": 2
+                },
+                {
+                    "textures": [
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        "ShortsBlack_fem_3_9.png",
+                        "ShortsBlack_fem_3_10.png",
+                        "ShortsBlack_fem_3_11.png",
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null
+                    ],
+                    "type": 3
+                },
+                {
+                    "textures": [
+                        "ShortsBlack_fem_4_0.png",
+                        "ShortsBlack_fem_4_1.png",
+                        "ShortsBlack_fem_4_2.png",
+                        "ShortsBlack_fem_4_3.png",
+                        "ShortsBlack_fem_4_4.png",
+                        "ShortsBlack_fem_4_5.png",
+                        "ShortsBlack_fem_4_6.png",
+                        "ShortsBlack_fem_4_7.png",
+                        "ShortsBlack_fem_4_8.png",
+                        "ShortsBlack_fem_4_9.png",
+                        "ShortsBlack_fem_4_10.png",
+                        "ShortsBlack_fem_4_11.png",
+                        "ShortsBlack_fem_4_12.png",
+                        "ShortsBlack_fem_4_13.png",
+                        "ShortsBlack_fem_4_14.png",
+                        "ShortsBlack_fem_4_15.png",
+                        "ShortsBlack_fem_4_16.png",
+                        "ShortsBlack_fem_4_17.png",
+                        "ShortsBlack_fem_4_18.png",
+                        "ShortsBlack_fem_4_19.png",
+                        "ShortsBlack_fem_4_20.png",
+                        null,
+                        null,
+                        null
+                    ],
+                    "type": 4
+                },
+                {
+                    "textures": [],
+                    "type": 5
+                }
+            ]
+        }
+    }
+}

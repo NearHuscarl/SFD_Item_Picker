@@ -1,0 +1,128 @@
+{
+    "header": {
+        "target": "w",
+        "formatVersion": 5,
+        "hidef": false,
+        "compressed": 128
+    },
+    "readers": [
+        {
+            "type": "SFD.Content.ItemsContentTypeReader, SFD.Content",
+            "version": 0
+        }
+    ],
+    "content": {
+        "gameName": "Suit Jacket (Black)",
+        "fileName": "SuitJacketBlack_fem",
+        "equipmentLayer": 5,
+        "id": "SuitJacketBlack_fem",
+        "jacketUnderBelt": true,
+        "canEquip": true,
+        "canScript": true,
+        "colorPalette": "ClothingGoggles1",
+        "export": {
+            "type": "SFDItem",
+            "data": [
+                {
+                    "textures": [],
+                    "type": 0
+                },
+                {
+                    "textures": [
+                        "SuitJacketBlack_fem_1_0.png",
+                        "SuitJacketBlack_fem_1_1.png",
+                        "SuitJacketBlack_fem_1_2.png",
+                        "SuitJacketBlack_fem_1_3.png",
+                        "SuitJacketBlack_fem_1_4.png",
+                        "SuitJacketBlack_fem_1_5.png",
+                        "SuitJacketBlack_fem_1_6.png",
+                        "SuitJacketBlack_fem_1_7.png",
+                        "SuitJacketBlack_fem_1_8.png",
+                        "SuitJacketBlack_fem_1_9.png",
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null
+                    ],
+                    "type": 1
+                },
+                {
+                    "textures": [
+                        "SuitJacketBlack_fem_2_0.png",
+                        "SuitJacketBlack_fem_2_1.png",
+                        "SuitJacketBlack_fem_2_2.png",
+                        "SuitJacketBlack_fem_2_3.png",
+                        "SuitJacketBlack_fem_2_4.png",
+                        "SuitJacketBlack_fem_2_5.png",
+                        "SuitJacketBlack_fem_2_6.png",
+                        "SuitJacketBlack_fem_2_7.png",
+                        "SuitJacketBlack_fem_2_8.png",
+                        "SuitJacketBlack_fem_2_9.png",
+                        "SuitJacketBlack_fem_2_10.png",
+                        "SuitJacketBlack_fem_2_11.png",
+                        "SuitJacketBlack_fem_2_12.png",
+                        "SuitJacketBlack_fem_2_13.png",
+                        "SuitJacketBlack_fem_2_14.png",
+                        "SuitJacketBlack_fem_2_15.png",
+                        "SuitJacketBlack_fem_2_16.png",
+                        "SuitJacketBlack_fem_2_17.png",
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null
+                    ],
+                    "type": 2
+                },
+                {
+                    "textures": [
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        "SuitJacketBlack_fem_3_9.png",
+                        "SuitJacketBlack_fem_3_10.png",
+                        "SuitJacketBlack_fem_3_11.png",
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null
+                    ],
+                    "type": 3
+                },
+                {
+                    "textures": [],
+                    "type": 4
+                },
+                {
+                    "textures": [],
+                    "type": 5
+                }
+            ]
+        }
+    }
+}

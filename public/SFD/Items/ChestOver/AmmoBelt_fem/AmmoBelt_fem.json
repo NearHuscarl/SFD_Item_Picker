@@ -1,0 +1,103 @@
+{
+    "header": {
+        "target": "w",
+        "formatVersion": 5,
+        "hidef": false,
+        "compressed": 128
+    },
+    "readers": [
+        {
+            "type": "SFD.Content.ItemsContentTypeReader, SFD.Content",
+            "version": 0
+        }
+    ],
+    "content": {
+        "gameName": "Ammo Belt",
+        "fileName": "AmmoBelt_fem",
+        "equipmentLayer": 5,
+        "id": "AmmoBelt_fem",
+        "jacketUnderBelt": true,
+        "canEquip": true,
+        "canScript": true,
+        "colorPalette": "ClothingDark1",
+        "export": {
+            "type": "SFDItem",
+            "data": [
+                {
+                    "textures": [],
+                    "type": 0
+                },
+                {
+                    "textures": [
+                        "AmmoBelt_fem_1_0.png",
+                        "AmmoBelt_fem_1_1.png",
+                        "AmmoBelt_fem_1_2.png",
+                        "AmmoBelt_fem_1_3.png",
+                        "AmmoBelt_fem_1_4.png",
+                        "AmmoBelt_fem_1_5.png",
+                        "AmmoBelt_fem_1_6.png",
+                        null,
+                        "AmmoBelt_fem_1_8.png",
+                        "AmmoBelt_fem_1_9.png",
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null
+                    ],
+                    "type": 1
+                },
+                {
+                    "textures": [],
+                    "type": 2
+                },
+                {
+                    "textures": [
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        "AmmoBelt_fem_3_9.png",
+                        "AmmoBelt_fem_3_10.png",
+                        "AmmoBelt_fem_3_11.png",
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null
+                    ],
+                    "type": 3
+                },
+                {
+                    "textures": [],
+                    "type": 4
+                },
+                {
+                    "textures": [],
+                    "type": 5
+                }
+            ]
+        }
+    }
+}

@@ -1,0 +1,103 @@
+{
+    "header": {
+        "target": "w",
+        "formatVersion": 5,
+        "hidef": false,
+        "compressed": 128
+    },
+    "readers": [
+        {
+            "type": "SFD.Content.ItemsContentTypeReader, SFD.Content",
+            "version": 0
+        }
+    ],
+    "content": {
+        "gameName": "Hawaii Shirt",
+        "fileName": "HawaiiShirt",
+        "equipmentLayer": 1,
+        "id": "HawaiiShirt",
+        "jacketUnderBelt": false,
+        "canEquip": true,
+        "canScript": true,
+        "colorPalette": "Clothing1",
+        "export": {
+            "type": "SFDItem",
+            "data": [
+                {
+                    "textures": [],
+                    "type": 0
+                },
+                {
+                    "textures": [
+                        "HawaiiShirt_1_0.png",
+                        "HawaiiShirt_1_1.png",
+                        "HawaiiShirt_1_2.png",
+                        "HawaiiShirt_1_3.png",
+                        "HawaiiShirt_1_4.png",
+                        "HawaiiShirt_1_5.png",
+                        "HawaiiShirt_1_6.png",
+                        "HawaiiShirt_1_7.png",
+                        "HawaiiShirt_1_8.png",
+                        "HawaiiShirt_1_9.png",
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null
+                    ],
+                    "type": 1
+                },
+                {
+                    "textures": [
+                        "HawaiiShirt_2_0.png",
+                        "HawaiiShirt_2_1.png",
+                        "HawaiiShirt_2_2.png",
+                        "HawaiiShirt_2_3.png",
+                        "HawaiiShirt_2_4.png",
+                        "HawaiiShirt_2_5.png",
+                        "HawaiiShirt_2_6.png",
+                        "HawaiiShirt_2_7.png",
+                        "HawaiiShirt_2_8.png",
+                        "HawaiiShirt_2_9.png",
+                        "HawaiiShirt_2_10.png",
+                        "HawaiiShirt_2_11.png",
+                        "HawaiiShirt_2_12.png",
+                        "HawaiiShirt_2_13.png",
+                        "HawaiiShirt_2_14.png",
+                        "HawaiiShirt_2_15.png",
+                        "HawaiiShirt_2_16.png",
+                        "HawaiiShirt_2_17.png",
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null
+                    ],
+                    "type": 2
+                },
+                {
+                    "textures": [],
+                    "type": 3
+                },
+                {
+                    "textures": [],
+                    "type": 4
+                },
+                {
+                    "textures": [],
+                    "type": 5
+                }
+            ]
+        }
+    }
+}

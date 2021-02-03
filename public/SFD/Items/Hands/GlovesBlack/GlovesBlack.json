@@ -1,0 +1,103 @@
+{
+    "header": {
+        "target": "w",
+        "formatVersion": 5,
+        "hidef": false,
+        "compressed": 128
+    },
+    "readers": [
+        {
+            "type": "SFD.Content.ItemsContentTypeReader, SFD.Content",
+            "version": 0
+        }
+    ],
+    "content": {
+        "gameName": "Gloves (Black)",
+        "fileName": "GlovesBlack",
+        "equipmentLayer": 7,
+        "id": "GlovesBlack",
+        "jacketUnderBelt": false,
+        "canEquip": true,
+        "canScript": true,
+        "colorPalette": "Clothing1",
+        "export": {
+            "type": "SFDItem",
+            "data": [
+                {
+                    "textures": [],
+                    "type": 0
+                },
+                {
+                    "textures": [],
+                    "type": 1
+                },
+                {
+                    "textures": [
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        "GlovesBlack_2_11.png",
+                        "GlovesBlack_2_12.png",
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null
+                    ],
+                    "type": 2
+                },
+                {
+                    "textures": [
+                        "GlovesBlack_3_0.png",
+                        "GlovesBlack_3_1.png",
+                        "GlovesBlack_3_2.png",
+                        "GlovesBlack_3_3.png",
+                        "GlovesBlack_3_4.png",
+                        "GlovesBlack_3_5.png",
+                        "GlovesBlack_3_6.png",
+                        "GlovesBlack_3_7.png",
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null
+                    ],
+                    "type": 3
+                },
+                {
+                    "textures": [],
+                    "type": 4
+                },
+                {
+                    "textures": [],
+                    "type": 5
+                }
+            ]
+        }
+    }
+}

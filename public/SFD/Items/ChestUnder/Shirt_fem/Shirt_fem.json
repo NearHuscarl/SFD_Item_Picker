@@ -1,0 +1,128 @@
+{
+    "header": {
+        "target": "w",
+        "formatVersion": 5,
+        "hidef": false,
+        "compressed": 128
+    },
+    "readers": [
+        {
+            "type": "SFD.Content.ItemsContentTypeReader, SFD.Content",
+            "version": 0
+        }
+    ],
+    "content": {
+        "gameName": "Shirt",
+        "fileName": "Shirt_fem",
+        "equipmentLayer": 1,
+        "id": "Shirt_fem",
+        "jacketUnderBelt": false,
+        "canEquip": true,
+        "canScript": true,
+        "colorPalette": "Clothing1",
+        "export": {
+            "type": "SFDItem",
+            "data": [
+                {
+                    "textures": [],
+                    "type": 0
+                },
+                {
+                    "textures": [
+                        "Shirt_fem_1_0.png",
+                        "Shirt_fem_1_1.png",
+                        "Shirt_fem_1_2.png",
+                        "Shirt_fem_1_3.png",
+                        "Shirt_fem_1_4.png",
+                        "Shirt_fem_1_5.png",
+                        "Shirt_fem_1_6.png",
+                        "Shirt_fem_1_7.png",
+                        "Shirt_fem_1_8.png",
+                        "Shirt_fem_1_9.png",
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null
+                    ],
+                    "type": 1
+                },
+                {
+                    "textures": [
+                        "Shirt_fem_2_0.png",
+                        "Shirt_fem_2_1.png",
+                        "Shirt_fem_2_2.png",
+                        "Shirt_fem_2_3.png",
+                        "Shirt_fem_2_4.png",
+                        "Shirt_fem_2_5.png",
+                        "Shirt_fem_2_6.png",
+                        "Shirt_fem_2_7.png",
+                        "Shirt_fem_2_8.png",
+                        "Shirt_fem_2_9.png",
+                        "Shirt_fem_2_10.png",
+                        "Shirt_fem_2_11.png",
+                        "Shirt_fem_2_12.png",
+                        "Shirt_fem_2_13.png",
+                        "Shirt_fem_2_14.png",
+                        "Shirt_fem_2_15.png",
+                        "Shirt_fem_2_16.png",
+                        "Shirt_fem_2_17.png",
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null
+                    ],
+                    "type": 2
+                },
+                {
+                    "textures": [
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        "Shirt_fem_3_9.png",
+                        "Shirt_fem_3_10.png",
+                        "Shirt_fem_3_11.png",
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null
+                    ],
+                    "type": 3
+                },
+                {
+                    "textures": [],
+                    "type": 4
+                },
+                {
+                    "textures": [],
+                    "type": 5
+                }
+            ]
+        }
+    }
+}

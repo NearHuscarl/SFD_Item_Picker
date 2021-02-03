@@ -1,0 +1,128 @@
+{
+    "header": {
+        "target": "w",
+        "formatVersion": 5,
+        "hidef": false,
+        "compressed": 128
+    },
+    "readers": [
+        {
+            "type": "SFD.Content.ItemsContentTypeReader, SFD.Content",
+            "version": 0
+        }
+    ],
+    "content": {
+        "gameName": "Sweater (Black)",
+        "fileName": "SweaterBlack",
+        "equipmentLayer": 1,
+        "id": "SweaterBlack",
+        "jacketUnderBelt": false,
+        "canEquip": true,
+        "canScript": true,
+        "colorPalette": "ClothingDark1",
+        "export": {
+            "type": "SFDItem",
+            "data": [
+                {
+                    "textures": [
+                        "SweaterBlack_0_0.png",
+                        "SweaterBlack_0_1.png",
+                        "SweaterBlack_0_2.png",
+                        "SweaterBlack_0_3.png",
+                        "SweaterBlack_0_4.png",
+                        "SweaterBlack_0_5.png",
+                        "SweaterBlack_0_6.png",
+                        "SweaterBlack_0_7.png",
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null
+                    ],
+                    "type": 0
+                },
+                {
+                    "textures": [
+                        "SweaterBlack_1_0.png",
+                        "SweaterBlack_1_1.png",
+                        "SweaterBlack_1_2.png",
+                        "SweaterBlack_1_3.png",
+                        "SweaterBlack_1_4.png",
+                        "SweaterBlack_1_5.png",
+                        "SweaterBlack_1_6.png",
+                        "SweaterBlack_1_7.png",
+                        "SweaterBlack_1_8.png",
+                        "SweaterBlack_1_9.png",
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null
+                    ],
+                    "type": 1
+                },
+                {
+                    "textures": [
+                        "SweaterBlack_2_0.png",
+                        "SweaterBlack_2_1.png",
+                        "SweaterBlack_2_2.png",
+                        "SweaterBlack_2_3.png",
+                        "SweaterBlack_2_4.png",
+                        "SweaterBlack_2_5.png",
+                        "SweaterBlack_2_6.png",
+                        "SweaterBlack_2_7.png",
+                        "SweaterBlack_2_8.png",
+                        "SweaterBlack_2_9.png",
+                        "SweaterBlack_2_10.png",
+                        "SweaterBlack_2_11.png",
+                        "SweaterBlack_2_12.png",
+                        "SweaterBlack_2_13.png",
+                        "SweaterBlack_2_14.png",
+                        "SweaterBlack_2_15.png",
+                        "SweaterBlack_2_16.png",
+                        "SweaterBlack_2_17.png",
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null
+                    ],
+                    "type": 2
+                },
+                {
+                    "textures": [],
+                    "type": 3
+                },
+                {
+                    "textures": [],
+                    "type": 4
+                },
+                {
+                    "textures": [],
+                    "type": 5
+                }
+            ]
+        }
+    }
+}

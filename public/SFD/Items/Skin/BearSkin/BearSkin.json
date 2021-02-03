@@ -1,0 +1,178 @@
+{
+    "header": {
+        "target": "w",
+        "formatVersion": 5,
+        "hidef": false,
+        "compressed": 128
+    },
+    "readers": [
+        {
+            "type": "SFD.Content.ItemsContentTypeReader, SFD.Content",
+            "version": 0
+        }
+    ],
+    "content": {
+        "gameName": "Bear",
+        "fileName": "BearSkin",
+        "equipmentLayer": 0,
+        "id": "BearSkin",
+        "jacketUnderBelt": false,
+        "canEquip": false,
+        "canScript": true,
+        "colorPalette": "Skin",
+        "export": {
+            "type": "SFDItem",
+            "data": [
+                {
+                    "textures": [
+                        "BearSkin_0_0.png",
+                        "BearSkin_0_1.png",
+                        "BearSkin_0_2.png",
+                        "BearSkin_0_3.png",
+                        "BearSkin_0_4.png",
+                        "BearSkin_0_5.png",
+                        "BearSkin_0_6.png",
+                        "BearSkin_0_7.png",
+                        "BearSkin_0_8.png",
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null
+                    ],
+                    "type": 0
+                },
+                {
+                    "textures": [
+                        "BearSkin_1_0.png",
+                        "BearSkin_1_1.png",
+                        "BearSkin_1_2.png",
+                        "BearSkin_1_3.png",
+                        "BearSkin_1_4.png",
+                        "BearSkin_1_5.png",
+                        "BearSkin_1_6.png",
+                        "BearSkin_1_7.png",
+                        "BearSkin_1_8.png",
+                        "BearSkin_1_9.png",
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null
+                    ],
+                    "type": 1
+                },
+                {
+                    "textures": [
+                        "BearSkin_2_0.png",
+                        "BearSkin_2_1.png",
+                        "BearSkin_2_2.png",
+                        "BearSkin_2_3.png",
+                        "BearSkin_2_4.png",
+                        "BearSkin_2_5.png",
+                        "BearSkin_2_6.png",
+                        "BearSkin_2_7.png",
+                        "BearSkin_2_8.png",
+                        "BearSkin_2_9.png",
+                        "BearSkin_2_10.png",
+                        "BearSkin_2_11.png",
+                        "BearSkin_2_12.png",
+                        "BearSkin_2_13.png",
+                        "BearSkin_2_14.png",
+                        "BearSkin_2_15.png",
+                        "BearSkin_2_16.png",
+                        "BearSkin_2_17.png",
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null
+                    ],
+                    "type": 2
+                },
+                {
+                    "textures": [
+                        "BearSkin_3_0.png",
+                        "BearSkin_3_1.png",
+                        "BearSkin_3_2.png",
+                        "BearSkin_3_3.png",
+                        "BearSkin_3_4.png",
+                        "BearSkin_3_5.png",
+                        "BearSkin_3_6.png",
+                        "BearSkin_3_7.png",
+                        null,
+                        "BearSkin_3_9.png",
+                        "BearSkin_3_10.png",
+                        "BearSkin_3_11.png",
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null
+                    ],
+                    "type": 3
+                },
+                {
+                    "textures": [
+                        "BearSkin_4_0.png",
+                        "BearSkin_4_1.png",
+                        "BearSkin_4_2.png",
+                        "BearSkin_4_3.png",
+                        "BearSkin_4_4.png",
+                        "BearSkin_4_5.png",
+                        "BearSkin_4_6.png",
+                        "BearSkin_4_7.png",
+                        "BearSkin_4_8.png",
+                        "BearSkin_4_9.png",
+                        "BearSkin_4_10.png",
+                        "BearSkin_4_11.png",
+                        "BearSkin_4_12.png",
+                        "BearSkin_4_13.png",
+                        "BearSkin_4_14.png",
+                        "BearSkin_4_15.png",
+                        "BearSkin_4_16.png",
+                        "BearSkin_4_17.png",
+                        "BearSkin_4_18.png",
+                        "BearSkin_4_19.png",
+                        "BearSkin_4_20.png",
+                        null,
+                        null,
+                        null
+                    ],
+                    "type": 4
+                },
+                {
+                    "textures": [],
+                    "type": 5
+                }
+            ]
+        }
+    }
+}

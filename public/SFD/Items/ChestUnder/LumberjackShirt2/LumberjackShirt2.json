@@ -1,0 +1,103 @@
+{
+    "header": {
+        "target": "w",
+        "formatVersion": 5,
+        "hidef": false,
+        "compressed": 128
+    },
+    "readers": [
+        {
+            "type": "SFD.Content.ItemsContentTypeReader, SFD.Content",
+            "version": 0
+        }
+    ],
+    "content": {
+        "gameName": "Short-sleeved Lumberjack Shirt",
+        "fileName": "LumberjackShirt2",
+        "equipmentLayer": 1,
+        "id": "LumberjackShirt2",
+        "jacketUnderBelt": false,
+        "canEquip": true,
+        "canScript": true,
+        "colorPalette": "Clothing1",
+        "export": {
+            "type": "SFDItem",
+            "data": [
+                {
+                    "textures": [],
+                    "type": 0
+                },
+                {
+                    "textures": [
+                        "LumberjackShirt2_1_0.png",
+                        "LumberjackShirt2_1_1.png",
+                        "LumberjackShirt2_1_2.png",
+                        "LumberjackShirt2_1_3.png",
+                        "LumberjackShirt2_1_4.png",
+                        "LumberjackShirt2_1_5.png",
+                        "LumberjackShirt2_1_6.png",
+                        "LumberjackShirt2_1_7.png",
+                        "LumberjackShirt2_1_8.png",
+                        "LumberjackShirt2_1_9.png",
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null
+                    ],
+                    "type": 1
+                },
+                {
+                    "textures": [
+                        "LumberjackShirt2_2_0.png",
+                        "LumberjackShirt2_2_1.png",
+                        "LumberjackShirt2_2_2.png",
+                        "LumberjackShirt2_2_3.png",
+                        "LumberjackShirt2_2_4.png",
+                        "LumberjackShirt2_2_5.png",
+                        "LumberjackShirt2_2_6.png",
+                        "LumberjackShirt2_2_7.png",
+                        "LumberjackShirt2_2_8.png",
+                        null,
+                        "LumberjackShirt2_2_10.png",
+                        "LumberjackShirt2_2_11.png",
+                        "LumberjackShirt2_2_12.png",
+                        "LumberjackShirt2_2_13.png",
+                        "LumberjackShirt2_2_14.png",
+                        "LumberjackShirt2_2_15.png",
+                        "LumberjackShirt2_2_16.png",
+                        "LumberjackShirt2_2_17.png",
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null
+                    ],
+                    "type": 2
+                },
+                {
+                    "textures": [],
+                    "type": 3
+                },
+                {
+                    "textures": [],
+                    "type": 4
+                },
+                {
+                    "textures": [],
+                    "type": 5
+                }
+            ]
+        }
+    }
+}

@@ -1,0 +1,128 @@
+{
+    "header": {
+        "target": "w",
+        "formatVersion": 5,
+        "hidef": false,
+        "compressed": 128
+    },
+    "readers": [
+        {
+            "type": "SFD.Content.ItemsContentTypeReader, SFD.Content",
+            "version": 0
+        }
+    ],
+    "content": {
+        "gameName": "Blazer with Shirt",
+        "fileName": "BlazerWithShirt_fem",
+        "equipmentLayer": 5,
+        "id": "BlazerWithShirt_fem",
+        "jacketUnderBelt": true,
+        "canEquip": true,
+        "canScript": true,
+        "colorPalette": "Clothing1",
+        "export": {
+            "type": "SFDItem",
+            "data": [
+                {
+                    "textures": [],
+                    "type": 0
+                },
+                {
+                    "textures": [
+                        "BlazerWithShirt_fem_1_0.png",
+                        "BlazerWithShirt_fem_1_1.png",
+                        "BlazerWithShirt_fem_1_2.png",
+                        "BlazerWithShirt_fem_1_3.png",
+                        "BlazerWithShirt_fem_1_4.png",
+                        "BlazerWithShirt_fem_1_5.png",
+                        "BlazerWithShirt_fem_1_6.png",
+                        "BlazerWithShirt_fem_1_7.png",
+                        "BlazerWithShirt_fem_1_8.png",
+                        "BlazerWithShirt_fem_1_9.png",
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null
+                    ],
+                    "type": 1
+                },
+                {
+                    "textures": [
+                        "BlazerWithShirt_fem_2_0.png",
+                        "BlazerWithShirt_fem_2_1.png",
+                        "BlazerWithShirt_fem_2_2.png",
+                        "BlazerWithShirt_fem_2_3.png",
+                        "BlazerWithShirt_fem_2_4.png",
+                        "BlazerWithShirt_fem_2_5.png",
+                        "BlazerWithShirt_fem_2_6.png",
+                        "BlazerWithShirt_fem_2_7.png",
+                        "BlazerWithShirt_fem_2_8.png",
+                        "BlazerWithShirt_fem_2_9.png",
+                        "BlazerWithShirt_fem_2_10.png",
+                        "BlazerWithShirt_fem_2_11.png",
+                        "BlazerWithShirt_fem_2_12.png",
+                        "BlazerWithShirt_fem_2_13.png",
+                        "BlazerWithShirt_fem_2_14.png",
+                        "BlazerWithShirt_fem_2_15.png",
+                        "BlazerWithShirt_fem_2_16.png",
+                        "BlazerWithShirt_fem_2_17.png",
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null
+                    ],
+                    "type": 2
+                },
+                {
+                    "textures": [
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        "BlazerWithShirt_fem_3_9.png",
+                        "BlazerWithShirt_fem_3_10.png",
+                        "BlazerWithShirt_fem_3_11.png",
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null
+                    ],
+                    "type": 3
+                },
+                {
+                    "textures": [],
+                    "type": 4
+                },
+                {
+                    "textures": [],
+                    "type": 5
+                }
+            ]
+        }
+    }
+}

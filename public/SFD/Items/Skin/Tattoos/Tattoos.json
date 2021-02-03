@@ -1,0 +1,178 @@
+{
+    "header": {
+        "target": "w",
+        "formatVersion": 5,
+        "hidef": false,
+        "compressed": 128
+    },
+    "readers": [
+        {
+            "type": "SFD.Content.ItemsContentTypeReader, SFD.Content",
+            "version": 0
+        }
+    ],
+    "content": {
+        "gameName": "Tattoos",
+        "fileName": "Tattoos",
+        "equipmentLayer": 0,
+        "id": "Tattoos",
+        "jacketUnderBelt": false,
+        "canEquip": true,
+        "canScript": true,
+        "colorPalette": "Skin",
+        "export": {
+            "type": "SFDItem",
+            "data": [
+                {
+                    "textures": [
+                        "Tattoos_0_0.png",
+                        "Tattoos_0_1.png",
+                        "Tattoos_0_2.png",
+                        "Tattoos_0_3.png",
+                        "Tattoos_0_4.png",
+                        "Tattoos_0_5.png",
+                        "Tattoos_0_6.png",
+                        "Tattoos_0_7.png",
+                        "Tattoos_0_8.png",
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null
+                    ],
+                    "type": 0
+                },
+                {
+                    "textures": [
+                        "Tattoos_1_0.png",
+                        "Tattoos_1_1.png",
+                        "Tattoos_1_2.png",
+                        "Tattoos_1_3.png",
+                        "Tattoos_1_4.png",
+                        "Tattoos_1_5.png",
+                        "Tattoos_1_6.png",
+                        "Tattoos_1_7.png",
+                        "Tattoos_1_8.png",
+                        "Tattoos_1_9.png",
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null
+                    ],
+                    "type": 1
+                },
+                {
+                    "textures": [
+                        "Tattoos_2_0.png",
+                        "Tattoos_2_1.png",
+                        "Tattoos_2_2.png",
+                        "Tattoos_2_3.png",
+                        "Tattoos_2_4.png",
+                        "Tattoos_2_5.png",
+                        "Tattoos_2_6.png",
+                        "Tattoos_2_7.png",
+                        "Tattoos_2_8.png",
+                        "Tattoos_2_9.png",
+                        "Tattoos_2_10.png",
+                        "Tattoos_2_11.png",
+                        "Tattoos_2_12.png",
+                        "Tattoos_2_13.png",
+                        "Tattoos_2_14.png",
+                        "Tattoos_2_15.png",
+                        "Tattoos_2_16.png",
+                        "Tattoos_2_17.png",
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null
+                    ],
+                    "type": 2
+                },
+                {
+                    "textures": [
+                        "Tattoos_3_0.png",
+                        "Tattoos_3_1.png",
+                        "Tattoos_3_2.png",
+                        "Tattoos_3_3.png",
+                        "Tattoos_3_4.png",
+                        "Tattoos_3_5.png",
+                        "Tattoos_3_6.png",
+                        "Tattoos_3_7.png",
+                        null,
+                        "Tattoos_3_9.png",
+                        "Tattoos_3_10.png",
+                        "Tattoos_3_11.png",
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null
+                    ],
+                    "type": 3
+                },
+                {
+                    "textures": [
+                        "Tattoos_4_0.png",
+                        "Tattoos_4_1.png",
+                        "Tattoos_4_2.png",
+                        "Tattoos_4_3.png",
+                        "Tattoos_4_4.png",
+                        "Tattoos_4_5.png",
+                        "Tattoos_4_6.png",
+                        "Tattoos_4_7.png",
+                        "Tattoos_4_8.png",
+                        "Tattoos_4_9.png",
+                        "Tattoos_4_10.png",
+                        "Tattoos_4_11.png",
+                        "Tattoos_4_12.png",
+                        "Tattoos_4_13.png",
+                        "Tattoos_4_14.png",
+                        "Tattoos_4_15.png",
+                        "Tattoos_4_16.png",
+                        "Tattoos_4_17.png",
+                        "Tattoos_4_18.png",
+                        "Tattoos_4_19.png",
+                        "Tattoos_4_20.png",
+                        null,
+                        null,
+                        null
+                    ],
+                    "type": 4
+                },
+                {
+                    "textures": [],
+                    "type": 5
+                }
+            ]
+        }
+    }
+}

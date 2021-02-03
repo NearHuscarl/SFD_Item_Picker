@@ -1,0 +1,128 @@
+{
+    "header": {
+        "target": "w",
+        "formatVersion": 5,
+        "hidef": false,
+        "compressed": 128
+    },
+    "readers": [
+        {
+            "type": "SFD.Content.ItemsContentTypeReader, SFD.Content",
+            "version": 0
+        }
+    ],
+    "content": {
+        "gameName": "Leather Jacket",
+        "fileName": "LeatherJacket",
+        "equipmentLayer": 1,
+        "id": "LeatherJacket",
+        "jacketUnderBelt": false,
+        "canEquip": true,
+        "canScript": true,
+        "colorPalette": "Clothing1",
+        "export": {
+            "type": "SFDItem",
+            "data": [
+                {
+                    "textures": [
+                        "LeatherJacket_0_0.png",
+                        "LeatherJacket_0_1.png",
+                        "LeatherJacket_0_2.png",
+                        "LeatherJacket_0_3.png",
+                        "LeatherJacket_0_4.png",
+                        "LeatherJacket_0_5.png",
+                        "LeatherJacket_0_6.png",
+                        "LeatherJacket_0_7.png",
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null
+                    ],
+                    "type": 0
+                },
+                {
+                    "textures": [
+                        "LeatherJacket_1_0.png",
+                        "LeatherJacket_1_1.png",
+                        "LeatherJacket_1_2.png",
+                        "LeatherJacket_1_3.png",
+                        "LeatherJacket_1_4.png",
+                        "LeatherJacket_1_5.png",
+                        "LeatherJacket_1_6.png",
+                        "LeatherJacket_1_7.png",
+                        "LeatherJacket_1_8.png",
+                        "LeatherJacket_1_9.png",
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null
+                    ],
+                    "type": 1
+                },
+                {
+                    "textures": [
+                        "LeatherJacket_2_0.png",
+                        "LeatherJacket_2_1.png",
+                        "LeatherJacket_2_2.png",
+                        "LeatherJacket_2_3.png",
+                        "LeatherJacket_2_4.png",
+                        "LeatherJacket_2_5.png",
+                        "LeatherJacket_2_6.png",
+                        "LeatherJacket_2_7.png",
+                        "LeatherJacket_2_8.png",
+                        "LeatherJacket_2_9.png",
+                        "LeatherJacket_2_10.png",
+                        "LeatherJacket_2_11.png",
+                        "LeatherJacket_2_12.png",
+                        "LeatherJacket_2_13.png",
+                        "LeatherJacket_2_14.png",
+                        "LeatherJacket_2_15.png",
+                        "LeatherJacket_2_16.png",
+                        "LeatherJacket_2_17.png",
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null
+                    ],
+                    "type": 2
+                },
+                {
+                    "textures": [],
+                    "type": 3
+                },
+                {
+                    "textures": [],
+                    "type": 4
+                },
+                {
+                    "textures": [],
+                    "type": 5
+                }
+            ]
+        }
+    }
+}

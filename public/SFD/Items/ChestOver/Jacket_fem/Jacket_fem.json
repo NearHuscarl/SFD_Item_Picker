@@ -1,0 +1,128 @@
+{
+    "header": {
+        "target": "w",
+        "formatVersion": 5,
+        "hidef": false,
+        "compressed": 128
+    },
+    "readers": [
+        {
+            "type": "SFD.Content.ItemsContentTypeReader, SFD.Content",
+            "version": 0
+        }
+    ],
+    "content": {
+        "gameName": "Jacket",
+        "fileName": "Jacket_fem",
+        "equipmentLayer": 5,
+        "id": "Jacket_fem",
+        "jacketUnderBelt": false,
+        "canEquip": true,
+        "canScript": true,
+        "colorPalette": "Clothing1",
+        "export": {
+            "type": "SFDItem",
+            "data": [
+                {
+                    "textures": [],
+                    "type": 0
+                },
+                {
+                    "textures": [
+                        "Jacket_fem_1_0.png",
+                        "Jacket_fem_1_1.png",
+                        "Jacket_fem_1_2.png",
+                        "Jacket_fem_1_3.png",
+                        "Jacket_fem_1_4.png",
+                        "Jacket_fem_1_5.png",
+                        "Jacket_fem_1_6.png",
+                        "Jacket_fem_1_7.png",
+                        "Jacket_fem_1_8.png",
+                        "Jacket_fem_1_9.png",
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null
+                    ],
+                    "type": 1
+                },
+                {
+                    "textures": [
+                        "Jacket_fem_2_0.png",
+                        "Jacket_fem_2_1.png",
+                        "Jacket_fem_2_2.png",
+                        "Jacket_fem_2_3.png",
+                        "Jacket_fem_2_4.png",
+                        "Jacket_fem_2_5.png",
+                        "Jacket_fem_2_6.png",
+                        "Jacket_fem_2_7.png",
+                        "Jacket_fem_2_8.png",
+                        "Jacket_fem_2_9.png",
+                        "Jacket_fem_2_10.png",
+                        "Jacket_fem_2_11.png",
+                        "Jacket_fem_2_12.png",
+                        "Jacket_fem_2_13.png",
+                        "Jacket_fem_2_14.png",
+                        "Jacket_fem_2_15.png",
+                        "Jacket_fem_2_16.png",
+                        "Jacket_fem_2_17.png",
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null
+                    ],
+                    "type": 2
+                },
+                {
+                    "textures": [
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        "Jacket_fem_3_9.png",
+                        "Jacket_fem_3_10.png",
+                        "Jacket_fem_3_11.png",
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null
+                    ],
+                    "type": 3
+                },
+                {
+                    "textures": [],
+                    "type": 4
+                },
+                {
+                    "textures": [],
+                    "type": 5
+                }
+            ]
+        }
+    }
+}

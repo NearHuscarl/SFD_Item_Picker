@@ -1,0 +1,128 @@
+{
+    "header": {
+        "target": "w",
+        "formatVersion": 5,
+        "hidef": false,
+        "compressed": 128
+    },
+    "readers": [
+        {
+            "type": "SFD.Content.ItemsContentTypeReader, SFD.Content",
+            "version": 0
+        }
+    ],
+    "content": {
+        "gameName": "Officer's Jacket",
+        "fileName": "OfficerJacket_fem",
+        "equipmentLayer": 5,
+        "id": "OfficerJacket_fem",
+        "jacketUnderBelt": true,
+        "canEquip": true,
+        "canScript": true,
+        "colorPalette": "Clothing1",
+        "export": {
+            "type": "SFDItem",
+            "data": [
+                {
+                    "textures": [],
+                    "type": 0
+                },
+                {
+                    "textures": [
+                        "OfficerJacket_fem_1_0.png",
+                        "OfficerJacket_fem_1_1.png",
+                        "OfficerJacket_fem_1_2.png",
+                        "OfficerJacket_fem_1_3.png",
+                        "OfficerJacket_fem_1_4.png",
+                        "OfficerJacket_fem_1_5.png",
+                        "OfficerJacket_fem_1_6.png",
+                        "OfficerJacket_fem_1_7.png",
+                        "OfficerJacket_fem_1_8.png",
+                        "OfficerJacket_fem_1_9.png",
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null
+                    ],
+                    "type": 1
+                },
+                {
+                    "textures": [
+                        "OfficerJacket_fem_2_0.png",
+                        "OfficerJacket_fem_2_1.png",
+                        "OfficerJacket_fem_2_2.png",
+                        "OfficerJacket_fem_2_3.png",
+                        "OfficerJacket_fem_2_4.png",
+                        "OfficerJacket_fem_2_5.png",
+                        "OfficerJacket_fem_2_6.png",
+                        "OfficerJacket_fem_2_7.png",
+                        "OfficerJacket_fem_2_8.png",
+                        "OfficerJacket_fem_2_9.png",
+                        "OfficerJacket_fem_2_10.png",
+                        "OfficerJacket_fem_2_11.png",
+                        "OfficerJacket_fem_2_12.png",
+                        "OfficerJacket_fem_2_13.png",
+                        "OfficerJacket_fem_2_14.png",
+                        "OfficerJacket_fem_2_15.png",
+                        "OfficerJacket_fem_2_16.png",
+                        "OfficerJacket_fem_2_17.png",
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null
+                    ],
+                    "type": 2
+                },
+                {
+                    "textures": [
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        "OfficerJacket_fem_3_9.png",
+                        "OfficerJacket_fem_3_10.png",
+                        "OfficerJacket_fem_3_11.png",
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null
+                    ],
+                    "type": 3
+                },
+                {
+                    "textures": [],
+                    "type": 4
+                },
+                {
+                    "textures": [],
+                    "type": 5
+                }
+            ]
+        }
+    }
+}

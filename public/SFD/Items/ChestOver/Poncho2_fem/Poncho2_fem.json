@@ -1,0 +1,128 @@
+{
+    "header": {
+        "target": "w",
+        "formatVersion": 5,
+        "hidef": false,
+        "compressed": 128
+    },
+    "readers": [
+        {
+            "type": "SFD.Content.ItemsContentTypeReader, SFD.Content",
+            "version": 0
+        }
+    ],
+    "content": {
+        "gameName": "Poncho 2",
+        "fileName": "Poncho2_fem",
+        "equipmentLayer": 5,
+        "id": "Poncho2_fem",
+        "jacketUnderBelt": false,
+        "canEquip": true,
+        "canScript": true,
+        "colorPalette": "Clothing1",
+        "export": {
+            "type": "SFDItem",
+            "data": [
+                {
+                    "textures": [],
+                    "type": 0
+                },
+                {
+                    "textures": [
+                        "Poncho2_fem_1_0.png",
+                        "Poncho2_fem_1_1.png",
+                        "Poncho2_fem_1_2.png",
+                        "Poncho2_fem_1_3.png",
+                        "Poncho2_fem_1_4.png",
+                        "Poncho2_fem_1_5.png",
+                        "Poncho2_fem_1_6.png",
+                        "Poncho2_fem_1_7.png",
+                        "Poncho2_fem_1_8.png",
+                        "Poncho2_fem_1_9.png",
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null
+                    ],
+                    "type": 1
+                },
+                {
+                    "textures": [
+                        "Poncho2_fem_2_0.png",
+                        "Poncho2_fem_2_1.png",
+                        "Poncho2_fem_2_2.png",
+                        "Poncho2_fem_2_3.png",
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null
+                    ],
+                    "type": 2
+                },
+                {
+                    "textures": [
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        "Poncho2_fem_3_9.png",
+                        "Poncho2_fem_3_10.png",
+                        "Poncho2_fem_3_11.png",
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null
+                    ],
+                    "type": 3
+                },
+                {
+                    "textures": [],
+                    "type": 4
+                },
+                {
+                    "textures": [],
+                    "type": 5
+                }
+            ]
+        }
+    }
+}

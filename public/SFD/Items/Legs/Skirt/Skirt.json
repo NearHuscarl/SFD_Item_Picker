@@ -1,0 +1,128 @@
+{
+    "header": {
+        "target": "w",
+        "formatVersion": 5,
+        "hidef": false,
+        "compressed": 128
+    },
+    "readers": [
+        {
+            "type": "SFD.Content.ItemsContentTypeReader, SFD.Content",
+            "version": 0
+        }
+    ],
+    "content": {
+        "gameName": "Skirt",
+        "fileName": "Skirt",
+        "equipmentLayer": 2,
+        "id": "Skirt",
+        "jacketUnderBelt": false,
+        "canEquip": true,
+        "canScript": true,
+        "colorPalette": "Clothing1",
+        "export": {
+            "type": "SFDItem",
+            "data": [
+                {
+                    "textures": [],
+                    "type": 0
+                },
+                {
+                    "textures": [
+                        "Skirt_1_0.png",
+                        "Skirt_1_1.png",
+                        "Skirt_1_2.png",
+                        "Skirt_1_3.png",
+                        "Skirt_1_4.png",
+                        "Skirt_1_5.png",
+                        "Skirt_1_6.png",
+                        null,
+                        "Skirt_1_8.png",
+                        "Skirt_1_9.png",
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null
+                    ],
+                    "type": 1
+                },
+                {
+                    "textures": [],
+                    "type": 2
+                },
+                {
+                    "textures": [
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        "Skirt_3_9.png",
+                        "Skirt_3_10.png",
+                        "Skirt_3_11.png",
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null
+                    ],
+                    "type": 3
+                },
+                {
+                    "textures": [
+                        "Skirt_4_0.png",
+                        "Skirt_4_1.png",
+                        "Skirt_4_2.png",
+                        "Skirt_4_3.png",
+                        "Skirt_4_4.png",
+                        "Skirt_4_5.png",
+                        "Skirt_4_6.png",
+                        "Skirt_4_7.png",
+                        "Skirt_4_8.png",
+                        "Skirt_4_9.png",
+                        "Skirt_4_10.png",
+                        "Skirt_4_11.png",
+                        "Skirt_4_12.png",
+                        "Skirt_4_13.png",
+                        "Skirt_4_14.png",
+                        "Skirt_4_15.png",
+                        "Skirt_4_16.png",
+                        "Skirt_4_17.png",
+                        "Skirt_4_18.png",
+                        "Skirt_4_19.png",
+                        "Skirt_4_20.png",
+                        null,
+                        null,
+                        null
+                    ],
+                    "type": 4
+                },
+                {
+                    "textures": [],
+                    "type": 5
+                }
+            ]
+        }
+    }
+}

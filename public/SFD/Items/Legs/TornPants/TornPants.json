@@ -1,0 +1,128 @@
+{
+    "header": {
+        "target": "w",
+        "formatVersion": 5,
+        "hidef": false,
+        "compressed": 128
+    },
+    "readers": [
+        {
+            "type": "SFD.Content.ItemsContentTypeReader, SFD.Content",
+            "version": 0
+        }
+    ],
+    "content": {
+        "gameName": "Torn Pants",
+        "fileName": "TornPants",
+        "equipmentLayer": 2,
+        "id": "TornPants",
+        "jacketUnderBelt": false,
+        "canEquip": true,
+        "canScript": true,
+        "colorPalette": "Clothing1",
+        "export": {
+            "type": "SFDItem",
+            "data": [
+                {
+                    "textures": [],
+                    "type": 0
+                },
+                {
+                    "textures": [
+                        "TornPants_1_0.png",
+                        "TornPants_1_1.png",
+                        "TornPants_1_2.png",
+                        "TornPants_1_3.png",
+                        "TornPants_1_4.png",
+                        "TornPants_1_5.png",
+                        "TornPants_1_6.png",
+                        null,
+                        "TornPants_1_8.png",
+                        "TornPants_1_9.png",
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null
+                    ],
+                    "type": 1
+                },
+                {
+                    "textures": [],
+                    "type": 2
+                },
+                {
+                    "textures": [
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        "TornPants_3_9.png",
+                        "TornPants_3_10.png",
+                        "TornPants_3_11.png",
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null
+                    ],
+                    "type": 3
+                },
+                {
+                    "textures": [
+                        "TornPants_4_0.png",
+                        "TornPants_4_1.png",
+                        "TornPants_4_2.png",
+                        "TornPants_4_3.png",
+                        "TornPants_4_4.png",
+                        "TornPants_4_5.png",
+                        "TornPants_4_6.png",
+                        "TornPants_4_7.png",
+                        "TornPants_4_8.png",
+                        "TornPants_4_9.png",
+                        "TornPants_4_10.png",
+                        "TornPants_4_11.png",
+                        "TornPants_4_12.png",
+                        "TornPants_4_13.png",
+                        "TornPants_4_14.png",
+                        "TornPants_4_15.png",
+                        "TornPants_4_16.png",
+                        "TornPants_4_17.png",
+                        "TornPants_4_18.png",
+                        "TornPants_4_19.png",
+                        "TornPants_4_20.png",
+                        null,
+                        null,
+                        null
+                    ],
+                    "type": 4
+                },
+                {
+                    "textures": [],
+                    "type": 5
+                }
+            ]
+        }
+    }
+}

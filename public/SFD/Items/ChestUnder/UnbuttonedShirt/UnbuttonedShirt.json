@@ -1,0 +1,103 @@
+{
+    "header": {
+        "target": "w",
+        "formatVersion": 5,
+        "hidef": false,
+        "compressed": 128
+    },
+    "readers": [
+        {
+            "type": "SFD.Content.ItemsContentTypeReader, SFD.Content",
+            "version": 0
+        }
+    ],
+    "content": {
+        "gameName": "Unbuttoned Shirt",
+        "fileName": "UnbuttonedShirt",
+        "equipmentLayer": 1,
+        "id": "UnbuttonedShirt",
+        "jacketUnderBelt": false,
+        "canEquip": true,
+        "canScript": true,
+        "colorPalette": "Clothing1",
+        "export": {
+            "type": "SFDItem",
+            "data": [
+                {
+                    "textures": [],
+                    "type": 0
+                },
+                {
+                    "textures": [
+                        "UnbuttonedShirt_1_0.png",
+                        "UnbuttonedShirt_1_1.png",
+                        "UnbuttonedShirt_1_2.png",
+                        "UnbuttonedShirt_1_3.png",
+                        "UnbuttonedShirt_1_4.png",
+                        "UnbuttonedShirt_1_5.png",
+                        "UnbuttonedShirt_1_6.png",
+                        "UnbuttonedShirt_1_7.png",
+                        "UnbuttonedShirt_1_8.png",
+                        "UnbuttonedShirt_1_9.png",
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null
+                    ],
+                    "type": 1
+                },
+                {
+                    "textures": [
+                        "UnbuttonedShirt_2_0.png",
+                        "UnbuttonedShirt_2_1.png",
+                        "UnbuttonedShirt_2_2.png",
+                        "UnbuttonedShirt_2_3.png",
+                        "UnbuttonedShirt_2_4.png",
+                        "UnbuttonedShirt_2_5.png",
+                        "UnbuttonedShirt_2_6.png",
+                        "UnbuttonedShirt_2_7.png",
+                        "UnbuttonedShirt_2_8.png",
+                        null,
+                        "UnbuttonedShirt_2_10.png",
+                        "UnbuttonedShirt_2_11.png",
+                        "UnbuttonedShirt_2_12.png",
+                        "UnbuttonedShirt_2_13.png",
+                        "UnbuttonedShirt_2_14.png",
+                        "UnbuttonedShirt_2_15.png",
+                        "UnbuttonedShirt_2_16.png",
+                        "UnbuttonedShirt_2_17.png",
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null
+                    ],
+                    "type": 2
+                },
+                {
+                    "textures": [],
+                    "type": 3
+                },
+                {
+                    "textures": [],
+                    "type": 4
+                },
+                {
+                    "textures": [],
+                    "type": 5
+                }
+            ]
+        }
+    }
+}

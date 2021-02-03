@@ -1,0 +1,178 @@
+{
+    "header": {
+        "target": "w",
+        "formatVersion": 5,
+        "hidef": false,
+        "compressed": 128
+    },
+    "readers": [
+        {
+            "type": "SFD.Content.ItemsContentTypeReader, SFD.Content",
+            "version": 0
+        }
+    ],
+    "content": {
+        "gameName": "Warpaint",
+        "fileName": "Warpaint",
+        "equipmentLayer": 0,
+        "id": "Warpaint",
+        "jacketUnderBelt": false,
+        "canEquip": true,
+        "canScript": true,
+        "colorPalette": "Skin",
+        "export": {
+            "type": "SFDItem",
+            "data": [
+                {
+                    "textures": [
+                        "Warpaint_0_0.png",
+                        "Warpaint_0_1.png",
+                        "Warpaint_0_2.png",
+                        "Warpaint_0_3.png",
+                        "Warpaint_0_4.png",
+                        "Warpaint_0_5.png",
+                        "Warpaint_0_6.png",
+                        "Warpaint_0_7.png",
+                        "Warpaint_0_8.png",
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null
+                    ],
+                    "type": 0
+                },
+                {
+                    "textures": [
+                        "Warpaint_1_0.png",
+                        "Warpaint_1_1.png",
+                        "Warpaint_1_2.png",
+                        "Warpaint_1_3.png",
+                        "Warpaint_1_4.png",
+                        "Warpaint_1_5.png",
+                        "Warpaint_1_6.png",
+                        "Warpaint_1_7.png",
+                        "Warpaint_1_8.png",
+                        "Warpaint_1_9.png",
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null
+                    ],
+                    "type": 1
+                },
+                {
+                    "textures": [
+                        "Warpaint_2_0.png",
+                        "Warpaint_2_1.png",
+                        "Warpaint_2_2.png",
+                        "Warpaint_2_3.png",
+                        "Warpaint_2_4.png",
+                        "Warpaint_2_5.png",
+                        "Warpaint_2_6.png",
+                        "Warpaint_2_7.png",
+                        "Warpaint_2_8.png",
+                        "Warpaint_2_9.png",
+                        "Warpaint_2_10.png",
+                        "Warpaint_2_11.png",
+                        "Warpaint_2_12.png",
+                        "Warpaint_2_13.png",
+                        "Warpaint_2_14.png",
+                        "Warpaint_2_15.png",
+                        "Warpaint_2_16.png",
+                        "Warpaint_2_17.png",
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null
+                    ],
+                    "type": 2
+                },
+                {
+                    "textures": [
+                        "Warpaint_3_0.png",
+                        "Warpaint_3_1.png",
+                        "Warpaint_3_2.png",
+                        "Warpaint_3_3.png",
+                        "Warpaint_3_4.png",
+                        "Warpaint_3_5.png",
+                        "Warpaint_3_6.png",
+                        "Warpaint_3_7.png",
+                        null,
+                        "Warpaint_3_9.png",
+                        "Warpaint_3_10.png",
+                        "Warpaint_3_11.png",
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null
+                    ],
+                    "type": 3
+                },
+                {
+                    "textures": [
+                        "Warpaint_4_0.png",
+                        "Warpaint_4_1.png",
+                        "Warpaint_4_2.png",
+                        "Warpaint_4_3.png",
+                        "Warpaint_4_4.png",
+                        "Warpaint_4_5.png",
+                        "Warpaint_4_6.png",
+                        "Warpaint_4_7.png",
+                        "Warpaint_4_8.png",
+                        "Warpaint_4_9.png",
+                        "Warpaint_4_10.png",
+                        "Warpaint_4_11.png",
+                        "Warpaint_4_12.png",
+                        "Warpaint_4_13.png",
+                        "Warpaint_4_14.png",
+                        "Warpaint_4_15.png",
+                        "Warpaint_4_16.png",
+                        "Warpaint_4_17.png",
+                        "Warpaint_4_18.png",
+                        "Warpaint_4_19.png",
+                        "Warpaint_4_20.png",
+                        null,
+                        null,
+                        null
+                    ],
+                    "type": 4
+                },
+                {
+                    "textures": [],
+                    "type": 5
+                }
+            ]
+        }
+    }
+}

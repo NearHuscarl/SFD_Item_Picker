@@ -1,0 +1,128 @@
+{
+    "header": {
+        "target": "w",
+        "formatVersion": 5,
+        "hidef": false,
+        "compressed": 128
+    },
+    "readers": [
+        {
+            "type": "SFD.Content.ItemsContentTypeReader, SFD.Content",
+            "version": 0
+        }
+    ],
+    "content": {
+        "gameName": "Pants",
+        "fileName": "Pants_fem",
+        "equipmentLayer": 2,
+        "id": "Pants_fem",
+        "jacketUnderBelt": false,
+        "canEquip": true,
+        "canScript": true,
+        "colorPalette": "Clothing1",
+        "export": {
+            "type": "SFDItem",
+            "data": [
+                {
+                    "textures": [],
+                    "type": 0
+                },
+                {
+                    "textures": [
+                        "Pants_fem_1_0.png",
+                        "Pants_fem_1_1.png",
+                        "Pants_fem_1_2.png",
+                        "Pants_fem_1_3.png",
+                        "Pants_fem_1_4.png",
+                        "Pants_fem_1_5.png",
+                        "Pants_fem_1_6.png",
+                        null,
+                        "Pants_fem_1_8.png",
+                        "Pants_fem_1_9.png",
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null
+                    ],
+                    "type": 1
+                },
+                {
+                    "textures": [],
+                    "type": 2
+                },
+                {
+                    "textures": [
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        "Pants_fem_3_9.png",
+                        "Pants_fem_3_10.png",
+                        "Pants_fem_3_11.png",
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null
+                    ],
+                    "type": 3
+                },
+                {
+                    "textures": [
+                        "Pants_fem_4_0.png",
+                        "Pants_fem_4_1.png",
+                        "Pants_fem_4_2.png",
+                        "Pants_fem_4_3.png",
+                        "Pants_fem_4_4.png",
+                        "Pants_fem_4_5.png",
+                        "Pants_fem_4_6.png",
+                        "Pants_fem_4_7.png",
+                        "Pants_fem_4_8.png",
+                        "Pants_fem_4_9.png",
+                        "Pants_fem_4_10.png",
+                        "Pants_fem_4_11.png",
+                        "Pants_fem_4_12.png",
+                        "Pants_fem_4_13.png",
+                        "Pants_fem_4_14.png",
+                        "Pants_fem_4_15.png",
+                        "Pants_fem_4_16.png",
+                        "Pants_fem_4_17.png",
+                        "Pants_fem_4_18.png",
+                        "Pants_fem_4_19.png",
+                        "Pants_fem_4_20.png",
+                        null,
+                        null,
+                        null
+                    ],
+                    "type": 4
+                },
+                {
+                    "textures": [],
+                    "type": 5
+                }
+            ]
+        }
+    }
+}

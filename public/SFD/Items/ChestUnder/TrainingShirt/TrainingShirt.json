@@ -1,0 +1,103 @@
+{
+    "header": {
+        "target": "w",
+        "formatVersion": 5,
+        "hidef": false,
+        "compressed": 128
+    },
+    "readers": [
+        {
+            "type": "SFD.Content.ItemsContentTypeReader, SFD.Content",
+            "version": 0
+        }
+    ],
+    "content": {
+        "gameName": "Training Shirt",
+        "fileName": "TrainingShirt",
+        "equipmentLayer": 1,
+        "id": "TrainingShirt",
+        "jacketUnderBelt": false,
+        "canEquip": true,
+        "canScript": true,
+        "colorPalette": "Clothing1",
+        "export": {
+            "type": "SFDItem",
+            "data": [
+                {
+                    "textures": [],
+                    "type": 0
+                },
+                {
+                    "textures": [
+                        "TrainingShirt_1_0.png",
+                        "TrainingShirt_1_1.png",
+                        "TrainingShirt_1_2.png",
+                        "TrainingShirt_1_3.png",
+                        "TrainingShirt_1_4.png",
+                        "TrainingShirt_1_5.png",
+                        "TrainingShirt_1_6.png",
+                        "TrainingShirt_1_7.png",
+                        "TrainingShirt_1_8.png",
+                        "TrainingShirt_1_9.png",
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null
+                    ],
+                    "type": 1
+                },
+                {
+                    "textures": [
+                        "TrainingShirt_2_0.png",
+                        "TrainingShirt_2_1.png",
+                        "TrainingShirt_2_2.png",
+                        "TrainingShirt_2_3.png",
+                        "TrainingShirt_2_4.png",
+                        "TrainingShirt_2_5.png",
+                        "TrainingShirt_2_6.png",
+                        "TrainingShirt_2_7.png",
+                        "TrainingShirt_2_8.png",
+                        "TrainingShirt_2_9.png",
+                        "TrainingShirt_2_10.png",
+                        "TrainingShirt_2_11.png",
+                        "TrainingShirt_2_12.png",
+                        "TrainingShirt_2_13.png",
+                        "TrainingShirt_2_14.png",
+                        "TrainingShirt_2_15.png",
+                        "TrainingShirt_2_16.png",
+                        "TrainingShirt_2_17.png",
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null
+                    ],
+                    "type": 2
+                },
+                {
+                    "textures": [],
+                    "type": 3
+                },
+                {
+                    "textures": [],
+                    "type": 4
+                },
+                {
+                    "textures": [],
+                    "type": 5
+                }
+            ]
+        }
+    }
+}

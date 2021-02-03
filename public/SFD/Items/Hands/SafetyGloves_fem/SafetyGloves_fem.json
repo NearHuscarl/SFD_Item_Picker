@@ -1,0 +1,103 @@
+{
+    "header": {
+        "target": "w",
+        "formatVersion": 5,
+        "hidef": false,
+        "compressed": 128
+    },
+    "readers": [
+        {
+            "type": "SFD.Content.ItemsContentTypeReader, SFD.Content",
+            "version": 0
+        }
+    ],
+    "content": {
+        "gameName": "Safety Gloves",
+        "fileName": "SafetyGloves_fem",
+        "equipmentLayer": 7,
+        "id": "SafetyGloves_fem",
+        "jacketUnderBelt": false,
+        "canEquip": true,
+        "canScript": true,
+        "colorPalette": "Clothing1",
+        "export": {
+            "type": "SFDItem",
+            "data": [
+                {
+                    "textures": [],
+                    "type": 0
+                },
+                {
+                    "textures": [],
+                    "type": 1
+                },
+                {
+                    "textures": [
+                        "SafetyGloves_fem_2_0.png",
+                        "SafetyGloves_fem_2_1.png",
+                        "SafetyGloves_fem_2_2.png",
+                        "SafetyGloves_fem_2_3.png",
+                        "SafetyGloves_fem_2_4.png",
+                        "SafetyGloves_fem_2_5.png",
+                        "SafetyGloves_fem_2_6.png",
+                        null,
+                        "SafetyGloves_fem_2_8.png",
+                        "SafetyGloves_fem_2_9.png",
+                        "SafetyGloves_fem_2_10.png",
+                        "SafetyGloves_fem_2_11.png",
+                        "SafetyGloves_fem_2_12.png",
+                        "SafetyGloves_fem_2_13.png",
+                        "SafetyGloves_fem_2_14.png",
+                        "SafetyGloves_fem_2_15.png",
+                        "SafetyGloves_fem_2_16.png",
+                        "SafetyGloves_fem_2_17.png",
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null
+                    ],
+                    "type": 2
+                },
+                {
+                    "textures": [
+                        "SafetyGloves_fem_3_0.png",
+                        "SafetyGloves_fem_3_1.png",
+                        "SafetyGloves_fem_3_2.png",
+                        "SafetyGloves_fem_3_3.png",
+                        "SafetyGloves_fem_3_4.png",
+                        "SafetyGloves_fem_3_5.png",
+                        "SafetyGloves_fem_3_6.png",
+                        "SafetyGloves_fem_3_7.png",
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null
+                    ],
+                    "type": 3
+                },
+                {
+                    "textures": [],
+                    "type": 4
+                },
+                {
+                    "textures": [],
+                    "type": 5
+                }
+            ]
+        }
+    }
+}

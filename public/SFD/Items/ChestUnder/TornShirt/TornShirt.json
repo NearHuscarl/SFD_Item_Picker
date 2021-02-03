@@ -1,0 +1,103 @@
+{
+    "header": {
+        "target": "w",
+        "formatVersion": 5,
+        "hidef": false,
+        "compressed": 128
+    },
+    "readers": [
+        {
+            "type": "SFD.Content.ItemsContentTypeReader, SFD.Content",
+            "version": 0
+        }
+    ],
+    "content": {
+        "gameName": "Torn Shirt",
+        "fileName": "TornShirt",
+        "equipmentLayer": 1,
+        "id": "TornShirt",
+        "jacketUnderBelt": false,
+        "canEquip": true,
+        "canScript": true,
+        "colorPalette": "Clothing1",
+        "export": {
+            "type": "SFDItem",
+            "data": [
+                {
+                    "textures": [],
+                    "type": 0
+                },
+                {
+                    "textures": [
+                        "TornShirt_1_0.png",
+                        "TornShirt_1_1.png",
+                        "TornShirt_1_2.png",
+                        "TornShirt_1_3.png",
+                        "TornShirt_1_4.png",
+                        "TornShirt_1_5.png",
+                        "TornShirt_1_6.png",
+                        "TornShirt_1_7.png",
+                        "TornShirt_1_8.png",
+                        "TornShirt_1_9.png",
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null
+                    ],
+                    "type": 1
+                },
+                {
+                    "textures": [
+                        "TornShirt_2_0.png",
+                        "TornShirt_2_1.png",
+                        "TornShirt_2_2.png",
+                        "TornShirt_2_3.png",
+                        "TornShirt_2_4.png",
+                        "TornShirt_2_5.png",
+                        "TornShirt_2_6.png",
+                        "TornShirt_2_7.png",
+                        "TornShirt_2_8.png",
+                        null,
+                        "TornShirt_2_10.png",
+                        "TornShirt_2_11.png",
+                        "TornShirt_2_12.png",
+                        "TornShirt_2_13.png",
+                        "TornShirt_2_14.png",
+                        "TornShirt_2_15.png",
+                        "TornShirt_2_16.png",
+                        "TornShirt_2_17.png",
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null
+                    ],
+                    "type": 2
+                },
+                {
+                    "textures": [],
+                    "type": 3
+                },
+                {
+                    "textures": [],
+                    "type": 4
+                },
+                {
+                    "textures": [],
+                    "type": 5
+                }
+            ]
+        }
+    }
+}

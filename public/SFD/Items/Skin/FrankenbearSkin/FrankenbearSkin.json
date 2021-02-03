@@ -1,0 +1,178 @@
+{
+    "header": {
+        "target": "w",
+        "formatVersion": 5,
+        "hidef": false,
+        "compressed": 128
+    },
+    "readers": [
+        {
+            "type": "SFD.Content.ItemsContentTypeReader, SFD.Content",
+            "version": 0
+        }
+    ],
+    "content": {
+        "gameName": "Frankenbear",
+        "fileName": "FrankenbearSkin",
+        "equipmentLayer": 0,
+        "id": "FrankenbearSkin",
+        "jacketUnderBelt": false,
+        "canEquip": true,
+        "canScript": true,
+        "colorPalette": "ClothingGoggles1",
+        "export": {
+            "type": "SFDItem",
+            "data": [
+                {
+                    "textures": [
+                        "FrankenbearSkin_0_0.png",
+                        "FrankenbearSkin_0_1.png",
+                        "FrankenbearSkin_0_2.png",
+                        "FrankenbearSkin_0_3.png",
+                        "FrankenbearSkin_0_4.png",
+                        "FrankenbearSkin_0_5.png",
+                        "FrankenbearSkin_0_6.png",
+                        "FrankenbearSkin_0_7.png",
+                        "FrankenbearSkin_0_8.png",
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null
+                    ],
+                    "type": 0
+                },
+                {
+                    "textures": [
+                        "FrankenbearSkin_1_0.png",
+                        "FrankenbearSkin_1_1.png",
+                        "FrankenbearSkin_1_2.png",
+                        "FrankenbearSkin_1_3.png",
+                        "FrankenbearSkin_1_4.png",
+                        "FrankenbearSkin_1_5.png",
+                        "FrankenbearSkin_1_6.png",
+                        "FrankenbearSkin_1_7.png",
+                        "FrankenbearSkin_1_8.png",
+                        "FrankenbearSkin_1_9.png",
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null
+                    ],
+                    "type": 1
+                },
+                {
+                    "textures": [
+                        "FrankenbearSkin_2_0.png",
+                        "FrankenbearSkin_2_1.png",
+                        "FrankenbearSkin_2_2.png",
+                        "FrankenbearSkin_2_3.png",
+                        "FrankenbearSkin_2_4.png",
+                        "FrankenbearSkin_2_5.png",
+                        "FrankenbearSkin_2_6.png",
+                        "FrankenbearSkin_2_7.png",
+                        "FrankenbearSkin_2_8.png",
+                        "FrankenbearSkin_2_9.png",
+                        "FrankenbearSkin_2_10.png",
+                        "FrankenbearSkin_2_11.png",
+                        "FrankenbearSkin_2_12.png",
+                        "FrankenbearSkin_2_13.png",
+                        "FrankenbearSkin_2_14.png",
+                        "FrankenbearSkin_2_15.png",
+                        "FrankenbearSkin_2_16.png",
+                        "FrankenbearSkin_2_17.png",
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null
+                    ],
+                    "type": 2
+                },
+                {
+                    "textures": [
+                        "FrankenbearSkin_3_0.png",
+                        "FrankenbearSkin_3_1.png",
+                        "FrankenbearSkin_3_2.png",
+                        "FrankenbearSkin_3_3.png",
+                        "FrankenbearSkin_3_4.png",
+                        "FrankenbearSkin_3_5.png",
+                        "FrankenbearSkin_3_6.png",
+                        "FrankenbearSkin_3_7.png",
+                        null,
+                        "FrankenbearSkin_3_9.png",
+                        "FrankenbearSkin_3_10.png",
+                        "FrankenbearSkin_3_11.png",
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null
+                    ],
+                    "type": 3
+                },
+                {
+                    "textures": [
+                        "FrankenbearSkin_4_0.png",
+                        "FrankenbearSkin_4_1.png",
+                        "FrankenbearSkin_4_2.png",
+                        "FrankenbearSkin_4_3.png",
+                        "FrankenbearSkin_4_4.png",
+                        "FrankenbearSkin_4_5.png",
+                        "FrankenbearSkin_4_6.png",
+                        "FrankenbearSkin_4_7.png",
+                        "FrankenbearSkin_4_8.png",
+                        "FrankenbearSkin_4_9.png",
+                        "FrankenbearSkin_4_10.png",
+                        "FrankenbearSkin_4_11.png",
+                        "FrankenbearSkin_4_12.png",
+                        "FrankenbearSkin_4_13.png",
+                        "FrankenbearSkin_4_14.png",
+                        "FrankenbearSkin_4_15.png",
+                        "FrankenbearSkin_4_16.png",
+                        "FrankenbearSkin_4_17.png",
+                        "FrankenbearSkin_4_18.png",
+                        "FrankenbearSkin_4_19.png",
+                        "FrankenbearSkin_4_20.png",
+                        null,
+                        null,
+                        null
+                    ],
+                    "type": 4
+                },
+                {
+                    "textures": [],
+                    "type": 5
+                }
+            ]
+        }
+    }
+}

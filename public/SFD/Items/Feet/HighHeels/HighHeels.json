@@ -1,0 +1,103 @@
+{
+    "header": {
+        "target": "w",
+        "formatVersion": 5,
+        "hidef": false,
+        "compressed": 128
+    },
+    "readers": [
+        {
+            "type": "SFD.Content.ItemsContentTypeReader, SFD.Content",
+            "version": 0
+        }
+    ],
+    "content": {
+        "gameName": "High Heels",
+        "fileName": "HighHeels",
+        "equipmentLayer": 4,
+        "id": "HighHeels",
+        "jacketUnderBelt": false,
+        "canEquip": true,
+        "canScript": true,
+        "colorPalette": "Clothing1",
+        "export": {
+            "type": "SFDItem",
+            "data": [
+                {
+                    "textures": [],
+                    "type": 0
+                },
+                {
+                    "textures": [],
+                    "type": 1
+                },
+                {
+                    "textures": [],
+                    "type": 2
+                },
+                {
+                    "textures": [
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        "HighHeels_3_9.png",
+                        "HighHeels_3_10.png",
+                        "HighHeels_3_11.png",
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null
+                    ],
+                    "type": 3
+                },
+                {
+                    "textures": [
+                        "HighHeels_4_0.png",
+                        "HighHeels_4_1.png",
+                        "HighHeels_4_2.png",
+                        "HighHeels_4_3.png",
+                        "HighHeels_4_4.png",
+                        "HighHeels_4_5.png",
+                        "HighHeels_4_6.png",
+                        "HighHeels_4_7.png",
+                        "HighHeels_4_8.png",
+                        "HighHeels_4_9.png",
+                        "HighHeels_4_10.png",
+                        "HighHeels_4_11.png",
+                        null,
+                        "HighHeels_4_13.png",
+                        "HighHeels_4_14.png",
+                        "HighHeels_4_15.png",
+                        "HighHeels_4_16.png",
+                        "HighHeels_4_17.png",
+                        "HighHeels_4_18.png",
+                        "HighHeels_4_19.png",
+                        "HighHeels_4_20.png",
+                        null,
+                        null,
+                        null
+                    ],
+                    "type": 4
+                },
+                {
+                    "textures": [],
+                    "type": 5
+                }
+            ]
+        }
+    }
+}

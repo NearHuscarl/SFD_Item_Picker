@@ -1,0 +1,128 @@
+{
+    "header": {
+        "target": "w",
+        "formatVersion": 5,
+        "hidef": false,
+        "compressed": 128
+    },
+    "readers": [
+        {
+            "type": "SFD.Content.ItemsContentTypeReader, SFD.Content",
+            "version": 0
+        }
+    ],
+    "content": {
+        "gameName": "Pants (Black)",
+        "fileName": "PantsBlack",
+        "equipmentLayer": 2,
+        "id": "PantsBlack",
+        "jacketUnderBelt": false,
+        "canEquip": true,
+        "canScript": true,
+        "colorPalette": "ClothingDark1",
+        "export": {
+            "type": "SFDItem",
+            "data": [
+                {
+                    "textures": [],
+                    "type": 0
+                },
+                {
+                    "textures": [
+                        "PantsBlack_1_0.png",
+                        "PantsBlack_1_1.png",
+                        "PantsBlack_1_2.png",
+                        "PantsBlack_1_3.png",
+                        "PantsBlack_1_4.png",
+                        "PantsBlack_1_5.png",
+                        "PantsBlack_1_6.png",
+                        null,
+                        "PantsBlack_1_8.png",
+                        "PantsBlack_1_9.png",
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null
+                    ],
+                    "type": 1
+                },
+                {
+                    "textures": [],
+                    "type": 2
+                },
+                {
+                    "textures": [
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        "PantsBlack_3_9.png",
+                        "PantsBlack_3_10.png",
+                        "PantsBlack_3_11.png",
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null
+                    ],
+                    "type": 3
+                },
+                {
+                    "textures": [
+                        "PantsBlack_4_0.png",
+                        "PantsBlack_4_1.png",
+                        "PantsBlack_4_2.png",
+                        "PantsBlack_4_3.png",
+                        "PantsBlack_4_4.png",
+                        "PantsBlack_4_5.png",
+                        "PantsBlack_4_6.png",
+                        "PantsBlack_4_7.png",
+                        "PantsBlack_4_8.png",
+                        "PantsBlack_4_9.png",
+                        "PantsBlack_4_10.png",
+                        "PantsBlack_4_11.png",
+                        "PantsBlack_4_12.png",
+                        "PantsBlack_4_13.png",
+                        "PantsBlack_4_14.png",
+                        "PantsBlack_4_15.png",
+                        "PantsBlack_4_16.png",
+                        "PantsBlack_4_17.png",
+                        "PantsBlack_4_18.png",
+                        "PantsBlack_4_19.png",
+                        "PantsBlack_4_20.png",
+                        null,
+                        null,
+                        null
+                    ],
+                    "type": 4
+                },
+                {
+                    "textures": [],
+                    "type": 5
+                }
+            ]
+        }
+    }
+}

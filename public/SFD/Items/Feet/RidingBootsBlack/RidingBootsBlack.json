@@ -1,0 +1,103 @@
+{
+    "header": {
+        "target": "w",
+        "formatVersion": 5,
+        "hidef": false,
+        "compressed": 128
+    },
+    "readers": [
+        {
+            "type": "SFD.Content.ItemsContentTypeReader, SFD.Content",
+            "version": 0
+        }
+    ],
+    "content": {
+        "gameName": "Riding Boots (black)",
+        "fileName": "RidingBootsBlack",
+        "equipmentLayer": 4,
+        "id": "RidingBootsBlack",
+        "jacketUnderBelt": false,
+        "canEquip": true,
+        "canScript": true,
+        "colorPalette": "Clothing1",
+        "export": {
+            "type": "SFDItem",
+            "data": [
+                {
+                    "textures": [],
+                    "type": 0
+                },
+                {
+                    "textures": [],
+                    "type": 1
+                },
+                {
+                    "textures": [],
+                    "type": 2
+                },
+                {
+                    "textures": [
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        "RidingBootsBlack_3_9.png",
+                        "RidingBootsBlack_3_10.png",
+                        "RidingBootsBlack_3_11.png",
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null
+                    ],
+                    "type": 3
+                },
+                {
+                    "textures": [
+                        "RidingBootsBlack_4_0.png",
+                        "RidingBootsBlack_4_1.png",
+                        "RidingBootsBlack_4_2.png",
+                        "RidingBootsBlack_4_3.png",
+                        "RidingBootsBlack_4_4.png",
+                        "RidingBootsBlack_4_5.png",
+                        "RidingBootsBlack_4_6.png",
+                        "RidingBootsBlack_4_7.png",
+                        "RidingBootsBlack_4_8.png",
+                        "RidingBootsBlack_4_9.png",
+                        "RidingBootsBlack_4_10.png",
+                        "RidingBootsBlack_4_11.png",
+                        null,
+                        "RidingBootsBlack_4_13.png",
+                        "RidingBootsBlack_4_14.png",
+                        "RidingBootsBlack_4_15.png",
+                        "RidingBootsBlack_4_16.png",
+                        "RidingBootsBlack_4_17.png",
+                        "RidingBootsBlack_4_18.png",
+                        "RidingBootsBlack_4_19.png",
+                        "RidingBootsBlack_4_20.png",
+                        null,
+                        null,
+                        null
+                    ],
+                    "type": 4
+                },
+                {
+                    "textures": [],
+                    "type": 5
+                }
+            ]
+        }
+    }
+}

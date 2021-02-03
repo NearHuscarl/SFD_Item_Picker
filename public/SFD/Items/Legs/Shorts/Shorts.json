@@ -1,0 +1,128 @@
+{
+    "header": {
+        "target": "w",
+        "formatVersion": 5,
+        "hidef": false,
+        "compressed": 128
+    },
+    "readers": [
+        {
+            "type": "SFD.Content.ItemsContentTypeReader, SFD.Content",
+            "version": 0
+        }
+    ],
+    "content": {
+        "gameName": "Shorts",
+        "fileName": "Shorts",
+        "equipmentLayer": 2,
+        "id": "Shorts",
+        "jacketUnderBelt": false,
+        "canEquip": true,
+        "canScript": true,
+        "colorPalette": "Clothing1",
+        "export": {
+            "type": "SFDItem",
+            "data": [
+                {
+                    "textures": [],
+                    "type": 0
+                },
+                {
+                    "textures": [
+                        "Shorts_1_0.png",
+                        "Shorts_1_1.png",
+                        "Shorts_1_2.png",
+                        "Shorts_1_3.png",
+                        "Shorts_1_4.png",
+                        "Shorts_1_5.png",
+                        "Shorts_1_6.png",
+                        null,
+                        "Shorts_1_8.png",
+                        "Shorts_1_9.png",
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null
+                    ],
+                    "type": 1
+                },
+                {
+                    "textures": [],
+                    "type": 2
+                },
+                {
+                    "textures": [
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        "Shorts_3_9.png",
+                        "Shorts_3_10.png",
+                        "Shorts_3_11.png",
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null
+                    ],
+                    "type": 3
+                },
+                {
+                    "textures": [
+                        "Shorts_4_0.png",
+                        "Shorts_4_1.png",
+                        "Shorts_4_2.png",
+                        "Shorts_4_3.png",
+                        "Shorts_4_4.png",
+                        "Shorts_4_5.png",
+                        "Shorts_4_6.png",
+                        "Shorts_4_7.png",
+                        "Shorts_4_8.png",
+                        "Shorts_4_9.png",
+                        "Shorts_4_10.png",
+                        "Shorts_4_11.png",
+                        "Shorts_4_12.png",
+                        "Shorts_4_13.png",
+                        "Shorts_4_14.png",
+                        "Shorts_4_15.png",
+                        "Shorts_4_16.png",
+                        "Shorts_4_17.png",
+                        "Shorts_4_18.png",
+                        "Shorts_4_19.png",
+                        "Shorts_4_20.png",
+                        null,
+                        null,
+                        null
+                    ],
+                    "type": 4
+                },
+                {
+                    "textures": [],
+                    "type": 5
+                }
+            ]
+        }
+    }
+}

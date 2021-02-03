@@ -1,0 +1,103 @@
+{
+    "header": {
+        "target": "w",
+        "formatVersion": 5,
+        "hidef": false,
+        "compressed": 128
+    },
+    "readers": [
+        {
+            "type": "SFD.Content.ItemsContentTypeReader, SFD.Content",
+            "version": 0
+        }
+    ],
+    "content": {
+        "gameName": "Shirt With Tie",
+        "fileName": "ShirtWithTie",
+        "equipmentLayer": 1,
+        "id": "ShirtWithTie",
+        "jacketUnderBelt": false,
+        "canEquip": true,
+        "canScript": true,
+        "colorPalette": "Clothing1",
+        "export": {
+            "type": "SFDItem",
+            "data": [
+                {
+                    "textures": [],
+                    "type": 0
+                },
+                {
+                    "textures": [
+                        "ShirtWithTie_1_0.png",
+                        "ShirtWithTie_1_1.png",
+                        "ShirtWithTie_1_2.png",
+                        "ShirtWithTie_1_3.png",
+                        "ShirtWithTie_1_4.png",
+                        "ShirtWithTie_1_5.png",
+                        "ShirtWithTie_1_6.png",
+                        "ShirtWithTie_1_7.png",
+                        "ShirtWithTie_1_8.png",
+                        "ShirtWithTie_1_9.png",
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null
+                    ],
+                    "type": 1
+                },
+                {
+                    "textures": [
+                        "ShirtWithTie_2_0.png",
+                        "ShirtWithTie_2_1.png",
+                        "ShirtWithTie_2_2.png",
+                        "ShirtWithTie_2_3.png",
+                        "ShirtWithTie_2_4.png",
+                        "ShirtWithTie_2_5.png",
+                        "ShirtWithTie_2_6.png",
+                        "ShirtWithTie_2_7.png",
+                        "ShirtWithTie_2_8.png",
+                        null,
+                        "ShirtWithTie_2_10.png",
+                        "ShirtWithTie_2_11.png",
+                        "ShirtWithTie_2_12.png",
+                        "ShirtWithTie_2_13.png",
+                        "ShirtWithTie_2_14.png",
+                        "ShirtWithTie_2_15.png",
+                        "ShirtWithTie_2_16.png",
+                        "ShirtWithTie_2_17.png",
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null
+                    ],
+                    "type": 2
+                },
+                {
+                    "textures": [],
+                    "type": 3
+                },
+                {
+                    "textures": [],
+                    "type": 4
+                },
+                {
+                    "textures": [],
+                    "type": 5
+                }
+            ]
+        }
+    }
+}

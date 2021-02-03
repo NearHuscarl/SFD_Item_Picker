@@ -1,0 +1,103 @@
+{
+    "header": {
+        "target": "w",
+        "formatVersion": 5,
+        "hidef": false,
+        "compressed": 128
+    },
+    "readers": [
+        {
+            "type": "SFD.Content.ItemsContentTypeReader, SFD.Content",
+            "version": 0
+        }
+    ],
+    "content": {
+        "gameName": "Police Shirt",
+        "fileName": "PoliceShirt",
+        "equipmentLayer": 1,
+        "id": "PoliceShirt",
+        "jacketUnderBelt": false,
+        "canEquip": true,
+        "canScript": true,
+        "colorPalette": "Clothing1",
+        "export": {
+            "type": "SFDItem",
+            "data": [
+                {
+                    "textures": [],
+                    "type": 0
+                },
+                {
+                    "textures": [
+                        "PoliceShirt_1_0.png",
+                        "PoliceShirt_1_1.png",
+                        "PoliceShirt_1_2.png",
+                        "PoliceShirt_1_3.png",
+                        "PoliceShirt_1_4.png",
+                        "PoliceShirt_1_5.png",
+                        "PoliceShirt_1_6.png",
+                        "PoliceShirt_1_7.png",
+                        "PoliceShirt_1_8.png",
+                        "PoliceShirt_1_9.png",
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null
+                    ],
+                    "type": 1
+                },
+                {
+                    "textures": [
+                        "PoliceShirt_2_0.png",
+                        "PoliceShirt_2_1.png",
+                        "PoliceShirt_2_2.png",
+                        "PoliceShirt_2_3.png",
+                        "PoliceShirt_2_4.png",
+                        "PoliceShirt_2_5.png",
+                        "PoliceShirt_2_6.png",
+                        "PoliceShirt_2_7.png",
+                        "PoliceShirt_2_8.png",
+                        "PoliceShirt_2_9.png",
+                        "PoliceShirt_2_10.png",
+                        "PoliceShirt_2_11.png",
+                        "PoliceShirt_2_12.png",
+                        "PoliceShirt_2_13.png",
+                        "PoliceShirt_2_14.png",
+                        "PoliceShirt_2_15.png",
+                        "PoliceShirt_2_16.png",
+                        "PoliceShirt_2_17.png",
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null
+                    ],
+                    "type": 2
+                },
+                {
+                    "textures": [],
+                    "type": 3
+                },
+                {
+                    "textures": [],
+                    "type": 4
+                },
+                {
+                    "textures": [],
+                    "type": 5
+                }
+            ]
+        }
+    }
+}
