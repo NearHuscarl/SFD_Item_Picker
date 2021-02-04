@@ -52,12 +52,11 @@ async function generateAnimationData() {
     "utf8"
   );
   const obj = await fse.readJson(animationPath);
-
-  // trim down because the original animation file is huge, we only need idle animation
-  // for this app
   const result = {};
 
   obj.content.animations.forEach((a) => {
+    // trim down because the original animation file is huge
+    // we only need idle animation for this app
     if (a.name === "BaseIdle" || a.name === "UpperIdle") {
       result[a.name] = a.frames;
     }
@@ -137,7 +136,6 @@ async function generateItemData() {
         });
 
         item.data = data;
-        delete item.id;
         delete item.export;
 
         items[id] = item;
