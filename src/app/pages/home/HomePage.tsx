@@ -36,6 +36,7 @@ function ItemAutocomplete(props: ItemAutocompleteProps) {
         onChange(opposite);
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentGender]);
 
   return (
