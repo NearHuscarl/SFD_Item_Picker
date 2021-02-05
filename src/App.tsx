@@ -2,7 +2,7 @@ import React from "react";
 import { PersistGate } from "redux-persist/integration/react";
 import { Provider } from "react-redux";
 import { store, persistor } from "app/store/store";
-import { HomePage } from "app/pages/HomePage";
+import { HomePage } from "app/pages/home";
 
 function App() {
   return (

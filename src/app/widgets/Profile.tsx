@@ -25,6 +25,7 @@ export function Profile(props: ProfileProps) {
     feet,
     accessory,
   } = props;
+  console.log("render profile");
 
   return (
     <div
@@ -33,28 +34,27 @@ export function Profile(props: ProfileProps) {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
+        backgroundColor: "darkorchid",
       }}
     >
       <div
         style={{
-          width: 200,
-          height: 150,
+          height: 125,
           position: "relative",
-          backgroundColor: "darkorchid",
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
         }}
       >
-        {skin && <Item id={skin} animation="idle" />}
-        {chestUnder && <Item id={chestUnder} animation="idle" />}
-        {legs && <Item id={legs} animation="idle" />}
-        {waist && <Item id={waist} animation="idle" />}
-        {feet && <Item id={feet} animation="idle" />}
-        {chestOver && <Item id={chestOver} animation="idle" />}
-        {accessory && <Item id={accessory} animation="idle" />}
-        {hands && <Item id={hands} animation="idle" />}
-        {head && <Item id={head} animation="idle" />}
+        {<Item id={skin} animation="idle" />}
+        {<Item id={chestUnder} animation="idle" />}
+        {<Item id={legs} animation="idle" />}
+        {<Item id={waist} animation="idle" />}
+        {<Item id={feet} animation="idle" />}
+        {<Item id={chestOver} animation="idle" />}
+        {<Item id={accessory} animation="idle" />}
+        {<Item id={hands} animation="idle" />}
+        {<Item id={head} animation="idle" />}
       </div>
     </div>
   );

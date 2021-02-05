@@ -1,25 +1,44 @@
 import memoize from "lodash/memoize";
-import { Item, ItemID, items } from "app/data/items";
+import { Item, Gender, ItemID, items, gender } from "app/data/items";
 import { Layer, Type } from "app/types";
 import { ItemPartTypeValue, Layers, LayerValue } from "app/constants";
 
 const getItemIDs = memoize(() => Object.keys(items) as ItemID[]);
 
-function forEachItem(fn: (item: Item, id: ItemID) => void) {
-  getItemIDs().forEach((id) => {
-    fn(items[id], id);
+function forEachItem(fn: (item: Item, index: number) => void) {
+  getItemIDs().forEach((id, i) => {
+    fn(items[id], i);
   });
 }
 
-export const getItems = memoize((layer: Layer) => {
-  const items: Item[] = [];
-  forEachItem((item) => {
-    if (item.equipmentLayer === LayerValue[layer]) {
-      items.push(item);
-    }
-  });
-  return items;
-});
+export const getItems = memoize(
+  (layer: Layer, gender: Gender) => {
+    const result: Item[] = [];
+
+    forEachItem((item) => {
+      if (
+        item.equipmentLayer === LayerValue[layer] &&
+        (item.gender === gender || item.gender === 2)
+      ) {
+        result.push(item);
+      }
+    });
+
+    return result;
+  },
+  (layer, gender) => `${layer}_${gender}`
+);
+
+export function getOppositeGender(item: Item): Item {
+  switch (item.gender) {
+    case gender.male:
+      return items[item.id + "_fem"];
+    case gender.female:
+      return items[item.id.replace("_fem", "")];
+    case gender.both:
+      return item;
+  }
+}
 
 export function getImages(itemID: ItemID) {
   const { fileName, data, equipmentLayer } = items[itemID];

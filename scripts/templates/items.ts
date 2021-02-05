@@ -11,8 +11,33 @@ export type Item = {
   canScript: boolean;
   colorPalette: PaletteName;
   data: number[][];
+  gender: 0 | 1 | 2;
 };
 
+export type Gender = 0 | 1 | 2;
+
+export const gender = {
+  male: 0,
+  female: 1,
+  both: 2,
+} as const;
+
+export const nullItem: Item = {
+  gameName: "None",
+  fileName: "None" as any,
+  equipmentLayer: 0,
+  id: "None" as any,
+  jacketUnderBelt: false,
+  canEquip: false,
+  canScript: false,
+  colorPalette: "Clothing1",
+  data: [[], [], [], [], [], []],
+  gender: gender.both,
+};
+
+// @ts-ignore: nullItem is added right below
 export const items: Record<ItemID, Item> = __ITEMS__;
 
-export type ItemID = __ITEM_ID__;
+items[nullItem.id] = nullItem;
+
+export type ItemID = __ITEM_ID__ | "None";

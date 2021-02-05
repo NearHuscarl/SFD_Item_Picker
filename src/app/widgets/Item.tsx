@@ -48,22 +48,25 @@ export const ItemPart = memo((props: ItemPartProps) => {
   );
 });
 
-type ItemProps = {
-  id: ItemID;
+export type ItemProps = {
+  id?: ItemID;
   animation: "idle";
 };
 
 export function Item(props: ItemProps) {
   const { id, animation } = props;
-  const images = getImages(id);
   const classes = useStyles();
+
+  if (!id) return null;
+
+  const images = getImages(id);
   const itemPartData: {
     x: number;
     y: number;
     type: number;
     image: string;
   }[] = [];
-  const extraAnimationData = (part, _, parts) => {
+  const extractAnimationData = (part, _, parts) => {
     const { x, y, id: globalID } = part;
 
     if (globalID < 0 && globalID !== -10) return;
@@ -90,8 +93,8 @@ export function Item(props: ItemProps) {
 
   if (animation === "idle") {
     // TODO: animation upper body idle animation
-    animations.BaseIdle[0].parts.forEach(extraAnimationData);
-    animations.UpperIdle[0].parts.forEach(extraAnimationData);
+    animations.BaseIdle[0].parts.forEach(extractAnimationData);
+    animations.UpperIdle[0].parts.forEach(extractAnimationData);
   }
 
   return (

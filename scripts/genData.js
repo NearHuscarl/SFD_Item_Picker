@@ -101,6 +101,48 @@ async function unpackItemsAndAnimations() {
   }
 }
 
+function computeGender(itemArr) {
+  const male = 0,
+    female = 1,
+    both = 2;
+  function getGender(item) {
+    return item.fileName.toLowerCase().endsWith("_fem") ? female : male;
+  }
+
+  function getGenderNeutralName(item) {
+    if (getGender(item) === female) {
+      return item.fileName.substr(0, item.fileName.length - 4);
+    }
+    return item.fileName;
+  }
+
+  for (let i = 0; i < itemArr.length; i++) {
+    itemArr[i].gender = both; // initialize gender. Default item can be wore by both genders
+  }
+
+  for (let i1 = 0; i1 < itemArr.length; i1++) {
+    const item1 = itemArr[i1];
+
+    for (let i2 = i1 + 1; i2 < itemArr.length; i2++) {
+      const item2 = itemArr[i2];
+      const genderNeutralName1 = getGenderNeutralName(item1);
+      const genderNeutralName2 = getGenderNeutralName(item2);
+
+      // if the item has 2 variants, assign to each respective gender
+      if (genderNeutralName1 === genderNeutralName2) {
+        if (getGender(item1) === male) {
+          item1.gender = male;
+          item2.gender = female;
+        } else {
+          item1.gender = female;
+          item2.gender = male;
+        }
+        break;
+      }
+    }
+  }
+}
+
 async function generateItemData() {
   return new Promise((resolve, reject) => {
     glob(path.join(SFD_DIR, "Items/**/*.json"), async (error, paths) => {
@@ -141,6 +183,8 @@ async function generateItemData() {
         items[id] = item;
         ids.push(`'${id}'`);
       }
+
+      computeGender(Object.values(items));
 
       await fse.outputFile(
         resultPath,
