@@ -39,7 +39,7 @@ export function Profile(props: ProfileProps) {
     >
       <div
         style={{
-          height: 125,
+          height: 50,
           position: "relative",
           display: "flex",
           justifyContent: "center",

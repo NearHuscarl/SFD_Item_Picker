@@ -1,6 +1,6 @@
 import { PropsWithChildren } from "react";
 import MuiThemeProvider from "@material-ui/styles/ThemeProvider";
-import { createMuiTheme, Theme } from "@material-ui/core/styles";
+import { createMuiTheme } from "@material-ui/core/styles";
 
 export const theme = createMuiTheme({
   // palette: {
@@ -8,6 +8,24 @@ export const theme = createMuiTheme({
   //     primary: "#000000ab",
   //   },
   // },
+  typography: {
+    fontSize: 13,
+  },
+  overrides: {
+    MuiInputBase: {
+      input: {
+        fontSize: 13,
+      },
+    },
+    // @ts-ignore
+    MuiAutocomplete: {
+      root: {
+        "& .MuiFormLabel-root": {
+          fontSize: 13,
+        },
+      },
+    },
+  },
 });
 
 export function ThemeProvider(props: PropsWithChildren<{}>) {

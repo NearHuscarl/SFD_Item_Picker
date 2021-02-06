@@ -6,7 +6,7 @@ import { ItemID } from "app/data/items";
 import { animations } from "app/data/animations";
 
 const BASE_SIZE = Math.max(TEXTURE_WIDTH, TEXTURE_HEIGHT);
-const RATIO = 6;
+const RATIO = 3.5;
 const ITEM_WIDTH = BASE_SIZE * RATIO;
 const ITEM_HEIGHT = BASE_SIZE * RATIO;
 
