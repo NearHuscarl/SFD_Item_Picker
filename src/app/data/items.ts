@@ -16,7 +16,7 @@ export type Item = {
 
 export type Gender = 0 | 1 | 2;
 
-export const gender = {
+export const genders = {
   male: 0,
   female: 1,
   both: 2,
@@ -32,7 +32,7 @@ export const nullItem: Item = {
   canScript: false,
   colorPalette: "Clothing1",
   data: [[], [], [], [], [], []],
-  gender: gender.both,
+  gender: genders.both,
 };
 
 // @ts-ignore: nullItem is added right below

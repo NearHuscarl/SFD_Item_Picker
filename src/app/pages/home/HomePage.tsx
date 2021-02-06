@@ -19,25 +19,33 @@ type ItemAutocompleteProps = {
 
 function ItemAutocomplete(props: ItemAutocompleteProps) {
   const { layer, onChangeItem, defaultValue, disableClearable } = props;
-  const currentGender = useSelector((state) => state.profile.current.gender);
-  const options = getItems(layer, currentGender);
+  const gender = useSelector((state) => state.profile.current.gender);
+  const options = getItems(layer, gender);
   const [value, setValue] = useState<Item>(items[defaultValue || "None"]);
-  const onChange = (item: Item | null) => {
+  const onChange = (item?: Item | null) => {
     if (item && item !== nullItem) {
       onChangeItem(item.id);
       setValue(item);
+    } else {
+      const nullItem = items["None"];
+      onChangeItem(nullItem.id);
+      setValue(nullItem);
     }
   };
 
   useEffect(() => {
-    if (value && value !== nullItem && value.gender !== currentGender) {
-      const opposite = getOppositeGender(value);
-      if (opposite.id !== value.id) {
-        onChange(opposite);
+    if (value) {
+      if (value !== nullItem && value.gender !== gender) {
+        const opposite = getOppositeGender(value);
+        if (opposite.id !== value.id) {
+          onChange(opposite);
+        }
       }
+    } else {
+      onChange();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentGender]);
+  }, [gender]);
 
   return (
     <Autocomplete
@@ -51,23 +59,28 @@ function ItemAutocomplete(props: ItemAutocompleteProps) {
         onChange(newValue);
       }}
       renderInput={(params) => (
-        <TextField {...params} label={startCase(layer)} variant="outlined" />
+        <TextField
+          {...params}
+          size="small"
+          label={startCase(layer)}
+          variant="outlined"
+        />
       )}
     />
   );
 }
 
-function getDefaultItem(itemId: ItemID, currentGender: Gender) {
+function getDefaultItem(itemId: ItemID, gender: Gender) {
   const item = items[itemId];
-  if (item.gender !== currentGender) {
+  if (item.gender !== gender) {
     return getOppositeGender(item).id;
   }
   return itemId;
 }
 
 function useItemState(defaultItem?: ItemID) {
-  const currentGender = useSelector((state) => state.profile.current.gender);
-  return useState<ItemID>(getDefaultItem(defaultItem || "None", currentGender));
+  const gender = useSelector((state) => state.profile.current.gender);
+  return useState<ItemID>(getDefaultItem(defaultItem || "None", gender));
 }
 
 export function HomePage() {

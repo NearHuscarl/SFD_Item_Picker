@@ -1,5 +1,5 @@
 import memoize from "lodash/memoize";
-import { Item, Gender, ItemID, items, gender } from "app/data/items";
+import { Item, Gender, ItemID, items, genders } from "app/data/items";
 import { Layer, Type } from "app/types";
 import { ItemPartTypeValue, Layers, LayerValue } from "app/constants";
 
@@ -18,7 +18,7 @@ export const getItems = memoize(
     forEachItem((item) => {
       if (
         item.equipmentLayer === LayerValue[layer] &&
-        (item.gender === gender || item.gender === 2)
+        (item.gender === gender || item.gender === genders.both)
       ) {
         result.push(item);
       }
@@ -31,11 +31,11 @@ export const getItems = memoize(
 
 export function getOppositeGender(item: Item): Item {
   switch (item.gender) {
-    case gender.male:
+    case genders.male:
       return items[item.id + "_fem"];
-    case gender.female:
+    case genders.female:
       return items[item.id.replace("_fem", "")];
-    case gender.both:
+    case genders.both:
       return item;
   }
 }

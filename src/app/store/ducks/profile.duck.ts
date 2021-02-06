@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import storage from "redux-persist/lib/storage";
 import { PersistConfig, persistReducer } from "app/store/persist";
-import { gender, Gender } from "app/data/items";
+import { genders, Gender } from "app/data/items";
 
 export interface ProfileState {
   current: {
@@ -11,7 +11,7 @@ export interface ProfileState {
 
 export const initialState: ProfileState = {
   current: {
-    gender: gender.male,
+    gender: genders.male,
   },
 };
 
