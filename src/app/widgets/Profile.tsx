@@ -1,16 +1,28 @@
-import { Item } from "app/widgets/Item";
+import { Item } from "app/widgets/Item/Item";
 import { ItemID } from "app/data/items";
+import { ItemColor } from "app/types";
 
 type ProfileProps = {
-  skin?: ItemID;
-  head?: ItemID;
-  chestOver?: ItemID;
-  chestUnder?: ItemID;
-  hands?: ItemID;
-  waist?: ItemID;
-  legs?: ItemID;
-  feet?: ItemID;
-  accessory?: ItemID;
+  settings: {
+    skin?: ItemID;
+    skinColors: ItemColor;
+    head?: ItemID;
+    headColors: ItemColor;
+    chestOver?: ItemID;
+    chestOverColors: ItemColor;
+    chestUnder?: ItemID;
+    chestUnderColors: ItemColor;
+    hands?: ItemID;
+    handsColors: ItemColor;
+    waist?: ItemID;
+    waistColors: ItemColor;
+    legs?: ItemID;
+    legsColors: ItemColor;
+    feet?: ItemID;
+    feetColors: ItemColor;
+    accessory?: ItemID;
+    accessoryColors: ItemColor;
+  };
 };
 
 export function Profile(props: ProfileProps) {
@@ -24,7 +36,16 @@ export function Profile(props: ProfileProps) {
     legs,
     feet,
     accessory,
-  } = props;
+    skinColors,
+    headColors,
+    chestOverColors,
+    chestUnderColors,
+    handsColors,
+    waistColors,
+    legsColors,
+    feetColors,
+    accessoryColors,
+  } = props.settings;
   console.log("render profile");
 
   return (
@@ -46,15 +67,15 @@ export function Profile(props: ProfileProps) {
           alignItems: "center",
         }}
       >
-        {<Item id={skin} animation="idle" />}
-        {<Item id={chestUnder} animation="idle" />}
-        {<Item id={legs} animation="idle" />}
-        {<Item id={waist} animation="idle" />}
-        {<Item id={feet} animation="idle" />}
-        {<Item id={chestOver} animation="idle" />}
-        {<Item id={accessory} animation="idle" />}
-        {<Item id={hands} animation="idle" />}
-        {<Item id={head} animation="idle" />}
+        {<Item id={skin} animation="idle" color={skinColors} />}
+        {<Item id={chestUnder} animation="idle" color={chestUnderColors} />}
+        {<Item id={legs} animation="idle" color={legsColors} />}
+        {<Item id={waist} animation="idle" color={waistColors} />}
+        {<Item id={feet} animation="idle" color={feetColors} />}
+        {<Item id={chestOver} animation="idle" color={chestOverColors} />}
+        {<Item id={accessory} animation="idle" color={accessoryColors} />}
+        {<Item id={hands} animation="idle" color={handsColors} />}
+        {<Item id={head} animation="idle" color={headColors} />}
       </div>
     </div>
   );

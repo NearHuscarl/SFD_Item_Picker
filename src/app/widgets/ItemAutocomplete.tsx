@@ -4,8 +4,7 @@ import { TextField } from "@material-ui/core";
 import startCase from "lodash/startCase";
 import { __DEV__ } from "app/constants";
 import { Layer } from "app/types";
-import { Item, ItemID, items, nullItem } from "app/data/items";
-import { useSelector } from "app/store/reduxHooks";
+import { Gender, Item, ItemID, items, nullItem } from "app/data/items";
 import { getItems, getOppositeGender } from "app/helpers/item";
 
 type ItemAutocompleteProps = {
@@ -13,17 +12,12 @@ type ItemAutocompleteProps = {
   disableClearable?: boolean;
   defaultValue?: ItemID;
   onChangeItem: (itemID: ItemID) => void;
+  gender: Gender;
 };
 
 export function ItemAutocomplete(props: ItemAutocompleteProps) {
-  const { layer, onChangeItem, defaultValue, disableClearable } = props;
-  const gender = useSelector((state) => state.profile.current.gender);
+  const { layer, onChangeItem, defaultValue, disableClearable, gender } = props;
   const options = getItems(layer, gender);
-
-  console.log({ defaultValue });
-  if (defaultValue === "BlazerWithShirt") {
-    console.log(items[defaultValue || "None"]);
-  }
   const [value, setValue] = useState<Item>(items[defaultValue || "None"]);
   const onChange = (item?: Item | null) => {
     if (item && item !== nullItem) {

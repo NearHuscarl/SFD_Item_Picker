@@ -1,7 +1,15 @@
 import memoize from "lodash/memoize";
 import { Item, Gender, ItemID, items, genders } from "app/data/items";
-import { Layer, Type } from "app/types";
-import { ItemPartTypeValue, Layers, LayerValue } from "app/constants";
+import { ColorType, Layer, Type } from "app/types";
+import {
+  COLOR_TYPES,
+  ItemPartTypeValue,
+  Layers,
+  LayerValue,
+} from "app/constants";
+import { palettes } from "app/data/palettes";
+import { ColorName } from "app/data/colors";
+import { getMainColor } from "app/helpers/color";
 
 const getItemIDs = memoize(() => Object.keys(items) as ItemID[]);
 
@@ -28,6 +36,23 @@ export const getItems = memoize(
   },
   (layer, gender) => `${layer}_${gender}`
 );
+
+export function hasColor(item: Item, colorType: ColorType) {
+  return item.colorSlot[COLOR_TYPES.indexOf(colorType)];
+}
+
+export function getMainColors(item: Item, colorType: ColorType) {
+  return palettes[item.colorPalette][colorType].map((name) => {
+    return {
+      name,
+      color: getMainColor(name)!,
+    };
+  });
+}
+
+export function getDefaultColor(item: Item, colorType: ColorType) {
+  return palettes[item.colorPalette][colorType][0];
+}
 
 export function getOppositeGender(item: Item): Item {
   switch (item.gender) {
@@ -67,4 +92,17 @@ export function globalIdToType(globalID: number) {
 
 export function globalIdToLocalId(globalID: number) {
   return globalID % 50;
+}
+
+export function validateColor(
+  item: Item,
+  colorType: ColorType,
+  colorName: ColorName | null
+) {
+  if (!colorName) {
+    return false;
+  }
+
+  const palette = palettes[item.colorPalette];
+  return !!palette[colorType].find((c) => c === colorName);
 }

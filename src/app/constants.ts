@@ -1,11 +1,15 @@
 import invert from "lodash/invert";
 import { Layer, Type } from "app/types";
 
+export const NOOP = Object.freeze(() => {});
+
 export const __DEV__ = process.env.NODE_ENV === "development";
 export const __PRODUCTION__ = process.env.NODE_ENV === "production";
 
 export const TEXTURE_WIDTH = 16;
 export const TEXTURE_HEIGHT = 16;
+
+export const COLOR_TYPES = ["primary", "secondary", "tertiary"] as const;
 
 export const ItemPartTypeValue = {
   Head: 0,
