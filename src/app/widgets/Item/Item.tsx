@@ -1,21 +1,16 @@
 import { makeStyles } from "@material-ui/core";
-import { COLOR_TYPES, ItemPartType, Layers } from "app/constants";
+import { ItemPartType } from "app/constants";
 import {
-  getDefaultColor,
+  ensureColorItemExist,
   getImages,
   globalIdToLocalId,
   globalIdToType,
-  hasColor,
 } from "app/helpers/item";
-import { ItemID, items } from "app/data/items";
+import { ItemID } from "app/data/items";
 import { animations } from "app/data/animations";
 import { ItemPart } from "./ItemPart";
 import { ITEM_HEIGHT, ITEM_WIDTH } from "./constants";
 import { ItemColor } from "app/types";
-import { useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { profileActions } from "app/store/rootDuck";
-import { getColorTypeText } from "app/helpers/color";
 
 const useStyles = makeStyles({
   item: {
@@ -34,30 +29,10 @@ export type ItemProps = {
 export function Item(props: ItemProps) {
   const { id, animation, color } = props;
   const classes = useStyles();
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    if (id && id !== "None") {
-      const item = items[id];
-      // TODO: move to actions/ and remove useRedux
-      color.forEach((name, i) => {
-        const type = COLOR_TYPES[i];
-        if (!color[i] && hasColor(item, type)) {
-          dispatch(
-            profileActions.setItemColors({
-              layer: Layers[item.equipmentLayer],
-              type: getColorTypeText(i),
-              name: getDefaultColor(item, type),
-            })
-          );
-        }
-      });
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, color);
 
   if (!id) return null;
 
+  const finalColor = ensureColorItemExist(id, color);
   const images = getImages(id);
   const itemPartData: {
     x: number;
@@ -109,10 +84,10 @@ export function Item(props: ItemProps) {
             key={itemPartId}
             id={itemPartId}
             image={image}
-            color={color}
+            color={finalColor}
             x={x}
             y={y}
-            layer={index * type}
+            layer={(index + 1) * (type + 1)}
           />
         );
       })}

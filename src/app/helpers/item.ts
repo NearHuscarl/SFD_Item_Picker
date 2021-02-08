@@ -1,6 +1,6 @@
 import memoize from "lodash/memoize";
 import { Item, Gender, ItemID, items, genders } from "app/data/items";
-import { ColorType, Layer, Type } from "app/types";
+import { ColorType, ItemColor, Layer, Type } from "app/types";
 import {
   COLOR_TYPES,
   ItemPartTypeValue,
@@ -9,7 +9,7 @@ import {
 } from "app/constants";
 import { palettes } from "app/data/palettes";
 import { ColorName } from "app/data/colors";
-import { getMainColor } from "app/helpers/color";
+import { getColorTypeText, getMainColor } from "app/helpers/color";
 
 const getItemIDs = memoize(() => Object.keys(items) as ItemID[]);
 
@@ -50,7 +50,10 @@ export function getMainColors(item: Item, colorType: ColorType) {
   });
 }
 
-export function getDefaultColor(item: Item, colorType: ColorType) {
+export function getDefaultColorName(item: Item, colorType: ColorType) {
+  if (!hasColor(item, colorType)) {
+    return;
+  }
   return palettes[item.colorPalette][colorType][0];
 }
 
@@ -94,7 +97,7 @@ export function globalIdToLocalId(globalID: number) {
   return globalID % 50;
 }
 
-export function validateColor(
+export function validateColorName(
   item: Item,
   colorType: ColorType,
   colorName: ColorName | null
@@ -105,4 +108,18 @@ export function validateColor(
 
   const palette = palettes[item.colorPalette];
   return !!palette[colorType].find((c) => c === colorName);
+}
+
+export function ensureColorItemExist(id: ItemID, color: ItemColor) {
+  if (id && id !== "None") {
+    const item = items[id];
+    return color.map((name, i) => {
+      const type = getColorTypeText(i);
+      if (!color[i] && hasColor(item, type)) {
+        return getDefaultColorName(item, type);
+      }
+      return color[i];
+    }) as ItemColor;
+  }
+  return color;
 }

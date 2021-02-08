@@ -10,8 +10,9 @@ import { makeStyles } from "@material-ui/core";
 import {
   getMainColors,
   hasColor,
-  validateColor,
-  getDefaultColor,
+  validateColorName,
+  getDefaultColorName,
+  ensureColorItemExist,
 } from "app/helpers/item";
 import { getMainColor } from "app/helpers/color";
 import { COLOR_TYPES } from "app/constants";
@@ -49,8 +50,13 @@ export function ItemSettings(props: ItemSettingsProps) {
   const item = items[itemId];
   const gender = useSelector((state) => state.profile.current.gender);
   const disableClearable = layer === "Skin";
+  // TODO: move to actions/ and remove useRedux
   const [itemColors, setItemColors] = useRedux(
-    (state) => state.profile.current[`${camelCase(layer)}Colors`],
+    (state) =>
+      ensureColorItemExist(
+        itemId,
+        state.profile.current[`${camelCase(layer)}Colors`]
+      ),
     profileActions.setItemColors
   );
   const setColors = (type: ColorType) => (color) => {
@@ -63,13 +69,18 @@ export function ItemSettings(props: ItemSettingsProps) {
   const onChangeItem = (id: ItemID) => {
     const newItem = items[id];
     COLOR_TYPES.forEach((type, i) => {
-      const validate = validateColor(newItem, type, itemColors[i]);
+      const validate = validateColorName(newItem, type, itemColors[i]);
       if (!validate) {
-        setItemColors({
-          layer,
-          type,
-          name: getDefaultColor(newItem, type),
-        });
+        const defaultColor = getDefaultColorName(newItem, type);
+
+        if (defaultColor) {
+          // TODO: move to actions/ and remove useRedux
+          setItemColors({
+            layer,
+            type,
+            name: defaultColor,
+          });
+        }
       }
     });
     setItemId(id);

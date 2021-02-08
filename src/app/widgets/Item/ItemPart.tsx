@@ -40,6 +40,7 @@ export const ItemPart = memo((props: ItemPartProps) => {
 
       img.src = image;
       img.addEventListener("load", () => {
+        ctx.clearRect(0, 0, ITEM_WIDTH, ITEM_HEIGHT);
         ctx.imageSmoothingEnabled = false;
         ctx.drawImage(img, 0, 0, ITEM_WIDTH, ITEM_HEIGHT);
         const imageData = ctx.getImageData(0, 0, ITEM_WIDTH, ITEM_HEIGHT);
@@ -55,7 +56,7 @@ export const ItemPart = memo((props: ItemPartProps) => {
         showMessage = true;
       }
     }
-  }, [image, color]);
+  }, [id, ...color]);
 
   return (
     <canvas
