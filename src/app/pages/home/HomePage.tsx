@@ -1,7 +1,8 @@
-import { Box, Button } from "@material-ui/core";
+import { Box } from "@material-ui/core";
 import { Profile } from "app/widgets/Profile";
 import { ProfileSettings } from "app/pages/home/ProfileSettings";
 import { useSelector } from "app/store/reduxHooks";
+import { DevTool } from "app/widgets/DevTool";
 
 function ProfilePicture() {
   const settings = useSelector((state) => state.profile.current);
@@ -10,11 +11,6 @@ function ProfilePicture() {
 }
 
 export function HomePage() {
-  const onReset = () => {
-    localStorage.clear();
-    window.location.reload();
-  };
-
   return (
     <div>
       <div
@@ -32,12 +28,7 @@ export function HomePage() {
         </Box>
         <ProfileSettings />
       </div>
-      {/*<Button*/}
-      {/*  onClick={onReset}*/}
-      {/*  style={{ position: "absolute", right: 0, top: 0 }}*/}
-      {/*>*/}
-      {/*  reset*/}
-      {/*</Button>*/}
+      <DevTool />
     </div>
   );
 }

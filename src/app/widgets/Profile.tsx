@@ -1,7 +1,11 @@
-import { useReducer, useRef } from "react";
+import { useEffect, useReducer, useRef } from "react";
 import { Item } from "app/widgets/Item";
 import { ItemID } from "app/data/items";
 import { ItemColor } from "app/types";
+import { useDispatch } from "react-redux";
+import { globalActions } from "app/store/rootDuck";
+import { useSelector } from "app/store/reduxHooks";
+import { Button } from "@material-ui/core";
 
 type ProfileSettingsProps = {
   skin?: ItemID;
@@ -97,10 +101,27 @@ type ProfileProps = {
 };
 
 export function Profile(props: ProfileProps) {
+  const dispatch = useDispatch();
+  const devTool = useSelector((state) => state.global.devTool);
   const [, rerender] = useReducer((x) => ++x, 0);
+  const onClick = (e) => {
+    // display hidden devtool after triple-click profile
+    if (e.detail === 3) {
+      dispatch(globalActions.setDevTool(!devTool));
+    }
+  };
+
+  useEffect(() => {
+    const btnEl = document.getElementById(
+      "render-profile-devtool-btn"
+    ) as HTMLButtonElement;
+    btnEl.addEventListener("click", rerender);
+    return () => btnEl.removeEventListener("click", rerender);
+  }, []);
 
   return (
     <div
+      onClick={onClick}
       className="profile"
       style={{
         display: "flex",
@@ -112,12 +133,6 @@ export function Profile(props: ProfileProps) {
       {/*for some reasons, the canvas needs to be rendered twice to make the image display correctly*/}
       <Portrait key={"render1"} settings={props.settings} />
       <Portrait key={"render2"} settings={props.settings} />
-      {/*<button*/}
-      {/*  style={{ position: "absolute", top: 0, right: 100 }}*/}
-      {/*  onClick={rerender}*/}
-      {/*>*/}
-      {/*  draw profile*/}
-      {/*</button>*/}
     </div>
   );
 }
