@@ -1,12 +1,10 @@
 require("dotenv").config({ path: ".env.local" });
 const path = require("path");
 const spawn = require("child_process").spawn;
-const util = require("util");
-const exec = util.promisify(require("child_process").exec);
 const fse = require("fs-extra");
-const chalk = require("chalk");
-const { parseSFDX } = require("./parseSFDX");
 const glob = require("glob");
+const { parseSFDX } = require("./parseSFDX");
+const { prettier, log, logRaw, getLayerText, readImage } = require("./helpers");
 
 const SFD_ITEM_DIR = path.join(process.env.SFD_PATH, "Content/Data/Items");
 const SFD_ANI_DIR = path.join(process.env.SFD_PATH, "Content/Data/Animations");
@@ -17,22 +15,13 @@ const DATA_DIR = path.join(PROJECT_ROOT, "src/app/data");
 const PACK_DIR = path.join(PROJECT_ROOT, "./node_modules/xnbcli/packed");
 const UNPACK_DIR = path.join(PROJECT_ROOT, "./node_modules/xnbcli/unpacked");
 
-/**
- * @param {string} path
- */
-async function prettier(path) {
-  await exec(`prettier --write ${path}`);
-}
-
 function unpack() {
-  const log = process.stdout.write.bind(process.stdout); // console.log but without printing newline
-
   return new Promise((resolve, reject) => {
     const unpack = spawn("npm run unpack", [], {
       cwd: "./node_modules/xnbcli",
       shell: true,
     });
-    unpack.stdout.on("data", (data) => log(data.toString()));
+    unpack.stdout.on("data", (data) => logRaw(data.toString()));
     unpack.stderr.on("data", (data) => reject(data.toString()));
     unpack.on("close", (code) => {
       if (code !== 0) {
@@ -75,25 +64,23 @@ async function generateAnimationData() {
 
 async function unpackItemsAndAnimations() {
   try {
-    console.log(
-      chalk.magenta("Copy {Items,Animations}/*.xnb to pack directory")
-    );
+    log("Copy {Items,Animations}/*.xnb to pack directory");
     await fse.remove(SFD_DIR);
     await fse.copy(SFD_ITEM_DIR, path.join(PACK_DIR, "Result/Items"));
     await fse.copy(SFD_ANI_DIR, path.join(PACK_DIR, "Result/Animations"));
 
-    console.log(chalk.magenta("Start unpacking..."));
+    log("Start unpacking...");
     await unpack();
 
-    console.log(chalk.magenta("Finish unpacking. Cleaning up..."));
+    log("Finish unpacking. Cleaning up...");
     await fse.copy(path.join(UNPACK_DIR, "Result"), SFD_DIR);
     await fse.remove(path.join(PACK_DIR, "Result"));
     await fse.remove(path.join(UNPACK_DIR, "Result"));
 
-    console.log(chalk.magenta("Generate item data..."));
+    log("Generate item data...");
     await generateItemData();
 
-    console.log(chalk.magenta("Generate animation data..."));
+    log("Generate animation data...");
     await generateAnimationData();
   } catch (e) {
     console.error(e);
@@ -101,7 +88,12 @@ async function unpackItemsAndAnimations() {
   }
 }
 
+/**
+ * @param {any[]} itemArr
+ */
 function computeGender(itemArr) {
+  log("computing gender for items...");
+
   const male = 0,
     female = 1,
     both = 2;
@@ -143,6 +135,64 @@ function computeGender(itemArr) {
   }
 }
 
+/**
+ * @param {any[]} itemArr
+ * color level ranges from 0 to 2. it's the number of colors
+ * that can be applied to the item texture
+ */
+async function computeColorLevel(itemArr) {
+  log("computing color level for items...");
+
+  for (let i = 0; i < itemArr.length; i++) {
+    itemArr[i].colorSlot = [false, false, false];
+  }
+
+  const shadeValues = new Set([255, 192, 128]);
+
+  for (let i1 = 0; i1 < itemArr.length; i1++) {
+    const item = itemArr[i1];
+    const { id, equipmentLayer, fileName } = item;
+    const layer = getLayerText(equipmentLayer);
+
+    for (let i2 = 0; i2 < item.data.length; i2++) {
+      const type = i2;
+
+      for (let i3 = 0; i3 < item.data[type].length; i3++) {
+        const localId = item.data[type][i3];
+
+        const imageFileName = `${fileName}_${type}_${localId}.png`;
+        const imagePath = path.join(
+          SFD_DIR,
+          `Items/${layer}/${id}/${imageFileName}`
+        );
+        log(`computing color level for ${imageFileName}...`);
+
+        for (let colorSlot = 0; colorSlot < 3; colorSlot++) {
+          await readImage(imagePath, (color) => {
+            const [r, g, b] = color;
+
+            if (colorSlot === 0 && shadeValues.has(r) && g === 0 && b === 0) {
+              item.colorSlot[0] = true;
+            }
+            if (colorSlot === 1 && shadeValues.has(g) && r === 0 && b === 0) {
+              item.colorSlot[1] = true;
+            }
+            if (colorSlot === 2 && shadeValues.has(b) && r === 0 && g === 0) {
+              item.colorSlot[2] = true;
+            }
+          });
+        }
+      }
+    }
+  }
+
+  await fse.outputJson(
+    path.join(PROJECT_ROOT, "scripts/itemArr2.json"),
+    itemArr,
+    { spaces: 2 }
+  );
+}
+
 async function generateItemData() {
   return new Promise((resolve, reject) => {
     glob(path.join(SFD_DIR, "Items/**/*.json"), async (error, paths) => {
@@ -164,6 +214,10 @@ async function generateItemData() {
         const id = item.id;
         const data = [];
 
+        if (item.id.startsWith("HurtLevel")) {
+          continue;
+        }
+
         item.export.data.forEach((itemPart) => {
           const { type, textures } = itemPart;
 
@@ -184,7 +238,13 @@ async function generateItemData() {
         ids.push(`'${id}'`);
       }
 
-      computeGender(Object.values(items));
+      const itemArr = Object.values(items);
+
+      // item array for debugging purpose only
+      await fse.outputJson(path.join(SFD_DIR, "items.json"), itemArr);
+
+      computeGender(itemArr);
+      await computeColorLevel(itemArr);
 
       await fse.outputFile(
         resultPath,

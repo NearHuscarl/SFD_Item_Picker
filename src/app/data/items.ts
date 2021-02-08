@@ -11,7 +11,8 @@ export type Item = {
   canScript: boolean;
   colorPalette: PaletteName;
   data: number[][];
-  gender: 0 | 1 | 2;
+  gender: Gender;
+  colorSlot: [primary: boolean, secondary: boolean, tertiary: boolean];
 };
 
 export type Gender = 0 | 1 | 2;
@@ -33,6 +34,7 @@ export const nullItem: Item = {
   colorPalette: "Clothing1",
   data: [[], [], [], [], [], []],
   gender: genders.both,
+  colorSlot: [false, false, false],
 };
 
 // @ts-ignore: nullItem is added right below
@@ -48,6 +50,7 @@ export const items: Record<ItemID, Item> = {
     colorPalette: "ClothingGoggles1",
     data: [[0, 1, 2, 3, 4, 5, 7, 8], [], [], [], [], []],
     gender: 2,
+    colorSlot: [false, true, false],
   },
   Armband_fem: {
     gameName: "Armband",
@@ -60,6 +63,7 @@ export const items: Record<ItemID, Item> = {
     colorPalette: "ClothingGoggles1",
     data: [[], [], [0, 1, 2, 3, 5, 6, 8, 14, 15, 16], [9, 10, 11], [], []],
     gender: 1,
+    colorSlot: [true, false, false],
   },
   Armband: {
     gameName: "Armband",
@@ -72,6 +76,7 @@ export const items: Record<ItemID, Item> = {
     colorPalette: "Clothing1",
     data: [[], [], [0, 1, 2, 3, 5, 6, 8, 13, 16], [], [], []],
     gender: 0,
+    colorSlot: [true, false, false],
   },
   Balaclava: {
     gameName: "Balaclava",
@@ -84,6 +89,7 @@ export const items: Record<ItemID, Item> = {
     colorPalette: "Clothing1",
     data: [[0, 1, 2, 3, 4, 5, 6, 7, 8], [], [], [], [], []],
     gender: 2,
+    colorSlot: [true, false, false],
   },
   Cigar: {
     gameName: "Cigar",
@@ -96,6 +102,7 @@ export const items: Record<ItemID, Item> = {
     colorPalette: "ClothingDark1",
     data: [[0, 1, 2, 3, 4, 5, 7, 8], [], [], [], [], []],
     gender: 2,
+    colorSlot: [true, false, false],
   },
   ClownMakeup_fem: {
     gameName: "Clown Makeup",
@@ -108,6 +115,7 @@ export const items: Record<ItemID, Item> = {
     colorPalette: "Clothing1",
     data: [[0, 1, 2, 3, 4, 5, 6, 7, 8], [], [], [], [], []],
     gender: 1,
+    colorSlot: [true, false, false],
   },
   ClownMakeup: {
     gameName: "Clown Makeup",
@@ -120,6 +128,7 @@ export const items: Record<ItemID, Item> = {
     colorPalette: "Clothing1",
     data: [[0, 1, 2, 3, 4, 5, 6, 7, 8], [], [], [], [], []],
     gender: 0,
+    colorSlot: [true, false, false],
   },
   DogTag: {
     gameName: "Dog Tag",
@@ -132,6 +141,7 @@ export const items: Record<ItemID, Item> = {
     colorPalette: "Clothing1",
     data: [[], [0, 1, 2, 3, 6, 8, 9], [], [9, 10, 11], [], []],
     gender: 2,
+    colorSlot: [false, false, false],
   },
   DominoMask: {
     gameName: "Domino Mask",
@@ -144,6 +154,7 @@ export const items: Record<ItemID, Item> = {
     colorPalette: "Clothing1",
     data: [[0, 1, 2, 3, 4, 5, 7, 8], [], [], [], [], []],
     gender: 2,
+    colorSlot: [false, true, false],
   },
   Earpiece: {
     gameName: "Earpiece",
@@ -156,6 +167,7 @@ export const items: Record<ItemID, Item> = {
     colorPalette: "Clothing1",
     data: [[0, 1, 2, 3, 4, 5, 7, 8], [], [], [], [], []],
     gender: 2,
+    colorSlot: [false, false, false],
   },
   GasMask: {
     gameName: "Gas Mask",
@@ -168,6 +180,7 @@ export const items: Record<ItemID, Item> = {
     colorPalette: "ClothingGoggles1",
     data: [[0, 1, 2, 3, 4, 5, 6, 7, 8], [], [], [], [], []],
     gender: 2,
+    colorSlot: [true, true, false],
   },
   GasMask2: {
     gameName: "Gas Mask 2",
@@ -180,6 +193,7 @@ export const items: Record<ItemID, Item> = {
     colorPalette: "ClothingGoggles1",
     data: [[0, 1, 2, 3, 4, 5, 6, 7, 8], [], [], [], [], []],
     gender: 2,
+    colorSlot: [true, true, false],
   },
   Glasses: {
     gameName: "Glasses",
@@ -192,6 +206,7 @@ export const items: Record<ItemID, Item> = {
     colorPalette: "Clothing1",
     data: [[0, 1, 2, 3, 4, 5, 7, 8], [], [], [], [], []],
     gender: 2,
+    colorSlot: [true, true, false],
   },
   GoalieMask: {
     gameName: "Goalie Mask",
@@ -204,6 +219,7 @@ export const items: Record<ItemID, Item> = {
     colorPalette: "Clothing1",
     data: [[0, 1, 2, 3, 4, 5, 6, 7, 8], [], [], [], [], []],
     gender: 2,
+    colorSlot: [false, false, false],
   },
   Goggles: {
     gameName: "Goggles",
@@ -216,6 +232,7 @@ export const items: Record<ItemID, Item> = {
     colorPalette: "ClothingGoggles1",
     data: [[0, 1, 2, 3, 4, 5, 7, 8], [], [], [], [], []],
     gender: 2,
+    colorSlot: [true, true, false],
   },
   Mask: {
     gameName: "Mask",
@@ -228,6 +245,7 @@ export const items: Record<ItemID, Item> = {
     colorPalette: "Clothing1",
     data: [[0, 1, 2, 3, 4, 5, 6, 7, 8], [], [], [], [], []],
     gender: 2,
+    colorSlot: [true, false, false],
   },
   Moustache: {
     gameName: "Moustache",
@@ -240,6 +258,7 @@ export const items: Record<ItemID, Item> = {
     colorPalette: "Clothing1",
     data: [[0, 1, 2, 4, 5, 7, 8], [], [], [9, 10, 11], [], []],
     gender: 2,
+    colorSlot: [true, false, false],
   },
   RestraintMask: {
     gameName: "Restraint Mask",
@@ -252,6 +271,7 @@ export const items: Record<ItemID, Item> = {
     colorPalette: "Clothing1",
     data: [[0, 1, 2, 3, 4, 5, 6, 7, 8], [], [], [], [], []],
     gender: 2,
+    colorSlot: [true, false, false],
   },
   SantaMask: {
     gameName: "Santa Mask",
@@ -264,6 +284,7 @@ export const items: Record<ItemID, Item> = {
     colorPalette: "Clothing1",
     data: [[0, 1, 2, 3, 4, 5, 7, 8], [], [], [], [], []],
     gender: 2,
+    colorSlot: [false, false, false],
   },
   Scarf: {
     gameName: "Scarf",
@@ -276,6 +297,7 @@ export const items: Record<ItemID, Item> = {
     colorPalette: "Clothing1",
     data: [[], [0, 1, 2, 3, 5, 6, 8, 9], [], [8], [], []],
     gender: 2,
+    colorSlot: [true, false, false],
   },
   SmallMoustache: {
     gameName: "Small Moustache",
@@ -288,6 +310,7 @@ export const items: Record<ItemID, Item> = {
     colorPalette: "Clothing1",
     data: [[0, 2, 3, 4, 7], [], [], [9, 10, 11], [], []],
     gender: 2,
+    colorSlot: [true, false, false],
   },
   StuddedLeatherMask: {
     gameName: "Studded Leather Mask",
@@ -300,6 +323,7 @@ export const items: Record<ItemID, Item> = {
     colorPalette: "Clothing1",
     data: [[0, 1, 2, 3, 4, 5, 6, 7, 8], [], [], [9, 10, 11], [], []],
     gender: 2,
+    colorSlot: [true, false, false],
   },
   SunGlasses: {
     gameName: "Sunglasses",
@@ -312,6 +336,7 @@ export const items: Record<ItemID, Item> = {
     colorPalette: "ClothingGoggles1",
     data: [[0, 1, 2, 3, 4, 5, 7, 8], [], [], [], [], []],
     gender: 2,
+    colorSlot: [false, true, false],
   },
   Vizor: {
     gameName: "Vizor",
@@ -324,6 +349,7 @@ export const items: Record<ItemID, Item> = {
     colorPalette: "ClothingGoggles1",
     data: [[0, 1, 2, 3, 4, 5, 7, 8], [], [], [], [], []],
     gender: 2,
+    colorSlot: [true, true, false],
   },
   AmmoBelt_fem: {
     gameName: "Ammo Belt",
@@ -336,6 +362,7 @@ export const items: Record<ItemID, Item> = {
     colorPalette: "ClothingDark1",
     data: [[], [0, 1, 2, 3, 4, 5, 6, 8, 9], [], [9, 10, 11], [], []],
     gender: 1,
+    colorSlot: [true, false, false],
   },
   AmmoBelt: {
     gameName: "Ammo Belt",
@@ -348,6 +375,7 @@ export const items: Record<ItemID, Item> = {
     colorPalette: "ClothingDark1",
     data: [[], [0, 1, 2, 3, 4, 5, 6, 8, 9], [], [], [], []],
     gender: 0,
+    colorSlot: [true, false, false],
   },
   Apron_fem: {
     gameName: "Apron",
@@ -367,6 +395,7 @@ export const items: Record<ItemID, Item> = {
       [],
     ],
     gender: 1,
+    colorSlot: [true, false, false],
   },
   Apron: {
     gameName: "Apron",
@@ -386,6 +415,7 @@ export const items: Record<ItemID, Item> = {
       [],
     ],
     gender: 0,
+    colorSlot: [true, false, false],
   },
   AviatorJacket_fem: {
     gameName: "Aviator Jacket",
@@ -405,6 +435,7 @@ export const items: Record<ItemID, Item> = {
       [],
     ],
     gender: 1,
+    colorSlot: [true, true, false],
   },
   AviatorJacket: {
     gameName: "Aviator Jacket",
@@ -424,6 +455,7 @@ export const items: Record<ItemID, Item> = {
       [],
     ],
     gender: 0,
+    colorSlot: [true, true, false],
   },
   BlazerWithShirt_fem: {
     gameName: "Blazer with Shirt",
@@ -443,6 +475,7 @@ export const items: Record<ItemID, Item> = {
       [],
     ],
     gender: 1,
+    colorSlot: [true, true, false],
   },
   BlazerWithShirt: {
     gameName: "Blazer with Shirt",
@@ -462,6 +495,7 @@ export const items: Record<ItemID, Item> = {
       [],
     ],
     gender: 0,
+    colorSlot: [true, true, false],
   },
   Coat_fem: {
     gameName: "Coat",
@@ -481,6 +515,7 @@ export const items: Record<ItemID, Item> = {
       [0, 1],
     ],
     gender: 1,
+    colorSlot: [true, true, false],
   },
   Coat: {
     gameName: "Coat",
@@ -500,6 +535,7 @@ export const items: Record<ItemID, Item> = {
       [0, 1],
     ],
     gender: 0,
+    colorSlot: [true, true, false],
   },
   CoatBlack_fem: {
     gameName: "Coat (Black)",
@@ -519,6 +555,7 @@ export const items: Record<ItemID, Item> = {
       [0, 1],
     ],
     gender: 1,
+    colorSlot: [true, true, false],
   },
   CoatBlack: {
     gameName: "Coat (Black)",
@@ -538,6 +575,7 @@ export const items: Record<ItemID, Item> = {
       [0, 1],
     ],
     gender: 0,
+    colorSlot: [true, true, false],
   },
   GrenadeBelt_fem: {
     gameName: "Grenade Belt",
@@ -550,6 +588,7 @@ export const items: Record<ItemID, Item> = {
     colorPalette: "Clothing1",
     data: [[], [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], [], [9, 10, 11], [], []],
     gender: 1,
+    colorSlot: [false, false, false],
   },
   GrenadeBelt: {
     gameName: "Grenade Belt",
@@ -562,6 +601,7 @@ export const items: Record<ItemID, Item> = {
     colorPalette: "Clothing1",
     data: [[], [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], [], [], [], []],
     gender: 0,
+    colorSlot: [false, false, false],
   },
   Jacket_fem: {
     gameName: "Jacket",
@@ -581,6 +621,7 @@ export const items: Record<ItemID, Item> = {
       [],
     ],
     gender: 1,
+    colorSlot: [true, true, false],
   },
   Jacket: {
     gameName: "Jacket",
@@ -600,6 +641,7 @@ export const items: Record<ItemID, Item> = {
       [],
     ],
     gender: 0,
+    colorSlot: [true, true, false],
   },
   JacketBlack_fem: {
     gameName: "Jacket (Black)",
@@ -619,6 +661,7 @@ export const items: Record<ItemID, Item> = {
       [],
     ],
     gender: 1,
+    colorSlot: [true, true, false],
   },
   JacketBlack: {
     gameName: "Jacket (Black)",
@@ -638,6 +681,7 @@ export const items: Record<ItemID, Item> = {
       [],
     ],
     gender: 0,
+    colorSlot: [true, true, false],
   },
   KevlarVest_fem: {
     gameName: "Kevlar Vest",
@@ -650,6 +694,7 @@ export const items: Record<ItemID, Item> = {
     colorPalette: "ClothingDark1",
     data: [[], [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], [], [9, 10, 11], [], []],
     gender: 1,
+    colorSlot: [true, false, false],
   },
   KevlarVest: {
     gameName: "Kevlar Vest",
@@ -662,6 +707,7 @@ export const items: Record<ItemID, Item> = {
     colorPalette: "ClothingDark1",
     data: [[], [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], [], [], [], []],
     gender: 0,
+    colorSlot: [true, false, false],
   },
   MetroLawJacket_fem: {
     gameName: "MetroLaw Jacket",
@@ -681,6 +727,7 @@ export const items: Record<ItemID, Item> = {
       [],
     ],
     gender: 1,
+    colorSlot: [true, true, false],
   },
   MetroLawJacket: {
     gameName: "MetroLaw Jacket",
@@ -700,6 +747,7 @@ export const items: Record<ItemID, Item> = {
       [],
     ],
     gender: 0,
+    colorSlot: [true, true, false],
   },
   MilitaryJacket_fem: {
     gameName: "Military Jacket",
@@ -719,6 +767,7 @@ export const items: Record<ItemID, Item> = {
       [],
     ],
     gender: 1,
+    colorSlot: [true, true, false],
   },
   MilitaryJacket: {
     gameName: "Military Jacket",
@@ -738,6 +787,7 @@ export const items: Record<ItemID, Item> = {
       [],
     ],
     gender: 0,
+    colorSlot: [true, true, false],
   },
   OfficerJacket_fem: {
     gameName: "Officer's Jacket",
@@ -757,6 +807,7 @@ export const items: Record<ItemID, Item> = {
       [],
     ],
     gender: 1,
+    colorSlot: [true, true, false],
   },
   OfficerJacket: {
     gameName: "Officer's Jacket",
@@ -776,6 +827,7 @@ export const items: Record<ItemID, Item> = {
       [],
     ],
     gender: 0,
+    colorSlot: [true, true, false],
   },
   Poncho_fem: {
     gameName: "Poncho",
@@ -795,6 +847,7 @@ export const items: Record<ItemID, Item> = {
       [],
     ],
     gender: 1,
+    colorSlot: [true, true, false],
   },
   Poncho: {
     gameName: "Poncho",
@@ -807,6 +860,7 @@ export const items: Record<ItemID, Item> = {
     colorPalette: "Clothing1",
     data: [[], [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], [0, 1, 2, 3], [], [], []],
     gender: 0,
+    colorSlot: [true, true, false],
   },
   Poncho2_fem: {
     gameName: "Poncho 2",
@@ -826,6 +880,7 @@ export const items: Record<ItemID, Item> = {
       [],
     ],
     gender: 1,
+    colorSlot: [true, true, false],
   },
   Poncho2: {
     gameName: "Poncho 2",
@@ -838,6 +893,7 @@ export const items: Record<ItemID, Item> = {
     colorPalette: "Clothing1",
     data: [[], [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], [0, 1, 2, 3], [], [], []],
     gender: 0,
+    colorSlot: [true, true, false],
   },
   Robe_fem: {
     gameName: "Robe",
@@ -879,6 +935,7 @@ export const items: Record<ItemID, Item> = {
       [],
     ],
     gender: 1,
+    colorSlot: [true, false, false],
   },
   Robe: {
     gameName: "Robe",
@@ -920,6 +977,7 @@ export const items: Record<ItemID, Item> = {
       [],
     ],
     gender: 0,
+    colorSlot: [true, false, false],
   },
   ShoulderHolster_fem: {
     gameName: "Shoulder Holster",
@@ -932,6 +990,7 @@ export const items: Record<ItemID, Item> = {
     colorPalette: "ClothingDark1",
     data: [[], [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], [], [9, 10, 11], [], []],
     gender: 1,
+    colorSlot: [true, true, false],
   },
   ShoulderHolster: {
     gameName: "Shoulder Holster",
@@ -944,6 +1003,7 @@ export const items: Record<ItemID, Item> = {
     colorPalette: "ClothingDark1",
     data: [[], [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], [], [], [], []],
     gender: 0,
+    colorSlot: [true, true, false],
   },
   StripedSuitJacket_fem: {
     gameName: "Striped Suit Jacket",
@@ -963,6 +1023,7 @@ export const items: Record<ItemID, Item> = {
       [],
     ],
     gender: 1,
+    colorSlot: [true, false, false],
   },
   StripedSuitJacket: {
     gameName: "Striped Suit Jacket",
@@ -982,6 +1043,7 @@ export const items: Record<ItemID, Item> = {
       [],
     ],
     gender: 0,
+    colorSlot: [true, false, false],
   },
   StuddedJacket_fem: {
     gameName: "Studded Jacket",
@@ -1001,6 +1063,7 @@ export const items: Record<ItemID, Item> = {
       [],
     ],
     gender: 1,
+    colorSlot: [true, true, false],
   },
   StuddedJacket: {
     gameName: "Studded Jacket",
@@ -1020,6 +1083,7 @@ export const items: Record<ItemID, Item> = {
       [],
     ],
     gender: 0,
+    colorSlot: [true, true, false],
   },
   StuddedVest_fem: {
     gameName: "Studded Vest",
@@ -1039,6 +1103,7 @@ export const items: Record<ItemID, Item> = {
       [],
     ],
     gender: 1,
+    colorSlot: [true, true, false],
   },
   StuddedVest: {
     gameName: "Studded Vest",
@@ -1051,6 +1116,7 @@ export const items: Record<ItemID, Item> = {
     colorPalette: "ClothingDark1",
     data: [[], [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], [0, 1, 2, 3], [], [], []],
     gender: 0,
+    colorSlot: [true, true, false],
   },
   SuitJacket_fem: {
     gameName: "Suit Jacket",
@@ -1070,6 +1136,7 @@ export const items: Record<ItemID, Item> = {
       [],
     ],
     gender: 1,
+    colorSlot: [true, false, false],
   },
   SuitJacket: {
     gameName: "Suit Jacket",
@@ -1089,6 +1156,7 @@ export const items: Record<ItemID, Item> = {
       [],
     ],
     gender: 0,
+    colorSlot: [true, false, false],
   },
   SuitJacketBlack_fem: {
     gameName: "Suit Jacket (Black)",
@@ -1108,6 +1176,7 @@ export const items: Record<ItemID, Item> = {
       [],
     ],
     gender: 1,
+    colorSlot: [true, false, false],
   },
   SuitJacketBlack: {
     gameName: "Suit Jacket (Black)",
@@ -1127,6 +1196,7 @@ export const items: Record<ItemID, Item> = {
       [],
     ],
     gender: 0,
+    colorSlot: [true, false, false],
   },
   Suspenders_fem: {
     gameName: "Suspenders",
@@ -1139,6 +1209,7 @@ export const items: Record<ItemID, Item> = {
     colorPalette: "ClothingDark1",
     data: [[], [0, 1, 2, 3, 4, 5, 6, 8, 9], [], [9, 10, 11], [], []],
     gender: 1,
+    colorSlot: [true, true, false],
   },
   Suspenders: {
     gameName: "Suspenders",
@@ -1151,6 +1222,7 @@ export const items: Record<ItemID, Item> = {
     colorPalette: "ClothingDark1",
     data: [[], [0, 1, 2, 3, 4, 5, 6, 8, 9], [], [], [], []],
     gender: 0,
+    colorSlot: [true, true, false],
   },
   Vest_fem: {
     gameName: "Vest",
@@ -1170,6 +1242,7 @@ export const items: Record<ItemID, Item> = {
       [],
     ],
     gender: 1,
+    colorSlot: [true, true, false],
   },
   Vest: {
     gameName: "Vest",
@@ -1182,6 +1255,7 @@ export const items: Record<ItemID, Item> = {
     colorPalette: "Clothing1",
     data: [[], [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], [0, 1, 2, 3], [], [], []],
     gender: 0,
+    colorSlot: [true, true, false],
   },
   VestBlack_fem: {
     gameName: "Vest (Black)",
@@ -1201,6 +1275,7 @@ export const items: Record<ItemID, Item> = {
       [],
     ],
     gender: 1,
+    colorSlot: [true, true, false],
   },
   VestBlack: {
     gameName: "Vest (Black)",
@@ -1213,6 +1288,7 @@ export const items: Record<ItemID, Item> = {
     colorPalette: "ClothingDark1",
     data: [[], [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], [0, 1, 2, 3], [], [], []],
     gender: 0,
+    colorSlot: [true, true, false],
   },
   BodyArmor_fem: {
     gameName: "Body Armor",
@@ -1232,6 +1308,7 @@ export const items: Record<ItemID, Item> = {
       [],
     ],
     gender: 1,
+    colorSlot: [true, false, false],
   },
   BodyArmor: {
     gameName: "Body Armor",
@@ -1251,6 +1328,7 @@ export const items: Record<ItemID, Item> = {
       [],
     ],
     gender: 0,
+    colorSlot: [true, false, false],
   },
   HawaiiShirt_fem: {
     gameName: "Hawaii Shirt",
@@ -1270,6 +1348,7 @@ export const items: Record<ItemID, Item> = {
       [],
     ],
     gender: 1,
+    colorSlot: [true, true, false],
   },
   HawaiiShirt: {
     gameName: "Hawaii Shirt",
@@ -1289,6 +1368,7 @@ export const items: Record<ItemID, Item> = {
       [],
     ],
     gender: 0,
+    colorSlot: [true, true, false],
   },
   LeatherJacket_fem: {
     gameName: "Leather Jacket",
@@ -1308,6 +1388,7 @@ export const items: Record<ItemID, Item> = {
       [],
     ],
     gender: 1,
+    colorSlot: [true, true, false],
   },
   LeatherJacket: {
     gameName: "Leather Jacket",
@@ -1327,6 +1408,7 @@ export const items: Record<ItemID, Item> = {
       [],
     ],
     gender: 0,
+    colorSlot: [true, true, false],
   },
   LeatherJacketBlack_fem: {
     gameName: "Leather Jacket (black)",
@@ -1346,6 +1428,7 @@ export const items: Record<ItemID, Item> = {
       [],
     ],
     gender: 1,
+    colorSlot: [true, true, false],
   },
   LeatherJacketBlack: {
     gameName: "Leather Jacket (black)",
@@ -1365,6 +1448,7 @@ export const items: Record<ItemID, Item> = {
       [],
     ],
     gender: 0,
+    colorSlot: [true, true, false],
   },
   LumberjackShirt_fem: {
     gameName: "Lumberjack Shirt",
@@ -1384,6 +1468,7 @@ export const items: Record<ItemID, Item> = {
       [],
     ],
     gender: 1,
+    colorSlot: [true, true, false],
   },
   LumberjackShirt: {
     gameName: "Lumberjack Shirt",
@@ -1403,6 +1488,7 @@ export const items: Record<ItemID, Item> = {
       [],
     ],
     gender: 0,
+    colorSlot: [true, true, false],
   },
   LumberjackShirt2_fem: {
     gameName: "Short-sleeved Lumberjack Shirt",
@@ -1422,6 +1508,7 @@ export const items: Record<ItemID, Item> = {
       [],
     ],
     gender: 1,
+    colorSlot: [true, true, false],
   },
   LumberjackShirt2: {
     gameName: "Short-sleeved Lumberjack Shirt",
@@ -1441,6 +1528,7 @@ export const items: Record<ItemID, Item> = {
       [],
     ],
     gender: 0,
+    colorSlot: [true, true, false],
   },
   MilitaryShirt_fem: {
     gameName: "Military Shirt",
@@ -1460,6 +1548,7 @@ export const items: Record<ItemID, Item> = {
       [],
     ],
     gender: 1,
+    colorSlot: [true, true, false],
   },
   MilitaryShirt: {
     gameName: "Military Shirt",
@@ -1479,6 +1568,7 @@ export const items: Record<ItemID, Item> = {
       [],
     ],
     gender: 0,
+    colorSlot: [true, true, false],
   },
   PoliceShirt_fem: {
     gameName: "Police Shirt",
@@ -1498,6 +1588,7 @@ export const items: Record<ItemID, Item> = {
       [],
     ],
     gender: 1,
+    colorSlot: [true, false, false],
   },
   PoliceShirt: {
     gameName: "Police Shirt",
@@ -1517,6 +1608,7 @@ export const items: Record<ItemID, Item> = {
       [],
     ],
     gender: 0,
+    colorSlot: [true, false, false],
   },
   Shirt_fem: {
     gameName: "Shirt",
@@ -1536,6 +1628,7 @@ export const items: Record<ItemID, Item> = {
       [],
     ],
     gender: 1,
+    colorSlot: [true, false, false],
   },
   Shirt: {
     gameName: "Shirt",
@@ -1555,6 +1648,7 @@ export const items: Record<ItemID, Item> = {
       [],
     ],
     gender: 0,
+    colorSlot: [true, false, false],
   },
   ShirtWithBowtie_fem: {
     gameName: "Shirt With Bowtie",
@@ -1574,6 +1668,7 @@ export const items: Record<ItemID, Item> = {
       [],
     ],
     gender: 1,
+    colorSlot: [true, true, false],
   },
   ShirtWithBowtie: {
     gameName: "Shirt With Bowtie",
@@ -1593,6 +1688,7 @@ export const items: Record<ItemID, Item> = {
       [],
     ],
     gender: 0,
+    colorSlot: [true, true, false],
   },
   ShirtWithTie_fem: {
     gameName: "Shirt With Tie",
@@ -1612,6 +1708,7 @@ export const items: Record<ItemID, Item> = {
       [],
     ],
     gender: 1,
+    colorSlot: [true, true, false],
   },
   ShirtWithTie: {
     gameName: "Shirt With Tie",
@@ -1631,6 +1728,7 @@ export const items: Record<ItemID, Item> = {
       [],
     ],
     gender: 0,
+    colorSlot: [true, true, false],
   },
   SleevelessShirt_fem: {
     gameName: "Sleeveless Shirt",
@@ -1643,6 +1741,7 @@ export const items: Record<ItemID, Item> = {
     colorPalette: "Clothing1",
     data: [[], [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], [], [9, 10, 11], [], []],
     gender: 1,
+    colorSlot: [true, false, false],
   },
   SleevelessShirt: {
     gameName: "Sleeveless Shirt",
@@ -1655,6 +1754,7 @@ export const items: Record<ItemID, Item> = {
     colorPalette: "Clothing1",
     data: [[], [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], [], [], [], []],
     gender: 0,
+    colorSlot: [true, false, false],
   },
   SleevelessShirtBlack_fem: {
     gameName: "Sleeveless Shirt (Black)",
@@ -1667,6 +1767,7 @@ export const items: Record<ItemID, Item> = {
     colorPalette: "ClothingDark1",
     data: [[], [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], [], [9, 10, 11], [], []],
     gender: 1,
+    colorSlot: [true, false, false],
   },
   SleevelessShirtBlack: {
     gameName: "Sleeveless Shirt (Black)",
@@ -1679,6 +1780,7 @@ export const items: Record<ItemID, Item> = {
     colorPalette: "ClothingDark1",
     data: [[], [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], [], [], [], []],
     gender: 0,
+    colorSlot: [true, false, false],
   },
   StuddedLeatherSuit_fem: {
     gameName: "Studded Leather Suit",
@@ -1698,6 +1800,7 @@ export const items: Record<ItemID, Item> = {
       [],
     ],
     gender: 1,
+    colorSlot: [true, false, false],
   },
   StuddedLeatherSuit: {
     gameName: "Studded Leather Suit",
@@ -1717,6 +1820,7 @@ export const items: Record<ItemID, Item> = {
       [],
     ],
     gender: 0,
+    colorSlot: [true, false, false],
   },
   Sweater_fem: {
     gameName: "Sweater",
@@ -1736,6 +1840,7 @@ export const items: Record<ItemID, Item> = {
       [],
     ],
     gender: 1,
+    colorSlot: [true, false, false],
   },
   Sweater: {
     gameName: "Sweater",
@@ -1755,6 +1860,7 @@ export const items: Record<ItemID, Item> = {
       [],
     ],
     gender: 0,
+    colorSlot: [true, false, false],
   },
   SweaterBlack_fem: {
     gameName: "Sweater (Black)",
@@ -1774,6 +1880,7 @@ export const items: Record<ItemID, Item> = {
       [],
     ],
     gender: 1,
+    colorSlot: [true, false, false],
   },
   SweaterBlack: {
     gameName: "Sweater (Black)",
@@ -1793,6 +1900,7 @@ export const items: Record<ItemID, Item> = {
       [],
     ],
     gender: 0,
+    colorSlot: [true, false, false],
   },
   TornShirt_fem: {
     gameName: "Torn Shirt",
@@ -1812,6 +1920,7 @@ export const items: Record<ItemID, Item> = {
       [],
     ],
     gender: 1,
+    colorSlot: [true, false, false],
   },
   TornShirt: {
     gameName: "Torn Shirt",
@@ -1831,6 +1940,7 @@ export const items: Record<ItemID, Item> = {
       [],
     ],
     gender: 0,
+    colorSlot: [true, false, false],
   },
   TrainingShirt_fem: {
     gameName: "Training Shirt",
@@ -1850,6 +1960,7 @@ export const items: Record<ItemID, Item> = {
       [],
     ],
     gender: 1,
+    colorSlot: [true, false, false],
   },
   TrainingShirt: {
     gameName: "Training Shirt",
@@ -1869,6 +1980,7 @@ export const items: Record<ItemID, Item> = {
       [],
     ],
     gender: 0,
+    colorSlot: [true, false, false],
   },
   TShirt_fem: {
     gameName: "T-shirt",
@@ -1888,6 +2000,7 @@ export const items: Record<ItemID, Item> = {
       [],
     ],
     gender: 1,
+    colorSlot: [true, false, false],
   },
   TShirt: {
     gameName: "T-shirt",
@@ -1907,6 +2020,7 @@ export const items: Record<ItemID, Item> = {
       [],
     ],
     gender: 0,
+    colorSlot: [true, false, false],
   },
   UnbuttonedShirt_fem: {
     gameName: "Unbuttoned Shirt",
@@ -1926,6 +2040,7 @@ export const items: Record<ItemID, Item> = {
       [],
     ],
     gender: 1,
+    colorSlot: [true, false, false],
   },
   UnbuttonedShirt: {
     gameName: "Unbuttoned Shirt",
@@ -1945,6 +2060,7 @@ export const items: Record<ItemID, Item> = {
       [],
     ],
     gender: 0,
+    colorSlot: [true, false, false],
   },
   Boots: {
     gameName: "Boots",
@@ -1964,6 +2080,7 @@ export const items: Record<ItemID, Item> = {
       [],
     ],
     gender: 2,
+    colorSlot: [true, false, false],
   },
   BootsBlack: {
     gameName: "Boots (black)",
@@ -1983,6 +2100,7 @@ export const items: Record<ItemID, Item> = {
       [],
     ],
     gender: 2,
+    colorSlot: [true, false, false],
   },
   HighHeels: {
     gameName: "High Heels",
@@ -2002,6 +2120,7 @@ export const items: Record<ItemID, Item> = {
       [],
     ],
     gender: 2,
+    colorSlot: [true, false, false],
   },
   RidingBoots: {
     gameName: "Riding Boots",
@@ -2021,6 +2140,7 @@ export const items: Record<ItemID, Item> = {
       [],
     ],
     gender: 2,
+    colorSlot: [true, false, false],
   },
   RidingBootsBlack: {
     gameName: "Riding Boots (black)",
@@ -2040,6 +2160,7 @@ export const items: Record<ItemID, Item> = {
       [],
     ],
     gender: 2,
+    colorSlot: [true, false, false],
   },
   Shoes: {
     gameName: "Shoes",
@@ -2059,6 +2180,7 @@ export const items: Record<ItemID, Item> = {
       [],
     ],
     gender: 2,
+    colorSlot: [true, false, false],
   },
   ShoesBlack: {
     gameName: "Shoes (black)",
@@ -2078,6 +2200,7 @@ export const items: Record<ItemID, Item> = {
       [],
     ],
     gender: 2,
+    colorSlot: [true, false, false],
   },
   Sneakers: {
     gameName: "Sneakers",
@@ -2097,6 +2220,7 @@ export const items: Record<ItemID, Item> = {
       [],
     ],
     gender: 2,
+    colorSlot: [true, true, false],
   },
   FingerlessGloves: {
     gameName: "Fingerless Gloves",
@@ -2109,6 +2233,7 @@ export const items: Record<ItemID, Item> = {
     colorPalette: "Clothing1",
     data: [[], [], [11, 12], [0, 1, 2, 3, 4, 5, 6, 7], [], []],
     gender: 2,
+    colorSlot: [true, false, false],
   },
   FingerlessGlovesBlack: {
     gameName: "Fingerless Gloves (Black)",
@@ -2121,6 +2246,7 @@ export const items: Record<ItemID, Item> = {
     colorPalette: "Clothing1",
     data: [[], [], [11, 12], [0, 1, 2, 3, 4, 5, 6, 7], [], []],
     gender: 2,
+    colorSlot: [true, false, false],
   },
   Gloves: {
     gameName: "Gloves",
@@ -2133,6 +2259,7 @@ export const items: Record<ItemID, Item> = {
     colorPalette: "Clothing1",
     data: [[], [], [11, 12], [0, 1, 2, 3, 4, 5, 6, 7], [], []],
     gender: 2,
+    colorSlot: [true, false, false],
   },
   GlovesBlack: {
     gameName: "Gloves (Black)",
@@ -2145,6 +2272,7 @@ export const items: Record<ItemID, Item> = {
     colorPalette: "Clothing1",
     data: [[], [], [11, 12], [0, 1, 2, 3, 4, 5, 6, 7], [], []],
     gender: 2,
+    colorSlot: [true, false, false],
   },
   SafetyGloves_fem: {
     gameName: "Safety Gloves",
@@ -2164,6 +2292,7 @@ export const items: Record<ItemID, Item> = {
       [],
     ],
     gender: 1,
+    colorSlot: [true, false, false],
   },
   SafetyGloves: {
     gameName: "Safety Gloves",
@@ -2183,6 +2312,7 @@ export const items: Record<ItemID, Item> = {
       [],
     ],
     gender: 0,
+    colorSlot: [true, false, false],
   },
   SafetyGlovesBlack_fem: {
     gameName: "Safety Gloves (Black)",
@@ -2202,6 +2332,7 @@ export const items: Record<ItemID, Item> = {
       [],
     ],
     gender: 1,
+    colorSlot: [true, false, false],
   },
   SafetyGlovesBlack: {
     gameName: "Safety Gloves (Black)",
@@ -2221,6 +2352,7 @@ export const items: Record<ItemID, Item> = {
       [],
     ],
     gender: 0,
+    colorSlot: [true, false, false],
   },
   Afro: {
     gameName: "Afro",
@@ -2233,6 +2365,7 @@ export const items: Record<ItemID, Item> = {
     colorPalette: "Clothing1",
     data: [[0, 1, 2, 3, 4, 5, 6, 7, 8], [], [], [9, 10, 11], [], []],
     gender: 2,
+    colorSlot: [true, false, false],
   },
   AviatorHat: {
     gameName: "Aviator Hat",
@@ -2245,6 +2378,7 @@ export const items: Record<ItemID, Item> = {
     colorPalette: "ClothingGoggles1",
     data: [[0, 1, 2, 3, 4, 5, 6, 7, 8], [], [], [], [], []],
     gender: 2,
+    colorSlot: [true, true, false],
   },
   AviatorHat2_fem: {
     gameName: "Aviator Hat 2",
@@ -2257,6 +2391,7 @@ export const items: Record<ItemID, Item> = {
     colorPalette: "ClothingGoggles1",
     data: [[0, 1, 2, 3, 4, 5, 6, 7, 8], [], [], [], [], []],
     gender: 1,
+    colorSlot: [true, true, false],
   },
   AviatorHat2: {
     gameName: "Aviator Hat 2",
@@ -2269,6 +2404,7 @@ export const items: Record<ItemID, Item> = {
     colorPalette: "ClothingGoggles1",
     data: [[0, 1, 2, 3, 4, 5, 6, 7, 8], [], [], [], [], []],
     gender: 0,
+    colorSlot: [true, true, false],
   },
   BaseballCap: {
     gameName: "Baseball Cap",
@@ -2281,6 +2417,7 @@ export const items: Record<ItemID, Item> = {
     colorPalette: "Clothing1",
     data: [[0, 1, 2, 3, 4, 5, 6, 7, 8], [], [], [], [], []],
     gender: 2,
+    colorSlot: [true, true, false],
   },
   Beret: {
     gameName: "Beret",
@@ -2293,6 +2430,7 @@ export const items: Record<ItemID, Item> = {
     colorPalette: "Clothing1",
     data: [[0, 1, 2, 3, 4, 5, 6, 7, 8], [], [], [], [], []],
     gender: 2,
+    colorSlot: [true, true, false],
   },
   BucketHat: {
     gameName: "Bucket Hat",
@@ -2305,6 +2443,7 @@ export const items: Record<ItemID, Item> = {
     colorPalette: "Clothing1",
     data: [[0, 1, 2, 3, 4, 5, 6, 7, 8], [], [], [], [], []],
     gender: 2,
+    colorSlot: [true, true, false],
   },
   Buzzcut: {
     gameName: "Buzzcut",
@@ -2317,6 +2456,7 @@ export const items: Record<ItemID, Item> = {
     colorPalette: "Clothing1",
     data: [[0, 1, 2, 3, 4, 5, 6, 7, 8], [], [], [9, 10, 11], [], []],
     gender: 2,
+    colorSlot: [true, false, false],
   },
   Cap: {
     gameName: "Cap",
@@ -2329,6 +2469,7 @@ export const items: Record<ItemID, Item> = {
     colorPalette: "Clothing1",
     data: [[0, 1, 2, 3, 4, 5, 6, 7, 8], [], [], [], [], []],
     gender: 2,
+    colorSlot: [true, false, false],
   },
   ChefHat: {
     gameName: "Chef Hat",
@@ -2341,6 +2482,7 @@ export const items: Record<ItemID, Item> = {
     colorPalette: "Clothing1",
     data: [[0, 1, 2, 3, 4, 5, 6, 7, 8], [], [], [], [], []],
     gender: 2,
+    colorSlot: [true, false, false],
   },
   CowboyHat: {
     gameName: "Cowboy Hat",
@@ -2353,6 +2495,7 @@ export const items: Record<ItemID, Item> = {
     colorPalette: "Clothing1",
     data: [[0, 1, 2, 3, 4, 5, 6, 7, 8], [], [], [], [], []],
     gender: 2,
+    colorSlot: [true, true, false],
   },
   Fedora: {
     gameName: "Fedora",
@@ -2365,6 +2508,7 @@ export const items: Record<ItemID, Item> = {
     colorPalette: "Clothing1",
     data: [[0, 1, 2, 3, 4, 5, 6, 7, 8], [], [], [], [], []],
     gender: 2,
+    colorSlot: [true, true, false],
   },
   Fedora2: {
     gameName: "Fedora 2",
@@ -2377,6 +2521,7 @@ export const items: Record<ItemID, Item> = {
     colorPalette: "Clothing1",
     data: [[0, 1, 2, 3, 4, 5, 6, 7, 8], [], [], [], [], []],
     gender: 2,
+    colorSlot: [true, true, false],
   },
   FedoraBlack: {
     gameName: "Fedora (Black)",
@@ -2389,6 +2534,7 @@ export const items: Record<ItemID, Item> = {
     colorPalette: "ClothingDark1",
     data: [[0, 1, 2, 3, 4, 5, 6, 7, 8], [], [], [], [], []],
     gender: 2,
+    colorSlot: [true, false, false],
   },
   Flatcap: {
     gameName: "Flatcap",
@@ -2401,6 +2547,7 @@ export const items: Record<ItemID, Item> = {
     colorPalette: "Clothing1",
     data: [[0, 1, 2, 3, 4, 5, 6, 7, 8], [], [], [], [], []],
     gender: 2,
+    colorSlot: [true, false, false],
   },
   FLDisguise: {
     gameName: "Glasses and Cigarette Holder",
@@ -2413,6 +2560,7 @@ export const items: Record<ItemID, Item> = {
     colorPalette: "Clothing1",
     data: [[0, 1, 2, 3, 4, 5, 7, 8], [], [], [], [], []],
     gender: 2,
+    colorSlot: [true, true, false],
   },
   GeneralHat: {
     gameName: "General's Hat",
@@ -2425,6 +2573,7 @@ export const items: Record<ItemID, Item> = {
     colorPalette: "Clothing1",
     data: [[0, 1, 2, 3, 4, 5, 6, 7, 8], [], [], [], [], []],
     gender: 2,
+    colorSlot: [true, false, false],
   },
   GermanHelmet: {
     gameName: "Stahlhelm",
@@ -2437,6 +2586,7 @@ export const items: Record<ItemID, Item> = {
     colorPalette: "Clothing1",
     data: [[0, 1, 2, 3, 4, 5, 6, 7, 8], [], [], [], [], []],
     gender: 2,
+    colorSlot: [true, false, false],
   },
   HazmatMask: {
     gameName: "Hazmat Mask",
@@ -2449,6 +2599,7 @@ export const items: Record<ItemID, Item> = {
     colorPalette: "Clothing1",
     data: [[0, 1, 2, 3, 4, 5, 6, 7, 8], [], [], [], [], []],
     gender: 2,
+    colorSlot: [true, true, false],
   },
   Headband: {
     gameName: "Headband",
@@ -2461,6 +2612,7 @@ export const items: Record<ItemID, Item> = {
     colorPalette: "Clothing1",
     data: [[0, 1, 2, 3, 4, 5, 6, 7, 8], [], [], [], [], []],
     gender: 2,
+    colorSlot: [true, false, false],
   },
   Helmet: {
     gameName: "Helmet",
@@ -2473,6 +2625,7 @@ export const items: Record<ItemID, Item> = {
     colorPalette: "Clothing1",
     data: [[0, 1, 2, 3, 4, 5, 6, 7, 8], [], [], [], [], []],
     gender: 2,
+    colorSlot: [true, false, false],
   },
   Helmet2: {
     gameName: "Helmet 2",
@@ -2485,6 +2638,7 @@ export const items: Record<ItemID, Item> = {
     colorPalette: "Clothing1",
     data: [[0, 1, 2, 3, 4, 5, 6, 7, 8], [], [], [], [], []],
     gender: 2,
+    colorSlot: [true, false, false],
   },
   Hood: {
     gameName: "Hood",
@@ -2504,6 +2658,7 @@ export const items: Record<ItemID, Item> = {
       [],
     ],
     gender: 2,
+    colorSlot: [true, false, false],
   },
   MetroLawGasMask: {
     gameName: "MetroLaw Gas Mask",
@@ -2516,6 +2671,7 @@ export const items: Record<ItemID, Item> = {
     colorPalette: "ClothingGoggles1",
     data: [[0, 1, 2, 3, 4, 5, 6, 7, 8], [], [], [], [], []],
     gender: 2,
+    colorSlot: [true, true, false],
   },
   MetroLawMask: {
     gameName: "MetroLaw Mask",
@@ -2528,6 +2684,7 @@ export const items: Record<ItemID, Item> = {
     colorPalette: "ClothingGoggles1",
     data: [[0, 1, 2, 3, 4, 5, 6, 7, 8], [], [], [], [], []],
     gender: 2,
+    colorSlot: [true, true, false],
   },
   Mohawk: {
     gameName: "Mohawk",
@@ -2540,6 +2697,7 @@ export const items: Record<ItemID, Item> = {
     colorPalette: "Clothing1",
     data: [[0, 1, 2, 3, 4, 5, 6, 7, 8], [], [], [9, 10, 11], [], []],
     gender: 2,
+    colorSlot: [true, false, false],
   },
   MotorcycleHelmet: {
     gameName: "Motorcycle Helmet",
@@ -2552,6 +2710,7 @@ export const items: Record<ItemID, Item> = {
     colorPalette: "Clothing1",
     data: [[0, 1, 2, 3, 4, 5, 6, 7, 8], [], [], [], [], []],
     gender: 2,
+    colorSlot: [true, true, false],
   },
   OfficerHat: {
     gameName: "Officer's Hat",
@@ -2564,6 +2723,7 @@ export const items: Record<ItemID, Item> = {
     colorPalette: "Clothing1",
     data: [[0, 1, 2, 3, 4, 5, 6, 7, 8], [], [], [], [], []],
     gender: 2,
+    colorSlot: [true, false, false],
   },
   PithHelmet: {
     gameName: "Pith Helmet",
@@ -2576,6 +2736,7 @@ export const items: Record<ItemID, Item> = {
     colorPalette: "Clothing1",
     data: [[0, 1, 2, 3, 4, 5, 6, 7, 8], [], [], [], [], []],
     gender: 2,
+    colorSlot: [true, true, false],
   },
   PoliceHat: {
     gameName: "Police Hat",
@@ -2588,6 +2749,7 @@ export const items: Record<ItemID, Item> = {
     colorPalette: "Clothing1",
     data: [[0, 1, 2, 3, 4, 5, 6, 7, 8], [], [], [], [], []],
     gender: 2,
+    colorSlot: [true, false, false],
   },
   RiceHat: {
     gameName: "Rice Hat",
@@ -2600,6 +2762,7 @@ export const items: Record<ItemID, Item> = {
     colorPalette: "Clothing1",
     data: [[0, 1, 2, 3, 4, 5, 6, 7, 8], [], [], [], [], []],
     gender: 2,
+    colorSlot: [false, false, false],
   },
   SantaHat: {
     gameName: "Santa Hat",
@@ -2612,6 +2775,7 @@ export const items: Record<ItemID, Item> = {
     colorPalette: "Clothing1",
     data: [[0, 1, 2, 3, 4, 5, 6, 7, 8], [], [], [], [], []],
     gender: 2,
+    colorSlot: [true, false, false],
   },
   SergeantHat: {
     gameName: "Sergeant's Hat",
@@ -2624,6 +2788,7 @@ export const items: Record<ItemID, Item> = {
     colorPalette: "Clothing1",
     data: [[0, 1, 2, 3, 4, 5, 6, 7, 8], [], [], [], [], []],
     gender: 2,
+    colorSlot: [true, true, false],
   },
   Sombrero: {
     gameName: "Sombrero",
@@ -2636,6 +2801,7 @@ export const items: Record<ItemID, Item> = {
     colorPalette: "Clothing1",
     data: [[0, 1, 2, 3, 4, 5, 6, 7, 8], [], [], [], [], []],
     gender: 2,
+    colorSlot: [true, false, false],
   },
   Sombrero2: {
     gameName: "Sombrero 2",
@@ -2648,6 +2814,7 @@ export const items: Record<ItemID, Item> = {
     colorPalette: "Clothing1",
     data: [[0, 1, 2, 3, 4, 5, 6, 7, 8], [], [], [], [], []],
     gender: 2,
+    colorSlot: [true, false, false],
   },
   SpikedHelmet: {
     gameName: "Spiked Helmet",
@@ -2660,6 +2827,7 @@ export const items: Record<ItemID, Item> = {
     colorPalette: "Clothing1",
     data: [[0, 1, 2, 3, 4, 5, 6, 7, 8], [], [], [], [], []],
     gender: 2,
+    colorSlot: [true, false, false],
   },
   StylishHat: {
     gameName: "Stylish Hat",
@@ -2672,6 +2840,7 @@ export const items: Record<ItemID, Item> = {
     colorPalette: "Clothing1",
     data: [[0, 1, 2, 3, 4, 5, 6, 7, 8], [], [], [], [], []],
     gender: 2,
+    colorSlot: [true, true, false],
   },
   TopHat: {
     gameName: "Tophat",
@@ -2684,6 +2853,7 @@ export const items: Record<ItemID, Item> = {
     colorPalette: "Clothing1",
     data: [[0, 1, 2, 3, 4, 5, 6, 7, 8], [], [], [], [], []],
     gender: 2,
+    colorSlot: [true, true, false],
   },
   WeldingHelmet: {
     gameName: "Welding Helmet",
@@ -2696,6 +2866,7 @@ export const items: Record<ItemID, Item> = {
     colorPalette: "Clothing1",
     data: [[0, 1, 2, 3, 4, 5, 6, 7, 8], [], [], [], [], []],
     gender: 2,
+    colorSlot: [true, false, false],
   },
   WoolCap: {
     gameName: "Wool Cap",
@@ -2708,30 +2879,7 @@ export const items: Record<ItemID, Item> = {
     colorPalette: "Clothing1",
     data: [[0, 1, 2, 3, 4, 5, 6, 7, 8], [], [], [], [], []],
     gender: 2,
-  },
-  HurtLevel1: {
-    gameName: "HurtLevel1",
-    fileName: "HurtLevel1",
-    equipmentLayer: 9,
-    id: "HurtLevel1",
-    jacketUnderBelt: false,
-    canEquip: false,
-    canScript: false,
-    colorPalette: "Skin",
-    data: [[0, 1, 2, 4, 5, 7, 8], [], [], [9, 10, 11], [], []],
-    gender: 2,
-  },
-  HurtLevel2: {
-    gameName: "HurtLevel2",
-    fileName: "HurtLevel2",
-    equipmentLayer: 9,
-    id: "HurtLevel2",
-    jacketUnderBelt: false,
-    canEquip: false,
-    canScript: false,
-    colorPalette: "Skin",
-    data: [[0, 1, 2, 4, 5, 7, 8], [], [], [9, 10, 11], [], []],
-    gender: 2,
+    colorSlot: [true, false, false],
   },
   CamoPants_fem: {
     gameName: "Camo Pants",
@@ -2773,6 +2921,7 @@ export const items: Record<ItemID, Item> = {
       [],
     ],
     gender: 1,
+    colorSlot: [true, true, false],
   },
   CamoPants: {
     gameName: "Camo Pants",
@@ -2814,6 +2963,7 @@ export const items: Record<ItemID, Item> = {
       [],
     ],
     gender: 0,
+    colorSlot: [true, true, false],
   },
   Pants_fem: {
     gameName: "Pants",
@@ -2855,6 +3005,7 @@ export const items: Record<ItemID, Item> = {
       [],
     ],
     gender: 1,
+    colorSlot: [true, false, false],
   },
   Pants: {
     gameName: "Pants",
@@ -2896,6 +3047,7 @@ export const items: Record<ItemID, Item> = {
       [],
     ],
     gender: 0,
+    colorSlot: [true, false, false],
   },
   PantsBlack_fem: {
     gameName: "Pants (Black)",
@@ -2937,6 +3089,7 @@ export const items: Record<ItemID, Item> = {
       [],
     ],
     gender: 1,
+    colorSlot: [true, false, false],
   },
   PantsBlack: {
     gameName: "Pants (Black)",
@@ -2978,6 +3131,7 @@ export const items: Record<ItemID, Item> = {
       [],
     ],
     gender: 0,
+    colorSlot: [true, false, false],
   },
   Shorts_fem: {
     gameName: "Shorts",
@@ -3019,6 +3173,7 @@ export const items: Record<ItemID, Item> = {
       [],
     ],
     gender: 1,
+    colorSlot: [true, false, false],
   },
   Shorts: {
     gameName: "Shorts",
@@ -3060,6 +3215,7 @@ export const items: Record<ItemID, Item> = {
       [],
     ],
     gender: 0,
+    colorSlot: [true, false, false],
   },
   ShortsBlack_fem: {
     gameName: "Shorts (Black)",
@@ -3101,6 +3257,7 @@ export const items: Record<ItemID, Item> = {
       [],
     ],
     gender: 1,
+    colorSlot: [true, false, false],
   },
   ShortsBlack: {
     gameName: "Shorts (Black)",
@@ -3142,6 +3299,7 @@ export const items: Record<ItemID, Item> = {
       [],
     ],
     gender: 0,
+    colorSlot: [true, false, false],
   },
   Skirt_fem: {
     gameName: "Skirt",
@@ -3183,6 +3341,7 @@ export const items: Record<ItemID, Item> = {
       [],
     ],
     gender: 1,
+    colorSlot: [true, false, false],
   },
   Skirt: {
     gameName: "Skirt",
@@ -3224,6 +3383,7 @@ export const items: Record<ItemID, Item> = {
       [],
     ],
     gender: 0,
+    colorSlot: [true, false, false],
   },
   StripedPants_fem: {
     gameName: "Striped Pants",
@@ -3265,6 +3425,7 @@ export const items: Record<ItemID, Item> = {
       [],
     ],
     gender: 1,
+    colorSlot: [true, false, false],
   },
   StripedPants: {
     gameName: "Striped Pants",
@@ -3306,6 +3467,7 @@ export const items: Record<ItemID, Item> = {
       [],
     ],
     gender: 0,
+    colorSlot: [true, false, false],
   },
   TornPants_fem: {
     gameName: "Torn Pants",
@@ -3347,6 +3509,7 @@ export const items: Record<ItemID, Item> = {
       [],
     ],
     gender: 1,
+    colorSlot: [true, false, false],
   },
   TornPants: {
     gameName: "Torn Pants",
@@ -3388,6 +3551,7 @@ export const items: Record<ItemID, Item> = {
       [],
     ],
     gender: 0,
+    colorSlot: [true, false, false],
   },
   BearSkin: {
     gameName: "Bear",
@@ -3429,6 +3593,7 @@ export const items: Record<ItemID, Item> = {
       [],
     ],
     gender: 2,
+    colorSlot: [false, false, false],
   },
   Burnt_fem: {
     gameName: "Burnt",
@@ -3470,6 +3635,7 @@ export const items: Record<ItemID, Item> = {
       [],
     ],
     gender: 1,
+    colorSlot: [false, false, false],
   },
   Burnt: {
     gameName: "Burnt",
@@ -3511,6 +3677,7 @@ export const items: Record<ItemID, Item> = {
       [],
     ],
     gender: 0,
+    colorSlot: [false, false, false],
   },
   FrankenbearSkin: {
     gameName: "Frankenbear",
@@ -3552,6 +3719,7 @@ export const items: Record<ItemID, Item> = {
       [],
     ],
     gender: 2,
+    colorSlot: [false, true, false],
   },
   MechSkin: {
     gameName: "Mech",
@@ -3593,6 +3761,7 @@ export const items: Record<ItemID, Item> = {
       [],
     ],
     gender: 2,
+    colorSlot: [true, true, false],
   },
   Normal_fem: {
     gameName: "NormalFem",
@@ -3634,6 +3803,7 @@ export const items: Record<ItemID, Item> = {
       [],
     ],
     gender: 1,
+    colorSlot: [true, true, false],
   },
   Normal: {
     gameName: "Normal",
@@ -3675,6 +3845,7 @@ export const items: Record<ItemID, Item> = {
       [],
     ],
     gender: 0,
+    colorSlot: [true, true, false],
   },
   Tattoos_fem: {
     gameName: "Tattoos",
@@ -3716,6 +3887,7 @@ export const items: Record<ItemID, Item> = {
       [],
     ],
     gender: 1,
+    colorSlot: [true, true, false],
   },
   Tattoos: {
     gameName: "Tattoos",
@@ -3757,6 +3929,7 @@ export const items: Record<ItemID, Item> = {
       [],
     ],
     gender: 0,
+    colorSlot: [true, true, false],
   },
   Warpaint_fem: {
     gameName: "Warpaint",
@@ -3798,6 +3971,7 @@ export const items: Record<ItemID, Item> = {
       [],
     ],
     gender: 1,
+    colorSlot: [true, true, false],
   },
   Warpaint: {
     gameName: "Warpaint",
@@ -3839,6 +4013,7 @@ export const items: Record<ItemID, Item> = {
       [],
     ],
     gender: 0,
+    colorSlot: [true, true, false],
   },
   Zombie_fem: {
     gameName: "Zombie",
@@ -3880,6 +4055,7 @@ export const items: Record<ItemID, Item> = {
       [],
     ],
     gender: 1,
+    colorSlot: [false, false, false],
   },
   Zombie: {
     gameName: "Zombie",
@@ -3921,6 +4097,7 @@ export const items: Record<ItemID, Item> = {
       [],
     ],
     gender: 0,
+    colorSlot: [false, false, false],
   },
   AmmoBeltWaist_fem: {
     gameName: "Ammo Belt",
@@ -3933,6 +4110,7 @@ export const items: Record<ItemID, Item> = {
     colorPalette: "ClothingDark1",
     data: [[], [0, 1, 2, 3, 4, 5, 6, 8, 9], [], [], [], []],
     gender: 1,
+    colorSlot: [true, false, false],
   },
   AmmoBeltWaist: {
     gameName: "Ammo Belt",
@@ -3945,6 +4123,7 @@ export const items: Record<ItemID, Item> = {
     colorPalette: "ClothingDark1",
     data: [[], [0, 1, 2, 3, 4, 5, 6, 8, 9], [], [], [], []],
     gender: 0,
+    colorSlot: [true, false, false],
   },
   Belt_fem: {
     gameName: "Belt",
@@ -3957,6 +4136,7 @@ export const items: Record<ItemID, Item> = {
     colorPalette: "Clothing1",
     data: [[], [0, 1, 2, 3, 4, 5, 6, 8, 9], [], [], [], []],
     gender: 1,
+    colorSlot: [true, true, false],
   },
   Belt: {
     gameName: "Belt",
@@ -3969,6 +4149,7 @@ export const items: Record<ItemID, Item> = {
     colorPalette: "Clothing1",
     data: [[], [0, 1, 2, 3, 4, 5, 6, 8, 9], [], [], [], []],
     gender: 0,
+    colorSlot: [true, true, false],
   },
   CombatBelt_fem: {
     gameName: "Combat Belt",
@@ -3981,6 +4162,7 @@ export const items: Record<ItemID, Item> = {
     colorPalette: "Clothing1",
     data: [[], [0, 1, 2, 3, 4, 5, 6, 8, 9], [], [9, 10, 11], [], []],
     gender: 1,
+    colorSlot: [true, false, false],
   },
   CombatBelt: {
     gameName: "Combat Belt",
@@ -3993,6 +4175,7 @@ export const items: Record<ItemID, Item> = {
     colorPalette: "Clothing1",
     data: [[], [0, 1, 2, 3, 4, 5, 6, 8, 9], [], [], [], []],
     gender: 0,
+    colorSlot: [true, false, false],
   },
   Sash_fem: {
     gameName: "Sash",
@@ -4005,6 +4188,7 @@ export const items: Record<ItemID, Item> = {
     colorPalette: "Clothing1",
     data: [[], [0, 1, 2, 3, 4, 5, 6, 8, 9], [], [], [], []],
     gender: 1,
+    colorSlot: [true, false, false],
   },
   Sash: {
     gameName: "Sash",
@@ -4017,6 +4201,7 @@ export const items: Record<ItemID, Item> = {
     colorPalette: "Clothing1",
     data: [[], [0, 1, 2, 3, 4, 5, 6, 8, 9], [], [], [], []],
     gender: 0,
+    colorSlot: [true, false, false],
   },
   SatchelBelt_fem: {
     gameName: "Satchel Belt",
@@ -4029,6 +4214,7 @@ export const items: Record<ItemID, Item> = {
     colorPalette: "ClothingDark1",
     data: [[], [0, 1, 2, 3, 4, 5, 6, 8, 9], [], [], [], []],
     gender: 1,
+    colorSlot: [true, false, false],
   },
   SatchelBelt: {
     gameName: "Satchel Belt",
@@ -4041,6 +4227,7 @@ export const items: Record<ItemID, Item> = {
     colorPalette: "ClothingDark1",
     data: [[], [0, 1, 2, 3, 4, 5, 6, 8, 9], [], [], [], []],
     gender: 0,
+    colorSlot: [true, false, false],
   },
   SmallBelt_fem: {
     gameName: "Small Belt",
@@ -4053,6 +4240,7 @@ export const items: Record<ItemID, Item> = {
     colorPalette: "Clothing1",
     data: [[], [0, 1, 2, 3, 4, 5, 6, 8, 9], [], [], [], []],
     gender: 1,
+    colorSlot: [true, true, false],
   },
   SmallBelt: {
     gameName: "Small Belt",
@@ -4065,6 +4253,7 @@ export const items: Record<ItemID, Item> = {
     colorPalette: "Clothing1",
     data: [[], [0, 1, 2, 3, 4, 5, 6, 8, 9], [], [], [], []],
     gender: 0,
+    colorSlot: [true, true, false],
   },
 };
 
@@ -4241,8 +4430,6 @@ export type ItemID =
   | "TopHat"
   | "WeldingHelmet"
   | "WoolCap"
-  | "HurtLevel1"
-  | "HurtLevel2"
   | "CamoPants_fem"
   | "CamoPants"
   | "Pants_fem"

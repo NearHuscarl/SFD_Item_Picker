@@ -11,7 +11,8 @@ export type Item = {
   canScript: boolean;
   colorPalette: PaletteName;
   data: number[][];
-  gender: 0 | 1 | 2;
+  gender: Gender;
+  colorSlot: [primary: boolean, secondary: boolean, tertiary: boolean];
 };
 
 export type Gender = 0 | 1 | 2;
@@ -33,6 +34,7 @@ export const nullItem: Item = {
   colorPalette: "Clothing1",
   data: [[], [], [], [], [], []],
   gender: genders.both,
+  colorSlot: [false, false, false],
 };
 
 // @ts-ignore: nullItem is added right below
