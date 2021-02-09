@@ -97,13 +97,13 @@ export function ItemSettings(props: ItemSettingsProps) {
       />
       <ColorButton
         colors={getMainColors(item, "primary")}
-        color={getMainColor(itemColors[0])}
+        colorName={itemColors[0]}
         disabled={!hasColor(item, "primary")}
         onChange={setColors("primary")}
       />
       <ColorButton
         colors={getMainColors(item, "secondary")}
-        color={getMainColor(itemColors[1])}
+        colorName={itemColors[1]}
         disabled={!hasColor(item, "secondary")}
         onChange={setColors("secondary")}
       />
