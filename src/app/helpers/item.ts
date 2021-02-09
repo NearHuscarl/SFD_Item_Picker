@@ -3,6 +3,7 @@ import { Item, Gender, ItemID, items, genders } from "app/data/items";
 import { ColorType, ItemColor, Layer, Type } from "app/types";
 import {
   COLOR_TYPES,
+  ItemPartType,
   ItemPartTypeValue,
   Layers,
   LayerValue,
@@ -122,4 +123,25 @@ export function ensureColorItemExist(id: ItemID, color: ItemColor) {
     }) as ItemColor;
   }
   return color;
+}
+
+export function getItemTypeZIndex(itemType: number) {
+  const itemTypeText = ItemPartType[itemType];
+
+  switch (itemTypeText) {
+    case "Tail":
+      return 1;
+    case "Legs":
+      return 2;
+    case "Body":
+      return 3;
+    case "Arm":
+      return 4;
+    case "Fist":
+      return 5;
+    case "Head":
+      return 6;
+    default:
+      return 6;
+  }
 }

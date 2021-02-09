@@ -3,6 +3,7 @@ import { ItemPartType } from "app/constants";
 import {
   ensureColorItemExist,
   getImages,
+  getItemTypeZIndex,
   globalIdToLocalId,
   globalIdToType,
 } from "app/helpers/item";
@@ -87,7 +88,7 @@ export function Item(props: ItemProps) {
             color={finalColor}
             x={x}
             y={y}
-            layer={(index + 1) * (type + 1)}
+            layer={(index + 1) * getItemTypeZIndex(type)}
           />
         );
       })}
