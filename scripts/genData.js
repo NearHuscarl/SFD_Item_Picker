@@ -185,12 +185,6 @@ async function computeColorLevel(itemArr) {
       }
     }
   }
-
-  await fse.outputJson(
-    path.join(PROJECT_ROOT, "scripts/itemArr2.json"),
-    itemArr,
-    { spaces: 2 }
-  );
 }
 
 async function generateItemData() {
@@ -214,7 +208,7 @@ async function generateItemData() {
         const id = item.id;
         const data = [];
 
-        if (item.id.startsWith("HurtLevel")) {
+        if (!item.canScript) {
           continue;
         }
 
@@ -233,6 +227,8 @@ async function generateItemData() {
 
         item.data = data;
         delete item.export;
+        delete item.canEquip;
+        delete item.canScript;
 
         items[id] = item;
         ids.push(`'${id}'`);

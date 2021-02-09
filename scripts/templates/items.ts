@@ -7,8 +7,6 @@ export type Item = {
   fileName: ItemID;
   equipmentLayer: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
   jacketUnderBelt: boolean;
-  canEquip: boolean;
-  canScript: boolean;
   colorPalette: PaletteName;
   data: number[][];
   gender: Gender;
@@ -29,8 +27,6 @@ export const nullItem: Item = {
   equipmentLayer: 0,
   id: "None" as any,
   jacketUnderBelt: false,
-  canEquip: false,
-  canScript: false,
   colorPalette: "Clothing1",
   data: [[], [], [], [], [], []],
   gender: genders.both,
