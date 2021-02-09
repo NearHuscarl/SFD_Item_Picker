@@ -1,58 +1,32 @@
-import { useEffect, useReducer, useRef } from "react";
+import { useEffect, useReducer } from "react";
 import { Item } from "app/widgets/Item";
-import { ItemID } from "app/data/items";
-import { ItemColor } from "app/types";
+import { ItemID, items } from "app/data/items";
+import { ItemColor, Layer } from "app/types";
 import { useDispatch } from "react-redux";
 import { globalActions } from "app/store/rootDuck";
 import { useSelector } from "app/store/reduxHooks";
-import { Button } from "@material-ui/core";
+import camelCase from "lodash/camelCase";
+import { Layers } from "app/constants";
 
-type ProfileSettingsProps = {
-  skin?: ItemID;
-  skinColors: ItemColor;
-  head?: ItemID;
-  headColors: ItemColor;
-  chestOver?: ItemID;
-  chestOverColors: ItemColor;
-  chestUnder?: ItemID;
-  chestUnderColors: ItemColor;
-  hands?: ItemID;
-  handsColors: ItemColor;
-  waist?: ItemID;
-  waistColors: ItemColor;
-  legs?: ItemID;
-  legsColors: ItemColor;
-  feet?: ItemID;
-  feetColors: ItemColor;
-  accessory?: ItemID;
-  accessoryColors: ItemColor;
+type EquipmentProps = {
+  layer: Layer;
 };
+function Equipment({ layer }: EquipmentProps) {
+  const itemGetter = camelCase(layer);
+  const colorGetter = `${itemGetter}Colors`;
+  const itemID = useSelector(
+    (state) => state.profile.current[itemGetter]
+  ) as ItemID;
+  const itemColor = useSelector(
+    (state) => state.profile.current[colorGetter]
+  ) as ItemColor;
 
-type PortraitProps = {
-  settings: ProfileSettingsProps;
-};
+  return <Item id={itemID} color={itemColor} animation="idle" />;
+}
 
-function Portrait({ settings }: PortraitProps) {
-  const {
-    skin,
-    head,
-    chestOver,
-    chestUnder,
-    hands,
-    waist,
-    legs,
-    feet,
-    accessory,
-    skinColors,
-    headColors,
-    chestOverColors,
-    chestUnderColors,
-    handsColors,
-    waistColors,
-    legsColors,
-    feetColors,
-    accessoryColors,
-  } = settings;
+function Portrait() {
+  const chestOverID = useSelector((state) => state.profile.current.chestOver);
+  const chestOver = items[chestOverID];
 
   return (
     <div
@@ -64,43 +38,24 @@ function Portrait({ settings }: PortraitProps) {
         alignItems: "center",
       }}
     >
-      {<Item id={skin} animation="idle" color={skinColors} />}
-      {<Item id={chestUnder} animation="idle" color={chestUnderColors} />}
-      {<Item id={legs} animation="idle" color={legsColors} />}
-      {<Item id={waist} animation="idle" color={waistColors} />}
-      {<Item id={feet} animation="idle" color={feetColors} />}
-      {<Item id={chestOver} animation="idle" color={chestOverColors} />}
-      {<Item id={accessory} animation="idle" color={accessoryColors} />}
-      {<Item id={hands} animation="idle" color={handsColors} />}
-      {<Item id={head} animation="idle" color={headColors} />}
+      {[0, 1, 2, 3, 4, 5, 6, 7, 8].map((layerIndex) => {
+        let layer = Layers[layerIndex];
+
+        if (chestOver.jacketUnderBelt) {
+          if (layer === "ChestOver") {
+            layer = "Waist";
+          } else if (layer === "Waist") {
+            layer = "ChestOver";
+          }
+        }
+
+        return <Equipment key={layer} layer={layer} />;
+      })}
     </div>
   );
 }
 
-type ProfileProps = {
-  settings: {
-    skin?: ItemID;
-    skinColors: ItemColor;
-    head?: ItemID;
-    headColors: ItemColor;
-    chestOver?: ItemID;
-    chestOverColors: ItemColor;
-    chestUnder?: ItemID;
-    chestUnderColors: ItemColor;
-    hands?: ItemID;
-    handsColors: ItemColor;
-    waist?: ItemID;
-    waistColors: ItemColor;
-    legs?: ItemID;
-    legsColors: ItemColor;
-    feet?: ItemID;
-    feetColors: ItemColor;
-    accessory?: ItemID;
-    accessoryColors: ItemColor;
-  };
-};
-
-export function Profile(props: ProfileProps) {
+export function Profile() {
   const dispatch = useDispatch();
   const devTool = useSelector((state) => state.global.devTool);
   const [, rerender] = useReducer((x) => ++x, 0);
@@ -131,8 +86,8 @@ export function Profile(props: ProfileProps) {
       }}
     >
       {/*for some reasons, the canvas needs to be rendered twice to make the image display correctly*/}
-      <Portrait key={"render1"} settings={props.settings} />
-      <Portrait key={"render2"} settings={props.settings} />
+      <Portrait key={"render1"} />
+      <Portrait key={"render2"} />
     </div>
   );
 }

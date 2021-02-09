@@ -33,7 +33,4 @@ export const LayerValue = {
   Head: 8,
 } as const;
 
-export const Layers = invert(LayerValue) as Record<
-  0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9,
-  Layer
->;
+export const Layers = invert(LayerValue) as Record<number, Layer>;
