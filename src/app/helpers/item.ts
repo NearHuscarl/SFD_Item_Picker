@@ -95,7 +95,7 @@ export function globalIdToType(globalID: number) {
 }
 
 export function globalIdToLocalId(globalID: number) {
-  return globalID % 50;
+  return Math.abs(globalID % 50);
 }
 
 export function validateColorName(

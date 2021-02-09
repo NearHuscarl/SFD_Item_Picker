@@ -44,20 +44,32 @@ export function Item(props: ItemProps) {
   }[] = [];
   const extractAnimationData = (part, _, parts) => {
     const { x, y, id: globalID } = part;
+    let localId = -1000;
+    let type = -1000;
 
-    if (globalID < 0 && globalID !== -10) return;
+    if (globalID >= 0) {
+      type = globalIdToType(globalID);
+      localId = globalIdToLocalId(globalID);
+    } else {
+      switch (globalID) {
+        case -4: {
+          // tail animation. placeholder value for frame 1, idle animation
+          type = 5;
+          localId = 0;
+          break;
+        }
+        case -10: {
+          const legPart = parts.find((part) => globalIdToType(part.id) === 4);
+          const legY = legPart.y - y;
+          const legItemPartData = itemPartData.find((data) => data.type === 4);
 
-    if (globalID === -10) {
-      const legPart = parts.find((part) => globalIdToType(part.id) === 4);
-      const legY = legPart.y - y;
-      const legItemPartData = itemPartData.find((data) => data.type === 4);
-
-      if (legItemPartData) legItemPartData.y = legY;
-      return;
+          if (legItemPartData) legItemPartData.y = legY;
+          return;
+        }
+        default:
+          return;
+      }
     }
-
-    const localId = globalIdToLocalId(globalID);
-    const type = globalIdToType(globalID);
 
     itemPartData.push({
       x,
