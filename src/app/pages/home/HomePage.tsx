@@ -1,11 +1,23 @@
-import { Box } from "@material-ui/core";
+import { Box, makeStyles } from "@material-ui/core";
 import { Profile } from "app/widgets/Profile";
 import { ProfileSettings } from "app/pages/home/ProfileSettings";
 import { DevTool } from "app/widgets/DevTool";
+import { CodeGen } from "app/pages/home/CodeGen";
+
+const useStyles = makeStyles((theme) => ({
+  container: {
+    display: "flex",
+    "& > *": {
+      marginRight: theme.spacing(2),
+    },
+  },
+}));
 
 export function HomePage() {
+  const classes = useStyles();
+
   return (
-    <div>
+    <div className={classes.container}>
       <div
         style={{
           display: "flex",
@@ -21,6 +33,7 @@ export function HomePage() {
         </Box>
         <ProfileSettings />
       </div>
+      <CodeGen />
       <DevTool />
     </div>
   );

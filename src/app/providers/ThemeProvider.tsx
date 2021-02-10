@@ -11,6 +11,11 @@ export const theme = createMuiTheme({
   typography: {
     fontSize: 13,
   },
+  props: {
+    MuiTextField: {
+      variant: "outlined",
+    },
+  },
   overrides: {
     MuiInputBase: {
       input: {

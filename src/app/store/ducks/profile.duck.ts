@@ -7,34 +7,15 @@ import { PersistConfig, persistReducer } from "app/store/persist";
 import { genders, Gender, ItemID } from "app/data/items";
 import { ColorName } from "app/data/colors";
 import { COLOR_TYPES } from "app/constants";
-import { ColorType, ItemColor, Layer } from "app/types";
+import { ColorType, Layer, ProfileSettings } from "app/types";
 
 export interface ProfileState {
-  current: {
-    gender: Gender;
-    skin: ItemID;
-    skinColors: ItemColor;
-    head: ItemID;
-    headColors: ItemColor;
-    chestOver: ItemID;
-    chestOverColors: ItemColor;
-    chestUnder: ItemID;
-    chestUnderColors: ItemColor;
-    hands: ItemID;
-    handsColors: ItemColor;
-    waist: ItemID;
-    waistColors: ItemColor;
-    legs: ItemID;
-    legsColors: ItemColor;
-    feet: ItemID;
-    feetColors: ItemColor;
-    accessory: ItemID;
-    accessoryColors: ItemColor;
-  };
+  current: ProfileSettings;
 }
 
 export const initialState: ProfileState = {
   current: {
+    name: "near",
     gender: genders.male,
     skin: "Normal",
     skinColors: ["Skin3", null, null],
