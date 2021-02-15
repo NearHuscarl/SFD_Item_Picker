@@ -46,7 +46,10 @@ function fillEquipment(
     const strToSetToNull = `__${LAYER}__`;
 
     if (template.indexOf(strToSetToNull) > -1)
-      template = template.replace(new RegExp(`.*__${LAYER}__.*\r\n?`, "m"), "");
+      template = template.replace(
+        new RegExp(`.*__${LAYER}__.*\r?\n?`, "m"),
+        ""
+      );
   }
 
   return template;
