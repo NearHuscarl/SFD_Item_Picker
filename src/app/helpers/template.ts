@@ -16,7 +16,7 @@ function fillName(template: string, settings: ProfileSettings) {
 }
 
 function fillGender(template: string, settings: ProfileSettings) {
-  if (settings.gender !== genders.male) {
+  if (settings.gender === genders.male) {
     template = template.replace(`__GENDER__`, "Gender.Male");
   } else {
     template = template.replace(`__GENDER__`, "Gender.Female");
@@ -43,10 +43,10 @@ function fillEquipment(
       .replace(`__${LAYER}_SECONDARY__`, quote(settings[colorGetter][1] || ""))
       .replace(`__${LAYER}_TERTIARY__`, quote(settings[colorGetter][2] || ""));
   } else {
-    const strToSetToNull = `new IProfileClothingItem(__${LAYER}__, __${LAYER}_PRIMARY__, __${LAYER}_SECONDARY__, __${LAYER}_TERTIARY__)`;
+    const strToSetToNull = `__${LAYER}__`;
 
     if (template.indexOf(strToSetToNull) > -1)
-      template = template.replace(strToSetToNull, "null");
+      template = template.replace(new RegExp(`.*__${LAYER}__.*\r\n?`, "m"), "");
   }
 
   return template;
