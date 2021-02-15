@@ -4,6 +4,7 @@ import { DefaultTheme } from "@material-ui/styles";
 import { ITEM_HEIGHT, ITEM_WIDTH, RATIO } from "./constants";
 import { ItemColor } from "app/types";
 import { applyColor } from "app/helpers/color";
+import { useTextureData } from "app/data/textures";
 
 const useStyles = makeStyles<DefaultTheme, ItemPartProps>({
   itemPart: {
@@ -19,7 +20,7 @@ const useStyles = makeStyles<DefaultTheme, ItemPartProps>({
 
 type ItemPartProps = {
   id: string;
-  image: string;
+  textureKey: string;
   x: number;
   y: number;
   layer: number;
@@ -28,25 +29,37 @@ type ItemPartProps = {
 
 let showMessage = false;
 export const ItemPart = memo((props: ItemPartProps) => {
-  const { id, image, color } = props;
+  const { id, textureKey, color } = props;
   const classes = useStyles(props);
+  const { getTexture } = useTextureData();
 
   useEffect(() => {
     const canvas = document.getElementById(id) as HTMLCanvasElement;
     const ctx = canvas?.getContext("2d");
 
     if (ctx) {
-      const img = new Image();
+      getTexture(textureKey).then((result) => {
+        if (result) {
+          const { texture } = result;
 
-      img.src = image;
-      img.addEventListener("load", () => {
-        ctx.clearRect(0, 0, ITEM_WIDTH, ITEM_HEIGHT);
-        ctx.imageSmoothingEnabled = false;
-        ctx.drawImage(img, 0, 0, ITEM_WIDTH, ITEM_HEIGHT);
-        const imageData = ctx.getImageData(0, 0, ITEM_WIDTH, ITEM_HEIGHT);
+          const smallCanvas = document.createElement("canvas");
+          const smCtx = smallCanvas.getContext("2d")!;
 
-        applyColor(imageData.data, color);
-        ctx.putImageData(imageData, 0, 0);
+          // cannot scale using putImageData(). Must use a temporary canvas with original texture size
+          // https://stackoverflow.com/a/24468840/9449426
+          smallCanvas.width = texture.width;
+          smallCanvas.height = texture.height;
+          applyColor(texture.data, color);
+          smCtx.putImageData(texture, 0, 0);
+
+          const img = new Image();
+          img.src = smallCanvas.toDataURL();
+          img.addEventListener("load", () => {
+            ctx.clearRect(0, 0, ITEM_WIDTH, ITEM_HEIGHT);
+            ctx.imageSmoothingEnabled = false;
+            ctx.drawImage(img, 0, 0, ITEM_WIDTH, ITEM_HEIGHT);
+          });
+        }
       });
     } else {
       if (!showMessage) {
@@ -64,9 +77,7 @@ export const ItemPart = memo((props: ItemPartProps) => {
       width={ITEM_WIDTH}
       height={ITEM_HEIGHT}
       className={classes.itemPart}
-    >
-      <img src={image} alt={id} className={classes.itemPart} />
-    </canvas>
+    />
   );
 });
 

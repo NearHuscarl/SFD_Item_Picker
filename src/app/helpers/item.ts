@@ -5,7 +5,6 @@ import {
   COLOR_TYPES,
   ItemPartType,
   ItemPartTypeValue,
-  Layers,
   LayerValue,
 } from "app/constants";
 import { palettes } from "app/data/palettes";
@@ -69,9 +68,8 @@ export function getOppositeGender(item: Item): Item {
   }
 }
 
-export function getImages(itemID: ItemID) {
-  const { fileName, data, equipmentLayer } = items[itemID];
-  const layerText = Layers[equipmentLayer];
+export function getTextureKeys(itemID: ItemID) {
+  const { fileName, data } = items[itemID];
   const result: string[][] = [];
 
   (Object.keys(ItemPartTypeValue) as Type[]).forEach((typeStr) => {
@@ -81,9 +79,7 @@ export function getImages(itemID: ItemID) {
     result[type] = [];
 
     localIds.forEach((localId) => {
-      result[type][localId] =
-        process.env.PUBLIC_URL +
-        `/SFD/Items/${layerText}/${fileName}/${fileName}_${type}_${localId}.png`;
+      result[type][localId] = `${fileName}_${type}_${localId}`;
     });
   });
 

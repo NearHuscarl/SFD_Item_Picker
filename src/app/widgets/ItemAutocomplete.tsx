@@ -4,7 +4,7 @@ import { TextField } from "@material-ui/core";
 import startCase from "lodash/startCase";
 import { __DEV__ } from "app/constants";
 import { Layer } from "app/types";
-import { Gender, Item, ItemID, items, nullItem } from "app/data/items";
+import { Gender, Item, ItemID, items, NULL_ITEM } from "app/data/items";
 import { getItems, getOppositeGender } from "app/helpers/item";
 
 type ItemAutocompleteProps = {
@@ -20,7 +20,7 @@ export function ItemAutocomplete(props: ItemAutocompleteProps) {
   const options = getItems(layer, gender);
   const [value, setValue] = useState<Item>(items[defaultValue || "None"]);
   const onChange = (item?: Item | null) => {
-    if (item && item !== nullItem) {
+    if (item && item !== NULL_ITEM) {
       onChangeItem(item.id);
       setValue(item);
     } else {
@@ -32,7 +32,7 @@ export function ItemAutocomplete(props: ItemAutocompleteProps) {
 
   useEffect(() => {
     if (value) {
-      if (value !== nullItem && value.gender !== gender) {
+      if (value !== NULL_ITEM && value.gender !== gender) {
         const opposite = getOppositeGender(value);
         if (opposite.id !== value.id) {
           onChange(opposite);

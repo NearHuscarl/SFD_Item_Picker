@@ -1,5 +1,6 @@
-// this file is auto generated. Do not touch.
 import { PaletteName } from "./palettes";
+
+export type Gender = 0 | 1 | 2;
 
 export type Item = {
   id: ItemID;
@@ -13,15 +14,13 @@ export type Item = {
   colorSlot: [primary: boolean, secondary: boolean, tertiary: boolean];
 };
 
-export type Gender = 0 | 1 | 2;
-
 export const genders = {
   male: 0,
   female: 1,
   both: 2,
 } as const;
 
-export const nullItem: Item = {
+export const NULL_ITEM: Item = {
   gameName: "None",
   fileName: "None" as any,
   equipmentLayer: 0,
@@ -3751,9 +3750,10 @@ export const items: Record<ItemID, Item> = {
   },
 };
 
-items[nullItem.id] = nullItem;
+items[NULL_ITEM.id] = NULL_ITEM;
 
 export type ItemID =
+  | "None"
   | "AgentSunglasses"
   | "Armband_fem"
   | "Armband"
@@ -3962,5 +3962,4 @@ export type ItemID =
   | "SatchelBelt_fem"
   | "SatchelBelt"
   | "SmallBelt_fem"
-  | "SmallBelt"
-  | "None";
+  | "SmallBelt";

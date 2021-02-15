@@ -2,13 +2,13 @@ import { useEffect, useState } from "react";
 import { Popover } from "@material-ui/core";
 import { getMainColor, rgbToHex } from "app/helpers/color";
 import { Color, ColorName } from "app/data/colors";
-import { Swatch, ColorData, ColorPicker } from "app/widgets/ColorPicker";
+import { Swatch, ColorPicker, SwatchData } from "app/widgets/ColorPicker";
 
 type ColorButtonProps = {
   colorName: ColorName | null;
-  colors: ColorData[];
+  colors: SwatchData[];
   disabled?: boolean;
-  onChange?: (color: ColorData) => void;
+  onChange?: (color: SwatchData) => void;
 };
 
 export function ColorButton(props: ColorButtonProps) {
@@ -26,7 +26,7 @@ export function ColorButton(props: ColorButtonProps) {
   const onClose = () => {
     setAnchorEl(null);
   };
-  const onColorChange = (color: ColorData) => {
+  const onColorChange = (color: SwatchData) => {
     onChange?.(color);
     setColor(color.color);
     onClose();

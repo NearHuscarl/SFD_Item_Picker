@@ -1,91 +1,76 @@
 require("dotenv").config({ path: ".env.local" });
 const path = require("path");
-const spawn = require("child_process").spawn;
 const fse = require("fs-extra");
-const glob = require("glob");
 const { parseSFDX } = require("./parseSFDX");
-const { prettier, log, logRaw, getLayerText, readImage } = require("./helpers");
+const {
+  prettier,
+  log,
+  getLayerText,
+  forEachPixel,
+  glob,
+} = require("./helpers");
+const { UNPACK_DIR, PACK_DIR, unpack, cleanUp } = require("./xnb");
+const { createCanvas, loadImage } = require("canvas");
 
 const SFD_ITEM_DIR = path.join(process.env.SFD_PATH, "Content/Data/Items");
 const SFD_ANI_DIR = path.join(process.env.SFD_PATH, "Content/Data/Animations");
 const SFD_COLORS_DIR = path.join(process.env.SFD_PATH, "Content/Data/Colors");
 const PROJECT_ROOT = path.join(__dirname, "..");
 const SFD_DIR = path.join(PROJECT_ROOT, "public/SFD");
+const TEMPLATE_DIR = path.join(PROJECT_ROOT, "scripts/templates");
 const DATA_DIR = path.join(PROJECT_ROOT, "src/app/data");
-const PACK_DIR = path.join(PROJECT_ROOT, "./node_modules/xnbcli/packed");
-const UNPACK_DIR = path.join(PROJECT_ROOT, "./node_modules/xnbcli/unpacked");
 
-function unpack() {
-  return new Promise((resolve, reject) => {
-    const unpack = spawn("npm run unpack", [], {
-      cwd: "./node_modules/xnbcli",
-      shell: true,
-    });
-    unpack.stdout.on("data", (data) => logRaw(data.toString()));
-    unpack.stderr.on("data", (data) => reject(data.toString()));
-    unpack.on("close", (code) => {
-      if (code !== 0) {
-        reject(`unpack process exited with code ${code}`);
-      } else {
-        resolve();
-      }
-    });
-  });
+async function cleanUpPublicFolder() {
+  await fse.remove(SFD_DIR);
 }
 
 async function generateAnimationData() {
   const animationPath = path.join(SFD_DIR, "Animations/char_anims.json");
   const outputPath = path.join(DATA_DIR, "animations.ts");
   const template = await fse.readFile(
-    path.join(__dirname, "templates/animations.ts"),
+    path.join(TEMPLATE_DIR, "animations.ts"),
     "utf8"
   );
   const obj = await fse.readJson(animationPath);
-  const result = {};
+  const animations = {};
 
   obj.content.animations.forEach((a) => {
     // trim down because the original animation file is huge
     // we only need idle animation for this app
     if (a.name === "BaseIdle" || a.name === "UpperIdle") {
-      result[a.name] = a.frames;
+      animations[a.name] = a.frames;
     }
   });
 
+  const animationNames = Object.keys(animations).map((a) => `'${a}'`);
+
   await fse.outputFile(
     outputPath,
-    template.replace("__ANIMATIONS__", JSON.stringify(result)),
+    template
+      .replace("__ANIMATIONS__", JSON.stringify(animations))
+      .replace("__ANIMATION_NAMES__", animationNames.join("|")),
     "utf8"
   );
-  await Promise.all([
-    prettier("src/app/data/animations.ts"),
-    fse.remove(path.join(SFD_DIR, "Animations")),
-  ]);
+  await prettier("src/app/data/animations.ts");
 }
 
 async function unpackItemsAndAnimations() {
-  try {
-    log("Copy {Items,Animations}/*.xnb to pack directory");
-    await fse.remove(SFD_DIR);
-    await fse.copy(SFD_ITEM_DIR, path.join(PACK_DIR, "Result/Items"));
-    await fse.copy(SFD_ANI_DIR, path.join(PACK_DIR, "Result/Animations"));
+  log("Copy {Items,Animations}/*.xnb to pack directory");
+  await fse.copy(SFD_ITEM_DIR, path.join(PACK_DIR, "Items"));
+  await fse.copy(SFD_ANI_DIR, path.join(PACK_DIR, "Animations"));
 
-    log("Start unpacking...");
-    await unpack();
+  log("Start unpacking...");
+  await unpack();
 
-    log("Finish unpacking. Cleaning up...");
-    await fse.copy(path.join(UNPACK_DIR, "Result"), SFD_DIR);
-    await fse.remove(path.join(PACK_DIR, "Result"));
-    await fse.remove(path.join(UNPACK_DIR, "Result"));
+  log("Finish unpacking. Cleaning up...");
+  await fse.copy(UNPACK_DIR, SFD_DIR);
+  await cleanUp();
 
-    log("Generate item data...");
-    await generateItemData();
+  log("Generate item data...");
+  await generateItemData();
 
-    log("Generate animation data...");
-    await generateAnimationData();
-  } catch (e) {
-    console.error(e);
-    process.exit(1);
-  }
+  log("Generate animation data...");
+  await generateAnimationData();
 }
 
 /**
@@ -148,27 +133,38 @@ async function computeColorLevel(itemArr) {
   }
 
   const shadeValues = new Set([255, 192, 128]);
+  const allImageData = {};
+  const imageDataPath = path.join(SFD_DIR, `Items/image-data.json`);
 
   for (let i1 = 0; i1 < itemArr.length; i1++) {
     const item = itemArr[i1];
     const { id, equipmentLayer, fileName } = item;
     const layer = getLayerText(equipmentLayer);
 
+    log(`computing color level for ${fileName}`);
+
     for (let i2 = 0; i2 < item.data.length; i2++) {
       const type = i2;
 
       for (let i3 = 0; i3 < item.data[type].length; i3++) {
         const localId = item.data[type][i3];
-
-        const imageFileName = `${fileName}_${type}_${localId}.png`;
+        const fullFileName = `${fileName}_${type}_${localId}`;
         const imagePath = path.join(
           SFD_DIR,
-          `Items/${layer}/${id}/${imageFileName}`
+          `Items/${layer}/${id}/${fullFileName}.png`
         );
-        log(`computing color level for ${imageFileName}...`);
+        const image = await loadImage(imagePath);
+        const canvas = createCanvas(image.width, image.height);
+        const ctx = canvas.getContext("2d");
+
+        ctx.imageSmoothingEnabled = false;
+        ctx.drawImage(image, 0, 0, image.width, image.height);
+
+        const imageData = ctx.getImageData(0, 0, image.width, image.height);
+        allImageData[fullFileName] = canvas.toDataURL();
 
         for (let colorSlot = 0; colorSlot < 3; colorSlot++) {
-          await readImage(imagePath, (color) => {
+          forEachPixel(imageData, (color) => {
             const [r, g, b] = color;
 
             if (colorSlot === 0 && shadeValues.has(r) && g === 0 && b === 0) {
@@ -185,74 +181,68 @@ async function computeColorLevel(itemArr) {
       }
     }
   }
+
+  await fse.outputJson(imageDataPath, allImageData);
 }
 
 async function generateItemData() {
-  return new Promise((resolve, reject) => {
-    glob(path.join(SFD_DIR, "Items/**/*.json"), async (error, paths) => {
-      if (error) {
-        return reject(error);
-      }
+  const paths = await glob(path.join(SFD_DIR, "Items/**/*.json"));
+  const resultPath = path.join(DATA_DIR, "items.ts");
+  const ids = [];
+  const template = await fse.readFile(
+    path.join(TEMPLATE_DIR, "items.ts"),
+    "utf8"
+  );
+  const items = {};
 
-      const resultPath = path.join(DATA_DIR, "items.ts");
-      const ids = [];
-      const template = await fse.readFile(
-        path.join(__dirname, "templates/items.ts"),
-        "utf8"
-      );
-      const items = {};
+  for (const path of paths) {
+    const obj = await fse.readJson(path);
+    const item = obj.content;
+    const id = item.id;
+    const data = [];
 
-      for (const path of paths) {
-        const obj = await fse.readJson(path);
-        const item = obj.content;
-        const id = item.id;
-        const data = [];
+    if (!item.canScript) {
+      continue;
+    }
 
-        if (!item.canScript) {
-          continue;
+    item.export.data.forEach((itemPart) => {
+      const { type, textures } = itemPart;
+
+      if (!data[type]) data[type] = [];
+
+      textures.forEach((texture, i) => {
+        const localId = i;
+        if (texture) {
+          data[type].push(localId);
         }
-
-        item.export.data.forEach((itemPart) => {
-          const { type, textures } = itemPart;
-
-          if (!data[type]) data[type] = [];
-
-          textures.forEach((texture, i) => {
-            const localId = i;
-            if (texture) {
-              data[type].push(localId);
-            }
-          });
-        });
-
-        item.data = data;
-        delete item.export;
-        delete item.canEquip;
-        delete item.canScript;
-
-        items[id] = item;
-        ids.push(`'${id}'`);
-      }
-
-      const itemArr = Object.values(items);
-
-      // item array for debugging purpose only
-      await fse.outputJson(path.join(SFD_DIR, "items.json"), itemArr);
-
-      computeGender(itemArr);
-      await computeColorLevel(itemArr);
-
-      await fse.outputFile(
-        resultPath,
-        template
-          .replace("__ITEM_ID__", ids.join("|"))
-          .replace("__ITEMS__", JSON.stringify(items)),
-        "utf8"
-      );
-      await prettier(resultPath);
-      resolve();
+      });
     });
-  });
+
+    item.data = data;
+    delete item.export;
+    delete item.canEquip;
+    delete item.canScript;
+
+    items[id] = item;
+    ids.push(`'${id}'`);
+  }
+
+  const itemArr = Object.values(items);
+  computeGender(itemArr);
+  await computeColorLevel(itemArr);
+
+  const unpackFiles = await glob(
+    path.join(SFD_DIR, "Items/**/!(image-data.json)")
+  );
+  await Promise.all(unpackFiles.map((p) => fse.remove(p)));
+  await fse.outputFile(
+    resultPath,
+    template
+      .replace("__ITEM_ID__", ids.join("|"))
+      .replace("__ITEMS__", JSON.stringify(items)),
+    "utf8"
+  );
+  await prettier(resultPath);
 }
 
 async function generateItemPalettes() {
@@ -262,7 +252,7 @@ async function generateItemPalettes() {
 
   for (const node of dataNodes) {
     const { value, children } = node;
-    const colors = {
+    const palette = {
       primary: [],
       secondary: [],
       tertiary: [],
@@ -271,36 +261,36 @@ async function generateItemPalettes() {
     for (const child of children) {
       switch (child.property.toUpperCase()) {
         case "COLORS1": {
-          colors.primary = child.value.split(",");
+          palette.primary = child.value.split(",");
           break;
         }
         case "COLORS2": {
-          colors.secondary = child.value.split(",");
+          palette.secondary = child.value.split(",");
           break;
         }
         case "COLORS3": {
-          colors.tertiary = child.value.split(",");
+          palette.tertiary = child.value.split(",");
           break;
         }
         default:
       }
     }
 
-    palettes[value] = colors;
+    palettes[value] = palette;
   }
 
   await generatePaletteData(palettes);
 }
 
 /**
- * @param {object} palettes
+ * @param {Object} palettes
  * @return {Promise<void>}
  */
 async function generatePaletteData(palettes) {
   const resultPath = path.join(DATA_DIR, "palettes.ts");
   const paletteNames = Object.keys(palettes).map((k) => `'${k}'`);
   const template = await fse.readFile(
-    path.join(__dirname, "templates/palettes.ts"),
+    path.join(TEMPLATE_DIR, "palettes.ts"),
     "utf8"
   );
 
@@ -352,7 +342,7 @@ async function generateColorData(colors) {
   const resultPath = path.join(DATA_DIR, "colors.ts");
   const colorNames = Object.keys(colors).map((k) => `'${k}'`);
   const template = await fse.readFile(
-    path.join(__dirname, "templates/colors.ts"),
+    path.join(TEMPLATE_DIR, "colors.ts"),
     "utf8"
   );
 
@@ -373,11 +363,16 @@ async function main() {
         "SFD installation path to continue"
     );
   }
-  await Promise.all([
-    unpackItemsAndAnimations(),
-    generateItemPalettes(),
-    generateItemColors(),
-  ]);
+  await cleanUpPublicFolder().then(() =>
+    Promise.all([
+      unpackItemsAndAnimations(),
+      generateItemPalettes(),
+      generateItemColors(),
+    ]).catch((e) => {
+      console.log(e);
+      process.exit(1);
+    })
+  );
 }
 
 main().then();

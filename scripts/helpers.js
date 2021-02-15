@@ -1,8 +1,7 @@
 const util = require("util");
 const exec = util.promisify(require("child_process").exec);
 const chalk = require("chalk");
-const fse = require("fs-extra");
-const PNG = require("pngjs").PNG;
+const _glob = require("glob");
 
 /**
  * @param {string} path
@@ -56,31 +55,38 @@ function getLayerText(layerId) {
 }
 
 /**
- * @param {string} path
- * @param {function(number: [number, number, number, number]): void} onReadPixel
+ *
+ * @param {ImageData} imageData
+ * @param {function(number: [number, number, number, number]): void} onPixel
  */
-async function readImage(path, onReadPixel) {
+function forEachPixel(imageData, onPixel) {
+  for (let y = 0; y < imageData.height; y++) {
+    for (let x = 0; x < imageData.width; x++) {
+      const idx = (imageData.width * y + x) << 2;
+
+      onPixel([
+        imageData.data[idx],
+        imageData.data[idx + 1],
+        imageData.data[idx + 2],
+        imageData.data[idx + 3],
+      ]);
+    }
+  }
+}
+
+/**
+ *
+ * @param {string} path
+ * @return {Promise<string[]>}
+ */
+function glob(path) {
   return new Promise((resolve, reject) => {
-    fse
-      .createReadStream(path)
-      .pipe(new PNG({ filterType: 4 }))
-      .on("parsed", function () {
-        for (let y = 0; y < this.height; y++) {
-          for (let x = 0; x < this.width; x++) {
-            const idx = (this.width * y + x) << 2;
-
-            onReadPixel([
-              this.data[idx],
-              this.data[idx + 1],
-              this.data[idx + 2],
-              this.data[idx + 3],
-            ]);
-          }
-        }
-
-        resolve();
-      })
-      .on("error", (error, data) => reject({ error, data }));
+    _glob(path, async (error, paths) => {
+      if (error) {
+        return reject(error);
+      }
+      return resolve(paths);
+    });
   });
 }
 
@@ -89,5 +95,6 @@ module.exports = {
   log,
   logRaw,
   getLayerText,
-  readImage,
+  forEachPixel,
+  glob,
 };

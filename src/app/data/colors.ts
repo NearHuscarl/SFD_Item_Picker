@@ -187,6 +187,8 @@ export const colors: Record<ColorName, Color[]> = {
   ],
 };
 
+export type ColorData = { name: ColorName; colors: Color[] };
+
 export type Color = [red: number, blue: number, green: number];
 
 export type ColorName =

@@ -2,8 +2,8 @@ import { makeStyles } from "@material-ui/core";
 import { ItemPartType } from "app/constants";
 import {
   ensureColorItemExist,
-  getImages,
   getItemTypeZIndex,
+  getTextureKeys,
   globalIdToLocalId,
   globalIdToType,
 } from "app/helpers/item";
@@ -34,13 +34,13 @@ export function Item(props: ItemProps) {
   if (!id) return null;
 
   const finalColor = ensureColorItemExist(id, color);
-  const images = getImages(id);
+  const textureKeys = getTextureKeys(id);
   const itemPartData: {
     x: number;
     y: number;
     type: number;
     localId: number;
-    image: string;
+    textureKey: string;
   }[] = [];
   const extractAnimationData = (part, _, parts) => {
     const { x, y, id: globalID } = part;
@@ -76,7 +76,7 @@ export function Item(props: ItemProps) {
       y,
       type,
       localId,
-      image: images[type][localId],
+      textureKey: textureKeys[type][localId],
     });
   };
 
@@ -88,23 +88,24 @@ export function Item(props: ItemProps) {
 
   return (
     <div className={classes.item}>
-      {itemPartData.reverse().map(({ image, type, x, y, localId }, index) => {
-        if (!image) return null;
+      {itemPartData
+        .reverse()
+        .map(({ textureKey, type, x, y, localId }, index) => {
+          if (!textureKey) return null;
 
-        const itemPartId = `${id}_${ItemPartType[type]}_${localId}`;
-        return (
-          <ItemPart
-            key={itemPartId}
-            id={itemPartId}
-            image={image}
-            color={finalColor}
-            x={x}
-            y={y}
-            layer={(index + 1) * getItemTypeZIndex(type)}
-          />
-        );
-      })}
-      {/*TODO: add tail ItemPart*/}
+          const itemPartId = `${id}_${ItemPartType[type]}_${localId}`;
+          return (
+            <ItemPart
+              key={itemPartId}
+              id={itemPartId}
+              textureKey={textureKey}
+              color={finalColor}
+              x={x}
+              y={y}
+              layer={(index + 1) * getItemTypeZIndex(type)}
+            />
+          );
+        })}
     </div>
   );
 }

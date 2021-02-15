@@ -4,6 +4,7 @@ import { Provider } from "react-redux";
 import { store, persistor } from "app/store/store";
 import { HomePage } from "app/pages/home";
 import { ThemeProvider } from "app/providers/ThemeProvider";
+import { IndexedDBProvider } from "app/providers/IndexedDBProvider";
 
 function App() {
   return (
@@ -11,7 +12,9 @@ function App() {
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
           <ThemeProvider>
-            <HomePage />
+            <IndexedDBProvider>
+              <HomePage />
+            </IndexedDBProvider>
           </ThemeProvider>
         </PersistGate>
       </Provider>

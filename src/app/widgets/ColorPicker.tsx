@@ -17,11 +17,11 @@ const useStyles = makeStyles({
   },
 });
 
-export type ColorData = { name: ColorName; color: Color };
+export type SwatchData = { name: ColorName; color: Color };
 
 type ColorPickerProps = {
-  colors: ColorData[];
-  onChange?: (color: ColorData) => void;
+  colors: SwatchData[];
+  onChange?: (color: SwatchData) => void;
 };
 
 export function ColorPicker({ colors, onChange }: ColorPickerProps) {
