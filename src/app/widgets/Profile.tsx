@@ -60,7 +60,7 @@ export function Profile() {
   const devTool = useSelector((state) => state.global.devTool);
   const [, rerender] = useReducer((x) => ++x, 0);
   const onClick = (e) => {
-    // display hidden devtool after triple-click profile
+    // display hidden devtool after triple-clicking profile
     if (e.detail === 3) {
       dispatch(globalActions.setDevTool(!devTool));
     }
@@ -85,9 +85,7 @@ export function Profile() {
         backgroundColor: "darkorchid",
       }}
     >
-      {/*for some reasons, the canvas needs to be rendered twice to make the image display correctly*/}
-      <Portrait key={"render1"} />
-      <Portrait key={"render2"} />
+      <Portrait />
     </div>
   );
 }

@@ -93,10 +93,11 @@ export function Item(props: ItemProps) {
         .map(({ textureKey, type, x, y, localId }, index) => {
           if (!textureKey) return null;
 
+          const itemPartKey = `${ItemPartType[type]}_${localId}`;
           const itemPartId = `${id}_${ItemPartType[type]}_${localId}`;
           return (
             <ItemPart
-              key={itemPartId}
+              key={itemPartKey}
               id={itemPartId}
               textureKey={textureKey}
               color={finalColor}
