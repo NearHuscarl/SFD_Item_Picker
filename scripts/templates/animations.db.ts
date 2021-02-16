@@ -1,19 +1,16 @@
 // this file is auto generated. Do not touch.
-export const animations = __ANIMATIONS__;
+export const _animations: Record<AnimationName, AnimationData> = __ANIMATIONS__;
 
-export type AnimationData = {
-  name: AnimationName;
-  frames: Frame[];
-};
+export type AnimationData = Frame[];
 
 type Frame = {
-  part: Part[];
+  parts: Part[];
   collisions: any[];
   frameEvent: string;
   time: number;
 };
 
-type Part = {
+export type Part = {
   id: number;
   x: number;
   y: number;

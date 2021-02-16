@@ -4,29 +4,26 @@ import { TextField } from "@material-ui/core";
 import startCase from "lodash/startCase";
 import { __DEV__ } from "app/constants";
 import { Layer } from "app/types";
-import { Gender, Item, ItemID, items, NULL_ITEM } from "app/data/items";
-import { getItems, getOppositeGender } from "app/helpers/item";
+import {
+  Gender,
+  Item,
+  ItemID,
+  getItem,
+  NULL_ITEM,
+  getOppositeGender,
+} from "app/data/items";
+import { getItems } from "app/helpers/item";
 
-type ItemAutocompleteProps = {
-  layer: Layer;
-  disableClearable?: boolean;
-  defaultValue?: ItemID;
-  onChangeItem: (itemID: ItemID) => void;
-  gender: Gender;
-};
-
-export function ItemAutocomplete(props: ItemAutocompleteProps) {
-  const { layer, onChangeItem, defaultValue, disableClearable, gender } = props;
-  const options = getItems(layer, gender);
-  const [value, setValue] = useState<Item>(items[defaultValue || "None"]);
+function useItemAutocomplete(props: ItemAutocompleteProps) {
+  const { onChangeItem, layer, gender, defaultValue } = props;
+  const [value, setValue] = useState<Item>(getItem(defaultValue));
   const onChange = (item?: Item | null) => {
     if (item && item !== NULL_ITEM) {
       onChangeItem(item.id);
       setValue(item);
     } else {
-      const nullItem = items["None"];
-      onChangeItem(nullItem.id);
-      setValue(nullItem);
+      onChangeItem(NULL_ITEM.id);
+      setValue(NULL_ITEM);
     }
   };
 
@@ -43,6 +40,17 @@ export function ItemAutocomplete(props: ItemAutocompleteProps) {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [gender]);
+
+  return {
+    value,
+    onChange,
+    options: getItems(layer, gender),
+  };
+}
+
+export function ItemAutocomplete(props: ItemAutocompleteProps) {
+  const { layer, disableClearable } = props;
+  const { value, options, onChange } = useItemAutocomplete(props);
 
   return (
     <Autocomplete
@@ -66,3 +74,11 @@ export function ItemAutocomplete(props: ItemAutocompleteProps) {
     />
   );
 }
+
+type ItemAutocompleteProps = {
+  layer: Layer;
+  disableClearable?: boolean;
+  defaultValue?: ItemID;
+  onChangeItem: (itemID: ItemID) => void;
+  gender: Gender;
+};

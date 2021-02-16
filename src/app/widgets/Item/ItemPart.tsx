@@ -18,23 +18,16 @@ const useStyles = makeStyles<DefaultTheme, ItemPartProps>({
   },
 });
 
-type ItemPartProps = {
-  id: string;
-  textureKey: string;
-  x: number;
-  y: number;
-  layer: number;
-  color: ItemColor;
-};
-
 let showMessage = false;
-export const ItemPart = memo((props: ItemPartProps) => {
-  const { id, textureKey, color } = props;
-  const classes = useStyles(props);
+function useItemPart(
+  canvasId: string,
+  textureKey: string,
+  itemColor: ItemColor
+) {
   const { getTexture } = useTextureData();
 
   useEffect(() => {
-    const canvas = document.getElementById(id) as HTMLCanvasElement;
+    const canvas = document.getElementById(canvasId) as HTMLCanvasElement;
     const ctx = canvas?.getContext("2d");
 
     if (ctx) {
@@ -49,7 +42,7 @@ export const ItemPart = memo((props: ItemPartProps) => {
           // https://stackoverflow.com/a/24468840/9449426
           smallCanvas.width = texture.width;
           smallCanvas.height = texture.height;
-          applyColor(texture.data, color);
+          applyColor(texture.data, itemColor);
           smCtx.putImageData(texture, 0, 0);
 
           const img = new Image();
@@ -69,7 +62,23 @@ export const ItemPart = memo((props: ItemPartProps) => {
         showMessage = true;
       }
     }
-  }, [id, ...color]);
+  }, [canvasId, ...itemColor]);
+}
+
+type ItemPartProps = {
+  id: string;
+  textureKey: string;
+  x: number;
+  y: number;
+  layer: number;
+  color: ItemColor;
+};
+
+export const ItemPart = memo((props: ItemPartProps) => {
+  const { id, textureKey, color } = props;
+  const classes = useStyles(props);
+
+  useItemPart(id, textureKey, color);
 
   return (
     <canvas

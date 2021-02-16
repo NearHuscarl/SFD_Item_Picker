@@ -8,7 +8,7 @@ An internal tool I created to generate C# code for my game script when editing t
 
 ```
 /actions??
-  |__ Action and Selector wrappers for redux store
+  |__ Action and Selector wrappers for to access the redux store
 /data
   |__ IndexedDB CRUD and related helpers
 /helpers

@@ -38,6 +38,7 @@ export const initialState: ProfileState = {
   },
 };
 
+type ItemParams = { layer: Layer; id: ItemID };
 type ColorParams = { layer: Layer; type: ColorType; name: ColorName };
 
 const slice = createSlice({
@@ -47,32 +48,11 @@ const slice = createSlice({
     setGender(state, action: PayloadAction<Gender>) {
       state.current.gender = action.payload;
     },
-    setSkin(state, action: PayloadAction<ItemID>) {
-      state.current.skin = action.payload;
-    },
-    setHead(state, action: PayloadAction<ItemID>) {
-      state.current.head = action.payload;
-    },
-    setChestOver(state, action: PayloadAction<ItemID>) {
-      state.current.chestOver = action.payload;
-    },
-    setChestUnder(state, action: PayloadAction<ItemID>) {
-      state.current.chestUnder = action.payload;
-    },
-    setHands(state, action: PayloadAction<ItemID>) {
-      state.current.hands = action.payload;
-    },
-    setWaist(state, action: PayloadAction<ItemID>) {
-      state.current.waist = action.payload;
-    },
-    setLegs(state, action: PayloadAction<ItemID>) {
-      state.current.legs = action.payload;
-    },
-    setFeet(state, action: PayloadAction<ItemID>) {
-      state.current.feet = action.payload;
-    },
-    setAccessory(state, action: PayloadAction<ItemID>) {
-      state.current.accessory = action.payload;
+    setItem(state, action: PayloadAction<ItemParams>) {
+      const { layer, id } = action.payload;
+      const getter = camelCase(layer);
+
+      state.current[getter] = id;
     },
     setItemColors(state, action: PayloadAction<ColorParams>) {
       const { layer, type, name } = action.payload;

@@ -26,9 +26,9 @@ async function cleanUpPublicFolder() {
 
 async function generateAnimationData() {
   const animationPath = path.join(SFD_DIR, "Animations/char_anims.json");
-  const outputPath = path.join(DATA_DIR, "animations.ts");
+  const outputPath = path.join(DATA_DIR, "animations.db.ts");
   const template = await fse.readFile(
-    path.join(TEMPLATE_DIR, "animations.ts"),
+    path.join(TEMPLATE_DIR, "animations.db.ts"),
     "utf8"
   );
   const obj = await fse.readJson(animationPath);
@@ -51,7 +51,7 @@ async function generateAnimationData() {
       .replace("__ANIMATION_NAMES__", animationNames.join("|")),
     "utf8"
   );
-  await prettier("src/app/data/animations.ts");
+  await prettier(outputPath);
 }
 
 async function unpackItemsAndAnimations() {
@@ -187,10 +187,10 @@ async function computeColorLevel(itemArr) {
 
 async function generateItemData() {
   const paths = await glob(path.join(SFD_DIR, "Items/**/*.json"));
-  const resultPath = path.join(DATA_DIR, "items.ts");
+  const resultPath = path.join(DATA_DIR, "items.db.ts");
   const ids = [];
   const template = await fse.readFile(
-    path.join(TEMPLATE_DIR, "items.ts"),
+    path.join(TEMPLATE_DIR, "items.db.ts"),
     "utf8"
   );
   const items = {};
@@ -287,10 +287,10 @@ async function generateItemPalettes() {
  * @return {Promise<void>}
  */
 async function generatePaletteData(palettes) {
-  const resultPath = path.join(DATA_DIR, "palettes.ts");
+  const resultPath = path.join(DATA_DIR, "palettes.db.ts");
   const paletteNames = Object.keys(palettes).map((k) => `'${k}'`);
   const template = await fse.readFile(
-    path.join(TEMPLATE_DIR, "palettes.ts"),
+    path.join(TEMPLATE_DIR, "palettes.db.ts"),
     "utf8"
   );
 
@@ -339,10 +339,10 @@ async function generateItemColors() {
  * @return {Promise<void>}
  */
 async function generateColorData(colors) {
-  const resultPath = path.join(DATA_DIR, "colors.ts");
+  const resultPath = path.join(DATA_DIR, "colors.db.ts");
   const colorNames = Object.keys(colors).map((k) => `'${k}'`);
   const template = await fse.readFile(
-    path.join(TEMPLATE_DIR, "colors.ts"),
+    path.join(TEMPLATE_DIR, "colors.db.ts"),
     "utf8"
   );
 

@@ -25,7 +25,6 @@ function fillGender(template: string, settings: ProfileSettings) {
   return template;
 }
 
-// TODO: move to action layer
 function fillEquipment(
   template: string,
   settings: ProfileSettings,

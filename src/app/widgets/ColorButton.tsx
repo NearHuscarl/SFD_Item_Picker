@@ -4,20 +4,13 @@ import { getMainColor, rgbToHex } from "app/helpers/color";
 import { Color, ColorName } from "app/data/colors";
 import { Swatch, ColorPicker, SwatchData } from "app/widgets/ColorPicker";
 
-type ColorButtonProps = {
-  colorName: ColorName | null;
-  colors: SwatchData[];
-  disabled?: boolean;
-  onChange?: (color: SwatchData) => void;
-};
-
-export function ColorButton(props: ColorButtonProps) {
-  const { disabled = false, colors, colorName, onChange } = props;
+function useColorButton(props: ColorButtonProps) {
+  const { disabled = false, colorName, onChange } = props;
   const colorValue = getMainColor(colorName);
   const [color, setColor] = useState<Color>(colorValue || [0, 0, 0]);
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
-  const finalColor = disabled ? "#00000000" : rgbToHex(color);
+  const buttonColor = disabled ? "#00000000" : rgbToHex(color);
   const onOpen = (_, e) => {
     if (!disabled) {
       setAnchorEl(e.currentTarget);
@@ -38,12 +31,35 @@ export function ColorButton(props: ColorButtonProps) {
     }
   }, [colorValue]);
 
+  return {
+    disabled,
+    open,
+    onOpen,
+    onClose,
+    buttonColor,
+    anchorEl,
+    onColorChange,
+  };
+}
+
+export function ColorButton(props: ColorButtonProps) {
+  const { colors, colorName } = props;
+  const {
+    disabled,
+    open,
+    onOpen,
+    onClose,
+    buttonColor,
+    anchorEl,
+    onColorChange,
+  } = useColorButton(props);
+
   return (
     <>
       <Swatch
         onClick={onOpen}
         name={colorName && !disabled ? colorName : undefined}
-        color={finalColor}
+        color={buttonColor}
         disabled={disabled}
       />
       <Popover
@@ -64,3 +80,10 @@ export function ColorButton(props: ColorButtonProps) {
     </>
   );
 }
+
+export type ColorButtonProps = {
+  colorName: ColorName | null;
+  colors: SwatchData[];
+  disabled?: boolean;
+  onChange?: (color: SwatchData) => void;
+};

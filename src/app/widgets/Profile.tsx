@@ -1,32 +1,26 @@
 import { useEffect, useReducer } from "react";
 import { Item } from "app/widgets/Item";
-import { ItemID, items } from "app/data/items";
-import { ItemColor, Layer } from "app/types";
+import { getItem } from "app/data/items";
+import { Layer } from "app/types";
 import { useDispatch } from "react-redux";
 import { globalActions } from "app/store/rootDuck";
 import { useSelector } from "app/store/reduxHooks";
-import camelCase from "lodash/camelCase";
 import { Layers } from "app/constants";
+import { useItemColorsSelector, useItemSelector } from "app/actions/profile";
 
 type EquipmentProps = {
   layer: Layer;
 };
 function Equipment({ layer }: EquipmentProps) {
-  const itemGetter = camelCase(layer);
-  const colorGetter = `${itemGetter}Colors`;
-  const itemID = useSelector(
-    (state) => state.profile.current[itemGetter]
-  ) as ItemID;
-  const itemColor = useSelector(
-    (state) => state.profile.current[colorGetter]
-  ) as ItemColor;
+  const itemId = useItemSelector(layer);
+  const itemColors = useItemColorsSelector(layer, itemId);
 
-  return <Item id={itemID} color={itemColor} animation="idle" />;
+  return <Item id={itemId} color={itemColors} animation="idle" />;
 }
 
 function Portrait() {
   const chestOverID = useSelector((state) => state.profile.current.chestOver);
-  const chestOver = items[chestOverID];
+  const chestOver = getItem(chestOverID);
 
   return (
     <div

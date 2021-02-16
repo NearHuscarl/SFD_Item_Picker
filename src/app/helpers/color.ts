@@ -1,4 +1,4 @@
-import { Color, ColorName, colors } from "app/data/colors";
+import { Color, ColorName, getColor } from "app/data/colors";
 import { ItemColor } from "app/types";
 import { COLOR_TYPES } from "app/constants";
 
@@ -19,11 +19,11 @@ export function getColorTypeText(typeIndex: number) {
 }
 
 export function getMainColor(colorName: ColorName | null) {
-  if (!colorName) {
+  const colorShades = getColor(colorName);
+
+  if (!colorShades) {
     return;
   }
-
-  const colorShades = colors[colorName];
 
   if (colorShades.length >= 2) {
     return colorShades[1];
@@ -34,9 +34,9 @@ export function getMainColor(colorName: ColorName | null) {
 export function applyColor(image: Uint8ClampedArray, itemColor: ItemColor) {
   const shadeValues = [255, 192, 128] as const;
   const colorArr = [
-    itemColor[0] ? colors[itemColor[0]] : [[]],
-    itemColor[1] ? colors[itemColor[1]] : [[]],
-    itemColor[2] ? colors[itemColor[2]] : [[]],
+    itemColor[0] ? getColor(itemColor[0]) : [[]],
+    itemColor[1] ? getColor(itemColor[1]) : [[]],
+    itemColor[2] ? getColor(itemColor[2]) : [[]],
   ] as Color[][];
 
   for (let i1 = 0; i1 < colorArr.length; i1++) {

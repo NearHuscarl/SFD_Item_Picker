@@ -1,5 +1,12 @@
 import memoize from "lodash/memoize";
-import { Item, Gender, ItemID, items, genders } from "app/data/items";
+import {
+  Item,
+  Gender,
+  ItemID,
+  getItem,
+  genders,
+  getItemIDs,
+} from "app/data/items";
 import { ColorType, ItemColor, Layer, Type } from "app/types";
 import {
   COLOR_TYPES,
@@ -7,15 +14,13 @@ import {
   ItemPartTypeValue,
   LayerValue,
 } from "app/constants";
-import { palettes } from "app/data/palettes";
+import { getPalette } from "app/data/palettes";
 import { ColorName } from "app/data/colors";
 import { getColorTypeText, getMainColor } from "app/helpers/color";
 
-const getItemIDs = memoize(() => Object.keys(items) as ItemID[]);
-
 function forEachItem(fn: (item: Item, index: number) => void) {
   getItemIDs().forEach((id, i) => {
-    fn(items[id], i);
+    fn(getItem(id), i);
   });
 }
 
@@ -42,7 +47,7 @@ export function hasColor(item: Item, colorType: ColorType) {
 }
 
 export function getMainColors(item: Item, colorType: ColorType) {
-  return palettes[item.colorPalette][colorType].map((name) => {
+  return getPalette(item.colorPalette)[colorType].map((name) => {
     return {
       name,
       color: getMainColor(name)!,
@@ -54,22 +59,11 @@ export function getDefaultColorName(item: Item, colorType: ColorType) {
   if (!hasColor(item, colorType)) {
     return;
   }
-  return palettes[item.colorPalette][colorType][0];
-}
-
-export function getOppositeGender(item: Item): Item {
-  switch (item.gender) {
-    case genders.male:
-      return items[item.id + "_fem"];
-    case genders.female:
-      return items[item.id.replace("_fem", "")];
-    case genders.both:
-      return item;
-  }
+  return getPalette(item.colorPalette)[colorType][0];
 }
 
 export function getTextureKeys(itemID: ItemID) {
-  const { fileName, data } = items[itemID];
+  const { fileName, data } = getItem(itemID);
   const result: string[][] = [];
 
   (Object.keys(ItemPartTypeValue) as Type[]).forEach((typeStr) => {
@@ -103,13 +97,13 @@ export function validateColorName(
     return false;
   }
 
-  const palette = palettes[item.colorPalette];
+  const palette = getPalette(item.colorPalette);
   return !!palette[colorType].find((c) => c === colorName);
 }
 
 export function ensureColorItemExist(id: ItemID, color: ItemColor) {
   if (id && id !== "None") {
-    const item = items[id];
+    const item = getItem(id);
     return color.map((name, i) => {
       const type = getColorTypeText(i);
       if (!color[i] && hasColor(item, type)) {
