@@ -1,33 +1,41 @@
-import { makeStyles, TextField } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core";
+import { Light as SyntaxHighlighter } from "react-syntax-highlighter";
+import csharp from "react-syntax-highlighter/dist/esm/languages/hljs/csharp";
+import theme from "react-syntax-highlighter/dist/esm/styles/hljs/vs2015";
 import { useTemplate } from "app/actions/template";
+
+SyntaxHighlighter.registerLanguage("csharp", csharp);
 
 const useStyles = makeStyles((theme) => ({
   codeGen: {
-    flex: "auto",
-    alignSelf: "flex-end",
-    fontFamily: "monospace",
+    marginBottom: theme.spacing(6),
+    marginLeft: theme.spacing(2),
+    marginRight: theme.spacing(2),
+    marginTop: "calc(45px + 50px + 16px)",
+    width: "100%",
   },
-  codeGenInput: {
-    height: "1000px !important",
-    maxHeight: "calc(100vh - 120px - 18.5px * 2)", // TODO: fix 120px magic number
+  codeWrapper: {
+    height: "100%",
+
+    "& > pre": {
+      height: "100%",
+      padding: `${theme.spacing(2)}px !important`,
+      margin: 0,
+    },
   },
 }));
 
-export function CodeGen(props) {
+export function CodeGen() {
   const classes = useStyles();
   const [template, setTemplate] = useTemplate("IProfile");
 
   return (
-    <TextField
-      InputProps={{
-        classes: {
-          input: classes.codeGenInput,
-        },
-      }}
-      className={classes.codeGen}
-      value={template}
-      onChange={(e) => setTemplate(e.target.value)}
-      multiline
-    />
+    <div className={classes.codeGen}>
+      <div className={classes.codeWrapper}>
+        <SyntaxHighlighter language="csharp" style={theme}>
+          {template}
+        </SyntaxHighlighter>
+      </div>
+    </div>
   );
 }
