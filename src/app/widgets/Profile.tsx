@@ -7,6 +7,7 @@ import { globalActions } from "app/store/rootDuck";
 import { useSelector } from "app/store/reduxHooks";
 import { Layers } from "app/constants";
 import { useItemColorsSelector, useItemSelector } from "app/actions/profile";
+import { useIndexedDB } from "app/providers/IndexedDBProvider";
 
 type EquipmentProps = {
   layer: Layer;
@@ -21,6 +22,11 @@ function Equipment({ layer }: EquipmentProps) {
 function Portrait() {
   const chestOverID = useSelector((state) => state.profile.current.chestOver);
   const chestOver = getItem(chestOverID);
+  const { isLoadingDB } = useIndexedDB();
+
+  if (isLoadingDB) {
+    return null;
+  }
 
   return (
     <div

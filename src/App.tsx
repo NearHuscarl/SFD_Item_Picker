@@ -5,6 +5,7 @@ import { store, persistor } from "app/store/store";
 import { HomePage } from "app/pages/home";
 import { ThemeProvider } from "app/providers/ThemeProvider";
 import { IndexedDBProvider } from "app/providers/IndexedDBProvider";
+import { SnackbarProvider } from "app/providers/SnackbarProvider";
 
 function App() {
   return (
@@ -12,9 +13,11 @@ function App() {
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
           <ThemeProvider>
-            <IndexedDBProvider>
-              <HomePage />
-            </IndexedDBProvider>
+            <SnackbarProvider>
+              <IndexedDBProvider>
+                <HomePage />
+              </IndexedDBProvider>
+            </SnackbarProvider>
           </ThemeProvider>
         </PersistGate>
       </Provider>

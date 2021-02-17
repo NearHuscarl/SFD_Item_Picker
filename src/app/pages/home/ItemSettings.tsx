@@ -106,8 +106,9 @@ export function ItemSettings(props: ItemSettingsProps) {
         gender={gender}
         disableClearable={layer === "Skin"}
       />
-      {pickerProps.map((props) => (
+      {pickerProps.map((props, i) => (
         <ColorButton
+          key={i}
           colors={props.colors}
           colorName={props.colorName}
           disabled={props.disabled}

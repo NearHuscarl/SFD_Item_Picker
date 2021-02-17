@@ -9,7 +9,14 @@ function fetchTextures() {
   return fetch(`${SFD_DIR}/Items/image-data.json`).then((r) => r.json());
 }
 
-export function migrate(db: Dexie) {
+type MigrateOptions = {
+  onMigrate?: (version: number) => void;
+  onProgress?: (message: string, percentage?: number) => void;
+};
+
+export function migrate(db: Dexie, options: MigrateOptions) {
+  const { onMigrate, onProgress } = options;
+
   db.version(1).stores({
     textures: "name",
   });
@@ -18,11 +25,14 @@ export function migrate(db: Dexie) {
     const limit = pLimit(100);
     const names = Object.keys(textures);
     const data: TextureData[] = await Promise.all(
-      names.map((name) =>
-        limit(async () => ({
-          name,
-          texture: await urlDataToImageData(textures[name]),
-        }))
+      names.map((name, i) =>
+        limit(async () => {
+          onProgress?.(`Loading texture ${name}`, i / names.length);
+          return {
+            name,
+            texture: await urlDataToImageData(textures[name]),
+          };
+        })
       )
     );
 
@@ -47,13 +57,17 @@ export function migrate(db: Dexie) {
           if (count === 0) {
             console.log("Database is empty. Populating...");
             console.log("Fetching textures...");
+            onProgress?.("Fetching textures...");
+            onMigrate?.(1);
 
             return fetchTextures()
               .then((textures) => {
+                onProgress?.("Init textures...");
                 console.log("Init textures...");
                 return initTextures(textureTable, textures);
               })
               .then(() => {
+                onProgress?.("Finished populating...");
                 console.log("Finished populating...");
                 resolve(undefined);
               });
