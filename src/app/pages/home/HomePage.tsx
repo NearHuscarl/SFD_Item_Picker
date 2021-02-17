@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
     paddingTop: 45,
     paddingLeft: theme.spacing(2),
     paddingRight: theme.spacing(2),
-    width: 315,
+    width: 400,
     backgroundColor: "white",
     boxShadow: theme.shadows[10],
   },

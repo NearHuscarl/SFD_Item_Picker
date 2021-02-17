@@ -16,13 +16,14 @@ export function DevTool(props) {
         right: 5,
         display: devTool ? "flex" : "none",
         columnGap: 5,
+        backgroundColor: "rgba(0,255,0,.85)",
       }}
     >
       <Button id="render-profile-devtool-btn" size="small" variant="outlined">
         Rerender profile
       </Button>
       <Button size="small" variant="outlined" onClick={onReset}>
-        Reset
+        Reset LS
       </Button>
     </div>
   );

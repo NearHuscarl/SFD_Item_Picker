@@ -1,13 +1,15 @@
 import { PropsWithChildren } from "react";
 import MuiThemeProvider from "@material-ui/styles/ThemeProvider";
 import { createMuiTheme } from "@material-ui/core/styles";
+import purple from "@material-ui/core/colors/purple";
 
 export const theme = createMuiTheme({
-  // palette: {
-  //   text: {
-  //     primary: "#000000ab",
-  //   },
-  // },
+  palette: {
+    // text: {
+    //   primary: "#000000ab",
+    // },
+    primary: purple,
+  },
   typography: {
     fontSize: 13,
   },

@@ -1,16 +1,18 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "app/store/reduxHooks";
-import { fillTemplate, getTemplate, TemplateName } from "app/helpers/template";
+import { fillTemplate } from "app/helpers/template";
 
-export function useTemplate(name: TemplateName) {
-  const [template, _setTemplate] = useState("");
+export function useTemplate() {
+  const [code, _setCode] = useState("");
   const settings = useSelector((state) => state.profile.current);
-  const setTemplate = (template) =>
-    _setTemplate(fillTemplate(template, settings));
+  const templateIProfile = useSelector(
+    (state) => state.settings.template.IProfile
+  );
+  const setCode = (template) => _setCode(fillTemplate(template, settings));
 
   useEffect(() => {
-    getTemplate(name).then(setTemplate);
+    setCode(templateIProfile);
   }, [settings]);
 
-  return [template, setTemplate] as const;
+  return [code, setCode] as const;
 }

@@ -2,11 +2,6 @@ import camelCase from "lodash/camelCase";
 import { Layer, ProfileSettings } from "app/types";
 import { genders } from "app/data/items";
 
-export type TemplateName = "IProfile" | "Script";
-export function getTemplate(name: TemplateName) {
-  return fetch(`/templates/${name}.cs`).then((r) => r.text());
-}
-
 function quote(str: string) {
   return `"${str}"`;
 }
