@@ -16,7 +16,7 @@ export function GenderSelect() {
   const dispatchGender = useItemGenderDispatcher();
 
   return (
-    <FormControl component="fieldset">
+    <FormControl>
       <FormLabel component="legend">Gender</FormLabel>
       <RadioGroup
         row

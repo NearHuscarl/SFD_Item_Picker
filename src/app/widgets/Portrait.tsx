@@ -1,9 +1,6 @@
-import { useEffect, useReducer } from "react";
 import { Item } from "app/widgets/Item";
 import { getItem } from "app/data/items";
 import { Layer } from "app/types";
-import { useDispatch } from "react-redux";
-import { globalActions } from "app/store/rootDuck";
 import { useSelector } from "app/store/reduxHooks";
 import { Layers } from "app/constants";
 import { useItemColorsSelector, useItemSelector } from "app/actions/profile";
@@ -19,7 +16,7 @@ function Equipment({ layer }: EquipmentProps) {
   return <Item id={itemId} color={itemColors} animation="idle" />;
 }
 
-function Portrait() {
+export function Portrait() {
   const chestOverID = useSelector((state) => state.profile.current.chestOver);
   const chestOver = getItem(chestOverID);
   const { isLoadingDB } = useIndexedDB();
@@ -51,41 +48,6 @@ function Portrait() {
 
         return <Equipment key={layer} layer={layer} />;
       })}
-    </div>
-  );
-}
-
-export function Profile() {
-  const dispatch = useDispatch();
-  const devTool = useSelector((state) => state.global.devTool);
-  const [, rerender] = useReducer((x) => ++x, 0);
-  const onClick = (e) => {
-    // display hidden devtool after triple-clicking profile
-    if (e.detail === 3) {
-      dispatch(globalActions.setDevTool(!devTool));
-    }
-  };
-
-  useEffect(() => {
-    const btnEl = document.getElementById(
-      "render-profile-devtool-btn"
-    ) as HTMLButtonElement;
-    btnEl.addEventListener("click", rerender);
-    return () => btnEl.removeEventListener("click", rerender);
-  }, []);
-
-  return (
-    <div
-      onClick={onClick}
-      className="profile"
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        backgroundColor: "darkorchid",
-      }}
-    >
-      <Portrait />
     </div>
   );
 }

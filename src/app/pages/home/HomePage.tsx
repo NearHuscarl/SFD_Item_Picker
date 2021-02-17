@@ -1,6 +1,6 @@
 import { Box, makeStyles } from "@material-ui/core";
 import grey from "@material-ui/core/colors/grey";
-import { Profile } from "app/widgets/Profile";
+import { Profile } from "app/pages/home/Profile";
 import { ProfileSettings } from "app/pages/home/ProfileSettings";
 import { DevTool } from "app/widgets/DevTool";
 import { CodeGen } from "app/pages/home/CodeGen";

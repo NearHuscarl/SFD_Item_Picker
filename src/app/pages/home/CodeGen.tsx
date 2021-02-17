@@ -69,7 +69,6 @@ export function CodeGen() {
         >
           <IconButton
             color="primary"
-            title="copy"
             aria-label="copy"
             component="span"
             onClick={onCopy}

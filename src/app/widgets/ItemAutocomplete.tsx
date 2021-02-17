@@ -15,8 +15,9 @@ import {
 import { getItems } from "app/helpers/item";
 
 function useItemAutocomplete(props: ItemAutocompleteProps) {
-  const { onChangeItem, layer, gender, defaultValue } = props;
-  const [value, setValue] = useState<Item>(getItem(defaultValue));
+  const { onChangeItem, layer, gender } = props;
+  const itemValue = getItem(props.value);
+  const [value, setValue] = useState<Item>(itemValue);
   const onChange = (item?: Item | null) => {
     if (item && item !== NULL_ITEM) {
       onChangeItem(item.id);
@@ -40,6 +41,12 @@ function useItemAutocomplete(props: ItemAutocompleteProps) {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [gender]);
+
+  useEffect(() => {
+    if (value) {
+      onChange(itemValue);
+    }
+  }, [props.value]);
 
   return {
     value,
@@ -78,7 +85,7 @@ export function ItemAutocomplete(props: ItemAutocompleteProps) {
 type ItemAutocompleteProps = {
   layer: Layer;
   disableClearable?: boolean;
-  defaultValue?: ItemID;
+  value?: ItemID;
   onChangeItem: (itemID: ItemID) => void;
   gender: Gender;
 };

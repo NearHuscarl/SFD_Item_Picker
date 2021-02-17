@@ -101,7 +101,7 @@ export function ItemSettings(props: ItemSettingsProps) {
     <div className={classes.itemSettings}>
       <ItemAutocomplete
         layer={layer}
-        defaultValue={itemId}
+        value={itemId}
         onChangeItem={onChangeItem}
         gender={gender}
         disableClearable={layer === "Skin"}

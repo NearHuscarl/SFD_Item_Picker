@@ -54,6 +54,15 @@ const slice = createSlice({
 
       state.current[getter] = id;
     },
+    setAllItems(state, action: PayloadAction<Partial<ProfileSettings>>) {
+      const profileSettings = action.payload;
+
+      Object.keys(profileSettings).forEach((prop) => {
+        if (profileSettings[prop]) {
+          state.current[prop] = profileSettings[prop];
+        }
+      });
+    },
     setItemColors(state, action: PayloadAction<ColorParams>) {
       const { layer, type, name } = action.payload;
       const getter = `${camelCase(layer)}Colors`;
