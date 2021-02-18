@@ -8,6 +8,7 @@ import { useSelector } from "app/store/reduxHooks";
 import { Portrait } from "app/widgets/Portrait";
 import { useOnMount } from "app/helpers/hooks";
 import { useRandomItemDispatcher } from "app/actions/profile";
+import { ShareButton } from "app/widgets/ShareButton";
 
 const useStyles = makeStyles({
   root: {
@@ -59,6 +60,7 @@ export function Profile() {
     <div onClick={onClickProfile} className={classes.root}>
       <Portrait />
       <div className={classes.action}>
+        <ShareButton />
         <IconButton
           color="primary"
           title="randomize profile"

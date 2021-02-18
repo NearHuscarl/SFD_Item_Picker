@@ -1,12 +1,5 @@
 import memoize from "lodash/memoize";
-import {
-  Item,
-  Gender,
-  ItemID,
-  getItem,
-  genders,
-  getItemIDs,
-} from "app/data/items";
+import { Item, Gender, ItemID, getItem, getItemIDs } from "app/data/items";
 import { ColorType, ItemColor, Layer, Type } from "app/types";
 import {
   COLOR_TYPES,
@@ -31,7 +24,7 @@ export const getItems = memoize(
     forEachItem((item) => {
       if (
         item.equipmentLayer === LayerValue[layer] &&
-        (item.gender === gender || item.gender === genders.both)
+        (item.gender === gender || getGender(item) === "both")
       ) {
         result.push(item);
       }
@@ -41,6 +34,17 @@ export const getItems = memoize(
   },
   (layer, gender) => `${layer}_${gender}`
 );
+
+export function getGender(item: Item): "male" | "female" | "both" {
+  switch (item.gender) {
+    case 0:
+      return "male";
+    case 1:
+      return "female";
+    case 2:
+      return "both";
+  }
+}
 
 export function hasColor(item: Item, colorType: ColorType) {
   return item.colorSlot[COLOR_TYPES.indexOf(colorType)];

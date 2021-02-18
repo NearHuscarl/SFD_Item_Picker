@@ -1,6 +1,6 @@
 import camelCase from "lodash/camelCase";
 import { Layer, ProfileSettings } from "app/types";
-import { genders } from "app/data/items";
+import { Genders } from "app/constants";
 
 function quote(str: string) {
   return `"${str}"`;
@@ -11,7 +11,7 @@ function fillName(template: string, settings: ProfileSettings) {
 }
 
 function fillGender(template: string, settings: ProfileSettings) {
-  if (settings.gender === genders.male) {
+  if (settings.gender === Genders.male) {
     template = template.replace(`__GENDER__`, "Gender.Male");
   } else {
     template = template.replace(`__GENDER__`, "Gender.Female");

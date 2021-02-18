@@ -1,13 +1,14 @@
 import camelCase from "lodash/camelCase";
 import { Layer, ProfileSettings } from "app/types";
 import { useSelector } from "app/store/reduxHooks";
-import { ensureColorItemExist, getItems } from "app/helpers/item";
-import { genders, ItemID, NULL_ITEM } from "app/data/items";
+import { ensureColorItemExist, getGender, getItems } from "app/helpers/item";
+import { ItemID, NULL_ITEM } from "app/data/items";
 import { profileActions } from "app/store/rootDuck";
 import { createDispatcher } from "app/actions/createDispatcher";
 import { useDispatch } from "react-redux";
 import { Layers } from "app/constants";
 import { randomArrItem, randomItemColors } from "app/helpers/random";
+import { decodeProfile } from "app/helpers/profile";
 
 export function useItemGenderSelector() {
   return useSelector((state) => state.profile.current.gender);
@@ -38,7 +39,7 @@ export function useRandomItemDispatcher() {
       const items = getItems(layer, gender).filter((i) => {
         if (layer === "Skin") {
           // filter out campaign skins (Mecha or Bear)
-          return i.gender !== genders.both;
+          return getGender(i) !== "both";
         }
         return true;
       });
@@ -53,6 +54,21 @@ export function useRandomItemDispatcher() {
       result[colorGetter] = itemColors;
     });
     dispatch(profileActions.setAllItems(result));
+  };
+}
+
+export function useSearchItemDispatcher() {
+  const dispatch = useDispatch();
+
+  return (urlParams: string) => {
+    const profileParams = new URLSearchParams(urlParams).get("p");
+
+    if (profileParams) {
+      try {
+        const profileSettings = decodeProfile(profileParams);
+        dispatch(profileActions.setAllItems(profileSettings));
+      } catch {}
+    }
   };
 }
 

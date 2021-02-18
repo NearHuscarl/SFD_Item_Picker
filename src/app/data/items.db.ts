@@ -15,12 +15,6 @@ export type Item = {
   colorSlot: [primary: boolean, secondary: boolean, tertiary: boolean];
 };
 
-export const genders = {
-  male: 0,
-  female: 1,
-  both: 2,
-} as const;
-
 export const NULL_ITEM: Item = {
   gameName: "None",
   fileName: "None" as any,
@@ -29,7 +23,7 @@ export const NULL_ITEM: Item = {
   jacketUnderBelt: false,
   colorPalette: "Clothing1",
   data: [[], [], [], [], [], []],
-  gender: genders.both,
+  gender: 2,
   colorSlot: [false, false, false],
 };
 

@@ -16,6 +16,7 @@ export const theme = createMuiTheme({
   props: {
     MuiTextField: {
       variant: "outlined",
+      size: "small",
     },
   },
   overrides: {

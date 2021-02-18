@@ -4,6 +4,8 @@ import { Profile } from "app/pages/home/Profile";
 import { ProfileSettings } from "app/pages/home/ProfileSettings";
 import { DevTool } from "app/widgets/DevTool";
 import { CodeGen } from "app/pages/home/CodeGen";
+import { useEffect } from "react";
+import { useSearchItemDispatcher } from "app/actions/profile";
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -24,8 +26,18 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+function useHomePage() {
+  const dispatchSearchItems = useSearchItemDispatcher();
+
+  useEffect(() => {
+    dispatchSearchItems(window.location.search);
+  }, [window.location.search]);
+}
+
 export function HomePage() {
   const classes = useStyles();
+
+  useHomePage();
 
   return (
     <div className={classes.container}>

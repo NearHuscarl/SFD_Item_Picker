@@ -5,7 +5,7 @@ export function DevTool(props) {
   const devTool = useSelector((state) => state.global.devTool);
   const onReset = () => {
     localStorage.clear();
-    window.location.reload();
+    window.location.replace(window.location.pathname);
   };
 
   return (

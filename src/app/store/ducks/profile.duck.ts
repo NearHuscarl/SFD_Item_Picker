@@ -4,9 +4,9 @@ import { MigrationManifest } from "redux-persist/es/types";
 import { createMigrate } from "redux-persist";
 import camelCase from "lodash/camelCase";
 import { PersistConfig, persistReducer } from "app/store/persist";
-import { genders, Gender, ItemID } from "app/data/items";
+import { Gender, ItemID } from "app/data/items";
 import { ColorName } from "app/data/colors";
-import { COLOR_TYPES } from "app/constants";
+import { COLOR_TYPES, Genders } from "app/constants";
 import { ColorType, Layer, ProfileSettings } from "app/types";
 
 export interface ProfileState {
@@ -16,7 +16,7 @@ export interface ProfileState {
 export const initialState: ProfileState = {
   current: {
     name: "near",
-    gender: genders.male,
+    gender: Genders.male,
     skin: "Normal",
     skinColors: ["Skin3", null, null],
     head: "None",
@@ -57,9 +57,9 @@ const slice = createSlice({
     setAllItems(state, action: PayloadAction<Partial<ProfileSettings>>) {
       const profileSettings = action.payload;
 
-      Object.keys(profileSettings).forEach((prop) => {
-        if (profileSettings[prop]) {
-          state.current[prop] = profileSettings[prop];
+      Object.keys(profileSettings).forEach((getter) => {
+        if (profileSettings[getter]) {
+          state.current[getter] = profileSettings[getter];
         }
       });
     },

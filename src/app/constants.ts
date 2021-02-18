@@ -9,6 +9,12 @@ export const __PRODUCTION__ = process.env.NODE_ENV === "production";
 export const TEXTURE_WIDTH = 16;
 export const TEXTURE_HEIGHT = 16;
 
+export const Genders = {
+  male: 0,
+  female: 1,
+  both: 2,
+} as const;
+
 export const COLOR_TYPES = ["primary", "secondary", "tertiary"] as const;
 
 export const ItemPartTypeValue = {
