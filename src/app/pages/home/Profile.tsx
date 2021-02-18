@@ -1,7 +1,7 @@
 import { useReducer } from "react";
 import { useDispatch } from "react-redux";
 import { makeStyles } from "@material-ui/styles";
-import { IconButton } from "@material-ui/core";
+import { IconButton, Theme } from "@material-ui/core";
 import Casino from "@material-ui/icons/Casino";
 import { globalActions } from "app/store/rootDuck";
 import { useSelector } from "app/store/reduxHooks";
@@ -10,20 +10,25 @@ import { useOnMount } from "app/helpers/hooks";
 import { useRandomItemDispatcher } from "app/actions/profile";
 import { ShareButton } from "app/widgets/ShareButton";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles<Theme>((theme) => ({
   root: {
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "darkorchid",
     position: "relative",
+    borderRadius: theme.shape.borderRadius,
   },
   action: {
     position: "absolute",
     top: -40,
-    right: -14,
+    right: -7,
+
+    '& > [class*="MuiButtonBase"]': {
+      padding: 5,
+    },
   },
-});
+}));
 
 function useProfile() {
   const classes = useStyles();

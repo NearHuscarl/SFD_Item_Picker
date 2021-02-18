@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { IconButton, makeStyles, Tooltip } from "@material-ui/core";
 import FileCopy from "@material-ui/icons/FileCopy";
 import { Light as SyntaxHighlighter } from "react-syntax-highlighter";
@@ -5,7 +6,6 @@ import csharp from "react-syntax-highlighter/dist/esm/languages/hljs/csharp";
 import theme from "react-syntax-highlighter/dist/esm/styles/hljs/vs2015";
 import { useTemplate } from "app/actions/template";
 import { copy } from "app/helpers/copy";
-import { useState } from "react";
 
 SyntaxHighlighter.registerLanguage("csharp", csharp);
 
@@ -25,6 +25,7 @@ const useStyles = makeStyles((theme) => ({
       height: "100%",
       padding: `${theme.spacing(2)}px !important`,
       margin: 0,
+      borderRadius: theme.shape.borderRadius,
     },
   },
   action: {

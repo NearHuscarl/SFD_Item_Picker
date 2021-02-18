@@ -1,14 +1,13 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core";
-import { DefaultTheme } from "@material-ui/styles";
+import { makeStyles, Theme } from "@material-ui/core";
 
 export const SWATCH_SIZE = 37;
 
-const useStyles = makeStyles<DefaultTheme, SwatchProps>({
+const useStyles = makeStyles<Theme, SwatchProps>((theme) => ({
   swatch: {
     width: SWATCH_SIZE,
     height: SWATCH_SIZE,
-    borderRadius: 4,
+    borderRadius: theme.shape.borderRadius,
     backgroundColor: (props) => props.color,
     cursor: "pointer",
     transition: "box-shadow .25s",
@@ -20,12 +19,12 @@ const useStyles = makeStyles<DefaultTheme, SwatchProps>({
   swatchDisabled: {
     width: SWATCH_SIZE - 4 * 2,
     height: SWATCH_SIZE - 4 * 2,
-    borderRadius: 4,
+    borderRadius: theme.shape.borderRadius,
     backgroundColor: (props) => props.color,
     border: "4px #e0e0e0 dashed",
     cursor: "not-allowed",
   },
-});
+}));
 
 export type SwatchProps = {
   disabled?: boolean;
