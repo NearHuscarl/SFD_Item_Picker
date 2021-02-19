@@ -5,7 +5,7 @@ import { IconButton, Theme } from "@material-ui/core";
 import Casino from "@material-ui/icons/Casino";
 import { globalActions } from "app/store/rootDuck";
 import { useSelector } from "app/store/reduxHooks";
-import { Portrait } from "app/widgets/Portrait";
+import { Portrait, PORTRAIT_HEIGHT } from "app/widgets/Portrait";
 import { useOnMount } from "app/helpers/hooks";
 import { useRandomItemDispatcher } from "app/actions/profile";
 import { ShareButton } from "app/widgets/ShareButton";
@@ -18,6 +18,7 @@ const useStyles = makeStyles<Theme>((theme) => ({
     backgroundColor: "darkorchid",
     position: "relative",
     borderRadius: theme.shape.borderRadius,
+    height: PORTRAIT_HEIGHT,
   },
   action: {
     position: "absolute",

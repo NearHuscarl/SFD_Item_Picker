@@ -108,7 +108,7 @@ export function ShareButton() {
           inputRef={inputRef}
           InputProps={{ readOnly: true }}
           fullWidth
-          value={window.location.host + "/?p=" + urlParams}
+          value={window.location.host + "?p=" + urlParams}
         />
         {decodedTextForDebugging && (
           <TextField

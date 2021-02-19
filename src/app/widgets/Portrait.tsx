@@ -1,3 +1,4 @@
+import { makeStyles } from "@material-ui/styles";
 import { Item } from "app/widgets/Item";
 import { getItem } from "app/data/items";
 import { Layer } from "app/types";
@@ -16,9 +17,22 @@ function Equipment({ layer }: EquipmentProps) {
   return <Item id={itemId} color={itemColors} animation="idle" />;
 }
 
+export const PORTRAIT_HEIGHT = 50;
+
+const useStyles = makeStyles({
+  portrait: {
+    height: PORTRAIT_HEIGHT,
+    position: "relative",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+});
+
 export function Portrait() {
   const chestOverID = useSelector((state) => state.profile.current.chestOver);
   const chestOver = getItem(chestOverID);
+  const classes = useStyles();
   const { isLoadingDB } = useIndexedDB();
 
   if (isLoadingDB) {
@@ -26,15 +40,7 @@ export function Portrait() {
   }
 
   return (
-    <div
-      style={{
-        height: 50,
-        position: "relative",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
+    <div className={classes.portrait}>
       {[0, 1, 2, 3, 4, 5, 6, 7, 8].map((layerIndex) => {
         let layer = Layers[layerIndex];
 
