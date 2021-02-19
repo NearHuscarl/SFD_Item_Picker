@@ -2,6 +2,7 @@ import { makeStyles } from "@material-ui/core";
 import { GenderSelect } from "app/pages/home/GenderSelect";
 import { ItemSettings } from "app/pages/home/ItemSettings";
 import { NameTextField } from "app/pages/home/NameTextField";
+import { ClearAllButton } from "app/pages/home/ClearAllButton";
 
 const useStyles = makeStyles({
   profileSettings: {
@@ -16,6 +17,14 @@ const useStyles = makeStyles({
       marginBottom: 12,
     },
   },
+  gender: {
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "flex-end",
+  },
+  resetButton: {
+    marginBottom: 8,
+  },
 });
 
 export function ProfileSettings(props) {
@@ -24,7 +33,10 @@ export function ProfileSettings(props) {
   return (
     <div className={classes.profileSettings}>
       <NameTextField />
-      <GenderSelect />
+      <div className={classes.gender}>
+        <GenderSelect />
+        <ClearAllButton className={classes.resetButton} />
+      </div>
       <ItemSettings layer="Skin" />
       <ItemSettings layer="Head" />
       <ItemSettings layer="ChestOver" />

@@ -15,7 +15,10 @@ import { stringifyOneLineArray } from "app/helpers";
 const useStyles = makeStyles<Theme>((theme) => ({
   paper: {
     padding: theme.spacing(2),
-    width: 460,
+    width: 445,
+  },
+  paperDebug: {
+    opacity: "0.9 !important",
   },
   text: {
     marginBottom: theme.spacing(1),
@@ -23,11 +26,11 @@ const useStyles = makeStyles<Theme>((theme) => ({
 }));
 
 function useShareButton() {
-  const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const profileSettings = useSelector((state) => state.profile.current);
   const devTool = useSelector((state) => state.global.devTool);
+  const classes = useStyles();
   const urlParams = encodeProfile(profileSettings);
   const open = Boolean(anchorEl);
   const onOpen = (e) => {
@@ -51,6 +54,7 @@ function useShareButton() {
 
   return {
     classes,
+    devTool,
     anchorEl,
     inputRef,
     onShare,
@@ -66,6 +70,7 @@ function useShareButton() {
 export function ShareButton() {
   const {
     classes,
+    devTool,
     anchorEl,
     inputRef,
     open,
@@ -90,7 +95,9 @@ export function ShareButton() {
         anchorEl={anchorEl}
         onClose={onClose}
         classes={{
-          paper: classes.paper,
+          paper: devTool
+            ? classes.paper + " " + classes.paperDebug
+            : classes.paper,
         }}
         anchorOrigin={{
           vertical: "bottom",
@@ -114,7 +121,7 @@ export function ShareButton() {
           <TextField
             fullWidth
             multiline
-            rows={30}
+            rows={21}
             value={decodedTextForDebugging}
           />
         )}

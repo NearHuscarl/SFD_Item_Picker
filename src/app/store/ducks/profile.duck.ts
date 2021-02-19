@@ -57,14 +57,21 @@ const slice = createSlice({
 
       state.current[getter] = id;
     },
-    setAllItems(state, action: PayloadAction<Partial<ProfileSettings>>) {
+    setAllItems(
+      state,
+      action: PayloadAction<Partial<ProfileSettings> | undefined>
+    ) {
       const profileSettings = action.payload;
 
-      Object.keys(profileSettings).forEach((getter) => {
-        if (profileSettings[getter]) {
-          state.current[getter] = profileSettings[getter];
-        }
-      });
+      if (profileSettings) {
+        Object.keys(profileSettings).forEach((getter) => {
+          if (profileSettings[getter]) {
+            state.current[getter] = profileSettings[getter];
+          }
+        });
+      } else {
+        state.current = initialState.current;
+      }
     },
     setItemColors(state, action: PayloadAction<ColorParams>) {
       const { layer, type, name } = action.payload;
