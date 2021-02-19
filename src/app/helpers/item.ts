@@ -23,6 +23,7 @@ export const getItems = memoize(
 
     forEachItem((item) => {
       if (
+        item.id !== "None" &&
         item.equipmentLayer === LayerValue[layer] &&
         (item.gender === gender || getGender(item) === "both")
       ) {

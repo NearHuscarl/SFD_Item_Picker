@@ -38,7 +38,7 @@ export function useRandomItemDispatcher() {
       const colorGetter = `${camelCase(layer)}Colors`;
       const items = getItems(layer, gender).filter((i) => {
         if (layer === "Skin") {
-          // filter out campaign skins (Mecha or Bear)
+          // filter out campaign skins (Mecha and Bear)
           return getGender(i) !== "both";
         }
         return true;
