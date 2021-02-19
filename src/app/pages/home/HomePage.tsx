@@ -14,15 +14,20 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: grey[100],
   },
   colLeft: {
+    flex: "0 0 300px",
+
     display: "flex",
     flexDirection: "column",
     justifyContent: "flex-start",
+    padding: theme.spacing(2),
+    // prevent mecha head from being clipped
     paddingTop: 45,
-    paddingLeft: theme.spacing(2),
-    paddingRight: theme.spacing(2),
-    width: 400,
     backgroundColor: "white",
     boxShadow: theme.shadows[10],
+  },
+  colRight: {
+    flexGrow: 1,
+    display: "flex",
   },
 }));
 
@@ -47,7 +52,9 @@ export function HomePage() {
         </Box>
         <ProfileSettings />
       </div>
-      <CodeGen />
+      <div className={classes.colRight}>
+        <CodeGen />
+      </div>
       <DevTool />
     </div>
   );
