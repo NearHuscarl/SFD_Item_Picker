@@ -45,6 +45,9 @@ const slice = createSlice({
   initialState,
   name: "profile",
   reducers: {
+    setName(state, action: PayloadAction<string>) {
+      state.current.name = action.payload;
+    },
     setGender(state, action: PayloadAction<Gender>) {
       state.current.gender = action.payload;
     },

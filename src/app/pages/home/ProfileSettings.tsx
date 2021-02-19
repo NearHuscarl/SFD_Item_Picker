@@ -1,6 +1,7 @@
 import { makeStyles } from "@material-ui/core";
 import { GenderSelect } from "app/pages/home/GenderSelect";
 import { ItemSettings } from "app/pages/home/ItemSettings";
+import { NameTextField } from "app/pages/home/NameTextField";
 
 const useStyles = makeStyles({
   profileSettings: {
@@ -9,6 +10,7 @@ const useStyles = makeStyles({
 
     display: "flex",
     flexDirection: "column",
+    paddingTop: 5,
 
     "& > :not(:last-child)": {
       marginBottom: 12,
@@ -21,6 +23,7 @@ export function ProfileSettings(props) {
 
   return (
     <div className={classes.profileSettings}>
+      <NameTextField />
       <GenderSelect />
       <ItemSettings layer="Skin" />
       <ItemSettings layer="Head" />
