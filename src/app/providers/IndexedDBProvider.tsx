@@ -14,7 +14,7 @@ type IndexedDBPContextValues = {
   isLoadingDB: boolean;
 };
 
-export const EMPTY_INDEXED_DB_CONTEXT = Object.freeze({} as any);
+const EMPTY_INDEXED_DB_CONTEXT = Object.freeze({} as any);
 export const IndexedDBContext = createContext<IndexedDBPContextValues>(
   EMPTY_INDEXED_DB_CONTEXT
 );

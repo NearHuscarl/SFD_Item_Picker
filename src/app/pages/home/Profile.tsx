@@ -33,6 +33,7 @@ const useStyles = makeStyles<Theme>((theme) => ({
 
 function useProfile() {
   const classes = useStyles();
+  const profile = useSelector((state) => state.profile.current);
   const dispatch = useDispatch();
   const devTool = useSelector((state) => state.global.devTool);
   const [, rerender] = useReducer((x) => ++x, 0);
@@ -56,15 +57,16 @@ function useProfile() {
     classes,
     onClickProfile,
     onRandomize,
+    profile,
   };
 }
 
 export function Profile() {
-  const { classes, onClickProfile, onRandomize } = useProfile();
+  const { classes, onClickProfile, onRandomize, profile } = useProfile();
 
   return (
     <div onClick={onClickProfile} className={classes.root}>
-      <Portrait />
+      <Portrait profile={profile} />
       <div className={classes.action}>
         <ShareButton />
         <IconButton
