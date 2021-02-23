@@ -1,6 +1,13 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "app/store/reduxHooks";
 import { fillTemplate } from "app/helpers/template";
+import { ProfileSettings } from "app/types";
+
+function fillTemplateAsync(template: string, settings: ProfileSettings) {
+  return new Promise<string>((resolve, reject) => {
+    resolve(fillTemplate(template, settings));
+  });
+}
 
 export function useTemplate() {
   const [code, _setCode] = useState("");
@@ -8,7 +15,9 @@ export function useTemplate() {
   const templateIProfile = useSelector(
     (state) => state.settings.template.IProfile
   );
-  const setCode = (template) => _setCode(fillTemplate(template, settings));
+  const setCode = (template) => {
+    fillTemplateAsync(template, settings).then((result) => _setCode(result));
+  };
 
   useEffect(() => {
     setCode(templateIProfile);

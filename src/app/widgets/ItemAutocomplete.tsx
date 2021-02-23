@@ -71,7 +71,12 @@ export function ItemAutocomplete(props: ItemAutocompleteProps) {
         onChange(newValue);
       }}
       renderInput={(params) => (
-        <TextField {...params} label={startCase(layer)} variant="outlined" />
+        <TextField
+          {...params}
+          InputLabelProps={{ shrink: true }}
+          label={startCase(layer)}
+          variant="outlined"
+        />
       )}
     />
   );

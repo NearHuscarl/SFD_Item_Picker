@@ -1,4 +1,5 @@
-import { useReducer } from "react";
+import { useCallback, useReducer } from "react";
+import throttle from "lodash/throttle";
 import { useDispatch } from "react-redux";
 import { makeStyles } from "@material-ui/styles";
 import { IconButton, Theme } from "@material-ui/core";
@@ -37,7 +38,10 @@ function useProfile() {
   const dispatch = useDispatch();
   const devTool = useSelector((state) => state.global.devTool);
   const [, rerender] = useReducer((x) => ++x, 0);
-  const onRandomize = useRandomItemDispatcher();
+  const onRandomize = useCallback(
+    throttle(useRandomItemDispatcher(), 1000),
+    []
+  );
   const onClickProfile = (e) => {
     // display hidden devtool after triple-clicking profile
     if (e.detail === 3) {

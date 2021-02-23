@@ -47,22 +47,24 @@ function useItemSettings(layer: Layer) {
     });
   };
   const onChangeItem = (id: ItemID) => {
-    const newItem = getItem(id);
-    COLOR_TYPES.forEach((type, i) => {
-      const validate = validateColorName(newItem, type, itemColors[i]);
-      if (!validate) {
-        const defaultColor = getDefaultColorName(newItem, type);
+    if (itemId !== id) {
+      const newItem = getItem(id);
+      COLOR_TYPES.forEach((type, i) => {
+        const validate = validateColorName(newItem, type, itemColors[i]);
+        if (!validate) {
+          const defaultColor = getDefaultColorName(newItem, type);
 
-        if (defaultColor) {
-          dispatchItemColors({
-            layer,
-            type,
-            name: defaultColor,
-          });
+          if (defaultColor) {
+            dispatchItemColors({
+              layer,
+              type,
+              name: defaultColor,
+            });
+          }
         }
-      }
-    });
-    dispatchItem({ id, layer });
+      });
+      dispatchItem({ id, layer });
+    }
   };
 
   return {

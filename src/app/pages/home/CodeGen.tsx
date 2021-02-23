@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { memo, useState } from "react";
 import { IconButton, makeStyles, Tooltip } from "@material-ui/core";
 import FileCopy from "@material-ui/icons/FileCopy";
 import { Light as SyntaxHighlighter } from "react-syntax-highlighter";
@@ -39,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export function CodeGen() {
+export const CodeGen = memo(() => {
   const classes = useStyles();
   const [code, setCode] = useTemplate();
   const [copyTooltipOpen, setCopyTooltipOpen] = useState(false);
@@ -85,4 +85,6 @@ export function CodeGen() {
       </div>
     </div>
   );
-}
+});
+
+CodeGen.displayName = "CodeGen";
