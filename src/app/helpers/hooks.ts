@@ -25,18 +25,36 @@ export function useInterval(callback, delay) {
   }, [delay]);
 }
 
-export function useAnimationFrame(animationName: AnimationName) {
+function clampFrame(frame: number | undefined, min: number, max: number) {
+  if (frame === undefined) {
+    return 0;
+  }
+  return Math.min(Math.max(frame, min), max);
+}
+
+export function useAnimationFrame(
+  animationName: AnimationName,
+  aniFrameIndex?: number
+) {
   const aniData = getAnimation(animationName);
   const frameCount = aniData.length;
-  const [frameIndex, setFrameIndex] = useState(0);
+  const [frameIndex, setFrameIndex] = useState(
+    clampFrame(aniFrameIndex, 0, frameCount - 1)
+  );
   const cb = useCallback(() => {
-    if (frameCount === 1) {
+    if (frameCount === 1 || aniFrameIndex !== undefined) {
       return;
     }
     setFrameIndex((f) => (f === frameCount - 1 ? 0 : ++f));
-  }, []);
+  }, [aniFrameIndex, frameCount]);
 
   useInterval(cb, [aniData[frameIndex].time]);
+
+  useEffect(() => {
+    if (aniFrameIndex !== undefined) {
+      setFrameIndex(clampFrame(aniFrameIndex, 0, frameCount - 1));
+    }
+  }, [aniFrameIndex, frameCount]);
 
   return aniData[frameIndex];
 }

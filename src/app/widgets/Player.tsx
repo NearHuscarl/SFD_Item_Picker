@@ -3,9 +3,7 @@ import { makeStyles } from "@material-ui/styles";
 import camelCase from "lodash/camelCase";
 import { getItem } from "app/data/items";
 import { ProfileSettings } from "app/types";
-import { useSelector } from "app/store/reduxHooks";
 import { ItemPartType, Layers } from "app/constants";
-import { useIndexedDB } from "app/providers/IndexedDBProvider";
 import { ensureColorItemExist, getItemTypeZIndex } from "app/helpers/item";
 import { getAnimationRenderData } from "app/helpers/animation";
 import { useAnimationFrame } from "app/helpers/hooks";
@@ -28,12 +26,101 @@ const useStyles = makeStyles({
   },
 });
 
+type UsePlayerDrawerProps = {
+  aniFrameIndex?: number;
+};
+type DrawPlayerParams = {
+  canvas: HTMLCanvasElement;
+  profile: ProfileSettings;
+  ratio?: number;
+};
+export function usePlayerDrawer(props?: UsePlayerDrawerProps) {
+  const { aniFrameIndex } = props || {};
+  const baseIdleAni = useAnimationFrame("BaseIdle", aniFrameIndex);
+  const upperIdleAni = useAnimationFrame("UpperIdle", aniFrameIndex);
+  const { getTexture } = useTextureData();
+
+  return async (props: DrawPlayerParams) => {
+    const { canvas, profile, ratio = RATIO } = props;
+    const ctx = canvas.getContext("2d")!;
+    const allRenderLayers = [] as RenderLayer[];
+    const chestOverID = profile.chestOver;
+    const chestOver = getItem(chestOverID);
+
+    ctx.imageSmoothingEnabled = false;
+
+    for (let layerIndex of [0, 1, 2, 3, 4, 5, 6, 7, 8]) {
+      let layer = Layers[layerIndex];
+
+      if (chestOver.jacketUnderBelt) {
+        if (layer === "ChestOver") {
+          layer = "Waist";
+        } else if (layer === "Waist") {
+          layer = "ChestOver";
+        }
+      }
+
+      // TODO: restructure ProfileSettings and remove getter/colorGetter
+      // TODO: remove name from ProfileSettings to skip rendering
+      const getter = camelCase(layer);
+      const colorGetter = getter + "Colors";
+      const itemId = profile[getter];
+      const itemColors = ensureColorItemExist(itemId, profile[colorGetter]);
+      const renderData = [
+        ...getAnimationRenderData(itemId, baseIdleAni.parts),
+        ...getAnimationRenderData(itemId, upperIdleAni.parts),
+      ].reverse();
+
+      for (let index = 0; index < renderData.length; index++) {
+        const aniData = renderData[index];
+        const { textureKey, type, localId, x, y } = aniData;
+
+        if (textureKey) {
+          const result = await getTexture(textureKey);
+
+          if (result) {
+            const { texture: imageData } = result;
+            const layer = (index + 1) * getItemTypeZIndex(type) + layerIndex;
+            const identify = `${itemId}_${ItemPartType[type]}_${localId}`;
+            applyColor(imageData.data, itemColors);
+
+            allRenderLayers.push({
+              identify,
+              imageData,
+              dx: x + 2,
+              dy: y + 11,
+              layer,
+            });
+          }
+        }
+      }
+    }
+
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    allRenderLayers
+      .sort((a, b) => (a.layer > b.layer ? 1 : -1))
+      .forEach((renderLayer, i) => {
+        const { identify, imageData, dx, dy } = renderLayer;
+
+        // console.log(identify, dx, dy);
+
+        const smallCanvas = document.createElement("canvas");
+        const smCtx = smallCanvas.getContext("2d")!;
+
+        // cannot scale using putImageData(). Must use a temporary canvas with original texture size
+        // https://stackoverflow.com/a/24468840/9449426
+        smallCanvas.width = canvas.width / ratio;
+        smallCanvas.height = canvas.height / ratio;
+        smCtx.putImageData(imageData, dx, dy);
+
+        ctx.drawImage(smallCanvas, 0, 0, canvas.width, canvas.height);
+      });
+  };
+}
+
 function usePlayer(props: PlayerProps) {
   const { profile } = props;
-  const chestOverID = useSelector((state) => state.profile.current.chestOver);
-  const chestOver = getItem(chestOverID);
   const classes = useStyles();
-  const { isLoadingDB } = useIndexedDB();
   const ctxRef = useRef<CanvasRenderingContext2D>();
   const canvasRef = useRef<HTMLCanvasElement>();
   const onLoadCanvas = (canvas: HTMLCanvasElement) => {
@@ -42,107 +129,27 @@ function usePlayer(props: PlayerProps) {
       const ctx = canvas.getContext("2d") || undefined;
       if (ctx) {
         ctxRef.current = ctx;
-        ctx.imageSmoothingEnabled = false;
       }
     }
   };
 
-  const baseIdleAni = useAnimationFrame("BaseIdle");
-  const upperIdleAni = useAnimationFrame("UpperIdle");
-  const { getTexture } = useTextureData();
+  const draw = usePlayerDrawer();
 
   useEffect(() => {
-    if (isLoadingDB) {
-      return;
-    }
-
-    (async () => {
-      const ctx = ctxRef.current!;
-      const canvas = canvasRef.current!;
-      const allRenderLayers = [] as RenderLayer[];
-
-      for (let layerIndex of [0, 1, 2, 3, 4, 5, 6, 7, 8]) {
-        let layer = Layers[layerIndex];
-
-        if (chestOver.jacketUnderBelt) {
-          if (layer === "ChestOver") {
-            layer = "Waist";
-          } else if (layer === "Waist") {
-            layer = "ChestOver";
-          }
-        }
-
-        // TODO: restructure ProfileSettings and remove getter/colorGetter
-        // TODO: remove name from ProfileSettings to skip rendering
-        const getter = camelCase(layer);
-        const colorGetter = getter + "Colors";
-        const itemId = profile[getter];
-        const itemColors = ensureColorItemExist(itemId, profile[colorGetter]);
-        const renderData = [
-          ...getAnimationRenderData(itemId, baseIdleAni.parts),
-          ...getAnimationRenderData(itemId, upperIdleAni.parts),
-        ].reverse();
-
-        for (let index = 0; index < renderData.length; index++) {
-          const aniData = renderData[index];
-          const { textureKey, type, localId, x, y } = aniData;
-
-          if (textureKey) {
-            const result = await getTexture(textureKey);
-
-            if (result) {
-              const { texture: imageData } = result;
-              const layer = (index + 1) * getItemTypeZIndex(type) + layerIndex;
-              const identify = `${itemId}_${ItemPartType[type]}_${localId}`;
-              applyColor(imageData.data, itemColors);
-
-              allRenderLayers.push({
-                identify,
-                imageData,
-                dx: x + 2,
-                dy: y + 11,
-                layer,
-              });
-            }
-          }
-        }
-      }
-
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      allRenderLayers
-        .sort((a, b) => (a.layer > b.layer ? 1 : -1))
-        .forEach((renderLayer, i) => {
-          const { identify, imageData, dx, dy } = renderLayer;
-
-          // console.log(identify, dx, dy);
-
-          const smallCanvas = document.createElement("canvas");
-          const smCtx = smallCanvas.getContext("2d")!;
-
-          // cannot scale using putImageData(). Must use a temporary canvas with original texture size
-          // https://stackoverflow.com/a/24468840/9449426
-          smallCanvas.width = canvas.width / RATIO;
-          smallCanvas.height = canvas.height / RATIO;
-          smCtx.putImageData(imageData, dx, dy);
-
-          ctx.drawImage(smallCanvas, 0, 0, canvas.width, canvas.height);
-        });
-    })();
+    draw({
+      canvas: canvasRef.current!,
+      profile,
+    }).then();
   });
 
   return {
     classes,
     onLoadCanvas,
-    isLoadingDB,
   };
 }
 
 export function Player(props: PlayerProps) {
-  const { isLoadingDB, classes, onLoadCanvas } = usePlayer(props);
-
-  if (isLoadingDB) {
-    return null;
-  }
+  const { classes, onLoadCanvas } = usePlayer(props);
 
   return (
     <div className={classes.player}>

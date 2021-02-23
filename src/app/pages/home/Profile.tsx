@@ -4,13 +4,15 @@ import { useDispatch } from "react-redux";
 import { makeStyles } from "@material-ui/styles";
 import { IconButton, Theme } from "@material-ui/core";
 import Casino from "@material-ui/icons/Casino";
+import GetApp from "@material-ui/icons/GetApp";
 import purple from "@material-ui/core/colors/purple";
 import { globalActions } from "app/store/rootDuck";
 import { useSelector } from "app/store/reduxHooks";
-import { Player, PLAYER_HEIGHT } from "app/widgets/Player";
+import { Player, PLAYER_HEIGHT, usePlayerDrawer } from "app/widgets/Player";
 import { useOnMount } from "app/helpers/hooks";
 import { useRandomItemDispatcher } from "app/actions/profile";
 import { ShareButton } from "app/widgets/ShareButton";
+import { useIndexedDB } from "app/providers/IndexedDBProvider";
 
 const useStyles = makeStyles<Theme>((theme) => ({
   profile: {
@@ -61,6 +63,25 @@ function useProfile() {
     }
   };
 
+  const drawPlayer = usePlayerDrawer({ aniFrameIndex: 0 });
+  const onDownload = () => {
+    const canvas = document.createElement("canvas")!;
+
+    canvas.width = 69;
+    canvas.height = 75;
+
+    drawPlayer({
+      canvas,
+      profile,
+      ratio: 3,
+    }).then(() => {
+      const link = document.createElement("a");
+      link.download = `${profile.name}.png`;
+      link.href = canvas.toDataURL();
+      link.click();
+    });
+  };
+
   useOnMount(() => {
     const btnEl = document.getElementById(
       "render-profile-devtool-btn"
@@ -73,17 +94,28 @@ function useProfile() {
     classes,
     onClickProfile,
     onRandomize,
+    onDownload,
     profile,
   };
 }
 
 export function Profile() {
-  const { classes, onClickProfile, onRandomize, profile } = useProfile();
+  const {
+    classes,
+    onClickProfile,
+    onRandomize,
+    onDownload,
+    profile,
+  } = useProfile();
+  const { isLoadingDB } = useIndexedDB();
 
   return (
     <div onClick={onClickProfile} className={classes.profile}>
-      <Player profile={profile} />
+      {!isLoadingDB && <Player profile={profile} />}
       <div className={classes.action}>
+        <IconButton onClick={onDownload}>
+          <GetApp />
+        </IconButton>
         <ShareButton />
         <IconButton
           color="primary"
