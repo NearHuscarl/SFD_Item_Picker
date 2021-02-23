@@ -4,30 +4,45 @@ import { useDispatch } from "react-redux";
 import { makeStyles } from "@material-ui/styles";
 import { IconButton, Theme } from "@material-ui/core";
 import Casino from "@material-ui/icons/Casino";
+import purple from "@material-ui/core/colors/purple";
 import { globalActions } from "app/store/rootDuck";
 import { useSelector } from "app/store/reduxHooks";
-import { Portrait, PORTRAIT_HEIGHT } from "app/widgets/Portrait";
+import { Portrait } from "app/widgets/Portrait";
 import { useOnMount } from "app/helpers/hooks";
 import { useRandomItemDispatcher } from "app/actions/profile";
 import { ShareButton } from "app/widgets/ShareButton";
 
 const useStyles = makeStyles<Theme>((theme) => ({
-  root: {
+  profile: {
     display: "flex",
     justifyContent: "center",
-    alignItems: "center",
+    alignItems: "flex-end",
     backgroundColor: "darkorchid",
     position: "relative",
     borderRadius: theme.shape.borderRadius,
-    height: PORTRAIT_HEIGHT,
+    // prevent mecha head from being clipped
+    height: 90,
+
+    "&:before": {
+      content: '""',
+      position: "absolute",
+      top: 0,
+      left: 0,
+      width: "100%",
+      height: "50%",
+      backgroundColor: purple[100],
+      borderTopLeftRadius: "inherit",
+      borderTopRightRadius: "inherit",
+    },
   },
   action: {
     position: "absolute",
-    top: -40,
-    right: -7,
+    top: 5,
+    right: 5,
 
     '& > [class*="MuiButtonBase"]': {
       padding: 5,
+      color: purple[800],
     },
   },
 }));
@@ -38,10 +53,7 @@ function useProfile() {
   const dispatch = useDispatch();
   const devTool = useSelector((state) => state.global.devTool);
   const [, rerender] = useReducer((x) => ++x, 0);
-  const onRandomize = useCallback(
-    throttle(useRandomItemDispatcher(), 1000),
-    []
-  );
+  const onRandomize = useCallback(throttle(useRandomItemDispatcher(), 500), []);
   const onClickProfile = (e) => {
     // display hidden devtool after triple-clicking profile
     if (e.detail === 3) {
@@ -69,7 +81,7 @@ export function Profile() {
   const { classes, onClickProfile, onRandomize, profile } = useProfile();
 
   return (
-    <div onClick={onClickProfile} className={classes.root}>
+    <div onClick={onClickProfile} className={classes.profile}>
       <Portrait profile={profile} />
       <div className={classes.action}>
         <ShareButton />

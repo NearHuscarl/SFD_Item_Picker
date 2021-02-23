@@ -5,7 +5,9 @@ import { ProfileSettings } from "app/types";
 
 function fillTemplateAsync(template: string, settings: ProfileSettings) {
   return new Promise<string>((resolve, reject) => {
-    resolve(fillTemplate(template, settings));
+    setTimeout(() => {
+      resolve(fillTemplate(template, settings));
+    });
   });
 }
 

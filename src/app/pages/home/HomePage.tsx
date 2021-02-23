@@ -20,8 +20,6 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "column",
     justifyContent: "flex-start",
     padding: theme.spacing(2),
-    // prevent mecha head from being clipped
-    paddingTop: 45,
     backgroundColor: "white",
     boxShadow: theme.shadows[10],
   },
