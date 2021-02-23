@@ -81,11 +81,11 @@ export function usePlayerDrawer(props?: UsePlayerDrawerProps) {
           if (result) {
             const { texture: imageData } = result;
             const layer = (index + 1) * getItemTypeZIndex(type) + layerIndex;
-            const identify = `${itemId}_${ItemPartType[type]}_${localId}`;
+            const identifier = `${itemId}_${ItemPartType[type]}_${localId}`;
             applyColor(imageData.data, itemColors);
 
             allRenderLayers.push({
-              identify,
+              identifier,
               imageData,
               dx: x + 2,
               dy: y + 11,
@@ -100,9 +100,9 @@ export function usePlayerDrawer(props?: UsePlayerDrawerProps) {
     allRenderLayers
       .sort((a, b) => (a.layer > b.layer ? 1 : -1))
       .forEach((renderLayer, i) => {
-        const { identify, imageData, dx, dy } = renderLayer;
+        const { identifier, imageData, dx, dy } = renderLayer;
 
-        // console.log(identify, dx, dy);
+        // console.log(identifier, dx, dy);
 
         const smallCanvas = document.createElement("canvas");
         const smCtx = smallCanvas.getContext("2d")!;
@@ -173,7 +173,7 @@ type PlayerProps = {
 };
 
 type RenderLayer = {
-  identify: string;
+  identifier: string;
   imageData: ImageData;
   dx: number;
   dy: number;

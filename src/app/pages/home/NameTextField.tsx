@@ -2,13 +2,13 @@ import { TextField } from "@material-ui/core";
 import debounce from "lodash/debounce";
 import { useSelector } from "app/store/reduxHooks";
 import { useDispatch } from "react-redux";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { profileActions } from "app/store/rootDuck";
 
 function useNameTextField() {
-  const initialValue = useSelector((state) => state.profile.current.name);
+  const storedName = useSelector((state) => state.profile.current.name);
   const dispatch = useDispatch();
-  const [nameValue, setNameValue] = useState(initialValue);
+  const [name, setName] = useState(storedName);
   const dispatchValue = useCallback(
     debounce((newValue: string) => {
       dispatch(profileActions.setName(newValue));
@@ -17,11 +17,17 @@ function useNameTextField() {
   );
   const setValue = (newValue: string) => {
     dispatchValue(newValue);
-    setNameValue(newValue);
+    setName(newValue);
   };
 
+  useEffect(() => {
+    if (name !== storedName) {
+      setName(storedName);
+    }
+  }, [storedName]);
+
   return {
-    value: nameValue,
+    value: name,
     setValue,
   };
 }
