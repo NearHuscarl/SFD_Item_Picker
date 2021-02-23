@@ -20,6 +20,7 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "column",
     justifyContent: "flex-start",
     padding: theme.spacing(2),
+    paddingRight: 0, // fix swatch's box-shadows on the right are being clipped
     backgroundColor: "white",
     boxShadow: theme.shadows[10],
   },
@@ -45,7 +46,7 @@ export function HomePage() {
   return (
     <div className={classes.container}>
       <div className={classes.colLeft}>
-        <Box marginBottom={2}>
+        <Box marginBottom={2} marginRight={2}>
           <Profile />
         </Box>
         <ProfileSettings />

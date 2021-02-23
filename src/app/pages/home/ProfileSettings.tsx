@@ -5,7 +5,7 @@ import { ItemSettings } from "app/pages/home/ItemSettings";
 import { NameTextField } from "app/pages/home/NameTextField";
 import { ClearAllButton } from "app/pages/home/ClearAllButton";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   profileSettings: {
     overflow: "auto",
     // maxHeight: "calc(100vh - 120px)", // TODO: fix 120px magic number
@@ -13,11 +13,13 @@ const useStyles = makeStyles({
     display: "flex",
     flexDirection: "column",
     paddingTop: 5,
-    // prevent content from being clipped on the right due to react-custom-scrollbar
-    paddingRight: 2,
+    paddingRight: theme.spacing(2),
 
     "& > :not(:last-child)": {
       marginBottom: 12,
+    },
+    "& > :last-child": {
+      marginBottom: 4,
     },
   },
   gender: {
@@ -28,7 +30,7 @@ const useStyles = makeStyles({
   resetButton: {
     marginBottom: 8,
   },
-});
+}));
 
 export function ProfileSettings(props) {
   const classes = useStyles();

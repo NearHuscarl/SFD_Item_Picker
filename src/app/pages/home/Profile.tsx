@@ -113,7 +113,11 @@ export function Profile() {
     <div onClick={onClickProfile} className={classes.profile}>
       {!isLoadingDB && <Player profile={profile} />}
       <div className={classes.action}>
-        <IconButton onClick={onDownload}>
+        <IconButton
+          title="download profile image"
+          aria-label="download profile image"
+          onClick={onDownload}
+        >
           <GetApp />
         </IconButton>
         <ShareButton />
