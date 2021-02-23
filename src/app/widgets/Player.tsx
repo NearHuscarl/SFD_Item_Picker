@@ -12,15 +12,15 @@ import { useAnimationFrame } from "app/helpers/hooks";
 import { applyColor } from "app/helpers/color";
 import { useTextureData } from "app/data/textures";
 
-export const PORTRAIT_HEIGHT = 50;
+export const PLAYER_HEIGHT = 50;
 export const RATIO = 3.5;
 
 const PROFILE_WIDTH = 83;
 const PROFILE_HEIGHT = 90;
 
 const useStyles = makeStyles({
-  portrait: {
-    height: PORTRAIT_HEIGHT,
+  player: {
+    height: PLAYER_HEIGHT,
     position: "relative",
     display: "flex",
     justifyContent: "center",
@@ -28,7 +28,7 @@ const useStyles = makeStyles({
   },
 });
 
-function usePortrait(props: PortraitProps) {
+function usePlayer(props: PlayerProps) {
   const { profile } = props;
   const chestOverID = useSelector((state) => state.profile.current.chestOver);
   const chestOver = getItem(chestOverID);
@@ -137,15 +137,15 @@ function usePortrait(props: PortraitProps) {
   };
 }
 
-export function Portrait(props: PortraitProps) {
-  const { isLoadingDB, classes, onLoadCanvas } = usePortrait(props);
+export function Player(props: PlayerProps) {
+  const { isLoadingDB, classes, onLoadCanvas } = usePlayer(props);
 
   if (isLoadingDB) {
     return null;
   }
 
   return (
-    <div className={classes.portrait}>
+    <div className={classes.player}>
       <canvas
         ref={onLoadCanvas}
         width={PROFILE_WIDTH}
@@ -161,7 +161,7 @@ export function Portrait(props: PortraitProps) {
   );
 }
 
-type PortraitProps = {
+type PlayerProps = {
   profile: ProfileSettings;
 };
 

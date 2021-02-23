@@ -7,7 +7,7 @@ import Casino from "@material-ui/icons/Casino";
 import purple from "@material-ui/core/colors/purple";
 import { globalActions } from "app/store/rootDuck";
 import { useSelector } from "app/store/reduxHooks";
-import { Portrait } from "app/widgets/Portrait";
+import { Player, PLAYER_HEIGHT } from "app/widgets/Player";
 import { useOnMount } from "app/helpers/hooks";
 import { useRandomItemDispatcher } from "app/actions/profile";
 import { ShareButton } from "app/widgets/ShareButton";
@@ -21,7 +21,7 @@ const useStyles = makeStyles<Theme>((theme) => ({
     position: "relative",
     borderRadius: theme.shape.borderRadius,
     // prevent mecha head from being clipped
-    height: 90,
+    height: PLAYER_HEIGHT + 40,
 
     "&:before": {
       content: '""',
@@ -82,7 +82,7 @@ export function Profile() {
 
   return (
     <div onClick={onClickProfile} className={classes.profile}>
-      <Portrait profile={profile} />
+      <Player profile={profile} />
       <div className={classes.action}>
         <ShareButton />
         <IconButton
