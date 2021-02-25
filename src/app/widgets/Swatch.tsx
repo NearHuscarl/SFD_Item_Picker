@@ -1,7 +1,8 @@
 import React from "react";
 import { makeStyles, Theme } from "@material-ui/core";
+import clsx from "clsx";
 
-export const SWATCH_SIZE = 37;
+export const SWATCH_SIZE = 36;
 
 const useStyles = makeStyles<Theme, SwatchProps>((theme) => ({
   swatch: {
@@ -17,10 +18,6 @@ const useStyles = makeStyles<Theme, SwatchProps>((theme) => ({
     },
   },
   swatchDisabled: {
-    width: SWATCH_SIZE - 4 * 2,
-    height: SWATCH_SIZE - 4 * 2,
-    borderRadius: theme.shape.borderRadius,
-    backgroundColor: (props) => props.color,
     border: "4px #e0e0e0 dashed",
     cursor: "not-allowed",
   },
@@ -43,7 +40,10 @@ export function Swatch(props: SwatchProps) {
       aria-label={name}
       title={name}
       onClick={(e) => onClick(color, e)}
-      className={disabled ? classes.swatchDisabled : classes.swatch}
+      className={clsx({
+        [classes.swatch]: true,
+        [classes.swatchDisabled]: disabled,
+      })}
     />
   );
 }

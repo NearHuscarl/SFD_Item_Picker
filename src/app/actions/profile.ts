@@ -1,4 +1,3 @@
-import camelCase from "lodash/camelCase";
 import { Layer, ProfileSettings } from "app/types";
 import { useSelector } from "app/store/reduxHooks";
 import { ensureColorItemExist, getGender, getItems } from "app/helpers/item";
@@ -6,23 +5,25 @@ import { ItemID, NULL_ITEM } from "app/data/items";
 import { profileActions } from "app/store/rootDuck";
 import { createDispatcher } from "app/actions/createDispatcher";
 import { useDispatch } from "react-redux";
-import { Layers } from "app/constants";
 import { randomArrItem, randomItemColors } from "app/helpers/random";
 import { decodeProfile } from "app/helpers/profile";
+import { forEachLayer } from "app/helpers";
+
+export function useIsDirtySelector() {
+  return useSelector((state) => state.profile.isDirty);
+}
 
 export function useItemGenderSelector() {
   return useSelector((state) => state.profile.current.gender);
 }
 
 export function useItemSelector(layer: Layer) {
-  const getter = camelCase(layer);
-  return useSelector((state) => state.profile.current[getter]);
+  return useSelector((state) => state.profile.current[layer].id);
 }
 
 export function useItemColorsSelector(layer: Layer, itemId: ItemID) {
-  const getter = `${camelCase(layer)}Colors`;
   return useSelector((state) =>
-    ensureColorItemExist(itemId, state.profile.current[getter])
+    ensureColorItemExist(itemId, state.profile.current[layer].colors)
   );
 }
 
@@ -33,25 +34,25 @@ export function useRandomItemDispatcher() {
   return () => {
     const result: Partial<ProfileSettings> = {};
 
-    Object.values(Layers).forEach((layer) => {
-      const getter = camelCase(layer);
-      const colorGetter = `${camelCase(layer)}Colors`;
+    forEachLayer((layer) => {
       const items = getItems(layer, gender).filter((i) => {
-        if (layer === "Skin") {
+        if (layer === "skin") {
           // filter out campaign skins (Mecha and Bear)
           return getGender(i) !== "both";
         }
         return true;
       });
-      if (layer !== "Skin") {
+      if (layer !== "skin") {
         items.push(NULL_ITEM);
       }
 
       const item = randomArrItem(items);
       const itemColors = randomItemColors(item);
 
-      result[getter] = item.id;
-      result[colorGetter] = itemColors;
+      result[layer] = {
+        id: item.id,
+        colors: itemColors,
+      };
     });
     dispatch(profileActions.setAllItems(result));
   };

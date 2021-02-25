@@ -4,14 +4,7 @@ import { TextField } from "@material-ui/core";
 import startCase from "lodash/startCase";
 import { __DEV__ } from "app/constants";
 import { Layer } from "app/types";
-import {
-  Gender,
-  Item,
-  ItemID,
-  getItem,
-  NULL_ITEM,
-  getOppositeGender,
-} from "app/data/items";
+import { Gender, Item, ItemID, getItem, NULL_ITEM } from "app/data/items";
 import { getItems } from "app/helpers/item";
 
 function useItemAutocomplete(props: ItemAutocompleteProps) {
@@ -27,20 +20,6 @@ function useItemAutocomplete(props: ItemAutocompleteProps) {
       setValue(NULL_ITEM);
     }
   };
-
-  useEffect(() => {
-    if (value) {
-      if (value !== NULL_ITEM && value.gender !== gender) {
-        const opposite = getOppositeGender(value);
-        if (opposite.id !== value.id) {
-          onChange(opposite);
-        }
-      }
-    } else {
-      onChange();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [gender]);
 
   useEffect(() => {
     if (value) {

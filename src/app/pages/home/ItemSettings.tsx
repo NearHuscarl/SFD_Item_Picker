@@ -106,7 +106,7 @@ export function ItemSettings(props: ItemSettingsProps) {
         value={itemId}
         onChangeItem={onChangeItem}
         gender={gender}
-        disableClearable={layer === "Skin"}
+        disableClearable={layer === "skin"}
       />
       {pickerProps.map((props, i) => (
         <ColorButton

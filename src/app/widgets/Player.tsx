@@ -1,6 +1,5 @@
-import { useEffect, useRef } from "react";
+import { memo, useEffect, useRef } from "react";
 import { makeStyles } from "@material-ui/styles";
-import camelCase from "lodash/camelCase";
 import { getItem } from "app/data/items";
 import { ProfileSettings } from "app/types";
 import { ItemPartType, Layers } from "app/constants";
@@ -9,16 +8,16 @@ import { getAnimationRenderData } from "app/helpers/animation";
 import { useAnimationFrame } from "app/helpers/hooks";
 import { applyColor } from "app/helpers/color";
 import { useTextureData } from "app/data/textures";
+import { useIndexedDB } from "app/providers/IndexedDBProvider";
+import { isProfileEqual } from "app/helpers/profile";
 
-export const PLAYER_HEIGHT = 50;
-export const RATIO = 3.5;
+export const SCALE = 3.5;
 
 const PROFILE_WIDTH = 83;
 const PROFILE_HEIGHT = 90;
 
 const useStyles = makeStyles({
   player: {
-    height: PLAYER_HEIGHT,
     position: "relative",
     display: "flex",
     justifyContent: "center",
@@ -32,7 +31,7 @@ type UsePlayerDrawerProps = {
 type DrawPlayerParams = {
   canvas: HTMLCanvasElement;
   profile: ProfileSettings;
-  ratio?: number;
+  scale?: number;
 };
 export function usePlayerDrawer(props?: UsePlayerDrawerProps) {
   const { aniFrameIndex } = props || {};
@@ -41,10 +40,10 @@ export function usePlayerDrawer(props?: UsePlayerDrawerProps) {
   const { getTexture } = useTextureData();
 
   return async (props: DrawPlayerParams) => {
-    const { canvas, profile, ratio = RATIO } = props;
+    const { canvas, profile, scale = SCALE } = props;
     const ctx = canvas.getContext("2d")!;
     const allRenderLayers = [] as RenderLayer[];
-    const chestOverID = profile.chestOver;
+    const chestOverID = profile.chestOver.id;
     const chestOver = getItem(chestOverID);
 
     ctx.imageSmoothingEnabled = false;
@@ -53,19 +52,15 @@ export function usePlayerDrawer(props?: UsePlayerDrawerProps) {
       let layer = Layers[layerIndex];
 
       if (chestOver.jacketUnderBelt) {
-        if (layer === "ChestOver") {
-          layer = "Waist";
-        } else if (layer === "Waist") {
-          layer = "ChestOver";
+        if (layer === "chestOver") {
+          layer = "waist";
+        } else if (layer === "waist") {
+          layer = "chestOver";
         }
       }
 
-      // TODO: restructure ProfileSettings and remove getter/colorGetter
-      // TODO: remove name from ProfileSettings to skip rendering
-      const getter = camelCase(layer);
-      const colorGetter = getter + "Colors";
-      const itemId = profile[getter];
-      const itemColors = ensureColorItemExist(itemId, profile[colorGetter]);
+      const itemId = profile[layer].id;
+      const itemColors = ensureColorItemExist(itemId, profile[layer].colors);
       const renderData = [
         ...getAnimationRenderData(itemId, baseIdleAni.parts),
         ...getAnimationRenderData(itemId, upperIdleAni.parts),
@@ -109,8 +104,8 @@ export function usePlayerDrawer(props?: UsePlayerDrawerProps) {
 
         // cannot scale using putImageData(). Must use a temporary canvas with original texture size
         // https://stackoverflow.com/a/24468840/9449426
-        smallCanvas.width = canvas.width / ratio;
-        smallCanvas.height = canvas.height / ratio;
+        smallCanvas.width = canvas.width / scale;
+        smallCanvas.height = canvas.height / scale;
         smCtx.putImageData(imageData, dx, dy);
 
         ctx.drawImage(smallCanvas, 0, 0, canvas.width, canvas.height);
@@ -119,10 +114,11 @@ export function usePlayerDrawer(props?: UsePlayerDrawerProps) {
 }
 
 function usePlayer(props: PlayerProps) {
-  const { profile } = props;
+  const { profile, aniFrameIndex, scale } = props;
   const classes = useStyles();
   const ctxRef = useRef<CanvasRenderingContext2D>();
   const canvasRef = useRef<HTMLCanvasElement>();
+  const { isLoadingDB } = useIndexedDB();
   const onLoadCanvas = (canvas: HTMLCanvasElement) => {
     if (canvas) {
       canvasRef.current = canvas;
@@ -133,12 +129,17 @@ function usePlayer(props: PlayerProps) {
     }
   };
 
-  const draw = usePlayerDrawer();
+  const draw = usePlayerDrawer({ aniFrameIndex });
 
   useEffect(() => {
+    if (isLoadingDB) {
+      return;
+    }
+
     draw({
       canvas: canvasRef.current!,
       profile,
+      scale,
     }).then();
   });
 
@@ -148,28 +149,37 @@ function usePlayer(props: PlayerProps) {
   };
 }
 
-export function Player(props: PlayerProps) {
-  const { classes, onLoadCanvas } = usePlayer(props);
+export const Player = memo(
+  (props: PlayerProps) => {
+    const { classes, onLoadCanvas } = usePlayer(props);
 
-  return (
-    <div className={classes.player}>
-      <canvas
-        ref={onLoadCanvas}
-        width={PROFILE_WIDTH}
-        height={PROFILE_HEIGHT}
-        style={{
-          imageRendering: "pixelated",
-          // backgroundColor: "rgba(255,0,255,.5)",
-          width: PROFILE_WIDTH,
-          height: PROFILE_HEIGHT,
-        }}
-      />
-    </div>
-  );
-}
+    return (
+      <div className={classes.player}>
+        <canvas
+          ref={onLoadCanvas}
+          width={PROFILE_WIDTH}
+          height={PROFILE_HEIGHT}
+          style={{
+            imageRendering: "pixelated",
+            // backgroundColor: "rgba(255,0,255,.5)",
+            width: PROFILE_WIDTH,
+            height: PROFILE_HEIGHT,
+          }}
+        />
+      </div>
+    );
+  },
+  (props1, props2) =>
+    isProfileEqual(props1.profile, props2.profile) &&
+    props1.aniFrameIndex === props2.aniFrameIndex &&
+    props1.scale === props2.scale
+);
+Player.displayName = "Player";
 
 type PlayerProps = {
   profile: ProfileSettings;
+  aniFrameIndex?: number;
+  scale?: number;
 };
 
 type RenderLayer = {

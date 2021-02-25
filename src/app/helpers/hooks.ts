@@ -10,6 +10,7 @@ export function useOnMount(cb: Function) {
 
 export function useInterval(callback, delay) {
   const savedCallback = useRef<Function>();
+  const dateRef = useRef(Date.now());
 
   // Remember the latest callback.
   useEffect(() => {
@@ -19,7 +20,13 @@ export function useInterval(callback, delay) {
   // Set up the interval.
   useEffect(() => {
     const id = setInterval(() => {
-      savedCallback.current?.();
+      const dateNow = Date.now();
+      if (dateNow - dateRef.current <= delay * 2) {
+        savedCallback.current?.();
+      } else {
+        // lagging behind, skip calling callback instead of calling repeatedly to 'catch up'
+      }
+      dateRef.current = dateNow;
     }, delay);
     return () => clearInterval(id);
   }, [delay]);

@@ -6,7 +6,7 @@ import { makeStyles } from "@material-ui/core";
 const PALETTE_GAP = 5;
 const useStyles = makeStyles({
   colorPicker: {
-    width: SWATCH_SIZE * 5 + PALETTE_GAP * 6,
+    width: SWATCH_SIZE * 5 + PALETTE_GAP * 4 + 10 * 2,
 
     display: "flex",
     flexFlow: "wrap",

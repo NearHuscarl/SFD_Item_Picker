@@ -9,11 +9,13 @@ export type ProgressData = {
 
 export interface GlobalState {
   devTool: boolean;
+  currentTab: string;
   indexedDBProgress: ProgressData;
 }
 
 export const initialState: GlobalState = {
   devTool: false,
+  currentTab: "1",
   indexedDBProgress: {
     message: "",
     progress: 0,
@@ -27,6 +29,9 @@ const slice = createSlice({
     setDevTool(state, action: PayloadAction<boolean>) {
       state.devTool = action.payload;
     },
+    setCurrentTab(state, action: PayloadAction<string>) {
+      state.currentTab = action.payload;
+    },
     setIndexedDBProgress(state, action: PayloadAction<ProgressData>) {
       const { message, progress } = action.payload;
 
@@ -39,6 +44,7 @@ const slice = createSlice({
 const persistConfig: PersistConfig<GlobalState> = {
   storage,
   key: "global",
+  blacklist: ["indexedDBProgress"],
 };
 
 export const { actions } = slice;

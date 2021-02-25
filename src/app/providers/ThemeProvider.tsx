@@ -25,6 +25,11 @@ export const theme = createMuiTheme({
         fontSize: 13,
       },
     },
+    MuiFormControlLabel: {
+      root: {
+        fontSize: 13,
+      },
+    },
     // @ts-ignore
     MuiAutocomplete: {
       root: {

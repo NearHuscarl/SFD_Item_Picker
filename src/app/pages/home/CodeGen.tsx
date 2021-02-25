@@ -11,15 +11,9 @@ SyntaxHighlighter.registerLanguage("csharp", csharp);
 
 const useStyles = makeStyles((theme) => ({
   codeGen: {
-    marginBottom: theme.spacing(6),
-    marginLeft: theme.spacing(2),
-    marginRight: theme.spacing(2),
-    marginTop: "calc(45px + 50px + 16px)",
     width: "100%",
-    position: "relative",
-  },
-  codeWrapper: {
     height: "100%",
+    position: "relative",
 
     "& > pre": {
       height: "100%",
@@ -78,11 +72,9 @@ export const CodeGen = memo(() => {
           </IconButton>
         </Tooltip>
       </div>
-      <div className={classes.codeWrapper}>
-        <SyntaxHighlighter language="csharp" style={theme}>
-          {code}
-        </SyntaxHighlighter>
-      </div>
+      <SyntaxHighlighter language="csharp" style={theme}>
+        {code}
+      </SyntaxHighlighter>
     </div>
   );
 });

@@ -8,11 +8,10 @@ import GetApp from "@material-ui/icons/GetApp";
 import purple from "@material-ui/core/colors/purple";
 import { globalActions } from "app/store/rootDuck";
 import { useSelector } from "app/store/reduxHooks";
-import { Player, PLAYER_HEIGHT, usePlayerDrawer } from "app/widgets/Player";
+import { Player, usePlayerDrawer } from "app/widgets/Player";
 import { useOnMount } from "app/helpers/hooks";
 import { useRandomItemDispatcher } from "app/actions/profile";
 import { ShareButton } from "app/widgets/ShareButton";
-import { useIndexedDB } from "app/providers/IndexedDBProvider";
 
 const useStyles = makeStyles<Theme>((theme) => ({
   profile: {
@@ -23,7 +22,7 @@ const useStyles = makeStyles<Theme>((theme) => ({
     position: "relative",
     borderRadius: theme.shape.borderRadius,
     // prevent mecha head from being clipped
-    height: PLAYER_HEIGHT + 40,
+    height: 90,
 
     "&:before": {
       content: '""',
@@ -73,7 +72,7 @@ function useProfile() {
     drawPlayer({
       canvas,
       profile,
-      ratio: 3,
+      scale: 3,
     }).then(() => {
       const link = document.createElement("a");
       link.download = `${profile.name}.png`;
@@ -107,11 +106,10 @@ export function Profile() {
     onDownload,
     profile,
   } = useProfile();
-  const { isLoadingDB } = useIndexedDB();
 
   return (
     <div onClick={onClickProfile} className={classes.profile}>
-      {!isLoadingDB && <Player profile={profile} />}
+      <Player profile={profile} />
       <div className={classes.action}>
         <IconButton
           title="download profile image"

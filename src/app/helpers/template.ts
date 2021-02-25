@@ -1,4 +1,3 @@
-import camelCase from "lodash/camelCase";
 import { ProfileSettings } from "app/types";
 import { Genders } from "app/constants";
 import { forEachLayer } from "app/helpers/index";
@@ -16,15 +15,14 @@ export function fillTemplate(template: string, settings: ProfileSettings) {
 
   forEachLayer((layer) => {
     const LAYER = layer.toUpperCase();
-    const getter = camelCase(layer);
+    const itemId = settings[layer].id;
+    const itemColors = settings[layer].colors;
 
-    if (settings[getter] !== "None") {
-      const colorGetter = `${getter}Colors`;
-
-      map[`__${LAYER}__`] = quote(settings[getter]);
-      map[`__${LAYER}_PRIMARY__`] = quote(settings[colorGetter][0] || "");
-      map[`__${LAYER}_SECONDARY__`] = quote(settings[colorGetter][1] || "");
-      map[`__${LAYER}_TERTIARY__`] = quote(settings[colorGetter][2] || "");
+    if (itemId !== "None") {
+      map[`__${LAYER}__`] = quote(itemId);
+      map[`__${LAYER}_PRIMARY__`] = quote(itemColors[0] || "");
+      map[`__${LAYER}_SECONDARY__`] = quote(itemColors[1] || "");
+      map[`__${LAYER}_TERTIARY__`] = quote(itemColors[2] || "");
     } else {
       map[`__${LAYER}__`] = quote();
       map[`__${LAYER}_PRIMARY__`] = quote();

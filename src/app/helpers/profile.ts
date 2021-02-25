@@ -1,10 +1,9 @@
-import camelCase from "lodash/camelCase";
 import { ItemColor, ProfileSettings } from "app/types";
 import { Genders } from "app/constants";
 import { Gender, getItemIDs, ItemID } from "app/data/items";
 import { radix64 } from "app/helpers/radix64";
 import { ColorName, getAllColorNames } from "app/data/colors";
-import { forEachLayer } from "app/helpers/index";
+import { forEachLayer, isArrayEqual } from "app/helpers/index";
 
 const NULL_ITEM_CODE = "_";
 const NULL_COLOR_CODE = "Z";
@@ -125,24 +124,20 @@ export function encodeProfile(profile: ProfileSettings) {
   encodedText += genderCoder.encode(profile.gender);
 
   forEachLayer((layer) => {
-    const getter = camelCase(layer);
-    const colorGetter = camelCase(layer) + "Colors";
-    // console.log(
-    //   "encode",
-    //   profile[getter],
-    //   "->",
-    //   itemCoder.encode(profile[getter])
-    // );
+    const itemId = profile[layer].id;
+    const itemColors = profile[layer].colors;
 
-    encodedText += itemCoder.encode(profile[getter]);
-    if (profile[getter] !== "None") {
+    // console.log("encode", itemId, "->", itemCoder.encode(itemId));
+
+    encodedText += itemCoder.encode(itemId);
+    if (itemId !== "None") {
       // console.log(
       //   "encode",
-      //   profile[colorGetter],
+      //   itemColors,
       //   "->",
-      //   itemColorCoder.encode(profile[colorGetter])
+      //   itemColorCoder.encode(itemColors)
       // );
-      encodedText += itemColorCoder.encode(profile[colorGetter]);
+      encodedText += itemColorCoder.encode(itemColors);
     }
   });
 
@@ -157,24 +152,54 @@ export function decodeProfile(urlParams: string) {
   profile.gender = genderCoder.decode(scanner.next());
 
   forEachLayer((layer) => {
-    const getter = camelCase(layer);
-    const colorGetter = camelCase(layer) + "Colors";
-
     const firstChar = scanner.next();
     if (firstChar === NULL_ITEM_CODE) {
-      profile[getter] = "None";
+      profile[layer] = {
+        id: "None",
+        colors: [null, null, null],
+      };
       // console.log("decode", firstChar, "->", "None");
     } else {
       const encodedItem = firstChar + scanner.next();
       const encodedItemColor = scanner.next(2);
 
-      profile[getter] = itemCoder.decode(encodedItem);
-      profile[colorGetter] = itemColorCoder.decode(encodedItemColor);
+      profile[layer] = {
+        id: itemCoder.decode(encodedItem),
+        colors: itemColorCoder.decode(encodedItemColor),
+      };
 
-      // console.log("decode", encodedItem, "->", profile[getter]);
-      // console.log("decode", encodedItemColor, "->", profile[colorGetter]);
+      // console.log("decode", encodedItem, "->", profile[layer].id);
+      // console.log("decode", encodedItemColor, "->", profile[layer].colors);
     }
   });
 
   return profile;
+}
+
+export function isProfileEqual(
+  profile1: ProfileSettings,
+  profile2: ProfileSettings
+) {
+  return (
+    profile1.name === profile2.name &&
+    profile1.gender === profile2.gender &&
+    profile1.skin.id === profile2.skin.id &&
+    isArrayEqual(profile1.skin.colors, profile2.skin.colors) &&
+    profile1.chestUnder.id === profile2.chestUnder.id &&
+    isArrayEqual(profile1.chestUnder.colors, profile2.chestUnder.colors) &&
+    profile1.legs.id === profile2.legs.id &&
+    isArrayEqual(profile1.legs.colors, profile2.legs.colors) &&
+    profile1.waist.id === profile2.waist.id &&
+    isArrayEqual(profile1.waist.colors, profile2.waist.colors) &&
+    profile1.feet.id === profile2.feet.id &&
+    isArrayEqual(profile1.feet.colors, profile2.feet.colors) &&
+    profile1.chestOver.id === profile2.chestOver.id &&
+    isArrayEqual(profile1.chestOver.colors, profile2.chestOver.colors) &&
+    profile1.accessory.id === profile2.accessory.id &&
+    isArrayEqual(profile1.accessory.colors, profile2.accessory.colors) &&
+    profile1.hands.id === profile2.hands.id &&
+    isArrayEqual(profile1.hands.colors, profile2.hands.colors) &&
+    profile1.head.id === profile2.head.id &&
+    isArrayEqual(profile1.head.colors, profile2.head.colors)
+  );
 }

@@ -1,11 +1,11 @@
+import { useEffect } from "react";
 import { Box, makeStyles } from "@material-ui/core";
 import grey from "@material-ui/core/colors/grey";
 import { Profile } from "app/pages/home/Profile";
 import { ProfileSettings } from "app/pages/home/ProfileSettings";
-import { DevTool } from "app/widgets/DevTool";
-import { CodeGen } from "app/pages/home/CodeGen";
-import { useEffect } from "react";
 import { useSearchItemDispatcher } from "app/actions/profile";
+import { DevTool } from "app/widgets/DevTool";
+import { Content } from "app/pages/home/Content";
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: grey[100],
   },
   colLeft: {
-    flex: "0 0 300px",
+    flex: "0 0 333px",
 
     display: "flex",
     flexDirection: "column",
@@ -26,7 +26,6 @@ const useStyles = makeStyles((theme) => ({
   },
   colRight: {
     flexGrow: 1,
-    display: "flex",
   },
 }));
 
@@ -52,7 +51,7 @@ export function HomePage() {
         <ProfileSettings />
       </div>
       <div className={classes.colRight}>
-        <CodeGen />
+        <Content />
       </div>
       <DevTool />
     </div>

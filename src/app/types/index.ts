@@ -14,25 +14,29 @@ export type ItemColor = [
   tertiery: ColorName | null
 ];
 
+export type ProfileItemSettings = {
+  id: ItemID;
+  colors: ItemColor;
+};
+
 export type ProfileSettings = {
   name: string;
   gender: Gender;
-  skin: ItemID;
-  skinColors: ItemColor;
-  head: ItemID;
-  headColors: ItemColor;
-  chestOver: ItemID;
-  chestOverColors: ItemColor;
-  chestUnder: ItemID;
-  chestUnderColors: ItemColor;
-  hands: ItemID;
-  handsColors: ItemColor;
-  waist: ItemID;
-  waistColors: ItemColor;
-  legs: ItemID;
-  legsColors: ItemColor;
-  feet: ItemID;
-  feetColors: ItemColor;
-  accessory: ItemID;
-  accessoryColors: ItemColor;
+  skin: ProfileItemSettings;
+  head: ProfileItemSettings;
+  chestOver: ProfileItemSettings;
+  chestUnder: ProfileItemSettings;
+  hands: ProfileItemSettings;
+  waist: ProfileItemSettings;
+  legs: ProfileItemSettings;
+  feet: ProfileItemSettings;
+  accessory: ProfileItemSettings;
+};
+
+export type Profiles = Record<string, ProfileSettings>;
+export type ProfileGroupRecords = Record<string, Profiles | undefined>;
+
+export type ProfileCardInfo = {
+  groupName: string;
+  profileName: string;
 };

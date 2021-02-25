@@ -26,3 +26,21 @@ export function stringifyOneLineArray(obj: object) {
     .replace(/\"\{/g, "{")
     .replace(/\}\"/g, "}");
 }
+
+// Array.filter(Boolean) still return (any | undefined)[] in typescript
+// https://stackoverflow.com/a/58110124/9449426
+export function nonNullable<T>(value: T): value is NonNullable<T> {
+  return value !== null && value !== undefined;
+}
+
+export function isArrayEqual<T>(arr1: T[], arr2: T[]) {
+  if (arr1.length !== arr2.length) {
+    return false;
+  }
+  for (let i = 0; i < arr1.length; i++) {
+    if (arr1[i] !== arr2[i]) {
+      return false;
+    }
+  }
+  return true;
+}
