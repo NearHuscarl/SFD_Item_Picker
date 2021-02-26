@@ -5,11 +5,12 @@ import { createMigrate } from "redux-persist";
 import { PersistConfig, persistReducer } from "app/store/persist";
 import { Gender, getItem, getOppositeGender, ItemID } from "app/data/items";
 import { ColorName } from "app/data/colors";
-import { COLOR_TYPES, Genders } from "app/constants";
+import { COLOR_TYPES } from "app/constants";
 import { ColorType, Layer, ProfileSettings } from "app/types";
 import {
   defaultProfile,
   ProfileState,
+  setAllItems,
   setName,
 } from "app/store/ducks/profile.duck.util";
 import { forEachLayer } from "app/helpers";
@@ -66,32 +67,8 @@ const slice = createSlice({
       state,
       action: PayloadAction<Partial<ProfileSettings> | undefined>
     ) {
-      const profileSettings = action.payload;
-
-      if (profileSettings) {
-        if (profileSettings.name) {
-          setName(state, profileSettings.name);
-        }
-        if (profileSettings.gender !== undefined) {
-          state.current.gender = profileSettings.gender;
-        }
-
-        forEachLayer((layer) => {
-          if (profileSettings[layer]) {
-            // TODO: optimize, don't emit all events every time
-            // @ts-ignore
-            state.current[layer] = profileSettings[layer];
-          }
-        });
-      } else {
-        if (state.current.gender === Genders.male) {
-          state.current = defaultProfile.male;
-        } else {
-          state.current = defaultProfile.female;
-        }
-      }
-
-      state.isDirty = true;
+      const profile = action.payload;
+      setAllItems(state, profile);
     },
   },
 });

@@ -1,5 +1,6 @@
 import { Genders } from "app/constants";
 import { ProfileSettings } from "app/types";
+import { forEachLayer } from "app/helpers";
 
 export interface ProfileState {
   current: ProfileSettings;
@@ -11,6 +12,37 @@ export function setName(state: ProfileState, name: string) {
   state.current.name = name;
   state.isDirty = true;
   state.isValid = Boolean(state.current.name);
+}
+
+export function setAllItems(
+  state: ProfileState,
+  profile: Partial<ProfileSettings> | undefined
+) {
+  if (profile) {
+    if (profile.name) {
+      setName(state, profile.name);
+    }
+    if (profile.gender !== undefined) {
+      state.current.gender = profile.gender;
+    }
+
+    forEachLayer((layer) => {
+      if (profile[layer]) {
+        // TODO: optimize, don't emit all events every time
+        // @ts-ignore
+        state.current[layer] = profile[layer];
+      }
+    });
+  } else {
+    const isMale = state.current.gender === Genders.male;
+    const profile = {
+      ...(isMale ? defaultProfile.male : defaultProfile.female),
+      name: undefined,
+    };
+    setAllItems(state, profile);
+  }
+
+  state.isDirty = true;
 }
 
 export const defaultProfile: Record<"male" | "female", ProfileSettings> = {

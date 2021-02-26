@@ -5,7 +5,6 @@ import { ProfileCard } from "app/pages/home/ProfileCard";
 import { ProfileSettings } from "app/types";
 import { makeStyles } from "@material-ui/styles";
 import { Virtuoso } from "react-virtuoso";
-import { Scrollbars } from "react-custom-scrollbars";
 
 const GROUP_NAME_HEIGHT = 35;
 const TAB_LIST_HEIGHT = 48;
