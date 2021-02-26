@@ -7,14 +7,12 @@ import { Gender, getItem, getOppositeGender, ItemID } from "app/data/items";
 import { ColorName } from "app/data/colors";
 import { COLOR_TYPES, Genders } from "app/constants";
 import { ColorType, Layer, ProfileSettings } from "app/types";
-import { defaultProfile } from "app/store/ducks/profile.duck.util";
+import {
+  defaultProfile,
+  ProfileState,
+  setName,
+} from "app/store/ducks/profile.duck.util";
 import { forEachLayer } from "app/helpers";
-
-export interface ProfileState {
-  current: ProfileSettings;
-  isDirty: boolean;
-  isValid: boolean;
-}
 
 export const initialState: ProfileState = {
   current: defaultProfile.male,
@@ -33,9 +31,7 @@ const slice = createSlice({
       state.isDirty = action.payload;
     },
     setName(state, action: PayloadAction<string>) {
-      state.current.name = action.payload;
-      state.isDirty = true;
-      state.isValid = Boolean(state.current.name);
+      setName(state, action.payload);
     },
     setGender(state, action: PayloadAction<Gender>) {
       const gender = action.payload;
@@ -74,7 +70,7 @@ const slice = createSlice({
 
       if (profileSettings) {
         if (profileSettings.name) {
-          state.current.name = profileSettings.name;
+          setName(state, profileSettings.name);
         }
         if (profileSettings.gender !== undefined) {
           state.current.gender = profileSettings.gender;

@@ -16,9 +16,11 @@ export const initialState: ProfileGroupState = {
   },
 };
 
+const SLICE_NAME = "profileGroup";
+
 const slice = createSlice({
   initialState,
-  name: "profileGroup",
+  name: SLICE_NAME,
   reducers: {
     updateProfile(state, action: PayloadAction<ProfileSettings>) {
       const newProfile = action.payload;
@@ -38,6 +40,8 @@ const slice = createSlice({
     },
     addProfile() {
       // TODO:
+      // append
+      // setSelected
     },
     deleteProfile() {
       // TODO:
@@ -47,7 +51,7 @@ const slice = createSlice({
 
 const persistConfig: PersistConfig<ProfileGroupState> = {
   storage,
-  key: "profileGroup",
+  key: SLICE_NAME,
 };
 
 export const { actions } = slice;

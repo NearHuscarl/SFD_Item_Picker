@@ -1,6 +1,18 @@
 import { Genders } from "app/constants";
 import { ProfileSettings } from "app/types";
 
+export interface ProfileState {
+  current: ProfileSettings;
+  isDirty: boolean;
+  isValid: boolean;
+}
+
+export function setName(state: ProfileState, name: string) {
+  state.current.name = name;
+  state.isDirty = true;
+  state.isValid = Boolean(state.current.name);
+}
+
 export const defaultProfile: Record<"male" | "female", ProfileSettings> = {
   male: {
     name: "BOT",
