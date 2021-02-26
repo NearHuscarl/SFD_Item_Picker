@@ -1,6 +1,5 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Layer, ProfileSettings } from "app/types";
-import { useSelector } from "app/store/reduxHooks";
 import { ensureColorItemExist, getGender, getItems } from "app/helpers/item";
 import { ItemID, NULL_ITEM } from "app/data/items";
 import { profileActions } from "app/store/rootDuck";

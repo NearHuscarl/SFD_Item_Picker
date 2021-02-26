@@ -1,13 +1,12 @@
 import { useCallback, useReducer } from "react";
 import throttle from "lodash/throttle";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { makeStyles } from "@material-ui/styles";
 import { IconButton, Theme } from "@material-ui/core";
 import Casino from "@material-ui/icons/Casino";
 import GetApp from "@material-ui/icons/GetApp";
 import purple from "@material-ui/core/colors/purple";
 import { globalActions } from "app/store/rootDuck";
-import { useSelector } from "app/store/reduxHooks";
 import { Player, usePlayerDrawer } from "app/widgets/Player";
 import { useOnMount } from "app/helpers/hooks";
 import { useRandomItemDispatcher } from "app/actions/profile";

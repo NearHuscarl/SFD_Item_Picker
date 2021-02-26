@@ -8,7 +8,7 @@ import {
 } from "@material-ui/core";
 import Share from "@material-ui/icons/Share";
 import { makeStyles } from "@material-ui/styles";
-import { useSelector } from "app/store/reduxHooks";
+import { useSelector } from "react-redux";
 import { decodeProfile, encodeProfile } from "app/helpers/profile";
 import { stringifyOneLineArray } from "app/helpers";
 

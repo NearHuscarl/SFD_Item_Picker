@@ -1,6 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { useDispatch } from "react-redux";
-import { useSelector } from "app/store/reduxHooks";
+import { useDispatch, useSelector } from "react-redux";
 import { profileActions, profileGroupActions } from "app/store/rootDuck";
 import { ProfileSettings } from "app/types";
 

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useSelector } from "app/store/reduxHooks";
+import { useSelector } from "react-redux";
 import { fillTemplate } from "app/helpers/template";
 import { ProfileSettings } from "app/types";
 

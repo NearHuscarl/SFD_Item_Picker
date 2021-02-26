@@ -1,9 +1,9 @@
 import { forwardRef, ReactNode } from "react";
-import { SnackbarKey } from "notistack";
-import { makeStyles } from "@material-ui/styles";
 import { emphasize, Theme, Typography } from "@material-ui/core";
 import teal from "@material-ui/core/colors/teal";
-import { useSelector } from "app/store/reduxHooks";
+import { makeStyles } from "@material-ui/styles";
+import { SnackbarKey } from "notistack";
+import { useSelector } from "react-redux";
 
 const useStyles = makeStyles<Theme, { progress: number }>((theme) => {
   // @ts-ignore

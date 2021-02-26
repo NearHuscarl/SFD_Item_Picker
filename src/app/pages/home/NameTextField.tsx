@@ -1,7 +1,6 @@
 import { TextField } from "@material-ui/core";
 import debounce from "lodash/debounce";
-import { useSelector } from "app/store/reduxHooks";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useCallback, useEffect, useState } from "react";
 import { profileActions } from "app/store/rootDuck";
 

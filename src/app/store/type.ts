@@ -2,6 +2,10 @@ import { AsyncThunk, AsyncThunkPayloadCreator } from "@reduxjs/toolkit";
 import { RootState } from "app/store/store";
 import { Dispatch } from "redux";
 
+declare module "react-redux" {
+  interface DefaultRootState extends RootState {}
+}
+
 declare module "@reduxjs/toolkit" {
   type AsyncThunkConfig = {
     state?: unknown;

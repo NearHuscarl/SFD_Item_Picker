@@ -1,7 +1,7 @@
 import { Button } from "@material-ui/core";
-import { useSelector } from "app/store/reduxHooks";
+import { useSelector } from "react-redux";
 
-export function DevTool(props) {
+export function DevTool() {
   const devTool = useSelector((state) => state.global.devTool);
   const onReset = () => {
     localStorage.clear();
