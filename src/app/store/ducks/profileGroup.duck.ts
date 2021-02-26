@@ -27,6 +27,7 @@ const slice = createSlice({
       if (newProfile.name !== profileName) {
         delete state.entities[groupName]![profileName];
         state.entities[groupName]![newProfile.name] = newProfile;
+        state.selectedProfile.profileName = newProfile.name;
       } else {
         state.entities[groupName]![profileName] = newProfile;
       }
