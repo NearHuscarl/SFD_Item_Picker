@@ -13,11 +13,13 @@ import { forEachLayer } from "app/helpers";
 export interface ProfileState {
   current: ProfileSettings;
   isDirty: boolean;
+  isValid: boolean;
 }
 
 export const initialState: ProfileState = {
   current: defaultProfile.male,
   isDirty: false,
+  isValid: false,
 };
 
 type ItemParams = { layer: Layer; id: ItemID };
@@ -33,6 +35,7 @@ const slice = createSlice({
     setName(state, action: PayloadAction<string>) {
       state.current.name = action.payload;
       state.isDirty = true;
+      state.isValid = Boolean(state.current.name);
     },
     setGender(state, action: PayloadAction<Gender>) {
       const gender = action.payload;

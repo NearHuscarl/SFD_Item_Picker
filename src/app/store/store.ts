@@ -19,7 +19,7 @@ function createMiddlewares() {
   let middlewares: Middleware[] = [];
 
   const rtkMiddlewares = getDefaultMiddleware({
-    thunk: false,
+    thunk: true,
     serializableCheck: {
       // FIX: serialization issue when using redux-toolkit with redux-persist
       // https://github.com/reduxjs/redux-toolkit/issues/121#issuecomment-611641781

@@ -1,3 +1,4 @@
+import { createAsyncThunk } from "@reduxjs/toolkit";
 import { useDispatch } from "react-redux";
 import { useSelector } from "app/store/reduxHooks";
 import { profileActions, profileGroupActions } from "app/store/rootDuck";
@@ -32,12 +33,16 @@ export function useSelectProfileDispatcher() {
   };
 }
 
+const saveProfile = createAsyncThunk(
+  `botGroup/saveProfile`,
+  async (_, { getState, dispatch }) => {
+    const newProfile = getState().profile.current;
+
+    dispatch(profileGroupActions.updateProfile(newProfile));
+    dispatch(profileActions.setDirty(false));
+  }
+);
 export function useSaveProfileDispatcher() {
   const dispatch = useDispatch();
-  const profile = useSelector((state) => state.profile.current);
-
-  return () => {
-    dispatch(profileGroupActions.updateProfile(profile));
-    dispatch(profileActions.setDirty(false));
-  };
+  return () => dispatch(saveProfile());
 }

@@ -1,16 +1,20 @@
+import { useDispatch } from "react-redux";
 import { Layer, ProfileSettings } from "app/types";
 import { useSelector } from "app/store/reduxHooks";
 import { ensureColorItemExist, getGender, getItems } from "app/helpers/item";
 import { ItemID, NULL_ITEM } from "app/data/items";
 import { profileActions } from "app/store/rootDuck";
 import { createDispatcher } from "app/actions/createDispatcher";
-import { useDispatch } from "react-redux";
 import { randomArrItem, randomItemColors } from "app/helpers/random";
 import { decodeProfile } from "app/helpers/profile";
 import { forEachLayer } from "app/helpers";
+import { RootState } from "app/store/store";
 
-export function useIsDirtySelector() {
-  return useSelector((state) => state.profile.isDirty);
+export function useCanSaveSelector() {
+  const a = useSelector((state: RootState) => state.profile.isDirty);
+  const b = useSelector((state: RootState) => state.profile.isValid);
+
+  return a && b;
 }
 
 export function useItemGenderSelector() {
