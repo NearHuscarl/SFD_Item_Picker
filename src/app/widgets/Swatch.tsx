@@ -11,7 +11,7 @@ const useStyles = makeStyles<Theme, SwatchProps>((theme) => ({
     borderRadius: theme.shape.borderRadius,
     backgroundColor: (props) => props.color,
     cursor: "pointer",
-    transition: "box-shadow .25s",
+    transition: theme.transitions.create(["box-shadow", "background-color"]),
 
     "&:hover": {
       boxShadow: (props) => `0px 0px 15px ${props.color}64`, // 40% alpha
