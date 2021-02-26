@@ -4,7 +4,7 @@ import { Dispatch } from "redux";
 
 declare module "@reduxjs/toolkit" {
   type AsyncThunkConfig = {
-    state?: RootState;
+    state?: unknown;
     dispatch?: Dispatch;
     extra?: unknown;
     rejectValue?: unknown;
@@ -14,7 +14,9 @@ declare module "@reduxjs/toolkit" {
   function createAsyncThunk<
     Returned,
     ThunkArg = void,
-    ThunkApiConfig extends AsyncThunkConfig = { state: RootState }
+    ThunkApiConfig extends AsyncThunkConfig = {
+      state: RootState; // this line makes a difference
+    }
   >(
     typePrefix: string,
     payloadCreator: AsyncThunkPayloadCreator<
