@@ -1,63 +1,12 @@
-import { ReactNode } from "react";
-import { Paper, Theme, Typography } from "@material-ui/core";
-import { useProfileGroupSelector } from "app/actions/profileGroup";
-import { ProfileCard } from "app/pages/home/ProfileCard";
-import { ProfileSettings } from "app/types";
+import { Paper, Theme } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
 import { Virtuoso } from "react-virtuoso";
+import { useProfileGroupSelector } from "app/actions/profileGroup";
+import { ProfileGroup } from "app/pages/home/content/ProfileGroup";
 
-const GROUP_NAME_HEIGHT = 35;
 const TAB_LIST_HEIGHT = 48;
 
 const useStyles = makeStyles<Theme>((theme) => ({
-  groupName: {
-    fontWeight: 700,
-    height: GROUP_NAME_HEIGHT,
-  },
-  groupContent: {
-    display: "flex",
-    flexFlow: "wrap",
-    padding: theme.spacing(1),
-    paddingBottom: theme.spacing(2),
-
-    "& > *": {
-      marginRight: theme.spacing(1),
-      marginBottom: theme.spacing(1),
-    },
-  },
-}));
-
-function ProfileGroup(props: ProfileGroupProps) {
-  const { groupName, profileRecords } = props;
-  const classes = useStyles();
-  let children: ReactNode[] = ["There is no profile in this group"];
-
-  if (profileRecords && Object.keys(profileRecords).length > 0) {
-    children = Object.keys(profileRecords).map((profileName) => (
-      <ProfileCard
-        key={profileName}
-        groupName={groupName}
-        profile={profileRecords[profileName]}
-      />
-    ));
-  }
-
-  return (
-    <div>
-      <Typography className={classes.groupName} variant="h6" component="h2">
-        {groupName}
-      </Typography>
-      <div className={classes.groupContent}>{children}</div>
-    </div>
-  );
-}
-
-type ProfileGroupProps = {
-  groupName: string;
-  profileRecords: Record<string, ProfileSettings> | undefined;
-};
-
-const useStyles2 = makeStyles<Theme>((theme) => ({
   profileGroupRoot: {
     height: `calc(100vh - ${TAB_LIST_HEIGHT}px - 32px)`,
     display: "flex",
@@ -76,6 +25,7 @@ const useStyles2 = makeStyles<Theme>((theme) => ({
       width: "100%",
       height: "100%",
       pointerEvents: "none",
+      zIndex: 1, // add box-shadow to scrollbar
     },
     "&:before": {
       boxShadow: "inset 0 7px 8px -10px rgba(0,0,0,0.4)",
@@ -91,7 +41,7 @@ const useStyles2 = makeStyles<Theme>((theme) => ({
 }));
 
 export function ProfileGroupList() {
-  const classes = useStyles2();
+  const classes = useStyles();
   const groupRecords = useProfileGroupSelector();
   const groupNames = Object.keys(groupRecords);
 

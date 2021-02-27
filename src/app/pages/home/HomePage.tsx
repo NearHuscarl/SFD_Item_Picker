@@ -1,11 +1,10 @@
 import { useEffect } from "react";
-import { Box, makeStyles } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core";
 import grey from "@material-ui/core/colors/grey";
-import { Profile } from "app/pages/home/Profile";
-import { ProfileSettings } from "app/pages/home/ProfileSettings";
+import { ProfileEditor } from "app/pages/home/profileEditor";
+import { Content } from "app/pages/home/content";
 import { useSearchItemDispatcher } from "app/actions/profile";
 import { DevTool } from "app/widgets/DevTool";
-import { Content } from "app/pages/home/Content";
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -45,10 +44,7 @@ export function HomePage() {
   return (
     <div className={classes.container}>
       <div className={classes.colLeft}>
-        <Box marginBottom={2} marginRight={2}>
-          <Profile />
-        </Box>
-        <ProfileSettings />
+        <ProfileEditor />
       </div>
       <div className={classes.colRight}>
         <Content />

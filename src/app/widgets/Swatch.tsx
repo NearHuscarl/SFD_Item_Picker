@@ -20,6 +20,7 @@ const useStyles = makeStyles<Theme, SwatchProps>((theme) => ({
   swatchDisabled: {
     border: "4px #e0e0e0 dashed",
     cursor: "not-allowed",
+    boxShadow: "none",
   },
 }));
 
