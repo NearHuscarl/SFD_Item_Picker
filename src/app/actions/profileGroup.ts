@@ -6,6 +6,9 @@ import { ProfileSettings } from "app/types";
 export function useProfileGroupSelector() {
   return useSelector((state) => state.profileGroup.entities);
 }
+export function useSelectedGroupNameSelector() {
+  return useSelector((state) => state.profileGroup.selectedProfile.groupName);
+}
 
 export function useSelectedProfileSelector(
   groupName: string,
@@ -17,23 +20,49 @@ export function useSelectedProfileSelector(
   );
 }
 
+const selectProfile = createAsyncThunk(
+  `profileGroup/selectProfile`,
+  async (
+    profileInfo: { groupName: string; profile: ProfileSettings },
+    { getState, dispatch }
+  ) => {
+    const { selectedProfile } = getState().profileGroup;
+    const isSelected =
+      profileInfo.profile.name === selectedProfile.profileName &&
+      profileInfo.groupName === selectedProfile.groupName;
+
+    if (isSelected) {
+      dispatch(
+        profileGroupActions.setSelectedProfile({
+          groupName: "",
+          profileName: "",
+        })
+      );
+      dispatch(profileActions.setAllItems());
+    } else {
+      const { groupName, profile } = profileInfo;
+      dispatch(
+        profileGroupActions.setSelectedProfile({
+          groupName,
+          profileName: profile.name,
+        })
+      );
+      dispatch(profileActions.setAllItems(profile));
+    }
+    dispatch(profileActions.setDirty(false));
+  }
+);
+
 export function useSelectProfileDispatcher() {
   const dispatch = useDispatch();
 
   return (groupName: string, profile: ProfileSettings) => {
-    dispatch(
-      profileGroupActions.setSelectedProfile({
-        groupName,
-        profileName: profile.name,
-      })
-    );
-    dispatch(profileActions.setAllItems(profile));
-    dispatch(profileActions.setDirty(false));
+    dispatch(selectProfile({ groupName, profile }));
   };
 }
 
 const saveProfile = createAsyncThunk(
-  `botGroup/saveProfile`,
+  `profileGroup/saveProfile`,
   async (_, { getState, dispatch }) => {
     const newProfile = getState().profile.current;
 
@@ -41,6 +70,7 @@ const saveProfile = createAsyncThunk(
     dispatch(profileActions.setDirty(false));
   }
 );
+
 export function useSaveProfileDispatcher() {
   const dispatch = useDispatch();
   return () => dispatch(saveProfile());

@@ -3,9 +3,11 @@ import debounce from "lodash/debounce";
 import { useDispatch, useSelector } from "react-redux";
 import { useCallback, useEffect, useState } from "react";
 import { profileActions } from "app/store/rootDuck";
+import { useSelectedGroupNameSelector } from "app/actions/profileGroup";
 
 function useNameTextField() {
   const storedName = useSelector((state) => state.profile.current.name);
+  const groupName = useSelectedGroupNameSelector();
   const dispatch = useDispatch();
   const [name, setName] = useState(storedName);
   const dispatchValue = useCallback(
@@ -28,15 +30,17 @@ function useNameTextField() {
   return {
     value: name,
     setValue,
+    groupName,
   };
 }
 
 export function NameTextField() {
-  const { value, setValue } = useNameTextField();
+  const { value, setValue, groupName } = useNameTextField();
+  const hintText = groupName ? `Name (${groupName})` : "Name";
 
   return (
     <TextField
-      label="Name"
+      label={hintText}
       value={value}
       onChange={(e) => setValue(e.target.value)}
     />

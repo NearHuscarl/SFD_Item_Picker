@@ -1,27 +1,4 @@
-import { ProfileCardInfo, ProfileGroupRecords } from "app/types";
-
-export interface ProfileGroupState {
-  entities: ProfileGroupRecords;
-  selectedProfile: ProfileCardInfo;
-}
-
-export function validateProfile(
-  state: ProfileGroupState,
-  payload: ProfileCardInfo
-) {
-  const { groupName, profileName } = payload;
-  const profiles = state.entities[groupName];
-
-  if (!profiles) {
-    throw new Error(`There is no group name '${groupName}' in profile group`);
-  }
-
-  if (!profiles[profileName]) {
-    throw new Error(
-      `There is no profile name '${profileName}' in profile group '${groupName}'`
-    );
-  }
-}
+import { ProfileGroupRecords } from "app/types";
 
 export const defaultProfileGroup: ProfileGroupRecords = {
   None: {},

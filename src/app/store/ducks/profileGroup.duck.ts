@@ -1,12 +1,17 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import storage from "redux-persist/lib/storage";
 import { PersistConfig, persistReducer } from "app/store/persist";
-import { ProfileCardInfo, ProfileSettings } from "app/types";
 import {
-  defaultProfileGroup,
-  ProfileGroupState,
-  validateProfile,
-} from "app/store/ducks/profileGroup.duck.util";
+  ProfileCardInfo,
+  ProfileGroupRecords,
+  ProfileSettings,
+} from "app/types";
+import { defaultProfileGroup } from "app/store/ducks/profileGroup.duck.util";
+
+export interface ProfileGroupState {
+  entities: ProfileGroupRecords;
+  selectedProfile: ProfileCardInfo;
+}
 
 export const initialState: ProfileGroupState = {
   entities: defaultProfileGroup,
@@ -35,7 +40,6 @@ const slice = createSlice({
       }
     },
     setSelectedProfile(state, action: PayloadAction<ProfileCardInfo>) {
-      validateProfile(state, action.payload);
       state.selectedProfile = action.payload;
     },
     addProfile() {
