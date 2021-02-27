@@ -2,7 +2,7 @@ import { useCallback, useReducer } from "react";
 import throttle from "lodash/throttle";
 import { useDispatch, useSelector } from "react-redux";
 import { makeStyles } from "@material-ui/styles";
-import { IconButton, Theme } from "@material-ui/core";
+import { IconButton } from "@material-ui/core";
 import Casino from "@material-ui/icons/Casino";
 import GetApp from "@material-ui/icons/GetApp";
 import purple from "@material-ui/core/colors/purple";
@@ -12,8 +12,8 @@ import { useOnMount } from "app/helpers/hooks";
 import { useRandomItemDispatcher } from "app/actions/profile";
 import { ShareButton } from "app/widgets/ShareButton";
 
-const useStyles = makeStyles<Theme>((theme) => ({
-  profile: {
+const useStyles = makeStyles((theme) => ({
+  previewProfile: {
     display: "flex",
     justifyContent: "center",
     alignItems: "flex-end",
@@ -47,7 +47,7 @@ const useStyles = makeStyles<Theme>((theme) => ({
   },
 }));
 
-function useProfile() {
+function usePreviewProfile() {
   const classes = useStyles();
   const profile = useSelector((state) => state.profile.current);
   const dispatch = useDispatch();
@@ -97,17 +97,17 @@ function useProfile() {
   };
 }
 
-export function Profile() {
+export function PreviewProfile() {
   const {
     classes,
     onClickProfile,
     onRandomize,
     onDownload,
     profile,
-  } = useProfile();
+  } = usePreviewProfile();
 
   return (
-    <div onClick={onClickProfile} className={classes.profile}>
+    <div onClick={onClickProfile} className={classes.previewProfile}>
       <Player profile={profile} />
       <div className={classes.action}>
         <IconButton

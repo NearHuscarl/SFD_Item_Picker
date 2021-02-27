@@ -1,4 +1,4 @@
-import { Paper, Theme } from "@material-ui/core";
+import { Paper } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
 import { Virtuoso } from "react-virtuoso";
 import { useProfileGroupSelector } from "app/actions/profileGroup";
@@ -6,7 +6,7 @@ import { ProfileGroup } from "app/pages/home/content/ProfileGroup";
 
 const TAB_LIST_HEIGHT = 48;
 
-const useStyles = makeStyles<Theme>((theme) => ({
+const useStyles = makeStyles((theme) => ({
   profileGroupRoot: {
     height: `calc(100vh - ${TAB_LIST_HEIGHT}px - 32px)`,
     display: "flex",

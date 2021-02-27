@@ -1,18 +1,12 @@
 import { useEffect, useRef, useState } from "react";
-import {
-  IconButton,
-  Popover,
-  TextField,
-  Theme,
-  Typography,
-} from "@material-ui/core";
+import { IconButton, Popover, TextField, Typography } from "@material-ui/core";
 import Share from "@material-ui/icons/Share";
 import { makeStyles } from "@material-ui/styles";
 import { useSelector } from "react-redux";
 import { decodeProfile, encodeProfile } from "app/helpers/profile";
 import { stringifyOneLineArray } from "app/helpers";
 
-const useStyles = makeStyles<Theme>((theme) => ({
+const useStyles = makeStyles((theme) => ({
   paper: {
     padding: theme.spacing(2),
     width: 445,

@@ -1,12 +1,12 @@
 import { ReactNode } from "react";
-import { Theme, Typography } from "@material-ui/core";
+import { Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
 import { ProfileCard } from "app/pages/home/content/ProfileCard";
 import { ProfileSettings } from "app/types";
 
 const GROUP_NAME_HEIGHT = 35;
 
-const useStyles = makeStyles<Theme>((theme) => ({
+const useStyles = makeStyles((theme) => ({
   groupName: {
     fontWeight: 700,
     height: GROUP_NAME_HEIGHT,

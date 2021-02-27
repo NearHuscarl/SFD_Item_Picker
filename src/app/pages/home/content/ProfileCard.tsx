@@ -1,4 +1,4 @@
-import { Card, Theme, Typography } from "@material-ui/core";
+import { Card, Typography } from "@material-ui/core";
 import { ProfileSettings } from "app/types";
 import { Player } from "app/widgets/Player";
 import { makeStyles } from "@material-ui/core";
@@ -13,7 +13,7 @@ import clsx from "clsx";
 export const PROFILE_CARD_WIDTH = 100;
 export const PROFILE_CARD_HEIGHT = 130;
 
-const useStyles = makeStyles<Theme>((theme) => ({
+const useStyles = makeStyles((theme) => ({
   profileCard: {
     width: PROFILE_CARD_WIDTH,
     height: PROFILE_CARD_HEIGHT,

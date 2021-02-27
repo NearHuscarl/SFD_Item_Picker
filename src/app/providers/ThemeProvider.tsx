@@ -1,7 +1,12 @@
 import { PropsWithChildren } from "react";
-import MuiThemeProvider from "@material-ui/styles/ThemeProvider";
+import { Theme } from "@material-ui/core";
 import { createMuiTheme } from "@material-ui/core/styles";
+import MuiThemeProvider from "@material-ui/styles/ThemeProvider";
 import purple from "@material-ui/core/colors/purple";
+
+declare module "@material-ui/styles" {
+  interface DefaultTheme extends Theme {}
+}
 
 export const theme = createMuiTheme({
   palette: {
