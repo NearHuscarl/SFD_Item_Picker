@@ -1,12 +1,10 @@
 import { useDispatch, useSelector } from "react-redux";
-import { Layer, ProfileSettings } from "app/types";
-import { ensureColorItemExist, getGender, getItems } from "app/helpers/item";
-import { ItemID, NULL_ITEM } from "app/data/items";
+import { Layer } from "app/types";
+import { ensureColorItemExist } from "app/helpers/item";
+import { ItemID } from "app/data/items";
 import { profileActions } from "app/store/rootDuck";
 import { createDispatcher } from "app/actions/createDispatcher";
-import { randomArrItem, randomItemColors } from "app/helpers/random";
 import { decodeProfile } from "app/helpers/profile";
-import { forEachLayer } from "app/helpers";
 import { RootState } from "app/store/store";
 
 export function useCanSaveSelector() {
@@ -32,32 +30,8 @@ export function useItemColorsSelector(layer: Layer, itemId: ItemID) {
 
 export function useRandomItemDispatcher() {
   const dispatch = useDispatch();
-  const gender = useItemGenderSelector();
-
   return () => {
-    const result: Partial<ProfileSettings> = {};
-
-    forEachLayer((layer) => {
-      const items = getItems(layer, gender).filter((i) => {
-        if (layer === "skin") {
-          // filter out campaign skins (Mecha and Bear)
-          return getGender(i) !== "both";
-        }
-        return true;
-      });
-      if (layer !== "skin") {
-        items.push(NULL_ITEM);
-      }
-
-      const item = randomArrItem(items);
-      const itemColors = randomItemColors(item);
-
-      result[layer] = {
-        id: item.id,
-        colors: itemColors,
-      };
-    });
-    dispatch(profileActions.setAllItems(result));
+    dispatch(profileActions.setRandomProfile());
   };
 }
 

@@ -1,9 +1,15 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { AnyAction, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import storage from "redux-persist/lib/storage";
 import { MigrationManifest } from "redux-persist/es/types";
 import { createMigrate } from "redux-persist";
 import { PersistConfig, persistReducer } from "app/store/persist";
-import { Gender, getItem, getOppositeGender, ItemID } from "app/data/items";
+import {
+  Gender,
+  getItem,
+  getOppositeGender,
+  ItemID,
+  NULL_ITEM,
+} from "app/data/items";
 import { ColorName } from "app/data/colors";
 import { COLOR_TYPES } from "app/constants";
 import { ColorType, Layer, ProfileSettings } from "app/types";
@@ -14,6 +20,8 @@ import {
   setName,
 } from "app/store/ducks/profile.duck.util";
 import { forEachLayer } from "app/helpers";
+import { getGender, getItems } from "app/helpers/item";
+import { randomArrItem, randomItemColors } from "app/helpers/random";
 
 export const initialState: ProfileState = {
   current: defaultProfile.male,
@@ -70,6 +78,33 @@ const slice = createSlice({
       const profile = action.payload;
       setAllItems(state, profile);
     },
+    setRandomProfile(state) {
+      const { gender } = state.current; // @ts-ignore
+      const profile: ProfileSettings = {};
+
+      forEachLayer((layer) => {
+        const items = getItems(layer, gender).filter((i) => {
+          if (layer === "skin") {
+            // filter out campaign skins (Mecha and Bear)
+            return getGender(i) !== "both";
+          }
+          return true;
+        });
+        if (layer !== "skin") {
+          items.push(NULL_ITEM);
+        }
+
+        const item = randomArrItem(items);
+        const itemColors = randomItemColors(item);
+
+        profile[layer] = {
+          id: item.id,
+          colors: itemColors,
+        };
+      });
+
+      setAllItems(state, profile);
+    },
   },
 });
 
@@ -80,6 +115,7 @@ function updateCurrent(state) {
     current: { ...initialState.current, ...state.current },
   };
 }
+
 const migrations: MigrationManifest = {
   0: (state) => state,
   1: updateCurrent,
