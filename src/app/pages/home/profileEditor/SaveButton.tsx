@@ -13,7 +13,7 @@ export function SaveButton() {
       variant="contained"
       color="primary"
       disabled={!canSave}
-      onClick={() => saveProfile()}
+      onClick={saveProfile}
       style={{ minWidth: SWATCH_SIZE * 2 + theme.spacing(1) }}
     >
       Save

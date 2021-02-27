@@ -30,6 +30,11 @@ export const theme = createMuiTheme({
         fontSize: 13,
       },
     },
+    MuiTooltip: {
+      tooltip: {
+        fontSize: 12,
+      },
+    },
     MuiFormControlLabel: {
       root: {
         fontSize: 13,

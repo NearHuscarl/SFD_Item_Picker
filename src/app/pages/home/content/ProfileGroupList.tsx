@@ -3,6 +3,7 @@ import { makeStyles } from "@material-ui/styles";
 import { Virtuoso } from "react-virtuoso";
 import { useProfileGroupSelector } from "app/actions/profileGroup";
 import { ProfileGroup } from "app/pages/home/content/ProfileGroup";
+import { sortGroupName } from "app/helpers/profileGroup";
 
 const TAB_LIST_HEIGHT = 48;
 
@@ -43,7 +44,7 @@ const useStyles = makeStyles((theme) => ({
 export function ProfileGroupList() {
   const classes = useStyles();
   const groupRecords = useProfileGroupSelector();
-  const groupNames = Object.keys(groupRecords);
+  const groupNames = sortGroupName(Object.keys(groupRecords));
 
   return (
     <Paper className={classes.profileGroupRoot} elevation={0}>

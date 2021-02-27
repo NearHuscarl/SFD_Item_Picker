@@ -35,3 +35,5 @@ export const LayerValue = {
 } as const;
 
 export const Layers = invert(LayerValue) as Record<number, Layer>;
+
+export const DEFAULT_GROUP_NAME = "Default Group";

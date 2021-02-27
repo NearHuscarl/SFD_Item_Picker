@@ -1,8 +1,9 @@
 import { ReactNode } from "react";
-import { Typography } from "@material-ui/core";
+import { Tooltip, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
 import { ProfileCard } from "app/pages/home/content/ProfileCard";
 import { ProfileSettings } from "app/types";
+import { DEFAULT_GROUP_NAME } from "app/constants";
 
 const GROUP_NAME_HEIGHT = 35;
 
@@ -10,6 +11,7 @@ const useStyles = makeStyles((theme) => ({
   groupName: {
     fontWeight: 700,
     height: GROUP_NAME_HEIGHT,
+    display: "inline-block",
   },
   groupContent: {
     display: "flex",
@@ -29,7 +31,7 @@ export function ProfileGroup(props: ProfileGroupProps) {
   const classes = useStyles();
   let children: ReactNode[] = ["There is no profile in this group"];
 
-  if (profileRecords && Object.keys(profileRecords).length > 0) {
+  if (Object.keys(profileRecords).length > 0) {
     children = Object.keys(profileRecords).map((profileName) => (
       <ProfileCard
         key={profileName}
@@ -39,11 +41,26 @@ export function ProfileGroup(props: ProfileGroupProps) {
     ));
   }
 
+  let title = (
+    <Typography className={classes.groupName} variant="h6" component="h2">
+      {groupName}
+    </Typography>
+  );
+
+  if (groupName === DEFAULT_GROUP_NAME) {
+    title = (
+      <Tooltip
+        title={`Profiles don't belong to any groups will be put in '${DEFAULT_GROUP_NAME}'`}
+        arrow
+      >
+        {title}
+      </Tooltip>
+    );
+  }
+
   return (
     <div>
-      <Typography className={classes.groupName} variant="h6" component="h2">
-        {groupName}
-      </Typography>
+      {title}
       <div className={classes.groupContent}>{children}</div>
     </div>
   );
@@ -51,5 +68,5 @@ export function ProfileGroup(props: ProfileGroupProps) {
 
 type ProfileGroupProps = {
   groupName: string;
-  profileRecords: Record<string, ProfileSettings> | undefined;
+  profileRecords: Record<string, ProfileSettings>;
 };

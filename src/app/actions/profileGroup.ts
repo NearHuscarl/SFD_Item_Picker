@@ -1,11 +1,13 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { useDispatch, useSelector } from "react-redux";
 import { profileActions, profileGroupActions } from "app/store/rootDuck";
-import { ProfileSettings } from "app/types";
+import { ProfileData, ProfileSettings } from "app/types";
+import { DEFAULT_GROUP_NAME } from "app/constants";
 
 export function useProfileGroupSelector() {
   return useSelector((state) => state.profileGroup.entities);
 }
+
 export function useSelectedGroupNameSelector() {
   return useSelector((state) => state.profileGroup.selectedProfile.groupName);
 }
@@ -22,14 +24,11 @@ export function useSelectedProfileSelector(
 
 const selectProfile = createAsyncThunk(
   `profileGroup/selectProfile`,
-  async (
-    profileInfo: { groupName: string; profile: ProfileSettings },
-    { getState, dispatch }
-  ) => {
+  async (profileData: ProfileData, { getState, dispatch }) => {
     const { selectedProfile } = getState().profileGroup;
     const isSelected =
-      profileInfo.profile.name === selectedProfile.profileName &&
-      profileInfo.groupName === selectedProfile.groupName;
+      profileData.profile.name === selectedProfile.profileName &&
+      profileData.groupName === selectedProfile.groupName;
 
     if (isSelected) {
       dispatch(
@@ -40,7 +39,7 @@ const selectProfile = createAsyncThunk(
       );
       dispatch(profileActions.setAllItems());
     } else {
-      const { groupName, profile } = profileInfo;
+      const { groupName, profile } = profileData;
       dispatch(
         profileGroupActions.setSelectedProfile({
           groupName,
@@ -65,8 +64,18 @@ const saveProfile = createAsyncThunk(
   `profileGroup/saveProfile`,
   async (_, { getState, dispatch }) => {
     const newProfile = getState().profile.current;
+    const { groupName } = getState().profileGroup.selectedProfile;
 
-    dispatch(profileGroupActions.updateProfile(newProfile));
+    if (!groupName) {
+      dispatch(
+        profileGroupActions.addProfile({
+          groupName: DEFAULT_GROUP_NAME,
+          profile: newProfile,
+        })
+      );
+    } else {
+      dispatch(profileGroupActions.updateProfile(newProfile));
+    }
     dispatch(profileActions.setDirty(false));
   }
 );

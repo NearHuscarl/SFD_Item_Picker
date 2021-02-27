@@ -34,9 +34,14 @@ export type ProfileSettings = {
 };
 
 export type Profiles = Record<string, ProfileSettings>;
-export type ProfileGroupRecords = Record<string, Profiles | undefined>;
+export type ProfileGroupRecords = Record<string, Profiles>;
 
 export type ProfileCardInfo = {
   groupName: string;
   profileName: string;
+};
+
+export type ProfileData = {
+  groupName: string;
+  profile: ProfileSettings;
 };

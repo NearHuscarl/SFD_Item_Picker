@@ -44,3 +44,45 @@ export function isArrayEqual<T>(arr1: T[], arr2: T[]) {
   }
   return true;
 }
+
+function removeUniqueIdentifier(name: string) {
+  return name.replace(/\((.*)\)$/, "").trim();
+}
+
+/**
+ * ```
+ * ('a', ['b']) => 'a'
+ * ('a', ['a']) => 'a (1)'
+ * ('a', ['a', 'a (1)']) => 'a (2)'
+ * ('a', ['a', 'a (3)']) => 'a (2)'
+ * ('a', ['a (1)', 'a (2)']) => 'a'
+ * ```
+ */
+export function getUniqueName(name: string, names: string[]) {
+  const baseName = removeUniqueIdentifier(name);
+  const duplicatedNumbers = names
+    .map((n) => {
+      if (removeUniqueIdentifier(n) === baseName) {
+        const [, dupNumber] = n.match(/\((.*)\)$/) || [undefined, "0"];
+        return Number(dupNumber);
+      } else {
+        return -1;
+      }
+    })
+    .filter((n) => n >= 0)
+    .sort((a, b) => a - b);
+  let dupNumber = -1;
+
+  for (let i = 0; i < duplicatedNumbers.length; i++) {
+    if (i !== duplicatedNumbers[i]) {
+      dupNumber = i;
+      break;
+    }
+  }
+
+  if (dupNumber === -1) {
+    dupNumber = duplicatedNumbers.length;
+  }
+
+  return dupNumber === 0 ? baseName : baseName + ` (${dupNumber})`;
+}
