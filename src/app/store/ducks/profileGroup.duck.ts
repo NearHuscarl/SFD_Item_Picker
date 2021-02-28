@@ -1,27 +1,32 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import storage from "redux-persist/lib/storage";
 import { PersistConfig, persistReducer } from "app/store/persist";
-import { defaultProfileGroup } from "app/store/ducks/profileGroup.duck.util";
-import { DEFAULT_GROUP_NAME } from "app/constants";
 import {
-  ProfileCardInfo,
+  initialProfiles,
+  initialProfileGroup,
+} from "app/store/ducks/profileGroup.duck.util";
+import {
   ProfileData,
   ProfileGroupRecords,
+  ProfileRecords,
   ProfileSettings,
 } from "app/types";
-import { getUniqueName } from "app/helpers";
+import { DEFAULT_GROUP_NAME } from "app/constants";
+import { createMigrate } from "redux-persist";
+import { MigrationManifest } from "redux-persist/es/types";
 
 export interface ProfileGroupState {
-  entities: ProfileGroupRecords;
-  selectedProfile: ProfileCardInfo;
+  group: ProfileGroupRecords;
+  profile: ProfileRecords;
+  selectedProfile: number;
+  nextID: number;
 }
 
 export const initialState: ProfileGroupState = {
-  entities: defaultProfileGroup,
-  selectedProfile: {
-    groupName: "",
-    profileName: "",
-  },
+  group: initialProfileGroup,
+  profile: initialProfiles,
+  selectedProfile: -1,
+  nextID: Object.keys(initialProfiles).length,
 };
 
 const SLICE_NAME = "profileGroup";
@@ -30,64 +35,91 @@ const slice = createSlice({
   initialState,
   name: SLICE_NAME,
   reducers: {
-    updateProfile(state, action: PayloadAction<ProfileSettings>) {
-      const newProfile = action.payload;
-      const {
-        groupName = DEFAULT_GROUP_NAME,
-        profileName = newProfile.name,
-      } = state.selectedProfile;
+    selectProfile(state, action: PayloadAction<number>) {
+      const profileID = action.payload;
+      const profile = state.profile[profileID];
 
-      if (newProfile.name !== profileName) {
-        delete state.entities[groupName][profileName];
-        state.entities[groupName][newProfile.name] = newProfile;
-        state.selectedProfile.profileName = newProfile.name;
+      if (!profile.isSelected) {
+        profile.isSelected = true;
+        if (state.selectedProfile !== -1) {
+          state.profile[state.selectedProfile].isSelected = false;
+        }
+        state.selectedProfile = profile.ID;
       } else {
-        state.entities[groupName][profileName] = newProfile;
+        profile.isSelected = false;
+        state.selectedProfile = -1;
       }
     },
-    setSelectedProfile(state, action: PayloadAction<ProfileCardInfo>) {
-      state.selectedProfile = action.payload;
+    addProfileToGroup(state, action: PayloadAction<ProfileData>) {
+      const { groupID, ID } = action.payload;
+      state.group[groupID].profiles.push(ID);
+      state.profile[ID].groupID = groupID;
     },
-    addProfile(state, action: PayloadAction<ProfileData>) {
-      let { groupName, profile } = action.payload;
+    removeProfileFromGroup(state, action: PayloadAction<number>) {
+      const ID = action.payload;
+      const { groupID } = state.profile[ID];
+      state.group[groupID].profiles = state.group[groupID].profiles.filter(
+        (pID) => pID !== ID
+      );
+      state.group[DEFAULT_GROUP_NAME].profiles.push(ID);
+      state.profile[ID].groupID = DEFAULT_GROUP_NAME;
+    },
+    addProfile(state, action: PayloadAction<ProfileSettings>) {
+      const profile = action.payload;
+      const profileID = state.nextID;
 
-      // default group only get defined when the saved profile doesn't belong to any groups
-      if (!state.entities[groupName]) {
-        state.entities[groupName] = {};
-      }
-
-      const groupRecords = state.entities[groupName];
-      if (groupRecords[profile.name]) {
-        // profile is from component props which is frozen
-        profile = {
-          ...profile,
-          name: getUniqueName(profile.name, Object.keys(groupRecords)),
-        };
-      }
-
-      groupRecords[profile.name] = profile;
-      state.selectedProfile = {
-        groupName,
-        profileName: profile.name,
+      state.group[DEFAULT_GROUP_NAME].profiles.push(profileID);
+      state.profile[profileID] = {
+        ID: profileID,
+        groupID: DEFAULT_GROUP_NAME,
+        isSelected: false,
+        profile,
       };
+      state.nextID++;
     },
-    deleteProfile(state, action: PayloadAction<ProfileCardInfo>) {
-      let { groupName, profileName } = action.payload;
-      delete state.entities[groupName][profileName];
+    updateProfile(
+      state,
+      action: PayloadAction<{ ID: number; profile: ProfileSettings }>
+    ) {
+      const { ID, profile } = action.payload;
+      state.profile[ID].profile = profile;
+    },
+    deleteProfile(state, action: PayloadAction<number>) {
+      const ID = action.payload;
+      const { groupID } = state.profile[ID];
+
+      state.group[groupID].profiles = state.group[groupID].profiles.filter(
+        (pID) => pID !== ID
+      );
+      delete state.profile[ID];
+
+      if (state.selectedProfile === ID) {
+        state.selectedProfile = -1;
+      }
     },
     addGroup(state, action: PayloadAction<string>) {
-      state.entities[action.payload] = {};
+      state.group[action.payload] = {
+        ID: action.payload,
+        profiles: [],
+      };
     },
     deleteGroup(state, action: PayloadAction<string>) {
       // TODO: move all profiles to default group
-      delete state.entities[action.payload];
+      // TODO: can't delete default group
+      delete state.group[action.payload];
     },
   },
 });
 
+const migrations: MigrationManifest = {
+  1: (state) => initialState as any,
+};
+
 const persistConfig: PersistConfig<ProfileGroupState> = {
   storage,
   key: SLICE_NAME,
+  version: 1,
+  migrate: createMigrate(migrations, { debug: false }),
 };
 
 export const { actions } = slice;

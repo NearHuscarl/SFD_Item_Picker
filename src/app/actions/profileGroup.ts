@@ -1,81 +1,57 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { useDispatch, useSelector } from "react-redux";
 import { profileActions, profileGroupActions } from "app/store/rootDuck";
-import { ProfileData, ProfileSettings } from "app/types";
-import { DEFAULT_GROUP_NAME } from "app/constants";
 
 export function useProfileGroupSelector() {
-  return useSelector((state) => state.profileGroup.entities);
+  return useSelector((state) => state.profileGroup.group);
 }
 
 export function useSelectedGroupNameSelector() {
-  return useSelector((state) => state.profileGroup.selectedProfile.groupName);
+  const id = useSelector((state) => state.profileGroup.selectedProfile);
+  return useSelector((state) => state.profileGroup.profile[id]?.groupID) || "";
 }
 
-export function useSelectedProfileSelector(
-  groupName: string,
-  profileName: string
-) {
-  const selected = useSelector((state) => state.profileGroup.selectedProfile);
-  return (
-    selected.groupName === groupName && selected.profileName === profileName
-  );
+export function useProfileData(profileID: number) {
+  return useSelector((state) => state.profileGroup.profile[profileID]) || {};
 }
 
 const selectProfile = createAsyncThunk(
   `profileGroup/selectProfile`,
-  async (profileData: ProfileData, { getState, dispatch }) => {
+  async (profileID: number, { getState, dispatch }) => {
     const { selectedProfile } = getState().profileGroup;
-    const isSelected =
-      profileData.profile.name === selectedProfile.profileName &&
-      profileData.groupName === selectedProfile.groupName;
+    const isSelectAction = profileID !== selectedProfile;
 
-    if (isSelected) {
-      dispatch(
-        profileGroupActions.setSelectedProfile({
-          groupName: "",
-          profileName: "",
-        })
-      );
-      dispatch(profileActions.setAllItems());
+    dispatch(profileGroupActions.selectProfile(profileID));
+    if (isSelectAction) {
+      const profileData = getState().profileGroup.profile[profileID];
+      dispatch(profileActions.setProfileData(profileData));
     } else {
-      const { groupName, profile } = profileData;
-      dispatch(
-        profileGroupActions.setSelectedProfile({
-          groupName,
-          profileName: profile.name,
-        })
-      );
-      dispatch(profileActions.setAllItems(profile));
+      dispatch(profileActions.clearProfileData());
     }
     dispatch(profileActions.setDirty(false));
   }
 );
-
 export function useSelectProfileDispatcher() {
   const dispatch = useDispatch();
-
-  return (groupName: string, profile: ProfileSettings) => {
-    dispatch(selectProfile({ groupName, profile }));
+  return (profileID: number) => {
+    dispatch(selectProfile(profileID));
   };
 }
 
 const saveProfile = createAsyncThunk(
   `profileGroup/saveProfile`,
   async (_, { getState, dispatch }) => {
-    const newProfile = getState().profile.current;
-    const { groupName } = getState().profileGroup.selectedProfile;
+    const profile = getState().profile.current;
+    const profileID = getState().profile.ID;
 
-    if (!groupName) {
-      dispatch(
-        profileGroupActions.addProfile({
-          groupName: DEFAULT_GROUP_NAME,
-          profile: newProfile,
-        })
-      );
+    if (profileID === -1) {
+      const { nextID } = getState().profileGroup;
+      dispatch(profileGroupActions.addProfile(profile));
+      dispatch(selectProfile(nextID));
     } else {
-      dispatch(profileGroupActions.updateProfile(newProfile));
+      dispatch(profileGroupActions.updateProfile({ ID: profileID, profile }));
     }
+
     dispatch(profileActions.setDirty(false));
   }
 );
@@ -83,4 +59,20 @@ const saveProfile = createAsyncThunk(
 export function useSaveProfileDispatcher() {
   const dispatch = useDispatch();
   return () => dispatch(saveProfile());
+}
+
+export function useDeleteProfileDispatcher() {
+  const dispatch = useDispatch();
+
+  return (profileID: number) => {
+    dispatch(profileGroupActions.deleteProfile(profileID));
+  };
+}
+
+export function useRemoveProfileDispatcher() {
+  const dispatch = useDispatch();
+
+  return (profileID: number) => {
+    dispatch(profileGroupActions.removeProfileFromGroup(profileID));
+  };
 }

@@ -1,14 +1,16 @@
-import { Card, Typography } from "@material-ui/core";
-import { ProfileSettings } from "app/types";
-import { Player } from "app/widgets/Player";
-import { makeStyles } from "@material-ui/core";
 import { memo } from "react";
-import { isProfileEqual } from "app/helpers/profile";
+import { Card, Typography } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core";
+import clsx from "clsx";
+import { Player } from "app/widgets/Player";
+import { ContextMenu, ContextMenuItem } from "app/widgets/ContextMenu";
 import {
-  useSelectedProfileSelector,
+  useDeleteProfileDispatcher,
+  useProfileData,
+  useRemoveProfileDispatcher,
   useSelectProfileDispatcher,
 } from "app/actions/profileGroup";
-import clsx from "clsx";
+import { DEFAULT_GROUP_NAME } from "app/constants";
 
 export const PROFILE_CARD_WIDTH = 100;
 export const PROFILE_CARD_HEIGHT = 130;
@@ -40,20 +42,39 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const ProfileCard = memo(
-  (props: ProfileCardProps) => {
-    const { groupName, profile } = props;
-    const classes = useStyles();
-    const dispatchSelectProfile = useSelectProfileDispatcher();
-    const isSelected = useSelectedProfileSelector(groupName, profile.name);
+export const ProfileCard = memo((props: ProfileCardProps) => {
+  const { ID, profile, isSelected, groupID } = useProfileData(props.id);
+  const classes = useStyles();
+  const dispatchSelectProfile = useSelectProfileDispatcher();
+  const deleteProfile = useDeleteProfileDispatcher();
+  const removeProfile = useRemoveProfileDispatcher();
 
-    return (
+  if (!ID) {
+    return null;
+  }
+
+  const contextMenu: ContextMenuItem[] = [
+    {
+      name: "Delete",
+      onClick: () => deleteProfile(ID),
+    },
+  ];
+
+  if (groupID !== DEFAULT_GROUP_NAME) {
+    contextMenu.unshift({
+      name: "Remove from group",
+      onClick: () => removeProfile(ID),
+    });
+  }
+
+  return (
+    <ContextMenu menu={contextMenu}>
       <Card
         className={clsx({
           [classes.profileCard]: true,
           [classes.profileCardSelected]: isSelected,
         })}
-        onClick={() => dispatchSelectProfile(groupName, profile)}
+        onClick={() => dispatchSelectProfile(ID)}
       >
         <div className={classes.player}>
           <Player profile={profile} aniFrameIndex={0} scale={3} />
@@ -62,13 +83,10 @@ export const ProfileCard = memo(
           {profile.name}
         </Typography>
       </Card>
-    );
-  },
-  (props1, props2) => isProfileEqual(props1.profile, props2.profile)
-);
-ProfileCard.displayName = "ProfileCard";
+    </ContextMenu>
+  );
+});
 
 type ProfileCardProps = {
-  groupName: string;
-  profile: ProfileSettings;
+  id: number;
 };

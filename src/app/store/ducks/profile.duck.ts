@@ -1,4 +1,4 @@
-import { AnyAction, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import storage from "redux-persist/lib/storage";
 import { MigrationManifest } from "redux-persist/es/types";
 import { createMigrate } from "redux-persist";
@@ -12,7 +12,7 @@ import {
 } from "app/data/items";
 import { ColorName } from "app/data/colors";
 import { COLOR_TYPES } from "app/constants";
-import { ColorType, Layer, ProfileSettings } from "app/types";
+import { ColorType, Layer, ProfileData, ProfileSettings } from "app/types";
 import {
   defaultProfile,
   ProfileState,
@@ -24,9 +24,10 @@ import { getGender, getItems } from "app/helpers/item";
 import { randomArrItem, randomItemColors } from "app/helpers/random";
 
 export const initialState: ProfileState = {
+  ID: -1,
   current: defaultProfile.male,
   isDirty: false,
-  isValid: false,
+  isValid: true,
 };
 
 type ItemParams = { layer: Layer; id: ItemID };
@@ -105,21 +106,20 @@ const slice = createSlice({
 
       setAllItems(state, profile);
     },
+    setProfileData(state, action: PayloadAction<ProfileData>) {
+      const { ID, profile } = action.payload;
+
+      state.ID = ID;
+      setAllItems(state, profile);
+    },
+    clearProfileData(state) {
+      state.ID = -1;
+      setAllItems(state, undefined);
+    },
   },
 });
 
-function updateCurrent(state) {
-  if (!state) return undefined;
-  return {
-    ...state,
-    current: { ...initialState.current, ...state.current },
-  };
-}
-
 const migrations: MigrationManifest = {
-  0: (state) => state,
-  1: updateCurrent,
-  2: updateCurrent,
   3: (state) => initialState as any,
 };
 

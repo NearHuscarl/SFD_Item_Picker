@@ -33,15 +33,17 @@ export type ProfileSettings = {
   accessory: ProfileItemSettings;
 };
 
-export type Profiles = Record<string, ProfileSettings>;
-export type ProfileGroupRecords = Record<string, Profiles>;
-
-export type ProfileCardInfo = {
-  groupName: string;
-  profileName: string;
-};
-
 export type ProfileData = {
-  groupName: string;
+  ID: number;
+  groupID: string;
   profile: ProfileSettings;
+  isSelected: boolean;
 };
+
+export type ProfileGroup = {
+  ID: string;
+  profiles: number[];
+};
+
+export type ProfileRecords = Record<number, ProfileData>;
+export type ProfileGroupRecords = Record<string, ProfileGroup>;

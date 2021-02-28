@@ -3,6 +3,7 @@ import { ProfileSettings } from "app/types";
 import { forEachLayer } from "app/helpers";
 
 export interface ProfileState {
+  ID: number;
   current: ProfileSettings;
   isDirty: boolean;
   isValid: boolean;

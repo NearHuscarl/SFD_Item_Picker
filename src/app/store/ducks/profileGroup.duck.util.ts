@@ -1,9 +1,40 @@
-import { ProfileGroupRecords } from "app/types";
+import { ProfileGroupRecords, ProfileRecords } from "app/types";
+import { DEFAULT_GROUP_NAME } from "app/constants";
 
-export const defaultProfileGroup: ProfileGroupRecords = {
-  None: {},
+export const initialProfileGroup: ProfileGroupRecords = {
+  // TODO: hide default group name if not contain any profiles
+  [DEFAULT_GROUP_NAME]: {
+    ID: DEFAULT_GROUP_NAME,
+    profiles: [],
+  },
   Default: {
-    one: {
+    ID: "Default",
+    profiles: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+  },
+  MyGroup: {
+    ID: "MyGroup",
+    profiles: [12, 13, 14],
+  },
+  Abc: {
+    ID: "Abc",
+    profiles: [15, 16, 17, 18, 19],
+  },
+  Def: {
+    ID: "Def",
+    profiles: [20, 21, 22],
+  },
+  None: {
+    ID: "None",
+    profiles: [],
+  },
+};
+
+export const initialProfiles: ProfileRecords = {
+  0: {
+    ID: 0,
+    groupID: "Default",
+    isSelected: false,
+    profile: {
       name: "one",
       gender: 0,
       skin: {
@@ -43,7 +74,12 @@ export const defaultProfileGroup: ProfileGroupRecords = {
         colors: [null, null, null],
       },
     },
-    two: {
+  },
+  1: {
+    ID: 1,
+    groupID: "Default",
+    isSelected: false,
+    profile: {
       name: "two",
       gender: 0,
       skin: {
@@ -83,7 +119,12 @@ export const defaultProfileGroup: ProfileGroupRecords = {
         colors: ["ClothingCyan", "ClothingLightBrown", null],
       },
     },
-    three: {
+  },
+  2: {
+    ID: 2,
+    groupID: "Default",
+    isSelected: false,
+    profile: {
       name: "three",
       gender: 0,
       skin: {
@@ -123,7 +164,12 @@ export const defaultProfileGroup: ProfileGroupRecords = {
         colors: [null, null, null],
       },
     },
-    four: {
+  },
+  3: {
+    ID: 3,
+    groupID: "Default",
+    isSelected: false,
+    profile: {
       name: "four",
       gender: 0,
       skin: {
@@ -163,7 +209,12 @@ export const defaultProfileGroup: ProfileGroupRecords = {
         colors: ["ClothingDarkRed", "ClothingDarkGreen", null],
       },
     },
-    five: {
+  },
+  4: {
+    ID: 4,
+    groupID: "Default",
+    isSelected: false,
+    profile: {
       name: "five",
       gender: 0,
       skin: {
@@ -203,7 +254,12 @@ export const defaultProfileGroup: ProfileGroupRecords = {
         colors: ["ClothingLightRed", null, null],
       },
     },
-    six: {
+  },
+  5: {
+    ID: 5,
+    groupID: "Default",
+    isSelected: false,
+    profile: {
       name: "six",
       gender: 0,
       skin: {
@@ -243,7 +299,12 @@ export const defaultProfileGroup: ProfileGroupRecords = {
         colors: ["ClothingPurple", null, null],
       },
     },
-    seven: {
+  },
+  6: {
+    ID: 6,
+    groupID: "Default",
+    isSelected: false,
+    profile: {
       name: "seven",
       gender: 0,
       skin: {
@@ -283,7 +344,12 @@ export const defaultProfileGroup: ProfileGroupRecords = {
         colors: ["ClothingLightBrown", null, null],
       },
     },
-    eight: {
+  },
+  7: {
+    ID: 7,
+    groupID: "Default",
+    isSelected: false,
+    profile: {
       name: "eight",
       gender: 0,
       skin: {
@@ -323,7 +389,12 @@ export const defaultProfileGroup: ProfileGroupRecords = {
         colors: ["ClothingDarkPurple", null, null],
       },
     },
-    nine: {
+  },
+  8: {
+    ID: 8,
+    groupID: "Default",
+    isSelected: false,
+    profile: {
       name: "nine",
       gender: 0,
       skin: {
@@ -363,7 +434,12 @@ export const defaultProfileGroup: ProfileGroupRecords = {
         colors: ["ClothingDarkPurple", "ClothingDarkPurple", null],
       },
     },
-    ten: {
+  },
+  9: {
+    ID: 9,
+    groupID: "Default",
+    isSelected: false,
+    profile: {
       name: "ten",
       gender: 0,
       skin: {
@@ -403,7 +479,12 @@ export const defaultProfileGroup: ProfileGroupRecords = {
         colors: ["ClothingLightBrown", null, null],
       },
     },
-    eleven: {
+  },
+  10: {
+    ID: 10,
+    groupID: "Default",
+    isSelected: false,
+    profile: {
       name: "eleven",
       gender: 0,
       skin: {
@@ -443,7 +524,12 @@ export const defaultProfileGroup: ProfileGroupRecords = {
         colors: ["ClothingLightGreen", "ClothingLightGreen", null],
       },
     },
-    twelve: {
+  },
+  11: {
+    ID: 11,
+    groupID: "Default",
+    isSelected: false,
+    profile: {
       name: "twelve",
       gender: 0,
       skin: {
@@ -484,8 +570,11 @@ export const defaultProfileGroup: ProfileGroupRecords = {
       },
     },
   },
-  MyGroup: {
-    group1: {
+  12: {
+    ID: 12,
+    groupID: "MyGroup",
+    isSelected: false,
+    profile: {
       name: "group1",
       gender: 0,
       skin: {
@@ -525,7 +614,12 @@ export const defaultProfileGroup: ProfileGroupRecords = {
         colors: [null, null, null],
       },
     },
-    group2: {
+  },
+  13: {
+    ID: 13,
+    groupID: "MyGroup",
+    isSelected: false,
+    profile: {
       name: "group2",
       gender: 0,
       skin: {
@@ -565,7 +659,12 @@ export const defaultProfileGroup: ProfileGroupRecords = {
         colors: ["ClothingLightBlue", null, null],
       },
     },
-    group3: {
+  },
+  14: {
+    ID: 14,
+    groupID: "MyGroup",
+    isSelected: false,
+    profile: {
       name: "group3",
       gender: 0,
       skin: {
@@ -606,8 +705,11 @@ export const defaultProfileGroup: ProfileGroupRecords = {
       },
     },
   },
-  Abc: {
-    sf1: {
+  15: {
+    ID: 15,
+    groupID: "Abc",
+    isSelected: false,
+    profile: {
       name: "sf1",
       gender: 0,
       skin: {
@@ -647,7 +749,12 @@ export const defaultProfileGroup: ProfileGroupRecords = {
         colors: ["ClothingDarkBrown", null, null],
       },
     },
-    sf2: {
+  },
+  16: {
+    ID: 16,
+    groupID: "Abc",
+    isSelected: false,
+    profile: {
       name: "sf2",
       gender: 0,
       skin: {
@@ -687,7 +794,12 @@ export const defaultProfileGroup: ProfileGroupRecords = {
         colors: ["ClothingLightPink", "ClothingLightGreen", null],
       },
     },
-    sf3: {
+  },
+  17: {
+    ID: 17,
+    groupID: "Abc",
+    isSelected: false,
+    profile: {
       name: "sf3",
       gender: 0,
       skin: {
@@ -727,7 +839,12 @@ export const defaultProfileGroup: ProfileGroupRecords = {
         colors: ["ClothingRed", null, null],
       },
     },
-    sf4: {
+  },
+  18: {
+    ID: 18,
+    groupID: "Abc",
+    isSelected: false,
+    profile: {
       name: "sf4",
       gender: 0,
       skin: {
@@ -767,7 +884,12 @@ export const defaultProfileGroup: ProfileGroupRecords = {
         colors: ["ClothingLightPurple", null, null],
       },
     },
-    sf5: {
+  },
+  19: {
+    ID: 19,
+    groupID: "Abc",
+    isSelected: false,
+    profile: {
       name: "sf5",
       gender: 0,
       skin: {
@@ -808,8 +930,11 @@ export const defaultProfileGroup: ProfileGroupRecords = {
       },
     },
   },
-  Def: {
-    def1: {
+  20: {
+    ID: 20,
+    groupID: "Def",
+    isSelected: false,
+    profile: {
       name: "def1",
       gender: 0,
       skin: {
@@ -849,7 +974,12 @@ export const defaultProfileGroup: ProfileGroupRecords = {
         colors: ["ClothingLightCyan", "ClothingDarkYellow", null],
       },
     },
-    def2: {
+  },
+  21: {
+    ID: 21,
+    groupID: "Def",
+    isSelected: false,
+    profile: {
       name: "def2",
       gender: 0,
       skin: {
@@ -889,7 +1019,12 @@ export const defaultProfileGroup: ProfileGroupRecords = {
         colors: ["ClothingDarkOrange", null, null],
       },
     },
-    def3: {
+  },
+  22: {
+    ID: 22,
+    groupID: "Def",
+    isSelected: false,
+    profile: {
       name: "def3",
       gender: 0,
       skin: {

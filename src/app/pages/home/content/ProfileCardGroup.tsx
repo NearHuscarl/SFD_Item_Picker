@@ -2,7 +2,7 @@ import { ReactNode } from "react";
 import { Tooltip, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
 import { ProfileCard } from "app/pages/home/content/ProfileCard";
-import { ProfileSettings } from "app/types";
+import { ProfileGroup } from "app/types";
 import { DEFAULT_GROUP_NAME } from "app/constants";
 
 const GROUP_NAME_HEIGHT = 35;
@@ -26,18 +26,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export function ProfileGroup(props: ProfileGroupProps) {
-  const { groupName, profileRecords } = props;
+export function ProfileCardGroup(props: ProfileCardGroupProps) {
+  const { name: groupName, profiles } = props;
   const classes = useStyles();
   let children: ReactNode[] = ["There is no profile in this group"];
 
-  if (Object.keys(profileRecords).length > 0) {
-    children = Object.keys(profileRecords).map((profileName) => (
-      <ProfileCard
-        key={profileName}
-        groupName={groupName}
-        profile={profileRecords[profileName]}
-      />
+  if (profiles.length > 0) {
+    children = profiles.map((profileID) => (
+      <ProfileCard key={profileID} id={profileID} />
     ));
   }
 
@@ -66,7 +62,7 @@ export function ProfileGroup(props: ProfileGroupProps) {
   );
 }
 
-type ProfileGroupProps = {
-  groupName: string;
-  profileRecords: Record<string, ProfileSettings>;
+type ProfileCardGroupProps = {
+  name: string;
+  profiles: number[];
 };

@@ -2,8 +2,9 @@ import { Paper } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
 import { Virtuoso } from "react-virtuoso";
 import { useProfileGroupSelector } from "app/actions/profileGroup";
-import { ProfileGroup } from "app/pages/home/content/ProfileGroup";
+import { ProfileCardGroup } from "app/pages/home/content/ProfileCardGroup";
 import { sortGroupName } from "app/helpers/profileGroup";
+import { DEFAULT_GROUP_NAME } from "app/constants";
 
 const TAB_LIST_HEIGHT = 48;
 
@@ -44,7 +45,9 @@ const useStyles = makeStyles((theme) => ({
 export function ProfileGroupList() {
   const classes = useStyles();
   const groupRecords = useProfileGroupSelector();
-  const groupNames = sortGroupName(Object.keys(groupRecords));
+  const groupNames = sortGroupName(Object.keys(groupRecords)).filter((g) => {
+    return !(g === DEFAULT_GROUP_NAME && groupRecords[g].profiles.length === 0);
+  });
 
   return (
     <Paper className={classes.profileGroupRoot} elevation={0}>
@@ -58,10 +61,10 @@ export function ProfileGroupList() {
           defaultItemHeight={197}
           itemContent={(index, groupName) => {
             return (
-              <ProfileGroup
+              <ProfileCardGroup
                 key={groupName}
-                groupName={groupName}
-                profileRecords={groupRecords[groupName]}
+                name={groupName}
+                profiles={groupRecords[groupName].profiles}
               />
             );
           }}
