@@ -1,5 +1,6 @@
 import { PropsWithChildren } from "react";
 import { Theme } from "@material-ui/core";
+import type {} from "@material-ui/lab/themeAugmentation";
 import { createMuiTheme } from "@material-ui/core/styles";
 import MuiThemeProvider from "@material-ui/styles/ThemeProvider";
 import purple from "@material-ui/core/colors/purple";
@@ -40,7 +41,6 @@ export const theme = createMuiTheme({
         fontSize: 13,
       },
     },
-    // @ts-ignore
     MuiAutocomplete: {
       root: {
         "& .MuiFormLabel-root": {

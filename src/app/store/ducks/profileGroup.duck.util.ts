@@ -1,5 +1,22 @@
-import { ProfileGroupRecords, ProfileRecords } from "app/types";
+import {
+  ProfileGroupRecords,
+  ProfileRecords,
+  ProfileSettings,
+} from "app/types";
 import { DEFAULT_GROUP_NAME } from "app/constants";
+
+export type AddProfileParams = {
+  profile: ProfileSettings;
+  groupID?: string;
+};
+export type UpdateProfileParams = {
+  id: number;
+  profile: ProfileSettings;
+};
+export type MoveProfileParams = {
+  profileID: number;
+  newGroupID: string;
+};
 
 export const initialProfileGroup: ProfileGroupRecords = {
   // TODO: hide default group name if not contain any profiles

@@ -11,6 +11,7 @@ import { Player, usePlayerDrawer } from "app/widgets/Player";
 import { useOnMount } from "app/helpers/hooks";
 import { useRandomItemDispatcher } from "app/actions/profile";
 import { ShareButton } from "app/widgets/ShareButton";
+import { AddToGroupButton } from "app/pages/home/profileEditor/AddToGroupButton";
 
 const useStyles = makeStyles((theme) => ({
   previewProfile: {
@@ -39,6 +40,16 @@ const useStyles = makeStyles((theme) => ({
     position: "absolute",
     top: 5,
     right: 5,
+
+    '& > [class*="MuiButtonBase"]': {
+      padding: 5,
+      color: purple[800],
+    },
+  },
+  actionLeft: {
+    position: "absolute",
+    top: 5,
+    left: 5,
 
     '& > [class*="MuiButtonBase"]': {
       padding: 5,
@@ -109,6 +120,9 @@ export function PreviewProfile() {
   return (
     <div onClick={onClickProfile} className={classes.previewProfile}>
       <Player profile={profile} />
+      <div className={classes.actionLeft}>
+        <AddToGroupButton />
+      </div>
       <div className={classes.action}>
         <IconButton
           title="download profile image"

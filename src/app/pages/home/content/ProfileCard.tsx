@@ -3,9 +3,11 @@ import { Card, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core";
 import clsx from "clsx";
 import { Player } from "app/widgets/Player";
-import { ContextMenu, ContextMenuItem } from "app/widgets/ContextMenu";
+import { ContextMenu, ContextMenuData } from "app/widgets/ContextMenu";
 import {
   useDeleteProfileDispatcher,
+  useGroupNamesSelector,
+  useMoveProfileDispatcher,
   useProfileData,
   useRemoveProfileDispatcher,
   useSelectProfileDispatcher,
@@ -42,18 +44,20 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const ProfileCard = memo((props: ProfileCardProps) => {
-  const { ID, profile, isSelected, groupID } = useProfileData(props.id);
+function useProfileCard(id: number) {
+  const { ID, profile, isSelected, groupID } = useProfileData(id);
   const classes = useStyles();
   const dispatchSelectProfile = useSelectProfileDispatcher();
   const deleteProfile = useDeleteProfileDispatcher();
   const removeProfile = useRemoveProfileDispatcher();
+  const moveProfile = useMoveProfileDispatcher();
+  const groupNames = useGroupNamesSelector();
 
   if (!ID) {
     return null;
   }
 
-  const contextMenu: ContextMenuItem[] = [
+  const contextMenu: ContextMenuData[] = [
     {
       name: "Delete",
       onClick: () => deleteProfile(ID),
@@ -67,6 +71,41 @@ export const ProfileCard = memo((props: ProfileCardProps) => {
     });
   }
 
+  contextMenu.unshift({
+    name: "Move to group",
+    children: groupNames
+      .filter((g) => g !== groupID)
+      .map((group) => ({
+        name: group,
+        onClick: () => moveProfile(ID, group),
+      })),
+  });
+
+  return {
+    classes,
+    contextMenu,
+    isSelected,
+    dispatchSelectProfile,
+    profile,
+  };
+}
+
+export const ProfileCard = memo((props: ProfileCardProps) => {
+  const { id } = props;
+  const result = useProfileCard(id);
+
+  if (!result) {
+    return null;
+  }
+
+  const {
+    classes,
+    contextMenu,
+    isSelected,
+    dispatchSelectProfile,
+    profile,
+  } = result;
+
   return (
     <ContextMenu menu={contextMenu}>
       <Card
@@ -74,7 +113,7 @@ export const ProfileCard = memo((props: ProfileCardProps) => {
           [classes.profileCard]: true,
           [classes.profileCardSelected]: isSelected,
         })}
-        onClick={() => dispatchSelectProfile(ID)}
+        onClick={() => dispatchSelectProfile(id)}
       >
         <div className={classes.player}>
           <Player profile={profile} aniFrameIndex={0} scale={3} />

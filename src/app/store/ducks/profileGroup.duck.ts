@@ -4,19 +4,18 @@ import { PersistConfig, persistReducer } from "app/store/persist";
 import {
   initialProfiles,
   initialProfileGroup,
+  MoveProfileParams,
+  AddProfileParams,
+  UpdateProfileParams,
 } from "app/store/ducks/profileGroup.duck.util";
-import {
-  ProfileData,
-  ProfileGroupRecords,
-  ProfileRecords,
-  ProfileSettings,
-} from "app/types";
+import { ProfileData, ProfileGroupRecords, ProfileRecords } from "app/types";
 import { DEFAULT_GROUP_NAME } from "app/constants";
 import { createMigrate } from "redux-persist";
 import { MigrationManifest } from "redux-persist/es/types";
 
 export interface ProfileGroupState {
   group: ProfileGroupRecords;
+  groupIDs: string[];
   profile: ProfileRecords;
   selectedProfile: number;
   nextID: number;
@@ -24,6 +23,7 @@ export interface ProfileGroupState {
 
 export const initialState: ProfileGroupState = {
   group: initialProfileGroup,
+  groupIDs: Object.keys(initialProfileGroup),
   profile: initialProfiles,
   selectedProfile: -1,
   nextID: Object.keys(initialProfiles).length,
@@ -64,25 +64,32 @@ const slice = createSlice({
       state.group[DEFAULT_GROUP_NAME].profiles.push(ID);
       state.profile[ID].groupID = DEFAULT_GROUP_NAME;
     },
-    addProfile(state, action: PayloadAction<ProfileSettings>) {
-      const profile = action.payload;
+    moveProfile(state, action: PayloadAction<MoveProfileParams>) {
+      const { profileID, newGroupID } = action.payload;
+      const oldGroupID = state.profile[profileID].groupID;
+
+      state.group[oldGroupID].profiles = state.group[
+        oldGroupID
+      ].profiles.filter((pID) => pID !== profileID);
+      state.group[newGroupID].profiles.push(profileID);
+      state.profile[profileID].groupID = newGroupID;
+    },
+    addProfile(state, action: PayloadAction<AddProfileParams>) {
+      const { profile, groupID = DEFAULT_GROUP_NAME } = action.payload;
       const profileID = state.nextID;
 
-      state.group[DEFAULT_GROUP_NAME].profiles.push(profileID);
+      state.group[groupID].profiles.push(profileID);
       state.profile[profileID] = {
         ID: profileID,
-        groupID: DEFAULT_GROUP_NAME,
+        groupID: groupID,
         isSelected: false,
         profile,
       };
       state.nextID++;
     },
-    updateProfile(
-      state,
-      action: PayloadAction<{ ID: number; profile: ProfileSettings }>
-    ) {
-      const { ID, profile } = action.payload;
-      state.profile[ID].profile = profile;
+    updateProfile(state, action: PayloadAction<UpdateProfileParams>) {
+      const { id, profile } = action.payload;
+      state.profile[id].profile = profile;
     },
     deleteProfile(state, action: PayloadAction<number>) {
       const ID = action.payload;
@@ -92,33 +99,32 @@ const slice = createSlice({
         (pID) => pID !== ID
       );
       delete state.profile[ID];
-
-      if (state.selectedProfile === ID) {
-        state.selectedProfile = -1;
-      }
     },
     addGroup(state, action: PayloadAction<string>) {
-      state.group[action.payload] = {
-        ID: action.payload,
-        profiles: [],
-      };
+      const groupID = action.payload;
+
+      state.group[groupID] = { ID: groupID, profiles: [] };
+      state.groupIDs.push(groupID);
     },
     deleteGroup(state, action: PayloadAction<string>) {
+      const groupID = action.payload;
       // TODO: move all profiles to default group
       // TODO: can't delete default group
-      delete state.group[action.payload];
+      delete state.group[groupID];
+      state.groupIDs = state.groupIDs.filter((i) => i !== groupID);
     },
   },
 });
 
 const migrations: MigrationManifest = {
   1: (state) => initialState as any,
+  2: (state) => initialState as any,
 };
 
 const persistConfig: PersistConfig<ProfileGroupState> = {
   storage,
   key: SLICE_NAME,
-  version: 1,
+  version: 2,
   migrate: createMigrate(migrations, { debug: false }),
 };
 
