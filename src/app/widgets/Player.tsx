@@ -1,10 +1,13 @@
 import { memo, useEffect, useRef } from "react";
 import { makeStyles } from "@material-ui/styles";
 import { getItem } from "app/data/items";
-import { ProfileSettings } from "app/types";
+import { Layer, ProfileSettings } from "app/types";
 import { ItemPartType, Layers } from "app/constants";
 import { ensureColorItemExist, getItemTypeZIndex } from "app/helpers/item";
-import { getAnimationRenderData } from "app/helpers/animation";
+import {
+  AnimationRenderData,
+  getAnimationRenderData,
+} from "app/helpers/animation";
 import { useAnimationFrame } from "app/helpers/hooks";
 import { applyColor } from "app/helpers/color";
 import { useTextureData } from "app/data/textures";
@@ -33,20 +36,50 @@ type DrawPlayerParams = {
   profile: ProfileSettings;
   scale?: number;
 };
+
 export function usePlayerDrawer(props?: UsePlayerDrawerProps) {
   const { aniFrameIndex } = props || {};
   const baseIdleAni = useAnimationFrame("BaseIdle", aniFrameIndex);
   const upperIdleAni = useAnimationFrame("UpperIdle", aniFrameIndex);
-  const { getTexture } = useTextureData();
+  const { getTextures } = useTextureData();
 
   return async (props: DrawPlayerParams) => {
     const { canvas, profile, scale = SCALE } = props;
     const ctx = canvas.getContext("2d")!;
-    const allRenderLayers = [] as RenderLayer[];
-    const chestOverID = profile.chestOver.id;
-    const chestOver = getItem(chestOverID);
 
     ctx.imageSmoothingEnabled = false;
+
+    const textureKeys = [] as string[]; // @ts-ignore
+    const allRenderData: Record<Layer, AnimationRenderData[]> = {};
+
+    for (let layerIndex of [0, 1, 2, 3, 4, 5, 6, 7, 8]) {
+      const layer = Layers[layerIndex];
+      const itemId = profile[layer].id;
+      const renderData = [
+        ...getAnimationRenderData(itemId, baseIdleAni.parts),
+        ...getAnimationRenderData(itemId, upperIdleAni.parts),
+      ].reverse();
+
+      allRenderData[layer] = renderData;
+      renderData.forEach((r) => {
+        if (r.textureKey) {
+          textureKeys.push(r.textureKey);
+        }
+      });
+    }
+
+    const results = await getTextures(textureKeys);
+    const textures: Record<string, ImageData> = {};
+
+    results.forEach((r) => {
+      if (r) {
+        textures[r.name] = r.texture;
+      }
+    });
+
+    const chestOverID = profile.chestOver.id;
+    const chestOver = getItem(chestOverID);
+    const allRenderLayers = [] as RenderLayer[];
 
     for (let layerIndex of [0, 1, 2, 3, 4, 5, 6, 7, 8]) {
       let layer = Layers[layerIndex];
@@ -61,32 +94,25 @@ export function usePlayerDrawer(props?: UsePlayerDrawerProps) {
 
       const itemId = profile[layer].id;
       const itemColors = ensureColorItemExist(itemId, profile[layer].colors);
-      const renderData = [
-        ...getAnimationRenderData(itemId, baseIdleAni.parts),
-        ...getAnimationRenderData(itemId, upperIdleAni.parts),
-      ].reverse();
+      const renderData = allRenderData[layer];
 
       for (let index = 0; index < renderData.length; index++) {
         const aniData = renderData[index];
         const { textureKey, type, localId, x, y } = aniData;
 
         if (textureKey) {
-          const result = await getTexture(textureKey);
+          const imageData = textures[textureKey];
+          const layer = (index + 1) * getItemTypeZIndex(type) + layerIndex;
+          const identifier = `${itemId}_${ItemPartType[type]}_${localId}`;
+          applyColor(imageData.data, itemColors);
 
-          if (result) {
-            const { texture: imageData } = result;
-            const layer = (index + 1) * getItemTypeZIndex(type) + layerIndex;
-            const identifier = `${itemId}_${ItemPartType[type]}_${localId}`;
-            applyColor(imageData.data, itemColors);
-
-            allRenderLayers.push({
-              identifier,
-              imageData,
-              dx: x + 2,
-              dy: y + 11,
-              layer,
-            });
-          }
+          allRenderLayers.push({
+            identifier,
+            imageData,
+            dx: x + 2,
+            dy: y + 11,
+            layer,
+          });
         }
       }
     }

@@ -12,12 +12,18 @@ export function useTextureData() {
 
   return {
     getTexture: (name: TextureName) => getTexture(db, name),
+    getTextures: (names: TextureName[]) => getTextures(db, names),
   };
 }
 
 function getTexture(db: Database, name: TextureName) {
   const table = getTextureTable(db);
   return table.get({ name });
+}
+
+function getTextures(db: Database, names: TextureName[]) {
+  const table = getTextureTable(db);
+  return table.bulkGet(names);
 }
 
 export function getTextureTable(db: Database): TextureTable {
