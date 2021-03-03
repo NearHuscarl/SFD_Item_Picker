@@ -83,7 +83,7 @@ export function useAddProfileDispatcher() {
   };
 }
 
-export function useRemoveProfileDispatcher() {
+export function useRemoveProfileFromGroupDispatcher() {
   const dispatch = useDispatch();
 
   return (profileID: number) => {
@@ -91,11 +91,19 @@ export function useRemoveProfileDispatcher() {
   };
 }
 
-export function useMoveProfileDispatcher() {
+export function useMoveProfileToGroupDispatcher() {
   const dispatch = useDispatch();
 
   return (profileID: number, newGroupID: string) => {
-    dispatch(profileGroupActions.moveProfile({ profileID, newGroupID }));
+    dispatch(profileGroupActions.moveProfileToGroup({ profileID, newGroupID }));
+  };
+}
+
+export function useMoveProfileDispatcher() {
+  const dispatch = useDispatch();
+
+  return (profileID: number, overID: number) => {
+    dispatch(profileGroupActions.moveProfile({ profileID, overID }));
   };
 }
 

@@ -12,7 +12,7 @@ export type AnimationRenderData = {
   y: number;
   type: number;
   localId: number;
-  textureKey: string;
+  textureKey?: string;
 };
 
 export function getAnimationRenderData(id: ItemID, parts: Part[]) {

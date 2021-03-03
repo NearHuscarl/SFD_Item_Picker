@@ -1,9 +1,16 @@
-import { ReactNode } from "react";
+import { useState } from "react";
 import { Tooltip, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
-import { ProfileCard } from "app/pages/home/content/ProfileCard";
-import { ProfileGroup } from "app/types";
+import { closestCenter, DndContext, DragOverlay } from "@dnd-kit/core";
+import { SortableContext } from "@dnd-kit/sortable";
+import {
+  ProfileCard,
+  DraggableProfileCard,
+} from "app/pages/home/content/ProfileCard";
 import { DEFAULT_GROUP_NAME } from "app/constants";
+import { useMoveProfileDispatcher } from "app/actions/profileGroup";
+import { DragHandle } from "app/widgets/DragHandle";
+import { animation } from "app/animation";
 
 const GROUP_NAME_HEIGHT = 35;
 
@@ -26,16 +33,34 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+function useProfileCardGroup() {
+  const classes = useStyles();
+  const moveProfile = useMoveProfileDispatcher();
+  const [activeId, setActiveId] = useState<number | null>(null);
+  const onDragStart = (e) => {
+    setActiveId(e.active.id);
+  };
+  const onDragEnd = (e) => {
+    const { active, over } = e;
+
+    if (over && active.id !== over.id) {
+      moveProfile(Number(active.id), Number(over.id));
+    }
+
+    setActiveId(null);
+  };
+
+  return {
+    classes,
+    activeId,
+    onDragStart,
+    onDragEnd,
+  };
+}
+
 export function ProfileCardGroup(props: ProfileCardGroupProps) {
   const { name: groupName, profiles } = props;
-  const classes = useStyles();
-  let children: ReactNode[] = ["There is no profile in this group"];
-
-  if (profiles.length > 0) {
-    children = profiles.map((profileID) => (
-      <ProfileCard key={profileID} id={profileID} />
-    ));
-  }
+  const { classes, activeId, onDragStart, onDragEnd } = useProfileCardGroup();
 
   let title = (
     <Typography className={classes.groupName} variant="h6" component="h2">
@@ -55,10 +80,32 @@ export function ProfileCardGroup(props: ProfileCardGroupProps) {
   }
 
   return (
-    <div>
+    <>
       {title}
-      <div className={classes.groupContent}>{children}</div>
-    </div>
+      <div className={classes.groupContent}>
+        <DndContext
+          onDragStart={onDragStart}
+          onDragEnd={onDragEnd}
+          collisionDetection={closestCenter}
+        >
+          <SortableContext items={profiles.map((p) => p.toString())}>
+            {profiles.length > 0 &&
+              profiles.map((id) => <DraggableProfileCard key={id} id={id} />)}
+            {profiles.length === 0 && "There is no profile in this group"}
+          </SortableContext>
+          <DragOverlay dropAnimation={animation.dropping}>
+            {activeId ? (
+              <ProfileCard
+                id={activeId}
+                isDragging
+                // dummy dragger button for consistency
+                action={<DragHandle />}
+              />
+            ) : null}
+          </DragOverlay>
+        </DndContext>
+      </div>
+    </>
   );
 }
 

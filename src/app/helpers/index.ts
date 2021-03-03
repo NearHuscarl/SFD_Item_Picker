@@ -3,11 +3,12 @@
 import { Layer } from "app/types";
 import { Layers } from "app/constants";
 
-export function forEachLayer(cb: (layer: Layer) => void) {
-  [0, 1, 2, 3, 4, 5, 6, 7, 8].forEach((layerIndex) => {
+export function forEachLayer(cb: (layer: Layer, layerIndex: number) => void) {
+  for (let i = 0; i <= 8; i++) {
+    const layerIndex = i;
     const layer = Layers[layerIndex];
-    cb(layer);
-  });
+    cb(layer, layerIndex);
+  }
 }
 
 // https://stackoverflow.com/a/54931396/9449426

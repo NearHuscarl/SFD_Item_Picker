@@ -2,7 +2,7 @@ import { memo, useEffect, useRef } from "react";
 import { makeStyles } from "@material-ui/styles";
 import { getItem } from "app/data/items";
 import { Layer, ProfileSettings } from "app/types";
-import { ItemPartType, Layers } from "app/constants";
+import { ItemPartType } from "app/constants";
 import { ensureColorItemExist, getItemTypeZIndex } from "app/helpers/item";
 import {
   AnimationRenderData,
@@ -13,6 +13,7 @@ import { applyColor } from "app/helpers/color";
 import { useTextureData } from "app/data/textures";
 import { useIndexedDB } from "app/providers/IndexedDBProvider";
 import { isProfileEqual } from "app/helpers/profile";
+import { forEachLayer } from "app/helpers";
 
 export const SCALE = 3.5;
 
@@ -52,8 +53,7 @@ export function usePlayerDrawer(props?: UsePlayerDrawerProps) {
     const textureKeys = [] as string[]; // @ts-ignore
     const allRenderData: Record<Layer, AnimationRenderData[]> = {};
 
-    for (let layerIndex of [0, 1, 2, 3, 4, 5, 6, 7, 8]) {
-      const layer = Layers[layerIndex];
+    forEachLayer((layer) => {
       const itemId = profile[layer].id;
       const renderData = [
         ...getAnimationRenderData(itemId, baseIdleAni.parts),
@@ -66,7 +66,7 @@ export function usePlayerDrawer(props?: UsePlayerDrawerProps) {
           textureKeys.push(r.textureKey);
         }
       });
-    }
+    });
 
     const results = await getTextures(textureKeys);
     const textures: Record<string, ImageData> = {};
@@ -81,9 +81,7 @@ export function usePlayerDrawer(props?: UsePlayerDrawerProps) {
     const chestOver = getItem(chestOverID);
     const allRenderLayers = [] as RenderLayer[];
 
-    for (let layerIndex of [0, 1, 2, 3, 4, 5, 6, 7, 8]) {
-      let layer = Layers[layerIndex];
-
+    forEachLayer((layer, layerIndex) => {
       if (chestOver.jacketUnderBelt) {
         if (layer === "chestOver") {
           layer = "waist";
@@ -115,7 +113,7 @@ export function usePlayerDrawer(props?: UsePlayerDrawerProps) {
           });
         }
       }
-    }
+    });
 
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     allRenderLayers

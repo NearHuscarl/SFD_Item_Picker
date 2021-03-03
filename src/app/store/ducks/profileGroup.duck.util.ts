@@ -17,6 +17,10 @@ export type MoveProfileParams = {
   profileID: number;
   newGroupID: string;
 };
+export type ReorderProfileParams = {
+  profileID: number;
+  overID: number;
+};
 
 export const initialProfileGroup: ProfileGroupRecords = {
   // TODO: hide default group name if not contain any profiles
