@@ -1,4 +1,11 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import {
+  DependencyList,
+  EffectCallback,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { getAnimation, AnimationName } from "app/data/animations";
 
 export function useOnMount(cb: Function) {
@@ -64,4 +71,19 @@ export function useAnimationFrame(
   }, [aniFrameIndex, frameCount]);
 
   return aniData[frameIndex];
+}
+
+export function useDidUpdateEffect(
+  effect: EffectCallback,
+  deps?: DependencyList
+) {
+  const didMountRef = useRef(false);
+
+  useEffect(() => {
+    if (!didMountRef.current) {
+      didMountRef.current = true;
+    } else {
+      return effect();
+    }
+  }, deps);
 }

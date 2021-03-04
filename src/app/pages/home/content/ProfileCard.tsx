@@ -1,4 +1,4 @@
-import { memo, ReactNode } from "react";
+import { memo, ReactNode, useState } from "react";
 import { Card, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core";
 import { useSortable } from "@dnd-kit/sortable";
@@ -17,6 +17,7 @@ import {
 import { DEFAULT_GROUP_NAME } from "app/constants";
 import { DragHandle } from "app/widgets/DragHandle";
 import { animation } from "app/animation";
+import { useDidUpdateEffect } from "app/helpers/hooks";
 
 export const PROFILE_CARD_WIDTH = 100;
 export const PROFILE_CARD_HEIGHT = 130;
@@ -41,7 +42,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.primary[50],
     color: theme.palette.primary[800],
   },
-  profileCardDragged: {
+  profileCardOnAir: {
     boxShadow:
       theme.shadows[6].replace(/rgba.*?\)/g, theme.palette.primary[100]) +
       " !important",
@@ -87,6 +88,16 @@ export function DraggableProfileCard(props: ProfileCardProps) {
     id: id.toString(),
     transition: animation.outOfTheWay,
   });
+  const [isLanding, setIsLanding] = useState(false);
+
+  useDidUpdateEffect(() => {
+    if (!isDragging) {
+      setIsLanding(true);
+      setTimeout(() => {
+        setIsLanding(false);
+      }, animation.dropping.duration);
+    }
+  }, [isDragging]);
 
   const style = {
     transform: CSS.Transform.toString(transform),
@@ -100,6 +111,7 @@ export function DraggableProfileCard(props: ProfileCardProps) {
       <ProfileCard
         id={id}
         isProjecting={isDragging}
+        isOnAir={isLanding}
         action={<DragHandle {...listeners} />}
       />
     </div>
@@ -154,7 +166,7 @@ function useProfileCard(id: number) {
 }
 
 export const ProfileCard = memo((props: ProfileCardProps) => {
-  const { id, action, isDragging = false, isProjecting = false } = props;
+  const { id, action, isOnAir = false, isProjecting = false } = props;
   const result = useProfileCard(id);
 
   if (!result) {
@@ -175,7 +187,7 @@ export const ProfileCard = memo((props: ProfileCardProps) => {
         className={clsx({
           [classes.profileCard]: true,
           [classes.profileCardSelected]: isSelected,
-          [classes.profileCardDragged]: isDragging,
+          [classes.profileCardOnAir]: isOnAir,
           [classes.profileCardProjected]: isProjecting,
         })}
         onClick={() => {
@@ -201,6 +213,6 @@ export const ProfileCard = memo((props: ProfileCardProps) => {
 type ProfileCardProps = {
   id: number;
   action?: ReactNode;
-  isDragging?: boolean;
+  isOnAir?: boolean; // isOnAir effect = isDragging || isLanding
   isProjecting?: boolean;
 };

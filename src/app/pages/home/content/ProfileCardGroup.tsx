@@ -97,7 +97,7 @@ export function ProfileCardGroup(props: ProfileCardGroupProps) {
             {activeId ? (
               <ProfileCard
                 id={activeId}
-                isDragging
+                isOnAir
                 // dummy dragger button for consistency
                 action={<DragHandle />}
               />
