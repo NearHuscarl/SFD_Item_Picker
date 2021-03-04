@@ -1,4 +1,4 @@
-import { memo, ReactNode, useState } from "react";
+import { memo, ReactNode, useMemo, useState } from "react";
 import { Card, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core";
 import MoreVert from "@material-ui/icons/MoreVert";
@@ -6,18 +6,14 @@ import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import clsx from "clsx";
 import { Player } from "app/widgets/Player";
-import { ContextMenu, ContextMenuData } from "app/widgets/ContextMenu";
 import {
-  useDeleteProfileDispatcher,
   useProfileData,
-  useRemoveProfileFromGroupDispatcher,
   useSelectProfileDispatcher,
 } from "app/actions/profileGroup";
-import { DEFAULT_GROUP_NAME } from "app/constants";
 import { DragHandle } from "app/widgets/DragHandle";
 import { animation } from "app/animation";
 import { useDidUpdateEffect } from "app/helpers/hooks";
-import { ProfileCardMoveMenu } from "app/pages/home/content/ProfileCardMoveMenu";
+import { useProfileCardAction } from "app/pages/home/content/ProfileCardActionProvider";
 
 export const PROFILE_CARD_WIDTH = 100;
 export const PROFILE_CARD_HEIGHT = 130;
@@ -97,6 +93,16 @@ export function DraggableProfileCard(props: DraggableProfileCardProps) {
     transition: animation.outOfTheWay,
   });
   const [isLanding, setIsLanding] = useState(false);
+  const action = useMemo(
+    () => (
+      <DragHandle
+        {...listeners}
+        aria-label="move profile within this group"
+        title="move profile within this group"
+      />
+    ),
+    [listeners]
+  );
 
   useDidUpdateEffect(() => {
     if (!isDragging) {
@@ -120,13 +126,7 @@ export function DraggableProfileCard(props: DraggableProfileCardProps) {
         id={id}
         isProjecting={isDragging}
         isOnAir={isLanding}
-        action={
-          <DragHandle
-            {...listeners}
-            aria-label="move profile within this group"
-            title="move profile within this group"
-          />
-        }
+        action={action}
       />
     </div>
   );
@@ -135,47 +135,21 @@ export function DraggableProfileCard(props: DraggableProfileCardProps) {
 function useProfileCard(id: number) {
   const { ID, profile, isSelected, groupID } = useProfileData(id);
   const classes = useStyles();
-
+  const { openContextMenu, openMoveMenu } = useProfileCardAction();
   const dispatchSelectProfile = useSelectProfileDispatcher();
-  const deleteProfile = useDeleteProfileDispatcher();
-  const removeProfileFromGroup = useRemoveProfileFromGroupDispatcher();
-  const [moveMenuAnchorEl, setMoveMenuAnchorEl] = useState(null);
-  const onOpenMoveMenu = (e) => {
-    e.stopPropagation();
-    setMoveMenuAnchorEl(e.currentTarget);
-  };
-  const onCloseMoveMenu = () => {
-    setMoveMenuAnchorEl(null);
-  };
 
   if (ID === undefined || ID === null) {
     return null;
   }
 
-  const contextMenu: ContextMenuData[] = [
-    {
-      name: "Delete",
-      onClick: () => deleteProfile(ID),
-    },
-  ];
-
-  if (groupID !== DEFAULT_GROUP_NAME) {
-    contextMenu.unshift({
-      name: "Remove from group",
-      onClick: () => removeProfileFromGroup(ID),
-    });
-  }
-
   return {
     classes,
-    contextMenu,
     isSelected,
     dispatchSelectProfile,
     profile,
     groupID,
-    moveMenuAnchorEl,
-    onOpenMoveMenu,
-    onCloseMoveMenu,
+    openContextMenu,
+    openMoveMenu,
   };
 }
 
@@ -189,64 +163,57 @@ export const ProfileCard = memo((props: ProfileCardProps) => {
 
   const {
     classes,
-    contextMenu,
     isSelected,
     dispatchSelectProfile,
     profile,
     groupID,
-    onOpenMoveMenu,
-    onCloseMoveMenu,
-    moveMenuAnchorEl,
+    openContextMenu,
+    openMoveMenu,
   } = result;
 
   return (
-    <ContextMenu menu={contextMenu}>
-      <ProfileCardMoveMenu
-        profileID={id}
-        groupID={groupID}
-        anchorEl={moveMenuAnchorEl}
-        onClose={onCloseMoveMenu}
+    <Card
+      onContextMenu={(event) =>
+        openContextMenu({ event, profileID: id, groupID })
+      }
+      className={clsx({
+        [classes.profileCard]: true,
+        [classes.profileCardSelected]: isSelected,
+        [classes.profileCardOnAir]: isOnAir,
+        [classes.profileCardProjected]: isProjecting,
+      })}
+      onClick={() => {
+        dispatchSelectProfile(id);
+      }}
+    >
+      {action && (
+        <div aria-label="action" className={classes.action}>
+          {action}
+        </div>
+      )}
+      <div
+        aria-label="action"
+        className={clsx(classes.action, classes.actionLeft)}
       >
-        <Card
-          className={clsx({
-            [classes.profileCard]: true,
-            [classes.profileCardSelected]: isSelected,
-            [classes.profileCardOnAir]: isOnAir,
-            [classes.profileCardProjected]: isProjecting,
-          })}
-          onClick={() => {
-            dispatchSelectProfile(id);
-          }}
+        <div
+          role="button"
+          aria-label="move profile between groups"
+          title="move profile between groups"
+          onClick={(event) => openMoveMenu({ event, profileID: id, groupID })}
         >
-          {action && (
-            <div aria-label="action" className={classes.action}>
-              {action}
-            </div>
-          )}
-          <div
-            aria-label="action"
-            className={clsx(classes.action, classes.actionLeft)}
-          >
-            <div
-              role="button"
-              aria-label="move profile between groups"
-              title="move profile between groups"
-              onClick={onOpenMoveMenu}
-            >
-              <MoreVert />
-            </div>
-          </div>
-          <div className={classes.player}>
-            <Player profile={profile} aniFrameIndex={0} scale={3} />
-          </div>
-          <Typography className={classes.name} variant="body1">
-            {profile.name}
-          </Typography>
-        </Card>
-      </ProfileCardMoveMenu>
-    </ContextMenu>
+          <MoreVert />
+        </div>
+      </div>
+      <div className={classes.player}>
+        <Player profile={profile} aniFrameIndex={0} scale={3} />
+      </div>
+      <Typography className={classes.name} variant="body1">
+        {profile.name}
+      </Typography>
+    </Card>
   );
 });
+ProfileCard.displayName = "ProfileCard";
 
 type ProfileCardProps = {
   id: number;

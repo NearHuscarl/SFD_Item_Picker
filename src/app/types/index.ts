@@ -47,3 +47,8 @@ export type ProfileGroup = {
 
 export type ProfileRecords = Record<number, ProfileData>;
 export type ProfileGroupRecords = Record<string, ProfileGroup>;
+
+export type MenuData = {
+  name: string;
+  onClick: () => void;
+};

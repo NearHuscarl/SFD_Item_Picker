@@ -5,6 +5,7 @@ import { useProfileGroupSelector } from "app/actions/profileGroup";
 import { ProfileCardGroup } from "app/pages/home/content/ProfileCardGroup";
 import { sortGroupName } from "app/helpers/profileGroup";
 import { DEFAULT_GROUP_NAME } from "app/constants";
+import { ProfileCardActionProvider } from "app/pages/home/content/ProfileCardActionProvider";
 
 const TAB_LIST_HEIGHT = 48;
 
@@ -53,23 +54,25 @@ export function ProfileGroupList() {
     <Paper className={classes.profileGroupRoot} elevation={0}>
       {/*TODO: add group filter*/}
       {/*<div style={{ height: 80, backgroundColor: "pink" }}>GAY</div>*/}
-      <div className={classes.profileGroupList}>
-        <Virtuoso
-          data={groupNames}
-          overscan={1}
-          // height of 1 row of ProfileCard
-          defaultItemHeight={197}
-          itemContent={(index, groupName) => {
-            return (
-              <ProfileCardGroup
-                key={groupName}
-                name={groupName}
-                profiles={groupRecords[groupName].profiles}
-              />
-            );
-          }}
-        />
-      </div>
+      <ProfileCardActionProvider>
+        <div className={classes.profileGroupList}>
+          <Virtuoso
+            data={groupNames}
+            overscan={1}
+            // height of 1 row of ProfileCard
+            defaultItemHeight={197}
+            itemContent={(index, groupName) => {
+              return (
+                <ProfileCardGroup
+                  key={groupName}
+                  name={groupName}
+                  profiles={groupRecords[groupName].profiles}
+                />
+              );
+            }}
+          />
+        </div>
+      </ProfileCardActionProvider>
     </Paper>
   );
 }

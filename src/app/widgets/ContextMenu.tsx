@@ -63,7 +63,7 @@ export function ContextMenu(props: ContextMenuProps) {
 
 export type ContextMenuData = {
   name: string;
-  onClick?: Function;
+  onClick: () => void;
 };
 type ContextMenuProps = {
   children: ReactNode;
