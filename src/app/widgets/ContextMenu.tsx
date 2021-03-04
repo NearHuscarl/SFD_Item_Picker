@@ -1,14 +1,5 @@
-import { CSSProperties, ReactNode, useState } from "react";
-import {
-  Menu,
-  MenuItem,
-  Collapse,
-  ListItemText,
-  List,
-  useTheme,
-} from "@material-ui/core";
-import ExpandMore from "@material-ui/icons/ExpandMore";
-import ExpandLess from "@material-ui/icons/ExpandLess";
+import { ReactNode, useState } from "react";
+import { Menu, MenuItem, ListItemText } from "@material-ui/core";
 
 type MousePosition = {
   x: number | null;
@@ -18,74 +9,6 @@ const initialState: MousePosition = {
   x: null,
   y: null,
 };
-
-type ContextMenuItem2 = ContextMenuItemProps & {
-  children: ContextMenuData[];
-};
-function ContextMenuItem2(props: ContextMenuItem2) {
-  const { name, onClick: onClickProps, onCloseMenu, children } = props;
-  const [open, setOpen] = useState(false);
-  const theme = useTheme();
-  const onClick = () => {
-    onClickProps?.();
-    setOpen(!open);
-  };
-
-  return (
-    <>
-      <MenuItem key={name} button onClick={onClick}>
-        <ListItemText primary={name} />
-        {open ? <ExpandLess /> : <ExpandMore />}
-      </MenuItem>
-      <Collapse in={open} timeout="auto" unmountOnExit>
-        <List component="div" disablePadding>
-          {children.map((props) => (
-            <ContextMenuItem
-              {...props}
-              key={props.name}
-              style={{
-                paddingLeft: theme.spacing(3),
-              }}
-              onCloseMenu={onCloseMenu}
-            />
-          ))}
-        </List>
-      </Collapse>
-    </>
-  );
-}
-
-type ContextMenuItemProps = {
-  name: string;
-  onClick?: Function;
-  onCloseMenu: Function;
-  children?: ContextMenuData[];
-  style?: CSSProperties;
-};
-function ContextMenuItem(props: ContextMenuItemProps) {
-  const { name, onClick, onCloseMenu, children, style } = props;
-  if (children) {
-    return (
-      <ContextMenuItem2 name={name} onClick={onClick} onCloseMenu={onCloseMenu}>
-        {children}
-      </ContextMenuItem2>
-    );
-  }
-
-  return (
-    <MenuItem
-      key={name}
-      button
-      style={style}
-      onClick={() => {
-        onClick?.();
-        onCloseMenu();
-      }}
-    >
-      <ListItemText primary={name} />
-    </MenuItem>
-  );
-}
 
 export function ContextMenu(props: ContextMenuProps) {
   const { children, menu } = props;
@@ -121,15 +44,17 @@ export function ContextMenu(props: ContextMenuProps) {
             : undefined
         }
       >
-        {menu.map(({ name, onClick, children }) => (
-          <ContextMenuItem
+        {menu.map(({ name, onClick }) => (
+          <MenuItem
             key={name}
-            name={name}
-            onClick={onClick}
-            onCloseMenu={handleClose}
+            button
+            onClick={() => {
+              onClick?.();
+              handleClose();
+            }}
           >
-            {children}
-          </ContextMenuItem>
+            <ListItemText primary={name} />
+          </MenuItem>
         ))}
       </Menu>
     </div>
@@ -139,7 +64,6 @@ export function ContextMenu(props: ContextMenuProps) {
 export type ContextMenuData = {
   name: string;
   onClick?: Function;
-  children?: ContextMenuData[];
 };
 type ContextMenuProps = {
   children: ReactNode;
