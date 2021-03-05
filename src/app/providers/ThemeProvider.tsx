@@ -18,6 +18,9 @@ export const theme = createMuiTheme({
   },
   typography: {
     fontSize: 13,
+    body1: {
+      fontSize: 13,
+    },
   },
   props: {
     MuiTextField: {
@@ -34,11 +37,6 @@ export const theme = createMuiTheme({
     MuiTooltip: {
       tooltip: {
         fontSize: 12,
-      },
-    },
-    MuiFormControlLabel: {
-      root: {
-        fontSize: 13,
       },
     },
     MuiAutocomplete: {

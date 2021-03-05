@@ -5,6 +5,7 @@ import {
   MenuItem,
   MenuList,
   Popover,
+  Typography,
 } from "@material-ui/core";
 import AddCircle from "@material-ui/icons/AddCircle";
 import { makeStyles } from "@material-ui/styles";
@@ -17,9 +18,7 @@ import { MenuData } from "app/types";
 
 const useStyles = makeStyles((theme) => ({
   popoverText: {
-    padding: theme.spacing(2),
-    paddingTop: 10,
-    paddingBottom: 10,
+    padding: `10px ${theme.spacing(2)}px`,
     color: theme.palette.grey[500],
   },
 }));
@@ -75,7 +74,9 @@ export function AddToGroupButton() {
           horizontal: "left",
         }}
       >
-        <div className={classes.popoverText}>Select a group to add to</div>
+        <Typography variant="body1" className={classes.popoverText}>
+          Select a group to add to
+        </Typography>
         <Divider light />
         <MenuList>
           {menuData.map(({ name, onClick }) => (

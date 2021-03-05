@@ -65,7 +65,7 @@ const useStyles = makeStyles((theme) => ({
   },
   name: {
     textAlign: "center",
-    fontWeight: 600,
+    fontWeight: 500,
   },
   player: {
     marginTop: theme.spacing(1),
