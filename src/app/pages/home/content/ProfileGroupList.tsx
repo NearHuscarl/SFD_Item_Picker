@@ -4,6 +4,8 @@ import { Virtuoso } from "react-virtuoso";
 import { useVisibleGroupSelector } from "app/actions/profileGroup";
 import { ProfileCardGroup } from "app/pages/home/content/ProfileCardGroup";
 import { ProfileCardActionProvider } from "app/pages/home/content/ProfileCardActionProvider";
+import { ProfileGroupActionProvider } from "app/pages/home/content/ProfileGroupActionProvider";
+import { ProfileGroupListAction } from "app/pages/home/content/ProfileGroupListAction";
 
 const TAB_LIST_HEIGHT = 48;
 
@@ -47,28 +49,29 @@ export function ProfileGroupList() {
 
   return (
     <Paper className={classes.profileGroupRoot} elevation={0}>
-      {/*TODO: add group filter*/}
-      {/*<div style={{ height: 80, backgroundColor: "pink" }}>GAY</div>*/}
-      <ProfileCardActionProvider>
-        <div className={classes.profileGroupList}>
-          <Virtuoso
-            data={groups}
-            overscan={1}
-            // height of 1 row of ProfileCard
-            defaultItemHeight={197}
-            itemContent={(index, group) => {
-              return (
-                <ProfileCardGroup
-                  key={group.ID}
-                  id={group.ID}
-                  name={group.name}
-                  profiles={group.profiles}
-                />
-              );
-            }}
-          />
-        </div>
-      </ProfileCardActionProvider>
+      <ProfileGroupListAction />
+      <ProfileGroupActionProvider>
+        <ProfileCardActionProvider>
+          <div className={classes.profileGroupList}>
+            <Virtuoso
+              data={groups}
+              overscan={1}
+              // height of 1 row of ProfileCard
+              defaultItemHeight={197}
+              itemContent={(index, group) => {
+                return (
+                  <ProfileCardGroup
+                    key={group.ID}
+                    id={group.ID}
+                    name={group.name}
+                    profiles={group.profiles}
+                  />
+                );
+              }}
+            />
+          </div>
+        </ProfileCardActionProvider>
+      </ProfileGroupActionProvider>
     </Paper>
   );
 }

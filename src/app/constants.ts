@@ -1,5 +1,5 @@
 import invert from "lodash/invert";
-import { Layer, ProfileGroup, Type } from "app/types";
+import { GroupID, Layer, ProfileGroup, Type } from "app/types";
 
 export const __DEV__ = process.env.NODE_ENV === "development";
 export const __PRODUCTION__ = process.env.NODE_ENV === "production";
@@ -40,4 +40,7 @@ export const DefaultGroup: ProfileGroup = Object.freeze({
   ID: 0,
   name: "Default Group",
   profiles: [],
+  isVisible: true,
 });
+
+export const ALL_GROUP_ID: GroupID = -2;

@@ -11,15 +11,36 @@ export function useProfileGroupSelector() {
 
 export function useVisibleGroupSelector() {
   const groupRecords = useProfileGroupSelector();
+  const isDefaultAndEmpty = (id: GroupID) =>
+    id === DefaultGroup.ID && groupRecords[id].profiles.length === 0;
 
   return Object.keys(groupRecords)
     .filter((g) => {
-      return !(
-        Number(g) === DefaultGroup.ID && groupRecords[g].profiles.length === 0
-      );
+      const id = Number(g);
+      return !isDefaultAndEmpty(id) && groupRecords[id].isVisible;
     })
     .map((g) => groupRecords[Number(g) as GroupID])
     .sort(groupNameComparer);
+}
+
+export function useGroupSummariesSelector() {
+  const groupRecords = useProfileGroupSelector();
+  const groupIDs = useSelector((state) => state.profileGroup.groupIDs);
+
+  return (
+    groupIDs
+      .map((id) => ({
+        id: groupRecords[id].ID,
+        name: groupRecords[id].name,
+        isVisible: groupRecords[id].isVisible,
+      }))
+      // @ts-ignore
+      .sort(groupNameComparer)
+  );
+}
+
+export function useAllGroupSelectSelector() {
+  return useSelector((state) => state.profileGroup.isAllGroupVisible);
 }
 
 export function useGroupSummariesGetter() {
@@ -28,10 +49,15 @@ export function useGroupSummariesGetter() {
   return () => {
     const { groupIDs, group } = store.getState().profileGroup;
 
-    return groupIDs.map((id) => ({
-      id: group[id].ID,
-      name: group[id].name,
-    }));
+    return (
+      groupIDs
+        .map((id) => ({
+          id: group[id].ID,
+          name: group[id].name,
+        }))
+        // @ts-ignore
+        .sort(groupNameComparer)
+    );
   };
 }
 
@@ -153,5 +179,29 @@ export function useDeleteProfileDispatcher() {
 
   return (profileID: ProfileID) => {
     dispatch(deleteProfile(profileID));
+  };
+}
+
+export function useAddGroupDispatcher() {
+  const dispatch = useDispatch();
+
+  return (groupName: string) => {
+    dispatch(profileGroupActions.addGroup(groupName));
+  };
+}
+
+export function useDeleteGroupDispatcher() {
+  const dispatch = useDispatch();
+
+  return (groupID: GroupID) => {
+    dispatch(profileGroupActions.deleteGroup(groupID));
+  };
+}
+
+export function useSetGroupVisibleDispatcher() {
+  const dispatch = useDispatch();
+
+  return (groupID: GroupID) => {
+    dispatch(profileGroupActions.setGroupVisible(groupID));
   };
 }

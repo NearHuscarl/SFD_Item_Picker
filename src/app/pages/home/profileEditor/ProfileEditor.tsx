@@ -58,7 +58,7 @@ function useProfileSettings() {
   return { classes };
 }
 
-export function ProfileEditor(props) {
+export function ProfileEditor() {
   const { classes } = useProfileSettings();
 
   return (

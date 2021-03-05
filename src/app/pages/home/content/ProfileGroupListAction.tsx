@@ -1,0 +1,65 @@
+import { MenuItem, TextField } from "@material-ui/core";
+import { makeStyles } from "@material-ui/styles";
+import { AddNewGroupButton } from "app/pages/home/content/AddNewGroupButton";
+import {
+  useAllGroupSelectSelector,
+  useGroupSummariesSelector,
+  useSetGroupVisibleDispatcher,
+} from "app/actions/profileGroup";
+import { ALL_GROUP_ID } from "app/constants";
+
+const useStyles = makeStyles((theme) => ({
+  profileGroupAction: {
+    height: 80,
+    display: "flex",
+    alignItems: "center",
+    padding: `0 ${theme.spacing(2)}px`,
+
+    "& > :not(:last-child)": {
+      marginRight: theme.spacing(1),
+    },
+  },
+}));
+
+export function ProfileGroupListAction() {
+  const classes = useStyles();
+  const isAllSelect = useAllGroupSelectSelector();
+  const groupSummaries = useGroupSummariesSelector();
+  const setGroupVisible = useSetGroupVisibleDispatcher();
+  const handleChange = (event, child) => {
+    const groupID = child.props.value;
+    setGroupVisible(groupID);
+  };
+  const value = isAllSelect
+    ? [ALL_GROUP_ID]
+    : groupSummaries.filter((g) => g.isVisible).map((g) => g.id);
+
+  groupSummaries.unshift({ id: ALL_GROUP_ID, name: "All", isVisible: false });
+
+  return (
+    <div className={classes.profileGroupAction}>
+      <TextField
+        style={{ width: 200 }}
+        label="Visible Groups"
+        select
+        SelectProps={{
+          multiple: true,
+          value,
+          onChange: handleChange,
+          MenuProps: {
+            // dumb default make the menu jumping around when selecting
+            // https://stackoverflow.com/a/59790471/9449426
+            getContentAnchorEl: null,
+          },
+        }}
+      >
+        {groupSummaries.map(({ id, name }) => (
+          <MenuItem key={id} value={id}>
+            {name}
+          </MenuItem>
+        ))}
+      </TextField>
+      <AddNewGroupButton />
+    </div>
+  );
+}

@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { Tooltip, Typography } from "@material-ui/core";
+import { IconButton, Tooltip, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
+import Delete from "@material-ui/icons/Delete";
 import { closestCenter, DndContext, DragOverlay } from "@dnd-kit/core";
 import { SortableContext } from "@dnd-kit/sortable";
 import {
@@ -12,14 +13,22 @@ import { useMoveProfileDispatcher } from "app/actions/profileGroup";
 import { DragHandle } from "app/widgets/DragHandle";
 import { animation } from "app/animation";
 import { GroupID } from "app/types";
+import { useProfileGroupAction } from "app/pages/home/content/ProfileGroupActionProvider";
 
-const GROUP_NAME_HEIGHT = 35;
+const TITLE_HEIGHT = 35;
 
 const useStyles = makeStyles((theme) => ({
+  header: {
+    height: TITLE_HEIGHT,
+    display: "flex",
+    alignItems: "center",
+
+    '& > [class*="MuiIconButton"]': {
+      marginTop: -2,
+    },
+  },
   groupName: {
-    fontWeight: 700,
-    height: GROUP_NAME_HEIGHT,
-    display: "inline-block",
+    marginRight: theme.spacing(1),
   },
   groupContent: {
     display: "flex",
@@ -37,6 +46,7 @@ const useStyles = makeStyles((theme) => ({
 function useProfileCardGroup() {
   const classes = useStyles();
   const moveProfile = useMoveProfileDispatcher();
+  const { requestDeleteGroup } = useProfileGroupAction();
   const [activeId, setActiveId] = useState<number | null>(null);
   const onDragStart = (e) => {
     setActiveId(e.active.id);
@@ -56,12 +66,19 @@ function useProfileCardGroup() {
     activeId,
     onDragStart,
     onDragEnd,
+    requestDeleteGroup,
   };
 }
 
 export function ProfileCardGroup(props: ProfileCardGroupProps) {
   const { id, name, profiles } = props;
-  const { classes, activeId, onDragStart, onDragEnd } = useProfileCardGroup();
+  const {
+    classes,
+    activeId,
+    onDragStart,
+    onDragEnd,
+    requestDeleteGroup,
+  } = useProfileCardGroup();
 
   let title = (
     <Typography className={classes.groupName} variant="h6" component="h2">
@@ -82,7 +99,19 @@ export function ProfileCardGroup(props: ProfileCardGroupProps) {
 
   return (
     <>
-      {title}
+      <div className={classes.header}>
+        {title}
+        {id !== DefaultGroup.ID && (
+          <IconButton
+            size="small"
+            onClick={() => requestDeleteGroup(id)}
+            aria-label="delete this profile group"
+            title="delete this profile group"
+          >
+            <Delete />
+          </IconButton>
+        )}
+      </div>
       <div className={classes.groupContent}>
         <DndContext
           onDragStart={onDragStart}

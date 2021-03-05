@@ -19,11 +19,12 @@ import {
   UpdateProfileParams,
   ReorderProfileParams,
 } from "app/store/ducks/profileGroup.duck.util";
-import { DefaultGroup } from "app/constants";
+import { ALL_GROUP_ID, DefaultGroup } from "app/constants";
 
 export interface ProfileGroupState {
   group: ProfileGroupRecords;
   groupIDs: GroupID[];
+  isAllGroupVisible: boolean;
   profile: ProfileRecords;
   selectedProfile: ProfileID;
   nextID: ProfileID;
@@ -33,6 +34,7 @@ export interface ProfileGroupState {
 export const initialState: ProfileGroupState = {
   group: initialProfileGroup,
   groupIDs: Object.keys(initialProfileGroup).map(Number),
+  isAllGroupVisible: true,
   profile: initialProfiles,
   selectedProfile: -1,
   nextID: Object.keys(initialProfiles).length,
@@ -123,28 +125,61 @@ const slice = createSlice({
       const groupName = action.payload;
       const groupID = state.nextGroupID;
 
-      state.group[groupID] = { ID: groupID, name: groupName, profiles: [] };
+      state.group[groupID] = {
+        ID: groupID,
+        name: groupName,
+        profiles: [],
+        isVisible: true,
+      };
       state.groupIDs.push(groupID);
       state.nextGroupID++;
     },
     deleteGroup(state, action: PayloadAction<GroupID>) {
       const groupID = action.payload;
-      // TODO: move all profiles to default group
-      // TODO: can't delete default group
+      state.group[groupID].profiles.forEach((p) => {
+        state.group[DefaultGroup.ID].profiles.push(p);
+        state.profile[p].groupID = DefaultGroup.ID;
+      });
       delete state.group[groupID];
       state.groupIDs = state.groupIDs.filter((i) => i !== groupID);
+    },
+    setGroupVisible(state, action: PayloadAction<GroupID>) {
+      const groupID = action.payload;
+
+      if (groupID === ALL_GROUP_ID) {
+        if (state.isAllGroupVisible) {
+          state.groupIDs.forEach((groupID) => {
+            state.group[groupID].isVisible = false;
+          });
+        } else {
+          state.groupIDs.forEach((groupID) => {
+            state.group[groupID].isVisible = true;
+          });
+        }
+        state.isAllGroupVisible = !state.isAllGroupVisible;
+      } else {
+        if (state.isAllGroupVisible) {
+          state.groupIDs.forEach((groupID) => {
+            state.group[groupID].isVisible = false;
+          });
+          state.group[groupID].isVisible = true;
+          state.isAllGroupVisible = false;
+        } else {
+          state.group[groupID].isVisible = !state.group[groupID].isVisible;
+        }
+      }
     },
   },
 });
 
 const migrations: MigrationManifest = {
-  3: (state) => initialState as any,
+  4: (state) => initialState as any,
 };
 
 const persistConfig: PersistConfig<ProfileGroupState> = {
   storage,
   key: SLICE_NAME,
-  version: 3,
+  version: 4,
   migrate: createMigrate(migrations, { debug: false }),
 };
 

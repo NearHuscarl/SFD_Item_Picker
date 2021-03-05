@@ -44,6 +44,7 @@ export type ProfileGroup = {
   ID: GroupID;
   name: string;
   profiles: number[];
+  isVisible: boolean;
 };
 
 export type ProfileID = number;

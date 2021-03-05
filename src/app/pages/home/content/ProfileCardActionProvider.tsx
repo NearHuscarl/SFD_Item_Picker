@@ -13,15 +13,14 @@ import {
   MenuItem,
   MenuList,
   Popover,
+  Typography,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
-import { MenuData } from "app/types";
+import { MenuData, GroupID, ProfileID } from "app/types";
 
 const useStyles = makeStyles((theme) => ({
   popoverText: {
-    padding: theme.spacing(2),
-    paddingTop: 10,
-    paddingBottom: 10,
+    padding: `10px ${theme.spacing(2)}px`,
     color: theme.palette.grey[500],
   },
 }));
@@ -29,13 +28,13 @@ const useStyles = makeStyles((theme) => ({
 type ProfileCardActionContextValues = {
   openContextMenu: ({
     event: MouseEvent,
-    profileID: number,
-    groupID: string,
+    profileID: ProfileID,
+    groupID: GroupID,
   }) => void;
   openMoveMenu: ({
     event: MouseEvent,
-    profileID: number,
-    groupID: string,
+    profileID: ProfileID,
+    groupID: GroupID,
   }) => void;
 };
 
@@ -182,7 +181,9 @@ export function ProfileCardActionProvider({ children }: PropsWithChildren<{}>) {
           horizontal: "left",
         }}
       >
-        <div className={classes.popoverText}>Select a group to move to</div>
+        <Typography variant="body1" className={classes.popoverText}>
+          Select a group to move to
+        </Typography>
         <Divider light />
         <MenuList>
           {moveMenu.map(({ name, onClick }) => (

@@ -30,26 +30,31 @@ export const initialProfileGroup: ProfileGroupRecords = {
     ID: 1,
     name: "Default",
     profiles: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+    isVisible: true,
   },
   2: {
     ID: 2,
     name: "MyGroup",
     profiles: [12, 13, 14],
+    isVisible: true,
   },
   3: {
     ID: 3,
     name: "Abc",
     profiles: [15, 16, 17, 18, 19],
+    isVisible: true,
   },
   4: {
     ID: 4,
     name: "Def",
     profiles: [20, 21, 22],
+    isVisible: true,
   },
   5: {
     ID: 5,
     name: "None",
     profiles: [],
+    isVisible: true,
   },
 };
 
