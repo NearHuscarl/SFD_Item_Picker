@@ -1,27 +1,56 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector, useStore } from "react-redux";
 import { profileActions, profileGroupActions } from "app/store/rootDuck";
+import { GroupID, ProfileID } from "app/types";
+import { groupNameComparer } from "app/helpers/profileGroup";
+import { DefaultGroup } from "app/constants";
 
 export function useProfileGroupSelector() {
   return useSelector((state) => state.profileGroup.group);
 }
 
-export function useGroupNamesSelector() {
-  return useSelector((state) => state.profileGroup.groupIDs);
+export function useVisibleGroupSelector() {
+  const groupRecords = useProfileGroupSelector();
+
+  return Object.keys(groupRecords)
+    .filter((g) => {
+      return !(
+        Number(g) === DefaultGroup.ID && groupRecords[g].profiles.length === 0
+      );
+    })
+    .map((g) => groupRecords[Number(g) as GroupID])
+    .sort(groupNameComparer);
+}
+
+export function useGroupSummariesGetter() {
+  const store = useStore();
+
+  return () => {
+    const { groupIDs, group } = store.getState().profileGroup;
+
+    return groupIDs.map((id) => ({
+      id: group[id].ID,
+      name: group[id].name,
+    }));
+  };
 }
 
 export function useSelectedGroupNameSelector() {
-  const id = useSelector((state) => state.profileGroup.selectedProfile);
-  return useSelector((state) => state.profileGroup.profile[id]?.groupID) || "";
+  const profileID = useSelector((state) => state.profileGroup.selectedProfile);
+  const groupID = useSelector(
+    (state) => state.profileGroup.profile[profileID]?.groupID || -1
+  );
+
+  return useSelector((state) => state.profileGroup.group[groupID]?.name || "");
 }
 
-export function useProfileData(profileID: number) {
+export function useProfileData(profileID: ProfileID) {
   return useSelector((state) => state.profileGroup.profile[profileID]) || {};
 }
 
 const selectProfile = createAsyncThunk(
   `profileGroup/selectProfile`,
-  async (profileID: number, { getState, dispatch }) => {
+  async (profileID: ProfileID, { getState, dispatch }) => {
     const { selectedProfile } = getState().profileGroup;
     const isSelectAction = profileID !== selectedProfile;
 
@@ -38,7 +67,7 @@ const selectProfile = createAsyncThunk(
 
 export function useSelectProfileDispatcher() {
   const dispatch = useDispatch();
-  return (profileID: number) => {
+  return (profileID: ProfileID) => {
     dispatch(selectProfile(profileID));
   };
 }
@@ -67,7 +96,7 @@ export function useSaveProfileDispatcher() {
 
 const addProfile = createAsyncThunk(
   `profileGroup/addProfile`,
-  async (groupID: string, { getState, dispatch }) => {
+  async (groupID: GroupID, { getState, dispatch }) => {
     const { nextID } = getState().profileGroup;
     const profile = getState().profile.current;
     dispatch(profileGroupActions.addProfile({ groupID, profile }));
@@ -78,7 +107,7 @@ const addProfile = createAsyncThunk(
 export function useAddProfileDispatcher() {
   const dispatch = useDispatch();
 
-  return (groupID: string) => {
+  return (groupID: GroupID) => {
     dispatch(addProfile(groupID));
   };
 }
@@ -86,7 +115,7 @@ export function useAddProfileDispatcher() {
 export function useRemoveProfileFromGroupDispatcher() {
   const dispatch = useDispatch();
 
-  return (profileID: number) => {
+  return (profileID: ProfileID) => {
     dispatch(profileGroupActions.removeProfileFromGroup(profileID));
   };
 }
@@ -94,7 +123,7 @@ export function useRemoveProfileFromGroupDispatcher() {
 export function useMoveProfileToGroupDispatcher() {
   const dispatch = useDispatch();
 
-  return (profileID: number, newGroupID: string) => {
+  return (profileID: ProfileID, newGroupID: GroupID) => {
     dispatch(profileGroupActions.moveProfileToGroup({ profileID, newGroupID }));
   };
 }
@@ -102,14 +131,14 @@ export function useMoveProfileToGroupDispatcher() {
 export function useMoveProfileDispatcher() {
   const dispatch = useDispatch();
 
-  return (profileID: number, overID: number) => {
+  return (profileID: ProfileID, overID: ProfileID) => {
     dispatch(profileGroupActions.moveProfile({ profileID, overID }));
   };
 }
 
 const deleteProfile = createAsyncThunk(
   `profileGroup/deleteProfile`,
-  async (profileID: number, { getState, dispatch }) => {
+  async (profileID: ProfileID, { getState, dispatch }) => {
     const { selectedProfile } = getState().profileGroup;
 
     if (profileID === selectedProfile) {
@@ -122,7 +151,7 @@ const deleteProfile = createAsyncThunk(
 export function useDeleteProfileDispatcher() {
   const dispatch = useDispatch();
 
-  return (profileID: number) => {
+  return (profileID: ProfileID) => {
     dispatch(deleteProfile(profileID));
   };
 }

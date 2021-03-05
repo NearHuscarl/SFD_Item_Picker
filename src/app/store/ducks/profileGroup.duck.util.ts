@@ -1,51 +1,54 @@
 import {
+  GroupID,
   ProfileGroupRecords,
+  ProfileID,
   ProfileRecords,
   ProfileSettings,
 } from "app/types";
-import { DEFAULT_GROUP_NAME } from "app/constants";
+import { DefaultGroup } from "app/constants";
 
 export type AddProfileParams = {
   profile: ProfileSettings;
-  groupID?: string;
+  groupID?: GroupID;
 };
 export type UpdateProfileParams = {
-  id: number;
+  id: ProfileID;
   profile: ProfileSettings;
 };
 export type MoveProfileParams = {
-  profileID: number;
-  newGroupID: string;
+  profileID: ProfileID;
+  newGroupID: GroupID;
 };
 export type ReorderProfileParams = {
-  profileID: number;
-  overID: number;
+  profileID: ProfileID;
+  overID: ProfileID;
 };
 
 export const initialProfileGroup: ProfileGroupRecords = {
-  // TODO: hide default group name if not contain any profiles
-  [DEFAULT_GROUP_NAME]: {
-    ID: DEFAULT_GROUP_NAME,
-    profiles: [],
-  },
-  Default: {
-    ID: "Default",
+  [DefaultGroup.ID]: DefaultGroup,
+  1: {
+    ID: 1,
+    name: "Default",
     profiles: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
   },
-  MyGroup: {
-    ID: "MyGroup",
+  2: {
+    ID: 2,
+    name: "MyGroup",
     profiles: [12, 13, 14],
   },
-  Abc: {
-    ID: "Abc",
+  3: {
+    ID: 3,
+    name: "Abc",
     profiles: [15, 16, 17, 18, 19],
   },
-  Def: {
-    ID: "Def",
+  4: {
+    ID: 4,
+    name: "Def",
     profiles: [20, 21, 22],
   },
-  None: {
-    ID: "None",
+  5: {
+    ID: 5,
+    name: "None",
     profiles: [],
   },
 };
@@ -53,7 +56,7 @@ export const initialProfileGroup: ProfileGroupRecords = {
 export const initialProfiles: ProfileRecords = {
   0: {
     ID: 0,
-    groupID: "Default",
+    groupID: 1,
     isSelected: false,
     profile: {
       name: "one",
@@ -98,7 +101,7 @@ export const initialProfiles: ProfileRecords = {
   },
   1: {
     ID: 1,
-    groupID: "Default",
+    groupID: 1,
     isSelected: false,
     profile: {
       name: "two",
@@ -143,7 +146,7 @@ export const initialProfiles: ProfileRecords = {
   },
   2: {
     ID: 2,
-    groupID: "Default",
+    groupID: 1,
     isSelected: false,
     profile: {
       name: "three",
@@ -188,7 +191,7 @@ export const initialProfiles: ProfileRecords = {
   },
   3: {
     ID: 3,
-    groupID: "Default",
+    groupID: 1,
     isSelected: false,
     profile: {
       name: "four",
@@ -233,7 +236,7 @@ export const initialProfiles: ProfileRecords = {
   },
   4: {
     ID: 4,
-    groupID: "Default",
+    groupID: 1,
     isSelected: false,
     profile: {
       name: "five",
@@ -278,7 +281,7 @@ export const initialProfiles: ProfileRecords = {
   },
   5: {
     ID: 5,
-    groupID: "Default",
+    groupID: 1,
     isSelected: false,
     profile: {
       name: "six",
@@ -323,7 +326,7 @@ export const initialProfiles: ProfileRecords = {
   },
   6: {
     ID: 6,
-    groupID: "Default",
+    groupID: 1,
     isSelected: false,
     profile: {
       name: "seven",
@@ -368,7 +371,7 @@ export const initialProfiles: ProfileRecords = {
   },
   7: {
     ID: 7,
-    groupID: "Default",
+    groupID: 1,
     isSelected: false,
     profile: {
       name: "eight",
@@ -413,7 +416,7 @@ export const initialProfiles: ProfileRecords = {
   },
   8: {
     ID: 8,
-    groupID: "Default",
+    groupID: 1,
     isSelected: false,
     profile: {
       name: "nine",
@@ -458,7 +461,7 @@ export const initialProfiles: ProfileRecords = {
   },
   9: {
     ID: 9,
-    groupID: "Default",
+    groupID: 1,
     isSelected: false,
     profile: {
       name: "ten",
@@ -503,7 +506,7 @@ export const initialProfiles: ProfileRecords = {
   },
   10: {
     ID: 10,
-    groupID: "Default",
+    groupID: 1,
     isSelected: false,
     profile: {
       name: "eleven",
@@ -548,7 +551,7 @@ export const initialProfiles: ProfileRecords = {
   },
   11: {
     ID: 11,
-    groupID: "Default",
+    groupID: 1,
     isSelected: false,
     profile: {
       name: "twelve",
@@ -593,7 +596,7 @@ export const initialProfiles: ProfileRecords = {
   },
   12: {
     ID: 12,
-    groupID: "MyGroup",
+    groupID: 2,
     isSelected: false,
     profile: {
       name: "group1",
@@ -638,7 +641,7 @@ export const initialProfiles: ProfileRecords = {
   },
   13: {
     ID: 13,
-    groupID: "MyGroup",
+    groupID: 2,
     isSelected: false,
     profile: {
       name: "group2",
@@ -683,7 +686,7 @@ export const initialProfiles: ProfileRecords = {
   },
   14: {
     ID: 14,
-    groupID: "MyGroup",
+    groupID: 2,
     isSelected: false,
     profile: {
       name: "group3",
@@ -728,7 +731,7 @@ export const initialProfiles: ProfileRecords = {
   },
   15: {
     ID: 15,
-    groupID: "Abc",
+    groupID: 3,
     isSelected: false,
     profile: {
       name: "sf1",
@@ -773,7 +776,7 @@ export const initialProfiles: ProfileRecords = {
   },
   16: {
     ID: 16,
-    groupID: "Abc",
+    groupID: 3,
     isSelected: false,
     profile: {
       name: "sf2",
@@ -818,7 +821,7 @@ export const initialProfiles: ProfileRecords = {
   },
   17: {
     ID: 17,
-    groupID: "Abc",
+    groupID: 3,
     isSelected: false,
     profile: {
       name: "sf3",
@@ -863,7 +866,7 @@ export const initialProfiles: ProfileRecords = {
   },
   18: {
     ID: 18,
-    groupID: "Abc",
+    groupID: 3,
     isSelected: false,
     profile: {
       name: "sf4",
@@ -908,7 +911,7 @@ export const initialProfiles: ProfileRecords = {
   },
   19: {
     ID: 19,
-    groupID: "Abc",
+    groupID: 3,
     isSelected: false,
     profile: {
       name: "sf5",
@@ -953,7 +956,7 @@ export const initialProfiles: ProfileRecords = {
   },
   20: {
     ID: 20,
-    groupID: "Def",
+    groupID: 4,
     isSelected: false,
     profile: {
       name: "def1",
@@ -998,7 +1001,7 @@ export const initialProfiles: ProfileRecords = {
   },
   21: {
     ID: 21,
-    groupID: "Def",
+    groupID: 4,
     isSelected: false,
     profile: {
       name: "def2",
@@ -1043,7 +1046,7 @@ export const initialProfiles: ProfileRecords = {
   },
   22: {
     ID: 22,
-    groupID: "Def",
+    groupID: 4,
     isSelected: false,
     profile: {
       name: "def3",

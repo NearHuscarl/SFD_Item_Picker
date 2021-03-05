@@ -7,10 +7,11 @@ import {
   ProfileCard,
   DraggableProfileCard,
 } from "app/pages/home/content/ProfileCard";
-import { DEFAULT_GROUP_NAME } from "app/constants";
+import { DefaultGroup } from "app/constants";
 import { useMoveProfileDispatcher } from "app/actions/profileGroup";
 import { DragHandle } from "app/widgets/DragHandle";
 import { animation } from "app/animation";
+import { GroupID } from "app/types";
 
 const GROUP_NAME_HEIGHT = 35;
 
@@ -59,19 +60,19 @@ function useProfileCardGroup() {
 }
 
 export function ProfileCardGroup(props: ProfileCardGroupProps) {
-  const { name: groupName, profiles } = props;
+  const { id, name, profiles } = props;
   const { classes, activeId, onDragStart, onDragEnd } = useProfileCardGroup();
 
   let title = (
     <Typography className={classes.groupName} variant="h6" component="h2">
-      {groupName}
+      {name}
     </Typography>
   );
 
-  if (groupName === DEFAULT_GROUP_NAME) {
+  if (id === DefaultGroup.ID) {
     title = (
       <Tooltip
-        title={`Profiles don't belong to any groups will be put in '${DEFAULT_GROUP_NAME}'`}
+        title={`Profiles don't belong to any groups will be put in '${DefaultGroup.name}'`}
         arrow
       >
         {title}
@@ -110,6 +111,7 @@ export function ProfileCardGroup(props: ProfileCardGroupProps) {
 }
 
 type ProfileCardGroupProps = {
+  id: GroupID;
   name: string;
   profiles: number[];
 };

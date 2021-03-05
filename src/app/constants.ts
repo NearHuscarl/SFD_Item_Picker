@@ -1,5 +1,5 @@
 import invert from "lodash/invert";
-import { Layer, Type } from "app/types";
+import { Layer, ProfileGroup, Type } from "app/types";
 
 export const __DEV__ = process.env.NODE_ENV === "development";
 export const __PRODUCTION__ = process.env.NODE_ENV === "production";
@@ -36,4 +36,8 @@ export const LayerValue = {
 
 export const Layers = invert(LayerValue) as Record<number, Layer>;
 
-export const DEFAULT_GROUP_NAME = "Default Group";
+export const DefaultGroup: ProfileGroup = Object.freeze({
+  ID: 0,
+  name: "Default Group",
+  profiles: [],
+});

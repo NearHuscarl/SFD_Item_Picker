@@ -1,14 +1,12 @@
-import { DEFAULT_GROUP_NAME } from "app/constants";
+import { DefaultGroup } from "app/constants";
+import { ProfileGroup } from "app/types";
 
-function groupNameComparer(a: string, b: string) {
-  if (a === DEFAULT_GROUP_NAME) {
+export function groupNameComparer(a: ProfileGroup, b: ProfileGroup) {
+  if (a.name === DefaultGroup.name) {
     return -1;
   }
-  if (b === DEFAULT_GROUP_NAME) {
+  if (b.name === DefaultGroup.name) {
     return 1;
   }
-  return a.localeCompare(b);
-}
-export function sortGroupName(groupNames: string[]) {
-  return groupNames.sort(groupNameComparer);
+  return a.name.localeCompare(b.name);
 }

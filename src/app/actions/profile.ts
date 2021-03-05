@@ -5,15 +5,14 @@ import { ItemID } from "app/data/items";
 import { profileActions } from "app/store/rootDuck";
 import { createDispatcher } from "app/actions/createDispatcher";
 import { decodeProfile } from "app/helpers/profile";
-import { RootState } from "app/store/store";
 
 export function useCanAddGroupSelector() {
   return useSelector((state) => state.profile.ID === -1);
 }
 
 export function useCanSaveSelector() {
-  const a = useSelector((state: RootState) => state.profile.isDirty);
-  const b = useSelector((state: RootState) => state.profile.isValid);
+  const a = useSelector((state) => state.profile.isDirty);
+  const b = useSelector((state) => state.profile.isValid);
 
   return a && b;
 }

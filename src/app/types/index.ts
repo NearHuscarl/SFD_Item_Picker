@@ -34,19 +34,23 @@ export type ProfileSettings = {
 };
 
 export type ProfileData = {
-  ID: number;
-  groupID: string;
+  ID: ProfileID;
+  groupID: GroupID;
   profile: ProfileSettings;
   isSelected: boolean;
 };
 
 export type ProfileGroup = {
-  ID: string;
+  ID: GroupID;
+  name: string;
   profiles: number[];
 };
 
-export type ProfileRecords = Record<number, ProfileData>;
-export type ProfileGroupRecords = Record<string, ProfileGroup>;
+export type ProfileID = number;
+export type GroupID = number;
+
+export type ProfileRecords = Record<ProfileID, ProfileData>;
+export type ProfileGroupRecords = Record<GroupID, ProfileGroup>;
 
 export type MenuData = {
   name: string;

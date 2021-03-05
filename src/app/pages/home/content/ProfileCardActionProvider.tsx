@@ -1,14 +1,8 @@
-import {
-  createContext,
-  PropsWithChildren,
-  useContext,
-  useMemo,
-  useState,
-} from "react";
-import { __PRODUCTION__, DEFAULT_GROUP_NAME } from "app/constants";
+import { createContext, PropsWithChildren, useContext, useState } from "react";
+import { __PRODUCTION__, DefaultGroup } from "app/constants";
 import {
   useDeleteProfileDispatcher,
-  useGroupNamesSelector,
+  useGroupSummariesGetter,
   useMoveProfileToGroupDispatcher,
   useRemoveProfileFromGroupDispatcher,
 } from "app/actions/profileGroup";
@@ -87,38 +81,38 @@ function useContextMenu() {
     contextMenu,
     onCloseContextMenu,
     mousePosition,
-    openContextMenu: useMemo(
-      () => ({ event, profileID, groupID }) => {
-        const contextMenu: MenuData[] = [
-          {
-            name: "Delete",
-            onClick: () => deleteProfile(profileID),
+    openContextMenu: ({ event, profileID, groupID }) => {
+      const contextMenu: MenuData[] = [
+        {
+          name: "Delete",
+          onClick: () => {
+            onCloseContextMenu();
+            deleteProfile(profileID);
           },
-        ];
+        },
+      ];
 
-        if (groupID !== DEFAULT_GROUP_NAME) {
-          contextMenu.unshift({
-            name: "Remove from group",
-            onClick: () => {
-              onCloseContextMenu();
-              removeProfileFromGroup(profileID);
-            },
-          });
-        }
+      if (groupID !== DefaultGroup.ID) {
+        contextMenu.unshift({
+          name: "Remove from group",
+          onClick: () => {
+            onCloseContextMenu();
+            removeProfileFromGroup(profileID);
+          },
+        });
+      }
 
-        setContextMenu(contextMenu);
-        openContextMenu(event);
-      },
-      []
-    ),
+      setContextMenu(contextMenu);
+      openContextMenu(event);
+    },
   };
 }
 
 function useMoveMenu() {
   const classes = useStyles();
+  const getGroupSummary = useGroupSummariesGetter();
   const moveProfileToGroup = useMoveProfileToGroupDispatcher();
   const [moveMenuAnchorEl, setMoveMenuAnchorEl] = useState(null);
-  const groupNames = useGroupNamesSelector();
   const [moveMenu, setMoveMenu] = useState<MenuData[]>([]);
   const onOpenMoveMenu = (e) => {
     e.stopPropagation();
@@ -135,23 +129,21 @@ function useMoveMenu() {
     moveMenu,
     onCloseMoveMenu,
     isOpenMoveMenu,
-    openMoveMenu: useMemo(
-      () => ({ event, profileID, groupID }) => {
-        setMoveMenu(
-          groupNames
-            .filter((g) => g !== groupID)
-            .map((groupName) => ({
-              name: groupName,
-              onClick: () => {
-                onCloseMoveMenu();
-                moveProfileToGroup(profileID, groupName);
-              },
-            }))
-        );
-        onOpenMoveMenu(event);
-      },
-      [groupNames]
-    ),
+    openMoveMenu: ({ event, profileID, groupID }) => {
+      const groups = getGroupSummary();
+      setMoveMenu(
+        groups
+          .filter((g) => g.id !== groupID)
+          .map((g) => ({
+            name: g.name,
+            onClick: () => {
+              onCloseMoveMenu();
+              moveProfileToGroup(profileID, g.id);
+            },
+          }))
+      );
+      onOpenMoveMenu(event);
+    },
   };
 }
 
@@ -172,13 +164,7 @@ export function ProfileCardActionProvider({ children }: PropsWithChildren<{}>) {
     isOpenMoveMenu,
   } = useMoveMenu();
 
-  const value = useMemo(
-    () => ({
-      openContextMenu,
-      openMoveMenu,
-    }),
-    [openContextMenu, openMoveMenu]
-  );
+  const [value] = useState(() => ({ openContextMenu, openMoveMenu }));
 
   return (
     <ProfileCardActionContext.Provider value={value}>

@@ -11,8 +11,9 @@ import { makeStyles } from "@material-ui/styles";
 import { useCanAddGroupSelector } from "app/actions/profile";
 import {
   useAddProfileDispatcher,
-  useGroupNamesSelector,
+  useGroupSummariesGetter,
 } from "app/actions/profileGroup";
+import { MenuData } from "app/types";
 
 const useStyles = makeStyles((theme) => ({
   popoverText: {
@@ -25,25 +26,31 @@ const useStyles = makeStyles((theme) => ({
 
 export function AddToGroupButton() {
   const classes = useStyles();
-  const [anchorEl, setAnchorEl] = useState(null);
-  const open = Boolean(anchorEl);
-  const onClose = () => {
-    setAnchorEl(null);
-  };
-  const onAddToGroup = (e) => {
-    setAnchorEl(e.currentTarget);
-  };
   const canAddGroup = useCanAddGroupSelector();
-  const groupNames = useGroupNamesSelector();
   const addProfile = useAddProfileDispatcher();
+  const getGroupSummaries = useGroupSummariesGetter();
+  const [menuData, setMenuData] = useState<MenuData[]>([]);
+  const [anchorEl, setAnchorEl] = useState(null);
 
   if (!canAddGroup) {
     return null;
   }
 
-  const onSelectGroup = (groupID: string) => () => {
-    onClose();
-    addProfile(groupID);
+  const open = Boolean(anchorEl);
+  const onClose = () => setAnchorEl(null);
+  const onAddToGroup = (e) => {
+    const groups = getGroupSummaries();
+
+    setMenuData(
+      groups.map(({ id, name }) => ({
+        name,
+        onClick: () => {
+          onClose();
+          addProfile(id);
+        },
+      }))
+    );
+    setAnchorEl(e.currentTarget);
   };
 
   return (
@@ -71,8 +78,8 @@ export function AddToGroupButton() {
         <div className={classes.popoverText}>Select a group to add to</div>
         <Divider light />
         <MenuList>
-          {groupNames.map((name) => (
-            <MenuItem key={name} onClick={onSelectGroup(name)}>
+          {menuData.map(({ name, onClick }) => (
+            <MenuItem key={name} onClick={onClick}>
               {name}
             </MenuItem>
           ))}
