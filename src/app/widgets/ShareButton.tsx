@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
 function useShareButton() {
   const [anchorEl, setAnchorEl] = useState(null);
   const inputRef = useRef<HTMLInputElement>(null);
-  const profileSettings = useSelector((state) => state.profile.current);
+  const profileSettings = useSelector((state) => state.editor.draft);
   const devTool = useSelector((state) => state.global.devTool);
   const classes = useStyles();
   const urlParams = encodeProfile(profileSettings);

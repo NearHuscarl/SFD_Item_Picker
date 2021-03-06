@@ -9,11 +9,11 @@ import {
 } from "@material-ui/core";
 import AddCircle from "@material-ui/icons/AddCircle";
 import { makeStyles } from "@material-ui/styles";
-import { useCanAddGroupSelector } from "app/actions/profile";
+import { useCanAddGroupSelector } from "app/actions/editor";
 import {
   useAddProfileDispatcher,
   useGroupSummariesGetter,
-} from "app/actions/profileGroup";
+} from "app/actions/profile";
 import { MenuData } from "app/types";
 
 const useStyles = makeStyles((theme) => ({

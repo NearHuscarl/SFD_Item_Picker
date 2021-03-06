@@ -15,17 +15,17 @@ import { COLOR_TYPES } from "app/constants";
 import { ColorType, Layer, ProfileData, ProfileSettings } from "app/types";
 import {
   defaultProfile,
-  ProfileState,
+  EditorState,
   setAllItems,
   setName,
-} from "app/store/ducks/profile.duck.util";
+} from "app/store/ducks/editor.duck.util";
 import { forEachLayer } from "app/helpers";
 import { getGender, getItems } from "app/helpers/item";
 import { randomArrItem, randomItemColors } from "app/helpers/random";
 
-export const initialState: ProfileState = {
+export const initialState: EditorState = {
   ID: -1,
-  current: defaultProfile.male,
+  draft: defaultProfile.male,
   isDirty: false,
   isValid: true,
 };
@@ -35,7 +35,7 @@ type ColorParams = { layer: Layer; type: ColorType; name: ColorName };
 
 const slice = createSlice({
   initialState,
-  name: "profile",
+  name: "editor",
   reducers: {
     setDirty(state, action: PayloadAction<boolean>) {
       state.isDirty = action.payload;
@@ -45,17 +45,17 @@ const slice = createSlice({
     },
     setGender(state, action: PayloadAction<Gender>) {
       const gender = action.payload;
-      state.current.gender = gender;
+      state.draft.gender = gender;
       state.isDirty = true;
 
       forEachLayer((layer) => {
-        const itemId = state.current[layer].id;
+        const itemId = state.draft[layer].id;
         const item = getItem(itemId);
 
         if (itemId !== "None" && item.gender !== gender) {
           const opposite = getOppositeGender(item);
           if (opposite.id !== item.id) {
-            state.current[layer].id = opposite.id;
+            state.draft[layer].id = opposite.id;
           }
         }
       });
@@ -63,13 +63,13 @@ const slice = createSlice({
     setItem(state, action: PayloadAction<ItemParams>) {
       const { layer, id } = action.payload;
 
-      state.current[layer].id = id;
+      state.draft[layer].id = id;
       state.isDirty = true;
     },
     setItemColors(state, action: PayloadAction<ColorParams>) {
       const { layer, type, name } = action.payload;
 
-      state.current[layer].colors[COLOR_TYPES.indexOf(type)] = name;
+      state.draft[layer].colors[COLOR_TYPES.indexOf(type)] = name;
       state.isDirty = true;
     },
     setAllItems(
@@ -80,7 +80,7 @@ const slice = createSlice({
       setAllItems(state, profile);
     },
     setRandomProfile(state) {
-      const { gender } = state.current; // @ts-ignore
+      const { gender } = state.draft; // @ts-ignore
       const profile: ProfileSettings = {};
 
       forEachLayer((layer) => {
@@ -120,13 +120,18 @@ const slice = createSlice({
 });
 
 const migrations: MigrationManifest = {
-  3: (state) => initialState as any,
+  2: (state) => {
+    console.log("change slice name from profile to editor");
+    localStorage.clear();
+    window.location.replace(window.location.pathname);
+    return initialState as any;
+  },
 };
 
-const persistConfig: PersistConfig<ProfileState> = {
+const persistConfig: PersistConfig<EditorState> = {
   storage,
-  version: 3,
-  key: "profile",
+  version: 2,
+  key: "editor",
   migrate: createMigrate(migrations, { debug: false }),
 };
 

@@ -16,7 +16,7 @@ import {
   useItemDispatcher,
   useItemGenderSelector,
   useItemSelector,
-} from "app/actions/profile";
+} from "app/actions/editor";
 
 const useStyles = makeStyles((theme) => ({
   itemSettings: {

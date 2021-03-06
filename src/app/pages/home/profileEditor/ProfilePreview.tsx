@@ -9,12 +9,12 @@ import purple from "@material-ui/core/colors/purple";
 import { globalActions } from "app/store/rootDuck";
 import { Player, usePlayerDrawer } from "app/widgets/Player";
 import { useOnMount } from "app/helpers/hooks";
-import { useRandomItemDispatcher } from "app/actions/profile";
+import { useDraftSelector, useRandomItemDispatcher } from "app/actions/editor";
 import { ShareButton } from "app/widgets/ShareButton";
 import { AddToGroupButton } from "app/pages/home/profileEditor/AddToGroupButton";
 
 const useStyles = makeStyles((theme) => ({
-  previewProfile: {
+  profilePreview: {
     display: "flex",
     justifyContent: "center",
     alignItems: "flex-end",
@@ -58,9 +58,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function usePreviewProfile() {
+function useProfilePreview() {
   const classes = useStyles();
-  const profile = useSelector((state) => state.profile.current);
+  const profile = useDraftSelector();
   const dispatch = useDispatch();
   const devTool = useSelector((state) => state.global.devTool);
   const [, rerender] = useReducer((x) => ++x, 0);
@@ -108,17 +108,17 @@ function usePreviewProfile() {
   };
 }
 
-export function PreviewProfile() {
+export function ProfilePreview() {
   const {
     classes,
     onClickProfile,
     onRandomize,
     onDownload,
     profile,
-  } = usePreviewProfile();
+  } = useProfilePreview();
 
   return (
-    <div onClick={onClickProfile} className={classes.previewProfile}>
+    <div onClick={onClickProfile} className={classes.profilePreview}>
       <Player profile={profile} />
       <div className={classes.actionLeft}>
         <AddToGroupButton />

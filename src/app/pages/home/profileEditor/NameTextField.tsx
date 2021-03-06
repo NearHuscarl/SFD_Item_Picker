@@ -2,17 +2,17 @@ import { TextField } from "@material-ui/core";
 import debounce from "lodash/debounce";
 import { useDispatch, useSelector } from "react-redux";
 import { useCallback, useEffect, useState } from "react";
-import { profileActions } from "app/store/rootDuck";
-import { useSelectedGroupNameSelector } from "app/actions/profileGroup";
+import { editorActions } from "app/store/rootDuck";
+import { useSelectedGroupNameSelector } from "app/actions/profile";
 
 function useNameTextField() {
-  const storedName = useSelector((state) => state.profile.current.name);
+  const storedName = useSelector((state) => state.editor.draft.name);
   const groupName = useSelectedGroupNameSelector();
   const dispatch = useDispatch();
   const [name, setName] = useState(storedName);
   const dispatchValue = useCallback(
     debounce((newValue: string) => {
-      dispatch(profileActions.setName(newValue));
+      dispatch(editorActions.setName(newValue));
     }, 125),
     []
   );

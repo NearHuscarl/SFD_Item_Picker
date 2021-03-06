@@ -9,11 +9,11 @@ import { Player } from "app/widgets/Player";
 import {
   useProfileData,
   useSelectProfileDispatcher,
-} from "app/actions/profileGroup";
+} from "app/actions/profile";
 import { DragHandle } from "app/widgets/DragHandle";
 import { animation } from "app/animation";
 import { useDidUpdateEffect } from "app/helpers/hooks";
-import { useProfileCardAction } from "app/pages/home/content/ProfileCardActionProvider";
+import { useProfileCardAction } from "app/pages/home/profileGroup/ProfileCardActionProvider";
 
 export const PROFILE_CARD_WIDTH = 100;
 export const PROFILE_CARD_HEIGHT = 130;

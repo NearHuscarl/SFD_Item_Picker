@@ -1,9 +1,9 @@
 import { useEffect } from "react";
 import { makeStyles } from "@material-ui/core";
 import grey from "@material-ui/core/colors/grey";
-import { ProfileEditor } from "app/pages/home/profileEditor";
-import { Content } from "app/pages/home/content";
-import { useSearchItemDispatcher } from "app/actions/profile";
+import { ProfileEditor } from "app/pages/home/profileEditor/ProfileEditor";
+import { Content } from "app/pages/home/Content";
+import { useSearchItemDispatcher } from "app/actions/editor";
 import { DevTool } from "app/widgets/DevTool";
 
 const useStyles = makeStyles((theme) => ({

@@ -1,22 +1,22 @@
 import { Genders } from "app/constants";
-import { ProfileSettings } from "app/types";
+import { ProfileID, ProfileSettings } from "app/types";
 import { forEachLayer } from "app/helpers";
 
-export interface ProfileState {
-  ID: number;
-  current: ProfileSettings;
+export interface EditorState {
+  ID: ProfileID;
+  draft: ProfileSettings;
   isDirty: boolean;
   isValid: boolean;
 }
 
-export function setName(state: ProfileState, name: string) {
-  state.current.name = name;
+export function setName(state: EditorState, name: string) {
+  state.draft.name = name;
   state.isDirty = true;
-  state.isValid = Boolean(state.current.name);
+  state.isValid = Boolean(state.draft.name);
 }
 
 export function setAllItems(
-  state: ProfileState,
+  state: EditorState,
   profile: Partial<ProfileSettings> | undefined
 ) {
   if (profile) {
@@ -24,18 +24,16 @@ export function setAllItems(
       setName(state, profile.name);
     }
     if (profile.gender !== undefined) {
-      state.current.gender = profile.gender;
+      state.draft.gender = profile.gender;
     }
 
     forEachLayer((layer) => {
       if (profile[layer]) {
-        // TODO: optimize, don't emit all events every time
-        // @ts-ignore
-        state.current[layer] = profile[layer];
+        state.draft[layer] = profile[layer]!;
       }
     });
   } else {
-    const isMale = state.current.gender === Genders.male;
+    const isMale = state.draft.gender === Genders.male;
     const profile = {
       ...(isMale ? defaultProfile.male : defaultProfile.female),
       name: undefined,

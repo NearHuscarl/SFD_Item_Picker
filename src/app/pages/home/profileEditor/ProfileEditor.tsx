@@ -1,6 +1,6 @@
 import { Box, makeStyles } from "@material-ui/core";
 import { Scrollbars } from "react-custom-scrollbars";
-import { PreviewProfile } from "app/pages/home/profileEditor/PreviewProfile";
+import { ProfilePreview } from "app/pages/home/profileEditor/ProfilePreview";
 import { GenderSelect } from "app/pages/home/profileEditor/GenderSelect";
 import { ItemSettings } from "app/pages/home/profileEditor/ItemSettings";
 import { NameTextField } from "app/pages/home/profileEditor/NameTextField";
@@ -64,7 +64,7 @@ export function ProfileEditor() {
   return (
     <>
       <Box marginBottom={2} marginRight={2}>
-        <PreviewProfile />
+        <ProfilePreview />
       </Box>
       <div className={classes.profileEditor}>
         <Scrollbars autoHide hideTracksWhenNotNeeded>

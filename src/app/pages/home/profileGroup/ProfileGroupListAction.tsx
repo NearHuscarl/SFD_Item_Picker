@@ -1,11 +1,11 @@
 import { MenuItem, TextField } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
-import { AddNewGroupButton } from "app/pages/home/content/AddNewGroupButton";
+import { AddNewGroupButton } from "app/pages/home/profileGroup/AddNewGroupButton";
 import {
   useAllGroupSelectSelector,
   useGroupSummariesSelector,
   useSetGroupVisibleDispatcher,
-} from "app/actions/profileGroup";
+} from "app/actions/profile";
 import { ALL_GROUP_ID } from "app/constants";
 
 const useStyles = makeStyles((theme) => ({

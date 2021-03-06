@@ -18,7 +18,7 @@ import {
   AddProfileParams,
   UpdateProfileParams,
   ReorderProfileParams,
-} from "app/store/ducks/profileGroup.duck.util";
+} from "app/store/ducks/profiles.duck.util";
 import { ALL_GROUP_ID, DefaultGroup } from "app/constants";
 
 export interface ProfileGroupState {
@@ -41,7 +41,7 @@ export const initialState: ProfileGroupState = {
   nextGroupID: Object.keys(initialProfileGroup).length,
 };
 
-const SLICE_NAME = "profileGroup";
+const SLICE_NAME = "profiles";
 
 const slice = createSlice({
   initialState,

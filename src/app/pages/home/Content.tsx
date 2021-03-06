@@ -1,8 +1,8 @@
 import { makeStyles, Tab } from "@material-ui/core";
 import { TabContext, TabList } from "@material-ui/lab";
 import { useDispatch, useSelector } from "react-redux";
-import { CodeGen } from "app/pages/home/content/CodeGen";
-import { ProfileGroupList } from "app/pages/home/content/ProfileGroupList";
+import { CodeGen } from "app/pages/home/codeGen/CodeGen";
+import { ProfileGroupList } from "app/pages/home/profileGroup/ProfileGroupList";
 import { globalActions } from "app/store/rootDuck";
 
 const TAB_LIST_HEIGHT = 48;
@@ -51,7 +51,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export function Content(props) {
+export function Content() {
   const classes = useStyles();
   const currentTab = useSelector((state) => state.global.currentTab);
   const dispatch = useDispatch();

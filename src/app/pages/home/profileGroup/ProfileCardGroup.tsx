@@ -7,13 +7,13 @@ import { SortableContext } from "@dnd-kit/sortable";
 import {
   ProfileCard,
   DraggableProfileCard,
-} from "app/pages/home/content/ProfileCard";
+} from "app/pages/home/profileGroup/ProfileCard";
 import { DefaultGroup } from "app/constants";
-import { useMoveProfileDispatcher } from "app/actions/profileGroup";
+import { useMoveProfileDispatcher } from "app/actions/profile";
 import { DragHandle } from "app/widgets/DragHandle";
 import { animation } from "app/animation";
 import { GroupID } from "app/types";
-import { useProfileGroupAction } from "app/pages/home/content/ProfileGroupActionProvider";
+import { useProfileGroupAction } from "app/pages/home/profileGroup/ProfileGroupActionProvider";
 
 const TITLE_HEIGHT = 35;
 

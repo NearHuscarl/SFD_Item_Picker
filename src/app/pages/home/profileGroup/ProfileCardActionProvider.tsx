@@ -5,7 +5,7 @@ import {
   useGroupSummariesGetter,
   useMoveProfileToGroupDispatcher,
   useRemoveProfileFromGroupDispatcher,
-} from "app/actions/profileGroup";
+} from "app/actions/profile";
 import {
   Divider,
   ListItemText,

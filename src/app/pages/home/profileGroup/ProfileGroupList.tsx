@@ -1,11 +1,11 @@
 import { Paper } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
 import { Virtuoso } from "react-virtuoso";
-import { useVisibleGroupSelector } from "app/actions/profileGroup";
-import { ProfileCardGroup } from "app/pages/home/content/ProfileCardGroup";
-import { ProfileCardActionProvider } from "app/pages/home/content/ProfileCardActionProvider";
-import { ProfileGroupActionProvider } from "app/pages/home/content/ProfileGroupActionProvider";
-import { ProfileGroupListAction } from "app/pages/home/content/ProfileGroupListAction";
+import { useVisibleGroupSelector } from "app/actions/profile";
+import { ProfileCardGroup } from "app/pages/home/profileGroup/ProfileCardGroup";
+import { ProfileCardActionProvider } from "app/pages/home/profileGroup/ProfileCardActionProvider";
+import { ProfileGroupActionProvider } from "app/pages/home/profileGroup/ProfileGroupActionProvider";
+import { ProfileGroupListAction } from "app/pages/home/profileGroup/ProfileGroupListAction";
 
 const TAB_LIST_HEIGHT = 48;
 

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { fillTemplate } from "app/helpers/template";
 import { ProfileSettings } from "app/types";
+import { useDraftSelector } from "app/actions/editor";
 
 function fillTemplateAsync(template: string, settings: ProfileSettings) {
   return new Promise<string>((resolve, reject) => {
@@ -13,7 +14,7 @@ function fillTemplateAsync(template: string, settings: ProfileSettings) {
 
 export function useTemplate() {
   const [code, _setCode] = useState("");
-  const settings = useSelector((state) => state.profile.current);
+  const settings = useDraftSelector();
   const templateIProfile = useSelector(
     (state) => state.settings.template.IProfile
   );

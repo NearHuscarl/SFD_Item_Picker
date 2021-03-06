@@ -1,11 +1,11 @@
 import { Button } from "@material-ui/core";
 import { useDispatch } from "react-redux";
-import { profileActions } from "app/store/rootDuck";
+import { editorActions } from "app/store/rootDuck";
 
 export function ClearAllButton({ className }: { className?: string }) {
   const dispatch = useDispatch();
   const onClearAll = () => {
-    dispatch(profileActions.setAllItems());
+    dispatch(editorActions.setAllItems());
   };
 
   return (

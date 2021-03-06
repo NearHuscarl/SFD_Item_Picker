@@ -1,19 +1,19 @@
 import * as test from "./ducks/test.duck";
-import * as profile from "./ducks/profile.duck";
+import * as editor from "./ducks/editor.duck";
 import * as global from "./ducks/global.duck";
 import * as settings from "./ducks/settings.duck";
-import * as profileGroup from "./ducks/profileGroup.duck";
+import * as profiles from "./ducks/profiles.duck";
 
 export const testActions = test.actions;
-export const profileActions = profile.actions;
+export const editorActions = editor.actions;
 export const globalActions = global.actions;
 export const settingsActions = settings.actions;
-export const profileGroupActions = profileGroup.actions;
+export const profilesActions = profiles.actions;
 
 export const reducer = {
   test: test.reducer,
-  profile: profile.reducer,
+  editor: editor.reducer,
   global: global.reducer,
   settings: settings.reducer,
-  profileGroup: profileGroup.reducer,
+  profiles: profiles.reducer,
 };

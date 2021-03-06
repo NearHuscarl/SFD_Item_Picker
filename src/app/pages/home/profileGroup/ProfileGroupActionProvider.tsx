@@ -6,7 +6,7 @@ import {
   useState,
 } from "react";
 import { __PRODUCTION__, DefaultGroup } from "app/constants";
-import { useDeleteGroupDispatcher } from "app/actions/profileGroup";
+import { useDeleteGroupDispatcher } from "app/actions/profile";
 import {
   Button,
   Dialog,
@@ -45,7 +45,7 @@ function useDeleteGroup() {
     onCloseDeleteDialog,
     requestDeleteGroup: (id: GroupID) => {
       onOpenDeleteDialog();
-      groupToDeleteRef.current = store.getState().profileGroup.group[id];
+      groupToDeleteRef.current = store.getState().profiles.group[id];
     },
     confirmDeleteGroup: () => {
       if (groupToDeleteRef.current.ID === DefaultGroup.ID) {

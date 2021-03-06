@@ -9,7 +9,7 @@ import { Gender } from "app/data/items";
 import {
   useItemGenderDispatcher,
   useItemGenderSelector,
-} from "app/actions/profile";
+} from "app/actions/editor";
 
 export function GenderSelect() {
   const gender = useItemGenderSelector();

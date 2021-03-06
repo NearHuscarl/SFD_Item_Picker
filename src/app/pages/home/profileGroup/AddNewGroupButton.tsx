@@ -12,7 +12,7 @@ import Add from "@material-ui/icons/Add";
 import {
   useAddGroupDispatcher,
   useGroupSummariesGetter,
-} from "app/actions/profileGroup";
+} from "app/actions/profile";
 
 export function AddNewGroupButton() {
   const [open, setOpen] = useState(false);
