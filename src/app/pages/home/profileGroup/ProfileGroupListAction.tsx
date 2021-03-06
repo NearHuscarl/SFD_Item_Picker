@@ -10,10 +10,9 @@ import { ALL_GROUP_ID } from "app/constants";
 
 const useStyles = makeStyles((theme) => ({
   profileGroupAction: {
-    height: 80,
     display: "flex",
     alignItems: "center",
-    padding: `0 ${theme.spacing(2)}px`,
+    padding: theme.spacing(2),
 
     "& > :not(:last-child)": {
       marginRight: theme.spacing(1),
@@ -40,7 +39,7 @@ export function ProfileGroupListAction() {
     <div className={classes.profileGroupAction}>
       <TextField
         style={{ width: 200 }}
-        label="Visible Groups"
+        label="Groups"
         select
         SelectProps={{
           multiple: true,

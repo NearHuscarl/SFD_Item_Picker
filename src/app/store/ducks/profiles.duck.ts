@@ -147,15 +147,9 @@ const slice = createSlice({
       const groupID = action.payload;
 
       if (groupID === ALL_GROUP_ID) {
-        if (state.isAllGroupVisible) {
-          state.groupIDs.forEach((groupID) => {
-            state.group[groupID].isVisible = false;
-          });
-        } else {
-          state.groupIDs.forEach((groupID) => {
-            state.group[groupID].isVisible = true;
-          });
-        }
+        state.groupIDs.forEach((groupID) => {
+          state.group[groupID].isVisible = !state.isAllGroupVisible;
+        });
         state.isAllGroupVisible = !state.isAllGroupVisible;
       } else {
         if (state.isAllGroupVisible) {

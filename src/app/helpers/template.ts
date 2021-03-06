@@ -1,16 +1,20 @@
 import { ProfileSettings } from "app/types";
 import { Genders } from "app/constants";
 import { forEachLayer } from "app/helpers/index";
+import { encodeProfile } from "app/helpers/profile";
 
 function quote(str = "") {
   return `"${str}"`;
 }
+
+const EMPTY_CLOTHING_ITEM_REGEX = /\s*(Skin|ChestUnder|Legs|Waist|Feet|ChestOver|Accessory|Hands|Head)+\s*=\s*new IProfileClothingItem\s*\(\s*""\s*,\s*""\s*,\s*""\s*,\s*""\s*\)\s*,/g;
 
 export function fillTemplate(template: string, settings: ProfileSettings) {
   const isMale = settings.gender === Genders.male;
   const map = {
     __NAME__: quote(settings.name),
     __GENDER__: isMale ? "Gender.Male" : "Gender.Female",
+    __LINK__: window.location.host + "?p=" + encodeProfile(settings),
   };
 
   forEachLayer((layer) => {
@@ -33,15 +37,7 @@ export function fillTemplate(template: string, settings: ProfileSettings) {
 
   template = replaceAll(template, map);
 
-  // TODO: only default template
-  if (true) {
-    template = template.replace(
-      new RegExp('.*IProfileClothingItem\\("", "", "", ""\\).*\r?\n?', "mg"),
-      ""
-    );
-  }
-
-  return template;
+  return template.replace(EMPTY_CLOTHING_ITEM_REGEX, "");
 }
 
 function replaceAll(str: string, map: object) {

@@ -4,13 +4,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { CodeGen } from "app/pages/home/codeGen/CodeGen";
 import { ProfileGroupList } from "app/pages/home/profileGroup/ProfileGroupList";
 import { globalActions } from "app/store/rootDuck";
-
-const TAB_LIST_HEIGHT = 48;
+import { CONTENT_PADDING, TAB_LIST_HEIGHT } from "app/pages/home/homeLayout";
 
 const useStyles = makeStyles((theme) => ({
   content: {
     height: "100%",
-    padding: theme.spacing(2),
+    padding: CONTENT_PADDING,
   },
   tabsIndicator: {
     backgroundColor: "transparent",

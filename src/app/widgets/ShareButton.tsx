@@ -5,6 +5,7 @@ import { makeStyles } from "@material-ui/styles";
 import { useSelector } from "react-redux";
 import { decodeProfile, encodeProfile } from "app/helpers/profile";
 import { stringifyOneLineArray } from "app/helpers";
+import { useDraftSelector } from "app/actions/editor";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -22,19 +23,16 @@ const useStyles = makeStyles((theme) => ({
 function useShareButton() {
   const [anchorEl, setAnchorEl] = useState(null);
   const inputRef = useRef<HTMLInputElement>(null);
-  const profileSettings = useSelector((state) => state.editor.draft);
+  const profile = useDraftSelector();
   const devTool = useSelector((state) => state.global.devTool);
   const classes = useStyles();
-  const urlParams = encodeProfile(profileSettings);
+  const urlParams = encodeProfile(profile);
   const open = Boolean(anchorEl);
-  const onOpen = (e) => {
-    setAnchorEl(e.currentTarget);
-  };
   const onClose = () => {
     setAnchorEl(null);
   };
   const onShare = (e) => {
-    onOpen(e);
+    setAnchorEl(e.currentTarget);
   };
 
   useEffect(() => {

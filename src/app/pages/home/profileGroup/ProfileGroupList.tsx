@@ -6,12 +6,11 @@ import { ProfileCardGroup } from "app/pages/home/profileGroup/ProfileCardGroup";
 import { ProfileCardActionProvider } from "app/pages/home/profileGroup/ProfileCardActionProvider";
 import { ProfileGroupActionProvider } from "app/pages/home/profileGroup/ProfileGroupActionProvider";
 import { ProfileGroupListAction } from "app/pages/home/profileGroup/ProfileGroupListAction";
-
-const TAB_LIST_HEIGHT = 48;
+import { CONTENT_PADDING, TAB_LIST_HEIGHT } from "app/pages/home/homeLayout";
 
 const useStyles = makeStyles((theme) => ({
   profileGroupRoot: {
-    height: `calc(100vh - ${TAB_LIST_HEIGHT}px - 32px)`,
+    height: `calc(100vh - ${TAB_LIST_HEIGHT}px - ${CONTENT_PADDING * 2}px)`,
     display: "flex",
     flexDirection: "column",
   },

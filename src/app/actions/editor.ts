@@ -1,12 +1,12 @@
 import { useDispatch, useSelector } from "react-redux";
-import { Layer, ProfileSettings } from "app/types";
+import { Layer } from "app/types";
 import { ensureColorItemExist } from "app/helpers/item";
 import { ItemID } from "app/data/items";
 import { editorActions } from "app/store/rootDuck";
 import { createDispatcher } from "app/actions/createDispatcher";
 import { decodeProfile } from "app/helpers/profile";
 
-export function useDraftSelector(settings?: keyof ProfileSettings) {
+export function useDraftSelector() {
   return useSelector((state) => state.editor.draft);
 }
 
@@ -51,6 +51,7 @@ export function useSearchItemDispatcher() {
     if (profileParams) {
       try {
         const profileSettings = decodeProfile(profileParams);
+        dispatch(editorActions.clearProfileData());
         dispatch(editorActions.setAllItems(profileSettings));
       } catch {}
     }

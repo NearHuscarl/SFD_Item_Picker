@@ -47,11 +47,20 @@ export type ProfileGroup = {
   isVisible: boolean;
 };
 
+export type Template = {
+  ID: TemplateID;
+  name: string;
+  template: string;
+  readonly?: boolean;
+};
+
 export type ProfileID = number;
 export type GroupID = number;
+export type TemplateID = number;
 
 export type ProfileRecords = Record<ProfileID, ProfileData>;
 export type ProfileGroupRecords = Record<GroupID, ProfileGroup>;
+export type TemplateRecords = Record<TemplateID, Template>;
 
 export type MenuData = {
   name: string;
