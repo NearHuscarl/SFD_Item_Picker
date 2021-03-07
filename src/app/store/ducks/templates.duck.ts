@@ -1,8 +1,10 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import storage from "redux-persist/lib/storage";
+import { MigrationManifest } from "redux-persist/es/types";
+import { createMigrate } from "redux-persist";
 import { PersistConfig, persistReducer } from "app/store/persist";
-import { defaultTemplates } from "./templates.duck.util";
 import { TemplateRecords, TemplateID, Template } from "app/types";
+import { defaultTemplates } from "./templates.duck.util";
 
 export interface TemplateState {
   templates: TemplateRecords;
@@ -41,9 +43,14 @@ const slice = createSlice({
   },
 });
 
+const migrations: MigrationManifest = {
+  1: (state) => initialState as any,
+};
 const persistConfig: PersistConfig<TemplateState> = {
   storage,
   key: "templates",
+  version: 1,
+  migrate: createMigrate(migrations, { debug: false }),
 };
 
 export const { actions } = slice;

@@ -106,7 +106,7 @@ function useContextMenu() {
       autoHideDuration: 2000,
     });
   }, [copySelectedCodeGen, enqueueSnackbar]);
-  const onGlobalKeyPress = (e) => {
+  const onGlobalKeyPress = useCallback((e) => {
     if (getCurrentTab() !== "profileGroup") {
       return;
     }
@@ -114,7 +114,7 @@ function useContextMenu() {
     if (e.ctrlKey && e.key === "z") {
       downloadSelectedProfile();
     }
-  };
+  }, []);
 
   useEventListener("copy", onGlobalCopy);
   useEventListener("keydown", onGlobalKeyPress);
