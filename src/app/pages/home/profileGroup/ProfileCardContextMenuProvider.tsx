@@ -19,6 +19,7 @@ import { MenuData, GroupID, ProfileID, ProfileSettings } from "app/types";
 import { useCopyCodeGen, useCopySelectedCodeGen } from "app/actions/template";
 import { useEventListener } from "app/helpers/hooks";
 import { useStore } from "react-redux";
+import { useGetCurrentTab } from "app/actions/global";
 
 const useStyles = makeStyles((theme) => ({
   contextMenu: {
@@ -58,6 +59,7 @@ type ContextMenuData = MenuData & {
 function useContextMenu() {
   const { enqueueSnackbar } = useSnackbar();
   const copyCodeGen = useCopyCodeGen();
+  const getCurrentTab = useGetCurrentTab();
   const copySelectedCodeGen = useCopySelectedCodeGen();
   const downloadProfile = useProfileImageDownloader();
   const downloadSelectedProfile = (profileID?: ProfileID) => {
@@ -94,6 +96,9 @@ function useContextMenu() {
   };
 
   const onGlobalCopy = useCallback(() => {
+    if (getCurrentTab() !== "profileGroup") {
+      return;
+    }
     const profile = copySelectedCodeGen();
     const message = `Copy code from profile '${profile.name}' to clipboard`;
     enqueueSnackbar(message, {
@@ -101,11 +106,15 @@ function useContextMenu() {
       autoHideDuration: 2000,
     });
   }, [copySelectedCodeGen, enqueueSnackbar]);
-  const onGlobalKeyPress = useCallback((e) => {
+  const onGlobalKeyPress = (e) => {
+    if (getCurrentTab() !== "profileGroup") {
+      return;
+    }
+
     if (e.ctrlKey && e.key === "z") {
       downloadSelectedProfile();
     }
-  }, []);
+  };
 
   useEventListener("copy", onGlobalCopy);
   useEventListener("keydown", onGlobalKeyPress);
