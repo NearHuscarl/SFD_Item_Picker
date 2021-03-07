@@ -1,6 +1,6 @@
 import { MenuItem, TextField } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
-import { AddNewGroupButton } from "app/pages/home/profileGroup/AddNewGroupButton";
+import { NewGroupButton } from "app/pages/home/profileGroup/NewGroupButton";
 import {
   useAllGroupSelectSelector,
   useGroupSummariesSelector,
@@ -58,7 +58,7 @@ export function ProfileGroupListAction() {
           </MenuItem>
         ))}
       </TextField>
-      <AddNewGroupButton />
+      <NewGroupButton />
     </div>
   );
 }
