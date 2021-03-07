@@ -23,6 +23,10 @@ export type ReorderProfileParams = {
   profileID: ProfileID;
   overID: ProfileID;
 };
+export type RenameGroupParams = {
+  id: GroupID;
+  newName: string;
+};
 
 export const initialProfileGroup: ProfileGroupRecords = {
   [DefaultGroup.ID]: DefaultGroup,

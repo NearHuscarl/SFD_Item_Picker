@@ -43,11 +43,16 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function useProfileCardGroup() {
+function useProfileCardGroup(id: GroupID) {
   const classes = useStyles();
   const moveProfile = useMoveProfileDispatcher();
-  const { requestDeleteGroup } = useProfileGroupAction();
+  const { requestRenameGroup, requestDeleteGroup } = useProfileGroupAction();
   const [activeId, setActiveId] = useState<number | null>(null);
+  const onClickTitle = (event) => {
+    if (event.detail === 2 && id !== DefaultGroup.ID) {
+      requestRenameGroup({ event, id });
+    }
+  };
   const onDragStart = (e) => {
     setActiveId(e.active.id);
   };
@@ -67,6 +72,7 @@ function useProfileCardGroup() {
     onDragStart,
     onDragEnd,
     requestDeleteGroup,
+    onClickTitle,
   };
 }
 
@@ -78,10 +84,16 @@ export function ProfileCardGroup(props: ProfileCardGroupProps) {
     onDragStart,
     onDragEnd,
     requestDeleteGroup,
-  } = useProfileCardGroup();
+    onClickTitle,
+  } = useProfileCardGroup(id);
 
   let title = (
-    <Typography className={classes.groupName} variant="h6" component="h2">
+    <Typography
+      onClick={onClickTitle}
+      className={classes.groupName}
+      variant="h6"
+      component="h2"
+    >
       {name}
     </Typography>
   );

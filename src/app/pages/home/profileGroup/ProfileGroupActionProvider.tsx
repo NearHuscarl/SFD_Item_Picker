@@ -2,11 +2,15 @@ import {
   createContext,
   PropsWithChildren,
   useContext,
+  useEffect,
   useRef,
   useState,
 } from "react";
 import { __PRODUCTION__, DefaultGroup } from "app/constants";
-import { useDeleteGroupDispatcher } from "app/actions/profile";
+import {
+  useDeleteGroupDispatcher,
+  useRenameGroupDispatcher,
+} from "app/actions/profile";
 import {
   Button,
   Dialog,
@@ -14,11 +18,14 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
+  Popover,
+  TextField,
 } from "@material-ui/core";
 import { GroupID, ProfileGroup } from "app/types";
 import { useStore } from "react-redux";
 
 type ProfileGroupActionContextValues = {
+  requestRenameGroup: ({ event, id: GroupID }) => void;
   requestDeleteGroup: (id: GroupID) => void;
 };
 
@@ -26,6 +33,61 @@ const EMPTY_PROFILE_GROUP_ACTION_CONTEXT = Object.freeze({} as any);
 export const ProfileGroupActionContext = createContext<ProfileGroupActionContextValues>(
   EMPTY_PROFILE_GROUP_ACTION_CONTEXT
 );
+
+function useRenameGroup() {
+  const renameGroup = useRenameGroupDispatcher();
+  const groupToRenameRef = useRef<ProfileGroup>(DefaultGroup);
+  const store = useStore();
+  const inputRef = useRef<HTMLInputElement>(null);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const openRenameTextField = Boolean(anchorEl);
+  const onCloseRenameTextField = () => {
+    setAnchorEl(null);
+  };
+  const onOpenRenameTextField = (e) => {
+    setAnchorEl(e.currentTarget);
+  };
+  const onNameChange = (e) => {
+    if (e.key === "Enter" && e.target.value) {
+      confirmRenameGroup(e.target.value);
+    }
+  };
+  const confirmRenameGroup = (newName: string) => {
+    if (groupToRenameRef.current.ID === DefaultGroup.ID) {
+      throw new Error(`Default group cannot be renamed`);
+    }
+    renameGroup({
+      id: groupToRenameRef.current.ID,
+      newName,
+    });
+    groupToRenameRef.current = DefaultGroup;
+    onCloseRenameTextField();
+  };
+
+  useEffect(() => {
+    if (openRenameTextField) {
+      // just open the popover. The TextField inside it does not exist yet
+      setTimeout(() => {
+        if (inputRef.current) {
+          inputRef.current.value = groupToRenameRef.current.name;
+          inputRef.current.select();
+        }
+      });
+    }
+  }, [openRenameTextField]);
+
+  return {
+    anchorEl,
+    inputRef,
+    openRenameTextField,
+    onNameChange,
+    onCloseRenameTextField,
+    requestRenameGroup: ({ event, id }) => {
+      onOpenRenameTextField(event);
+      groupToRenameRef.current = store.getState().profiles.group[id];
+    },
+  };
+}
 
 function useDeleteGroup() {
   const deleteGroup = useDeleteGroupDispatcher();
@@ -62,17 +124,42 @@ export function ProfileGroupActionProvider({
   children,
 }: PropsWithChildren<{}>) {
   const {
+    anchorEl,
+    inputRef,
+    openRenameTextField,
+    onNameChange,
+    requestRenameGroup,
+    onCloseRenameTextField,
+  } = useRenameGroup();
+  const {
     openDeleteDialog,
     groupToDeleteRef,
     onCloseDeleteDialog,
     requestDeleteGroup,
     confirmDeleteGroup,
   } = useDeleteGroup();
-  const [value] = useState(() => ({ requestDeleteGroup }));
+  const [value] = useState(() => ({ requestRenameGroup, requestDeleteGroup }));
 
   return (
     <ProfileGroupActionContext.Provider value={value}>
       {children}
+      <Popover
+        elevation={0}
+        transitionDuration={0}
+        open={openRenameTextField}
+        anchorEl={anchorEl}
+        onClose={onCloseRenameTextField}
+        anchorOrigin={{
+          vertical: "center",
+          horizontal: "left",
+        }}
+        transformOrigin={{
+          vertical: "center",
+          horizontal: "left",
+        }}
+      >
+        <TextField inputRef={inputRef} onKeyPress={onNameChange} />
+      </Popover>
       <Dialog open={openDeleteDialog} onClose={onCloseDeleteDialog}>
         <DialogTitle>Are you sure?</DialogTitle>
         <DialogContent>

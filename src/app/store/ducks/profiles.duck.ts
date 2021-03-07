@@ -18,6 +18,7 @@ import {
   AddProfileParams,
   UpdateProfileParams,
   ReorderProfileParams,
+  RenameGroupParams,
 } from "app/store/ducks/profiles.duck.util";
 import { ALL_GROUP_ID, DefaultGroup } from "app/constants";
 
@@ -133,6 +134,10 @@ const slice = createSlice({
       };
       state.groupIDs.push(groupID);
       state.nextGroupID++;
+    },
+    renameGroup(state, action: PayloadAction<RenameGroupParams>) {
+      const { id, newName } = action.payload;
+      state.group[id].name = newName;
     },
     deleteGroup(state, action: PayloadAction<GroupID>) {
       const groupID = action.payload;

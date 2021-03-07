@@ -4,6 +4,7 @@ import { editorActions, profileActions } from "app/store/rootDuck";
 import { GroupID, ProfileID } from "app/types";
 import { groupNameComparer } from "app/helpers/profileGroup";
 import { DefaultGroup } from "app/constants";
+import { RenameGroupParams } from "app/store/ducks/profiles.duck.util";
 
 export function useProfileGroupSelector() {
   return useSelector((state) => state.profiles.group);
@@ -187,6 +188,14 @@ export function useAddGroupDispatcher() {
 
   return (groupName: string) => {
     dispatch(profileActions.addGroup(groupName));
+  };
+}
+
+export function useRenameGroupDispatcher() {
+  const dispatch = useDispatch();
+
+  return (params: RenameGroupParams) => {
+    dispatch(profileActions.renameGroup(params));
   };
 }
 
