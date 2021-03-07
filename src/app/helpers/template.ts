@@ -37,7 +37,10 @@ export function fillTemplate(template: string, settings: ProfileSettings) {
 
   template = replaceAll(template, map);
 
-  return template.replace(EMPTY_CLOTHING_ITEM_REGEX, "");
+  return template
+    .replace(EMPTY_CLOTHING_ITEM_REGEX, "")
+    .replace(/\s*,\s*""\s*,\s*""\s*\)/g, ")")
+    .replace(/\s*,\s*""\s*\)/g, ")");
 }
 
 function replaceAll(str: string, map: object) {
