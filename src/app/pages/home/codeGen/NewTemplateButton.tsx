@@ -9,7 +9,6 @@ import {
 } from "@material-ui/core";
 import Add from "@material-ui/icons/Add";
 import { useForm } from "react-hook-form";
-import { useAddGroupDispatcher } from "app/actions/profile";
 import {
   useAddTemplateDispatcher,
   useTemplateSummaries,

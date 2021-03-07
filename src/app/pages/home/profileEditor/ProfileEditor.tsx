@@ -28,12 +28,13 @@ const useStyles = makeStyles((theme) => ({
       marginBottom: 12,
     },
     "& > :last-child": {
-      marginBottom: 4,
+      marginBottom: 15,
     },
   },
   name: {
     display: "flex",
     justifyContent: "space-between",
+    marginTop: theme.spacing(1),
 
     "& > :first-child": {
       flexGrow: 1,
