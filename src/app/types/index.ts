@@ -65,4 +65,5 @@ export type TemplateRecords = Record<TemplateID, Template>;
 export type MenuData = {
   name: string;
   onClick: () => void;
+  disabled?: boolean;
 };

@@ -1,10 +1,11 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { useDispatch, useSelector, useStore } from "react-redux";
 import { editorActions, profileActions } from "app/store/rootDuck";
-import { GroupID, ProfileID } from "app/types";
+import { GroupID, ProfileID, ProfileSettings } from "app/types";
 import { groupNameComparer } from "app/helpers/profileGroup";
 import { DefaultGroup } from "app/constants";
 import { RenameGroupParams } from "app/store/ducks/profiles.duck.util";
+import { usePlayerDrawer } from "app/actions/player";
 
 export function useProfileGroupSelector() {
   return useSelector((state) => state.profiles.group);
@@ -212,5 +213,27 @@ export function useSetGroupVisibleDispatcher() {
 
   return (groupID: GroupID) => {
     dispatch(profileActions.setGroupVisible(groupID));
+  };
+}
+
+export function useProfileImageDownloader() {
+  const drawPlayer = usePlayerDrawer({ aniFrameIndex: 0 });
+
+  return (profile: ProfileSettings) => {
+    const canvas = document.createElement("canvas")!;
+
+    canvas.width = 69;
+    canvas.height = 75;
+
+    drawPlayer({
+      canvas,
+      profile,
+      scale: 3,
+    }).then(() => {
+      const link = document.createElement("a");
+      link.download = `${profile.name}.png`;
+      link.href = canvas.toDataURL();
+      link.click();
+    });
   };
 }

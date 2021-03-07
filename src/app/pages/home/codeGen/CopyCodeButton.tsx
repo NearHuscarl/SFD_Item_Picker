@@ -1,14 +1,13 @@
 import { IconButton, Tooltip } from "@material-ui/core";
 import FileCopy from "@material-ui/icons/FileCopy";
 import { useState } from "react";
-import { copy } from "app/helpers/copy";
-import { useCodeGenGetter } from "app/actions/template";
+import { useCopyCodeGen } from "app/actions/template";
 
 export function CopyCodeButton() {
   const [copyTooltipOpen, setCopyTooltipOpen] = useState(false);
-  const getCodeGen = useCodeGenGetter();
+  const copyCodeGen = useCopyCodeGen();
   const onCopy = () => {
-    copy(getCodeGen());
+    copyCodeGen();
     setCopyTooltipOpen(true);
     setTimeout(() => {
       setCopyTooltipOpen(false);

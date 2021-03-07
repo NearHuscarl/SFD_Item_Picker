@@ -7,11 +7,12 @@ import Casino from "@material-ui/icons/Casino";
 import GetApp from "@material-ui/icons/GetApp";
 import purple from "@material-ui/core/colors/purple";
 import { globalActions } from "app/store/rootDuck";
-import { Player, usePlayerDrawer } from "app/widgets/Player";
+import { Player } from "app/widgets/Player";
 import { useOnMount } from "app/helpers/hooks";
 import { useDraftSelector, useRandomItemDispatcher } from "app/actions/editor";
 import { ShareButton } from "app/widgets/ShareButton";
 import { AddToGroupButton } from "app/pages/home/profileEditor/AddToGroupButton";
+import { useProfileImageDownloader } from "app/actions/profile";
 
 const useStyles = makeStyles((theme) => ({
   profilePreview: {
@@ -72,23 +73,9 @@ function useProfilePreview() {
     }
   };
 
-  const drawPlayer = usePlayerDrawer({ aniFrameIndex: 0 });
+  const downloadProfile = useProfileImageDownloader();
   const onDownload = () => {
-    const canvas = document.createElement("canvas")!;
-
-    canvas.width = 69;
-    canvas.height = 75;
-
-    drawPlayer({
-      canvas,
-      profile,
-      scale: 3,
-    }).then(() => {
-      const link = document.createElement("a");
-      link.download = `${profile.name}.png`;
-      link.href = canvas.toDataURL();
-      link.click();
-    });
+    downloadProfile(profile);
   };
 
   useOnMount(() => {

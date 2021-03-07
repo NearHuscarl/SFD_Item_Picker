@@ -87,3 +87,30 @@ export function useDidUpdateEffect(
     }
   }, deps);
 }
+
+export function useEventListener(
+  eventName: keyof HTMLElementEventMap,
+  handler: Function,
+  element: EventTarget = document,
+  options?: boolean | AddEventListenerOptions
+) {
+  const savedHandler = useRef<Function>();
+
+  useEffect(() => {
+    savedHandler.current = handler;
+  }, [handler]);
+
+  useEffect(() => {
+    const isSupported = element && element.addEventListener;
+
+    if (!isSupported) return;
+
+    const eventListener = (event) => savedHandler.current?.(event);
+
+    element.addEventListener(eventName, eventListener, options);
+
+    return () => {
+      element?.removeEventListener(eventName, eventListener);
+    };
+  }, [eventName, element, options]);
+}

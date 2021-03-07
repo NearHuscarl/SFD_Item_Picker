@@ -1,11 +1,12 @@
 import { useDispatch, useSelector, useStore } from "react-redux";
 import { createAsyncThunk, createSelector } from "@reduxjs/toolkit";
 import { fillTemplate } from "app/helpers/template";
-import { Template, TemplateID } from "app/types";
+import { ProfileID, Template, TemplateID } from "app/types";
 import { useDraftSelector } from "app/actions/editor";
 import { templateActions } from "app/store/rootDuck";
 import { DefaultTemplate } from "app/store/ducks/templates.duck.util";
 import { RootState } from "app/store/store";
+import { useCallback } from "react";
 
 export function useCodeGen() {
   const settings = useDraftSelector();
@@ -16,16 +17,38 @@ export function useCodeGen() {
 
   return fillTemplate(template, settings);
 }
-export function useCodeGenGetter() {
+export function useCopyCodeGen() {
   const store = useStore();
 
-  return () => {
-    const settings = store.getState().editor.draft;
-    const { templates } = store.getState();
-    const selected = templates.selected;
-    const template = templates.templates[selected].template;
-    return fillTemplate(template, settings);
-  };
+  return useCallback(
+    (profileID?: ProfileID) => {
+      const { templates, profiles } = store.getState();
+      const settings = profileID
+        ? profiles.profile[profileID].profile
+        : store.getState().editor.draft;
+      const selected = templates.selected;
+      const template = templates.templates[selected].template;
+
+      // without setTimeout, copying does not work while closing Material-UI popover
+      setTimeout(() => {
+        navigator.clipboard.writeText(fillTemplate(template, settings));
+      });
+    },
+    [store]
+  );
+}
+export function useCopySelectedCodeGen() {
+  const copyCodeGen = useCopyCodeGen();
+  const store = useStore();
+
+  return useCallback(() => {
+    const { selectedProfile, profile } = store.getState().profiles;
+    const isSelected = selectedProfile !== -1;
+    copyCodeGen(isSelected ? selectedProfile : undefined);
+    return isSelected
+      ? profile[selectedProfile].profile
+      : store.getState().editor.draft;
+  }, [copyCodeGen, store]);
 }
 
 export const selectTemplates = createSelector(
