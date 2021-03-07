@@ -1,17 +1,11 @@
+import { makeStyles } from "@material-ui/core";
 import { ItemAutocomplete } from "app/widgets/ItemAutocomplete";
 import { ColorType, Layer } from "app/types";
 import { ItemID, getItem } from "app/data/items";
 import { ColorButton, ColorButtonProps } from "app/widgets/ColorButton";
-import { makeStyles } from "@material-ui/core";
+import { getMainColors, hasColor } from "app/helpers/item";
 import {
-  getMainColors,
-  hasColor,
-  validateColorName,
-  getDefaultColorName,
-} from "app/helpers/item";
-import { COLOR_TYPES } from "app/constants";
-import {
-  useItemColorsDispatcher,
+  useSingleItemColorDispatcher,
   useItemColorsSelector,
   useItemDispatcher,
   useItemGenderSelector,
@@ -37,32 +31,13 @@ function useItemSettings(layer: Layer) {
   const dispatchItem = useItemDispatcher();
   const item = getItem(itemId);
   const gender = useItemGenderSelector();
-  const itemColors = useItemColorsSelector(layer, itemId);
-  const dispatchItemColors = useItemColorsDispatcher();
+  const itemColors = useItemColorsSelector(layer);
+  const setSingleItemColor = useSingleItemColorDispatcher();
   const onChangeItemColors = (type: ColorType) => (color) => {
-    dispatchItemColors({
-      layer,
-      type,
-      name: color.name,
-    });
+    setSingleItemColor({ layer, type, name: color.name });
   };
   const onChangeItem = (id: ItemID) => {
     if (itemId !== id) {
-      const newItem = getItem(id);
-      COLOR_TYPES.forEach((type, i) => {
-        const validate = validateColorName(newItem, type, itemColors[i]);
-        if (!validate) {
-          const defaultColor = getDefaultColorName(newItem, type);
-
-          if (defaultColor) {
-            dispatchItemColors({
-              layer,
-              type,
-              name: defaultColor,
-            });
-          }
-        }
-      });
       dispatchItem({ id, layer });
     }
   };

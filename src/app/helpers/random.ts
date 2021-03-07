@@ -1,18 +1,20 @@
 import { Item } from "app/data/items";
 import { getMainColors, hasColor } from "app/helpers/item";
-import { COLOR_TYPES } from "app/constants";
 import { ItemColor } from "app/types";
+import { forEachColorType } from "app/helpers/index";
 
 export function randomArrItem<T>(arr: T[]) {
   return arr[Math.floor(Math.random() * arr.length)];
 }
 
 export function randomItemColors(item: Item) {
-  const colors = COLOR_TYPES.map((type) => {
-    if (!hasColor(item, type)) {
-      return undefined;
+  const itemColor: ItemColor = [null, null, null];
+
+  forEachColorType((type, i) => {
+    if (hasColor(item, type)) {
+      itemColor[i] = randomArrItem(getMainColors(item, type)).name;
     }
-    return randomArrItem(getMainColors(item, type));
   });
-  return colors.map((c) => (c ? c.name : null)) as ItemColor;
+
+  return itemColor;
 }

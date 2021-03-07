@@ -7,7 +7,7 @@ import {
 } from "app/helpers/animation";
 import { forEachLayer } from "app/helpers";
 import { getItem } from "app/data/items";
-import { ensureColorItemExist, getItemTypeZIndex } from "app/helpers/item";
+import { getItemTypeZIndex } from "app/helpers/item";
 import { ItemPartType } from "app/constants";
 import { applyColor } from "app/helpers/color";
 import { useAnimationFrame } from "app/helpers/hooks";
@@ -81,7 +81,7 @@ export function usePlayerDrawer(props?: UsePlayerDrawerProps) {
       }
 
       const itemId = profile[layer].id;
-      const itemColors = ensureColorItemExist(itemId, profile[layer].colors);
+      const itemColors = profile[layer].colors;
       const renderData = allRenderData[layer];
 
       for (let index = 0; index < renderData.length; index++) {

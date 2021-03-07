@@ -1,13 +1,23 @@
 // uncategorized helper methods
 
-import { Layer } from "app/types";
-import { Layers } from "app/constants";
+import { ColorType, Layer } from "app/types";
+import { COLOR_TYPES, Layers } from "app/constants";
 
 export function forEachLayer(cb: (layer: Layer, layerIndex: number) => void) {
   for (let i = 0; i <= 8; i++) {
     const layerIndex = i;
     const layer = Layers[layerIndex];
     cb(layer, layerIndex);
+  }
+}
+
+export function forEachColorType(
+  cb: (colorType: ColorType, colorIndex: number) => void
+) {
+  for (let i = 0; i < 3; i++) {
+    const colorIndex = i;
+    const color = COLOR_TYPES[colorIndex];
+    cb(color, colorIndex);
   }
 }
 

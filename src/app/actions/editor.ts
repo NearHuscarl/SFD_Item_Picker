@@ -1,10 +1,16 @@
-import { useDispatch, useSelector } from "react-redux";
-import { Layer } from "app/types";
-import { ensureColorItemExist } from "app/helpers/item";
-import { ItemID } from "app/data/items";
+import { useDispatch, useSelector, useStore } from "react-redux";
+import { ItemColor, Layer } from "app/types";
+import {
+  getDefaultColorName,
+  hasColor,
+  validateColorName,
+} from "app/helpers/item";
+import { getItem, ItemID } from "app/data/items";
 import { editorActions } from "app/store/rootDuck";
 import { createDispatcher } from "app/actions/createDispatcher";
 import { decodeProfile } from "app/helpers/profile";
+import { ItemParams } from "app/store/ducks/editor.duck.util";
+import { forEachColorType, isArrayEqual } from "app/helpers";
 
 export function useDraftSelector() {
   return useSelector((state) => state.editor.draft);
@@ -29,10 +35,8 @@ export function useItemSelector(layer: Layer) {
   return useSelector((state) => state.editor.draft[layer].id);
 }
 
-export function useItemColorsSelector(layer: Layer, itemId: ItemID) {
-  return useSelector((state) =>
-    ensureColorItemExist(itemId, state.editor.draft[layer].colors)
-  );
+export function useItemColorsSelector(layer: Layer) {
+  return useSelector((state) => state.editor.draft[layer].colors);
 }
 
 export function useRandomItemDispatcher() {
@@ -62,8 +66,37 @@ export const useItemGenderDispatcher = createDispatcher(
   editorActions.setGender
 );
 
-export const useItemDispatcher = createDispatcher(editorActions.setItem);
+export function useItemDispatcher() {
+  const dispatch = useDispatch();
+  const store = useStore();
 
-export const useItemColorsDispatcher = createDispatcher(
-  editorActions.setItemColors
+  return (itemParams: ItemParams) => {
+    const { id, layer } = itemParams;
+    const item = getItem(id);
+
+    dispatch(editorActions.setItem(itemParams));
+
+    const currentItemColor = store.getState().editor.draft[layer].colors;
+    const itemColor = [...currentItemColor] as ItemColor;
+
+    forEachColorType((type, i) => {
+      if (itemColor[i] && !hasColor(item, type)) {
+        itemColor[i] = null;
+      }
+      if (!validateColorName(item, type, itemColor[i])) {
+        itemColor[i] = getDefaultColorName(item, type) || null;
+      }
+      if (!itemColor[i] && hasColor(item, type)) {
+        itemColor[i] = getDefaultColorName(item, type) || null;
+      }
+    });
+
+    if (!isArrayEqual(currentItemColor, itemColor)) {
+      dispatch(editorActions.setItemColor({ itemColor, layer }));
+    }
+  };
+}
+
+export const useSingleItemColorDispatcher = createDispatcher(
+  editorActions.setSingleItemColor
 );

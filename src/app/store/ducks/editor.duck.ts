@@ -3,20 +3,16 @@ import storage from "redux-persist/lib/storage";
 import { MigrationManifest } from "redux-persist/es/types";
 import { createMigrate } from "redux-persist";
 import { PersistConfig, persistReducer } from "app/store/persist";
-import {
-  Gender,
-  getItem,
-  getOppositeGender,
-  ItemID,
-  NULL_ITEM,
-} from "app/data/items";
-import { ColorName } from "app/data/colors";
+import { Gender, getItem, getOppositeGender, NULL_ITEM } from "app/data/items";
 import { COLOR_TYPES } from "app/constants";
-import { ColorType, Layer, ProfileData, ProfileSettings } from "app/types";
+import { ProfileData, ProfileSettings } from "app/types";
 import {
+  ColorParams,
   defaultProfile,
   EditorState,
+  ItemParams,
   setAllItems,
+  SetItemColorParams,
   setName,
 } from "app/store/ducks/editor.duck.util";
 import { forEachLayer } from "app/helpers";
@@ -29,9 +25,6 @@ export const initialState: EditorState = {
   isDirty: false,
   isValid: true,
 };
-
-type ItemParams = { layer: Layer; id: ItemID };
-type ColorParams = { layer: Layer; type: ColorType; name: ColorName };
 
 const slice = createSlice({
   initialState,
@@ -66,10 +59,16 @@ const slice = createSlice({
       state.draft[layer].id = id;
       state.isDirty = true;
     },
-    setItemColors(state, action: PayloadAction<ColorParams>) {
+    setSingleItemColor(state, action: PayloadAction<ColorParams>) {
       const { layer, type, name } = action.payload;
 
       state.draft[layer].colors[COLOR_TYPES.indexOf(type)] = name;
+      state.isDirty = true;
+    },
+    setItemColor(state, action: PayloadAction<SetItemColorParams>) {
+      const { layer, itemColor } = action.payload;
+
+      state.draft[layer].colors = itemColor;
       state.isDirty = true;
     },
     setAllItems(
@@ -120,17 +119,18 @@ const slice = createSlice({
 });
 
 const migrations: MigrationManifest = {
-  2: (state) => {
+  2: () => {
     console.log("change slice name from profile to editor");
     localStorage.clear();
     window.location.replace(window.location.pathname);
     return initialState as any;
   },
+  3: () => initialState as any,
 };
 
 const persistConfig: PersistConfig<EditorState> = {
   storage,
-  version: 2,
+  version: 3,
   key: "editor",
   migrate: createMigrate(migrations, { debug: false }),
 };

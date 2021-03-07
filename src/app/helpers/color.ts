@@ -14,10 +14,6 @@ export function rgbToHex(color: Color) {
   return `#${r}${g}${b}`;
 }
 
-export function getColorTypeText(typeIndex: number) {
-  return COLOR_TYPES[typeIndex];
-}
-
 export function getMainColor(colorName: ColorName | null) {
   const colorShades = getColor(colorName);
 

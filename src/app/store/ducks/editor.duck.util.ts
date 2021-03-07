@@ -1,6 +1,14 @@
 import { Genders } from "app/constants";
-import { ProfileID, ProfileSettings } from "app/types";
+import {
+  ColorType,
+  ItemColor,
+  Layer,
+  ProfileID,
+  ProfileSettings,
+} from "app/types";
 import { forEachLayer } from "app/helpers";
+import { ItemID } from "app/data/items";
+import { ColorName } from "app/data/colors";
 
 export interface EditorState {
   ID: ProfileID;
@@ -8,6 +16,17 @@ export interface EditorState {
   isDirty: boolean;
   isValid: boolean;
 }
+
+export type ItemParams = { layer: Layer; id: ItemID };
+export type ColorParams = {
+  layer: Layer;
+  type: ColorType;
+  name: ColorName | null;
+};
+export type SetItemColorParams = {
+  layer: Layer;
+  itemColor: ItemColor;
+};
 
 export function setName(state: EditorState, name: string) {
   state.draft.name = name;
@@ -51,7 +70,10 @@ export const defaultProfile: Record<"male" | "female", ProfileSettings> = {
     skin: { id: "Normal", colors: ["Skin3", null, null] },
     head: { id: "None", colors: [null, null, null] },
     chestOver: { id: "None", colors: [null, null, null] },
-    chestUnder: { id: "SleevelessShirt", colors: [null, null, null] },
+    chestUnder: {
+      id: "SleevelessShirt",
+      colors: ["ClothingLightGray", null, null],
+    },
     hands: { id: "None", colors: [null, null, null] },
     waist: { id: "None", colors: [null, null, null] },
     legs: { id: "PantsBlack", colors: ["ClothingBlue", null, null] },
@@ -64,7 +86,10 @@ export const defaultProfile: Record<"male" | "female", ProfileSettings> = {
     skin: { id: "Normal_fem", colors: ["Skin3", null, null] },
     head: { id: "None", colors: [null, null, null] },
     chestOver: { id: "None", colors: [null, null, null] },
-    chestUnder: { id: "SleevelessShirt_fem", colors: [null, null, null] },
+    chestUnder: {
+      id: "SleevelessShirt_fem",
+      colors: ["ClothingLightGray", null, null],
+    },
     hands: { id: "None", colors: [null, null, null] },
     waist: { id: "None", colors: [null, null, null] },
     legs: { id: "PantsBlack_fem", colors: ["ClothingBlue", null, null] },
