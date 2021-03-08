@@ -6,6 +6,7 @@ import { groupNameComparer } from "app/helpers/profileGroup";
 import { DefaultGroup } from "app/constants";
 import { RenameGroupParams } from "app/store/ducks/profiles.duck.util";
 import { usePlayerDrawer } from "app/actions/player";
+import { encodeProfile } from "app/helpers/profile.coder";
 
 export function useProfileGroupSelector() {
   return useSelector((state) => state.profiles.group);
@@ -235,5 +236,43 @@ export function useProfileImageDownloader() {
       link.href = canvas.toDataURL();
       link.click();
     });
+  };
+}
+
+export function useSelectedProfileDownloader() {
+  const download = useProfileImageDownloader();
+  const store = useStore();
+
+  return (profileID?: ProfileID) => {
+    let profile: ProfileSettings;
+
+    if (profileID) {
+      profile = store.getState().profiles.profile[profileID].profile;
+    } else {
+      profile = store.getState().editor.draft;
+    }
+    download(profile);
+  };
+}
+
+export function useShareSelectedProfile() {
+  const store = useStore();
+
+  return (profileID?: ProfileID) => {
+    let profile: ProfileSettings;
+
+    if (profileID) {
+      profile = store.getState().profiles.profile[profileID].profile;
+    } else {
+      profile = store.getState().editor.draft;
+    }
+    setTimeout(() => {
+      const urlParams = encodeProfile(profile);
+      return navigator.clipboard.writeText(
+        window.location.host + "?p=" + urlParams
+      );
+    });
+
+    return profile;
   };
 }

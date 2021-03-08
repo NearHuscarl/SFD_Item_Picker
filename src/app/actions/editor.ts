@@ -4,7 +4,7 @@ import { getValidItemColor } from "app/helpers/item";
 import { getItem } from "app/data/items";
 import { editorActions } from "app/store/rootDuck";
 import { createDispatcher } from "app/actions/createDispatcher";
-import { decodeProfile } from "app/helpers/profile";
+import { decodeProfile } from "app/helpers/profile.coder";
 import { ItemParams } from "app/store/ducks/editor.duck.util";
 import { forEachLayer, isArrayEqual } from "app/helpers";
 import { parseProfile } from "app/helpers/code";

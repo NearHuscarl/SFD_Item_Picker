@@ -31,7 +31,7 @@ export function useCopyCodeGen() {
 
       // without setTimeout, copying does not work while closing Material-UI popover
       setTimeout(() => {
-        navigator.clipboard.writeText(fillTemplate(template, settings));
+        return navigator.clipboard.writeText(fillTemplate(template, settings));
       });
     },
     [store]

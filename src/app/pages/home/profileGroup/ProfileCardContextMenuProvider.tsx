@@ -12,13 +12,13 @@ import { makeStyles } from "@material-ui/styles";
 import { useSnackbar } from "notistack";
 import {
   useDeleteProfileDispatcher,
-  useProfileImageDownloader,
+  useSelectedProfileDownloader,
   useRemoveProfileFromGroupDispatcher,
+  useShareSelectedProfile,
 } from "app/actions/profile";
-import { MenuData, GroupID, ProfileID, ProfileSettings } from "app/types";
+import { MenuData, GroupID, ProfileID } from "app/types";
 import { useCopyCodeGen, useCopySelectedCodeGen } from "app/actions/template";
 import { useEventListener } from "app/helpers/hooks";
-import { useStore } from "react-redux";
 import { useGetCurrentTab } from "app/actions/global";
 
 const useStyles = makeStyles((theme) => ({
@@ -58,22 +58,12 @@ type ContextMenuData = MenuData & {
 
 function useContextMenu() {
   const { enqueueSnackbar } = useSnackbar();
-  const copyCodeGen = useCopyCodeGen();
   const getCurrentTab = useGetCurrentTab();
+  const copyCodeGen = useCopyCodeGen();
   const copySelectedCodeGen = useCopySelectedCodeGen();
-  const downloadProfile = useProfileImageDownloader();
-  const downloadSelectedProfile = (profileID?: ProfileID) => {
-    let profile: ProfileSettings;
-
-    if (profileID) {
-      profile = store.getState().profiles.profile[profileID].profile;
-    } else {
-      profile = store.getState().editor.draft;
-    }
-    downloadProfile(profile);
-  };
+  const shareSelectedProfile = useShareSelectedProfile();
+  const downloadSelectedProfile = useSelectedProfileDownloader();
   const deleteProfile = useDeleteProfileDispatcher();
-  const store = useStore();
   const removeProfileFromGroup = useRemoveProfileFromGroupDispatcher();
   const [contextMenu, setContextMenu] = useState<ContextMenuData[]>([]);
   const [mousePosition, setMousePosition] = useState<MousePosition>(
@@ -114,6 +104,15 @@ function useContextMenu() {
     if (e.ctrlKey && e.key === "z") {
       downloadSelectedProfile();
     }
+    if (e.ctrlKey && e.key === "s") {
+      e.preventDefault(); // prevent default browser behavior (open save html file dialog or sth)
+      const profile = shareSelectedProfile();
+      const message = `Profile "${profile.name}"'s link has been copied to clipboard`;
+      enqueueSnackbar(message, {
+        key: message,
+        autoHideDuration: 2000,
+      });
+    }
   }, []);
 
   useEventListener("copy", onGlobalCopy);
@@ -131,6 +130,14 @@ function useContextMenu() {
           shortcut: "Ctrl+C",
           onClick: () => {
             copyCodeGen(profileID);
+            onCloseContextMenu();
+          },
+        },
+        {
+          name: "Copy profile URL",
+          shortcut: "Ctrl+S",
+          onClick: () => {
+            shareSelectedProfile(profileID);
             onCloseContextMenu();
           },
         },

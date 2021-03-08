@@ -3,7 +3,7 @@ import { IconButton, Popover, TextField, Typography } from "@material-ui/core";
 import Share from "@material-ui/icons/Share";
 import { makeStyles } from "@material-ui/styles";
 import { useSelector } from "react-redux";
-import { decodeProfile, encodeProfile } from "app/helpers/profile";
+import { decodeProfile, encodeProfile } from "app/helpers/profile.coder";
 import { stringifyOneLineArray } from "app/helpers";
 import { useDraftSelector } from "app/actions/editor";
 

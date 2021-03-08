@@ -1,7 +1,7 @@
 import { ProfileSettings } from "app/types";
 import { Genders } from "app/constants";
 import { forEachLayer } from "app/helpers/index";
-import { encodeProfile } from "app/helpers/profile";
+import { encodeProfile } from "app/helpers/profile.coder";
 
 function quote(str = "") {
   return `"${str}"`;
