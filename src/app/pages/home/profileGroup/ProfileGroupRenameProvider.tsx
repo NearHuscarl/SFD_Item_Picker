@@ -7,7 +7,10 @@ import {
   useState,
 } from "react";
 import { __PRODUCTION__, DefaultGroup } from "app/constants";
-import { useRenameGroupDispatcher } from "app/actions/profile";
+import {
+  useGroupSummariesGetter,
+  useRenameGroupDispatcher,
+} from "app/actions/profile";
 import { Popover, TextField } from "@material-ui/core";
 import { ProfileGroup } from "app/types";
 import { useStore } from "react-redux";
@@ -23,6 +26,7 @@ export const ProfileGroupRenameContext = createContext<ProfileGroupRenameContext
 
 function useRenameGroup() {
   const renameGroup = useRenameGroupDispatcher();
+  const getGroupSummaries = useGroupSummariesGetter();
   const groupToRenameRef = useRef<ProfileGroup>(DefaultGroup);
   const store = useStore();
   const inputRef = useRef<HTMLInputElement>(null);
@@ -35,8 +39,14 @@ function useRenameGroup() {
     setAnchorEl(e.currentTarget);
   };
   const onNameChange = (e) => {
-    if (e.key === "Enter" && e.target.value) {
-      confirmRenameGroup(e.target.value);
+    const newName = e.target.value;
+
+    if (
+      e.key === "Enter" &&
+      newName &&
+      getGroupSummaries().findIndex((t) => t.name === newName) === -1
+    ) {
+      confirmRenameGroup(newName);
     }
   };
   const confirmRenameGroup = (newName: string) => {
