@@ -1,4 +1,3 @@
-import React from "react";
 import { makeStyles, Theme } from "@material-ui/core";
 import clsx from "clsx";
 
@@ -21,6 +20,10 @@ const useStyles = makeStyles<Theme, SwatchProps>((theme) => ({
     border: "4px #e0e0e0 dashed",
     cursor: "not-allowed",
     boxShadow: "none",
+
+    "&[aria-disabled='true']:hover": {
+      boxShadow: "none",
+    },
   },
 }));
 
@@ -39,6 +42,7 @@ export function Swatch(props: SwatchProps) {
     <div
       role="button"
       aria-label={name}
+      aria-disabled={disabled}
       title={name}
       onClick={(e) => onClick(color, e)}
       className={clsx({
