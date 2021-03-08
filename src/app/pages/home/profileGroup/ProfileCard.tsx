@@ -13,8 +13,7 @@ import {
 import { DragHandle } from "app/widgets/DragHandle";
 import { animation } from "app/animation";
 import { useDidUpdateEffect } from "app/helpers/hooks";
-import { useProfileCardMoveMenu } from "app/pages/home/profileGroup/ProfileCardMoveMenuProvider";
-import { useProfileCardContextMenu } from "app/pages/home/profileGroup/ProfileCardContextMenuProvider";
+import { useProfileCardAction } from "app/pages/home/profileGroup/ProfileCardActionProvider";
 
 export const PROFILE_CARD_WIDTH = 100;
 export const PROFILE_CARD_HEIGHT = 130;
@@ -136,8 +135,7 @@ export function DraggableProfileCard(props: DraggableProfileCardProps) {
 function useProfileCard(id: number) {
   const { ID, profile, isSelected, groupID } = useProfileData(id);
   const classes = useStyles();
-  const { openMoveMenu } = useProfileCardMoveMenu();
-  const { openContextMenu } = useProfileCardContextMenu();
+  const { openContextMenu, openMoveMenu } = useProfileCardAction();
   const dispatchSelectProfile = useSelectProfileDispatcher();
 
   if (ID === undefined || ID === null) {

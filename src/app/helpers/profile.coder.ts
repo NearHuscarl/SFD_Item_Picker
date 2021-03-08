@@ -36,7 +36,7 @@ function createItemCoder() {
   const encodeMap: Record<ItemID, string> = {};
   const decodeMap: Record<string, ItemID> = {};
 
-  // each itemID is stored in fixed size string of 2 (64 characters)
+  // each itemID is stored in a 2-digits base60 number (64 characters)
   // can encode up to 60x60 = 3600 items. There are currently over 200 items
   allIDs.forEach((id, i) => {
     const base60Index = base60.fromNumber(i).padStart(2, "0");
