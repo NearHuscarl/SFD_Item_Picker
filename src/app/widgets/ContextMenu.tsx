@@ -1,5 +1,7 @@
 import { ReactNode, useState } from "react";
 import { Menu, MenuItem, ListItemText } from "@material-ui/core";
+import { makeStyles } from "@material-ui/styles";
+import { MenuData } from "app/types";
 
 type MousePosition = {
   x: number | null;
@@ -10,8 +12,16 @@ const initialState: MousePosition = {
   y: null,
 };
 
+const useStyles = makeStyles((theme) => ({
+  shortcut: {
+    color: theme.palette.grey[500],
+    marginLeft: theme.spacing(2),
+  },
+}));
+
 export function ContextMenu(props: ContextMenuProps) {
-  const { children, menu } = props;
+  const { children, className, menu } = props;
+  const classes = useStyles();
   const [mousePosition, setMousePosition] = useState<MousePosition>(
     initialState
   );
@@ -32,7 +42,11 @@ export function ContextMenu(props: ContextMenuProps) {
   };
 
   return (
-    <div onContextMenu={handleClick} style={{ cursor: "context-menu" }}>
+    <div
+      onContextMenu={handleClick}
+      className={className}
+      style={{ cursor: "context-menu" }}
+    >
       {children}
       <Menu
         open={isOpen}
@@ -44,7 +58,7 @@ export function ContextMenu(props: ContextMenuProps) {
             : undefined
         }
       >
-        {menu.map(({ name, onClick }) => (
+        {menu.map(({ name, onClick, shortcut }) => (
           <MenuItem
             key={name}
             button
@@ -54,6 +68,7 @@ export function ContextMenu(props: ContextMenuProps) {
             }}
           >
             <ListItemText primary={name} />
+            {shortcut && <div className={classes.shortcut}>{shortcut}</div>}
           </MenuItem>
         ))}
       </Menu>
@@ -61,11 +76,8 @@ export function ContextMenu(props: ContextMenuProps) {
   );
 }
 
-export type ContextMenuData = {
-  name: string;
-  onClick: () => void;
-};
 type ContextMenuProps = {
   children: ReactNode;
-  menu: ContextMenuData[];
+  className?: string;
+  menu: MenuData[];
 };

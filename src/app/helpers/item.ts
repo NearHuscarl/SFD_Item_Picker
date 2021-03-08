@@ -1,6 +1,6 @@
 import memoize from "lodash/memoize";
 import { Item, Gender, ItemID, getItem, getItemIDs } from "app/data/items";
-import { ColorType, Layer, Type } from "app/types";
+import { ColorType, ItemColor, Layer, Type } from "app/types";
 import {
   COLOR_TYPES,
   ItemPartType,
@@ -10,6 +10,7 @@ import {
 import { getPalette } from "app/data/palettes";
 import { ColorName } from "app/data/colors";
 import { getMainColor } from "app/helpers/color";
+import { forEachColorType } from "app/helpers/index";
 
 function forEachItem(fn: (item: Item, index: number) => void) {
   getItemIDs().forEach((id, i) => {
@@ -104,6 +105,24 @@ export function validateColorName(
 
   const palette = getPalette(item.colorPalette);
   return !!palette[colorType].find((c) => c === colorName);
+}
+
+export function getValidItemColor(item: Item, currentItemColor: ItemColor) {
+  const itemColor = [...currentItemColor] as ItemColor;
+
+  forEachColorType((type, i) => {
+    if (itemColor[i] && !hasColor(item, type)) {
+      itemColor[i] = null;
+    }
+    if (!validateColorName(item, type, itemColor[i])) {
+      itemColor[i] = getDefaultColorName(item, type) || null;
+    }
+    if (!itemColor[i] && hasColor(item, type)) {
+      itemColor[i] = getDefaultColorName(item, type) || null;
+    }
+  });
+
+  return itemColor;
 }
 
 export function getItemTypeZIndex(itemType: number) {

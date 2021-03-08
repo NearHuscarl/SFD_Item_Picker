@@ -1,16 +1,13 @@
 import { useDispatch, useSelector, useStore } from "react-redux";
-import { ItemColor, Layer } from "app/types";
-import {
-  getDefaultColorName,
-  hasColor,
-  validateColorName,
-} from "app/helpers/item";
-import { getItem, ItemID } from "app/data/items";
+import { Layer } from "app/types";
+import { getValidItemColor } from "app/helpers/item";
+import { getItem } from "app/data/items";
 import { editorActions } from "app/store/rootDuck";
 import { createDispatcher } from "app/actions/createDispatcher";
 import { decodeProfile } from "app/helpers/profile";
 import { ItemParams } from "app/store/ducks/editor.duck.util";
-import { forEachColorType, isArrayEqual } from "app/helpers";
+import { forEachLayer, isArrayEqual } from "app/helpers";
+import { parseProfile } from "app/helpers/code";
 
 export function useDraftSelector() {
   return useSelector((state) => state.editor.draft);
@@ -55,7 +52,7 @@ export function useSearchItemDispatcher() {
     if (profileParams) {
       try {
         const profileSettings = decodeProfile(profileParams);
-        dispatch(editorActions.clearProfileData());
+        dispatch(editorActions.clearProfileData()); // reset profile ID to -1
         dispatch(editorActions.setAllItems(profileSettings));
       } catch {}
     }
@@ -76,23 +73,13 @@ export function useItemDispatcher() {
 
     dispatch(editorActions.setItem(itemParams));
 
-    const currentItemColor = store.getState().editor.draft[layer].colors;
-    const itemColor = [...currentItemColor] as ItemColor;
+    const itemColor = store.getState().editor.draft[layer].colors;
+    const validItemColor = getValidItemColor(item, itemColor);
 
-    forEachColorType((type, i) => {
-      if (itemColor[i] && !hasColor(item, type)) {
-        itemColor[i] = null;
-      }
-      if (!validateColorName(item, type, itemColor[i])) {
-        itemColor[i] = getDefaultColorName(item, type) || null;
-      }
-      if (!itemColor[i] && hasColor(item, type)) {
-        itemColor[i] = getDefaultColorName(item, type) || null;
-      }
-    });
-
-    if (!isArrayEqual(currentItemColor, itemColor)) {
-      dispatch(editorActions.setItemColor({ itemColor, layer }));
+    if (!isArrayEqual(itemColor, validItemColor)) {
+      dispatch(
+        editorActions.setItemColor({ itemColor: validItemColor, layer })
+      );
     }
   };
 }
@@ -100,3 +87,24 @@ export function useItemDispatcher() {
 export const useSingleItemColorDispatcher = createDispatcher(
   editorActions.setSingleItemColor
 );
+
+export function useParseProfileFromText() {
+  const dispatch = useDispatch();
+
+  return (code: string) => {
+    const profile = parseProfile(code);
+
+    forEachLayer((layer) => {
+      const { id, colors } = profile[layer];
+      const item = getItem(id);
+      const validItemColor = getValidItemColor(item, colors);
+
+      if (!isArrayEqual(colors, validItemColor)) {
+        profile[layer].colors = validItemColor;
+      }
+    });
+
+    dispatch(editorActions.clearProfileData());
+    dispatch(editorActions.setAllItems(profile));
+  };
+}

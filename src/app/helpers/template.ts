@@ -7,7 +7,7 @@ function quote(str = "") {
   return `"${str}"`;
 }
 
-const EMPTY_CLOTHING_ITEM_REGEX = /\s*(Skin|ChestUnder|Legs|Waist|Feet|ChestOver|Accesory|Hands|Head)+\s*=\s*new IProfileClothingItem\s*\(\s*""\s*,\s*""\s*,\s*""\s*,\s*""\s*\)\s*,/g;
+const EMPTY_CLOTHING_ITEM_REGEX = /\s*(Skin|ChestUnder|Legs|Waist|Feet|ChestOver|Accesory|Hands|Head)\s*=\s*new IProfileClothingItem\s*\(\s*""\s*,\s*""\s*,\s*""\s*,\s*""\s*\)\s*,/g;
 
 export function fillTemplate(template: string, settings: ProfileSettings) {
   const isMale = settings.gender === Genders.male;
