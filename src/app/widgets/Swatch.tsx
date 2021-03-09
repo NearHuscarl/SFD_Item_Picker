@@ -1,3 +1,4 @@
+import { MouseEvent } from "react";
 import { makeStyles, Theme } from "@material-ui/core";
 import clsx from "clsx";
 
@@ -31,11 +32,12 @@ export type SwatchProps = {
   disabled?: boolean;
   color: string;
   name?: string;
-  onClick: (color: string, e: React.MouseEvent<HTMLDivElement>) => void;
+  onClick: (color: string, e: MouseEvent<HTMLDivElement>) => void;
+  onMouseEnter?: () => void;
 };
 
 export function Swatch(props: SwatchProps) {
-  const { disabled, onClick, color, name } = props;
+  const { disabled, onClick, color, name, onMouseEnter } = props;
   const classes = useStyles(props);
 
   return (
@@ -49,6 +51,7 @@ export function Swatch(props: SwatchProps) {
         [classes.swatch]: true,
         [classes.swatchDisabled]: disabled,
       })}
+      onMouseEnter={onMouseEnter}
     />
   );
 }

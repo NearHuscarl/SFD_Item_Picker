@@ -33,6 +33,18 @@ export type ProfileSettings = {
   accessory: ProfileItemSettings;
 };
 
+export type ProfileSettingsDraft = {
+  skin: ProfileItemSettings;
+  head: ProfileItemSettings;
+  chestOver: ProfileItemSettings;
+  chestUnder: ProfileItemSettings;
+  hands: ProfileItemSettings;
+  waist: ProfileItemSettings;
+  legs: ProfileItemSettings;
+  feet: ProfileItemSettings;
+  accessory: ProfileItemSettings;
+};
+
 export type ProfileData = {
   ID: ProfileID;
   groupID: GroupID;

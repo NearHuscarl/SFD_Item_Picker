@@ -25,7 +25,6 @@ const useStyles = makeStyles((theme) => ({
     borderTopRightRadius: theme.shape.borderRadius,
     textTransform: "none",
     minWidth: 72,
-    fontWeight: theme.typography.fontWeightBold,
     "&:hover": {
       color: theme.palette.primary.main,
       opacity: 1,

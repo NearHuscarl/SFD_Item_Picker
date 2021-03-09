@@ -9,7 +9,10 @@ import purple from "@material-ui/core/colors/purple";
 import { globalActions } from "app/store/rootDuck";
 import { Player } from "app/widgets/Player";
 import { useOnMount } from "app/helpers/hooks";
-import { useDraftSelector, useRandomItemDispatcher } from "app/actions/editor";
+import {
+  useRandomItemDispatcher,
+  useUnconfirmedDraftSelector,
+} from "app/actions/editor";
 import { ShareButton } from "app/widgets/ShareButton";
 import { AddToGroupButton } from "app/pages/home/profileEditor/AddToGroupButton";
 import { useProfileImageDownloader } from "app/actions/profile";
@@ -61,7 +64,7 @@ const useStyles = makeStyles((theme) => ({
 
 function useProfilePreview() {
   const classes = useStyles();
-  const profile = useDraftSelector();
+  const profile = useUnconfirmedDraftSelector();
   const dispatch = useDispatch();
   const devTool = useSelector((state) => state.global.devTool);
   const [, rerender] = useReducer((x) => ++x, 0);

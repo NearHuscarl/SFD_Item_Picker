@@ -5,6 +5,7 @@ import {
   Layer,
   ProfileID,
   ProfileSettings,
+  ProfileSettingsDraft,
 } from "app/types";
 import { forEachLayer } from "app/helpers";
 import { ItemID } from "app/data/items";
@@ -13,6 +14,7 @@ import { ColorName } from "app/data/colors";
 export interface EditorState {
   ID: ProfileID;
   draft: ProfileSettings;
+  draftUnconfirmed: ProfileSettingsDraft;
   isDirty: boolean;
   isValid: boolean;
 }
@@ -96,4 +98,16 @@ export const defaultProfile: Record<"male" | "female", ProfileSettings> = {
     feet: { id: "ShoesBlack", colors: ["ClothingBrown", null, null] },
     accessory: { id: "None", colors: [null, null, null] },
   },
+};
+
+export const defaultDraft: ProfileSettingsDraft = {
+  skin: { id: "None", colors: [null, null, null] },
+  head: { id: "None", colors: [null, null, null] },
+  chestOver: { id: "None", colors: [null, null, null] },
+  chestUnder: { id: "None", colors: [null, null, null] },
+  hands: { id: "None", colors: [null, null, null] },
+  waist: { id: "None", colors: [null, null, null] },
+  legs: { id: "None", colors: [null, null, null] },
+  feet: { id: "None", colors: [null, null, null] },
+  accessory: { id: "None", colors: [null, null, null] },
 };

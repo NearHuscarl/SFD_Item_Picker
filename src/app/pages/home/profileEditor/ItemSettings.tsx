@@ -10,6 +10,7 @@ import {
   useItemDispatcher,
   useItemGenderSelector,
   useItemSelector,
+  useDraftColorDispatcher,
 } from "app/actions/editor";
 
 const useStyles = makeStyles((theme) => ({
@@ -36,6 +37,13 @@ function useItemSettings(layer: Layer) {
   const onChangeItemColors = (type: ColorType) => (color) => {
     setSingleItemColor({ layer, type, name: color.name });
   };
+  const setDraftColor = useDraftColorDispatcher();
+  const onChangeItemColorDraft = (type: ColorType) => (name) => {
+    setDraftColor({ layer, type, name });
+  };
+  const onResetItemColorDraft = (type: ColorType) => () => {
+    setDraftColor({ layer, type, name: null });
+  };
   const onChangeItem = (id: ItemID) => {
     if (itemId !== id) {
       dispatchItem({ id, layer });
@@ -53,12 +61,16 @@ function useItemSettings(layer: Layer) {
         colorName: itemColors[0],
         disabled: !hasColor(item, "primary"),
         onChange: onChangeItemColors("primary"),
+        onChangeDraft: onChangeItemColorDraft("primary"),
+        onClose: onResetItemColorDraft("primary"),
       },
       {
         colors: getMainColors(item, "secondary"),
         colorName: itemColors[1],
         disabled: !hasColor(item, "secondary"),
         onChange: onChangeItemColors("secondary"),
+        onChangeDraft: onChangeItemColorDraft("secondary"),
+        onClose: onResetItemColorDraft("secondary"),
       },
     ] as ColorButtonProps[],
   };
@@ -84,13 +96,7 @@ export function ItemSettings(props: ItemSettingsProps) {
         disableClearable={layer === "skin"}
       />
       {pickerProps.map((props, i) => (
-        <ColorButton
-          key={i}
-          colors={props.colors}
-          colorName={props.colorName}
-          disabled={props.disabled}
-          onChange={props.onChange}
-        />
+        <ColorButton key={i} {...props} />
       ))}
     </div>
   );

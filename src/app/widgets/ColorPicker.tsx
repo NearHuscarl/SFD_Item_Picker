@@ -22,9 +22,11 @@ export type SwatchData = { name: ColorName; color: Color };
 type ColorPickerProps = {
   colors: SwatchData[];
   onChange?: (color: SwatchData) => void;
+  onChangeDraft?: (colorName: ColorName) => void;
 };
 
-export function ColorPicker({ colors, onChange }: ColorPickerProps) {
+export function ColorPicker(props: ColorPickerProps) {
+  const { colors, onChange, onChangeDraft } = props;
   const classes = useStyles();
 
   return (
@@ -38,6 +40,7 @@ export function ColorPicker({ colors, onChange }: ColorPickerProps) {
             color={hex}
             name={color.name}
             onClick={() => onChange?.(color)}
+            onMouseEnter={() => onChangeDraft?.(color.name)}
           />
         );
       })}

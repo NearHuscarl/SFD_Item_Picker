@@ -5,9 +5,10 @@ import { createMigrate } from "redux-persist";
 import { PersistConfig, persistReducer } from "app/store/persist";
 import { Gender, getItem, getOppositeGender, NULL_ITEM } from "app/data/items";
 import { COLOR_TYPES } from "app/constants";
-import { ProfileData, ProfileSettings } from "app/types";
+import { ProfileData, ProfileSettings, ProfileSettingsDraft } from "app/types";
 import {
   ColorParams,
+  defaultDraft,
   defaultProfile,
   EditorState,
   ItemParams,
@@ -21,7 +22,10 @@ import { randomArrItem, randomItemColors } from "app/helpers/random";
 
 export const initialState: EditorState = {
   ID: -1,
+  // ready to save draft
   draft: defaultProfile.male,
+  // when hovering on the options without selecting. Not ready to save
+  draftUnconfirmed: defaultDraft,
   isDirty: false,
   isValid: true,
 };
@@ -78,10 +82,23 @@ const slice = createSlice({
       const profile = action.payload;
       setAllItems(state, profile);
     },
+    setDraftItems(state, action: PayloadAction<Partial<ProfileSettingsDraft>>) {
+      const draft = action.payload;
+
+      forEachLayer((layer) => {
+        if (draft[layer]?.id) {
+          state.draftUnconfirmed[layer].id = draft[layer]?.id!;
+        }
+        if (draft[layer]?.colors) {
+          state.draftUnconfirmed[layer].colors = draft[layer]?.colors!;
+        }
+      });
+    },
     setRandomProfile(state) {
       const { gender } = state.draft; // @ts-ignore
       const profile: ProfileSettings = {};
 
+      // TODO: move to action
       forEachLayer((layer) => {
         const items = getItems(layer, gender).filter((i) => {
           if (layer === "skin") {
@@ -126,11 +143,12 @@ const migrations: MigrationManifest = {
     return initialState as any;
   },
   3: () => initialState as any,
+  4: () => initialState as any,
 };
 
 const persistConfig: PersistConfig<EditorState> = {
   storage,
-  version: 3,
+  version: 4,
   key: "editor",
   migrate: createMigrate(migrations, { debug: false }),
 };
