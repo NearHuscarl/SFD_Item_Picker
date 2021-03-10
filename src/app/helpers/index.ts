@@ -56,6 +56,13 @@ export function isArrayEqual<T>(arr1: T[], arr2: T[]) {
   return true;
 }
 
+// https://stackoverflow.com/a/14438954/9449426
+export function unique<T>(array: T[]) {
+  return array.filter((value, index, self) => {
+    return self.indexOf(value) === index;
+  });
+}
+
 function removeUniqueIdentifier(name: string) {
   return name.replace(/\((.*)\)$/, "").trim();
 }

@@ -85,37 +85,40 @@ function useContextMenu() {
     setMousePosition(initialState);
   };
 
-  const onGlobalCopy = useCallback(() => {
-    if (getCurrentTab() !== "profileGroup") {
-      return;
-    }
-    const profile = copySelectedCodeGen();
-    const message = `Copy code from profile '${profile.name}' to clipboard`;
-    enqueueSnackbar(message, {
-      key: message,
-      autoHideDuration: 2000,
-    });
-  }, [copySelectedCodeGen, enqueueSnackbar]);
   const onGlobalKeyPress = useCallback((e) => {
     if (getCurrentTab() !== "profileGroup") {
       return;
     }
 
-    if (e.ctrlKey && e.key === "z") {
-      downloadSelectedProfile();
-    }
-    if (e.ctrlKey && e.key === "s") {
-      e.preventDefault(); // prevent default browser behavior (open save html file dialog or sth)
-      const profile = shareSelectedProfile();
-      const message = `Profile "${profile.name}"'s link has been copied to clipboard`;
-      enqueueSnackbar(message, {
-        key: message,
-        autoHideDuration: 2000,
-      });
+    if (e.ctrlKey) {
+      switch (e.key) {
+        case "z": {
+          downloadSelectedProfile();
+          break;
+        }
+        case "x": {
+          const profile = copySelectedCodeGen();
+          const message = `Copy code from profile '${profile.name}' to clipboard`;
+          enqueueSnackbar(message, {
+            key: message,
+            autoHideDuration: 2000,
+          });
+          break;
+        }
+        case "s": {
+          e.preventDefault(); // prevent default browser behavior (open save html file dialog or sth)
+          const profile = shareSelectedProfile();
+          const message = `Profile "${profile.name}"'s link has been copied to clipboard`;
+          enqueueSnackbar(message, {
+            key: message,
+            autoHideDuration: 2000,
+          });
+          break;
+        }
+      }
     }
   }, []);
 
-  useEventListener("copy", onGlobalCopy);
   useEventListener("keydown", onGlobalKeyPress);
 
   return {
@@ -127,7 +130,7 @@ function useContextMenu() {
       const contextMenu: ContextMenuData[] = [
         {
           name: "Copy code",
-          shortcut: "Ctrl+C",
+          shortcut: "Ctrl+X",
           onClick: () => {
             copyCodeGen(profileID);
             onCloseContextMenu();

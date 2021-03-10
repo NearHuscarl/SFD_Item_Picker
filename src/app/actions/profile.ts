@@ -5,7 +5,7 @@ import { GroupID, ProfileID, ProfileSettings } from "app/types";
 import { groupNameComparer } from "app/helpers/profileGroup";
 import { DefaultGroup } from "app/constants";
 import { RenameGroupParams } from "app/store/ducks/profiles.duck.util";
-import { usePlayerDrawer } from "app/actions/player";
+import { usePlayerTextures } from "app/actions/player";
 import { encodeProfile } from "app/helpers/profile.coder";
 
 export function useProfileGroupSelector() {
@@ -218,23 +218,24 @@ export function useSetGroupVisibleDispatcher() {
 }
 
 export function useProfileImageDownloader() {
-  const drawPlayer = usePlayerDrawer({ aniFrameIndex: 0 });
+  const { getRenderer, loadTextures } = usePlayerTextures();
 
   return (profile: ProfileSettings) => {
-    const canvas = document.createElement("canvas")!;
+    loadTextures(profile).then((success) => {
+      if (success) {
+        const canvas = document.createElement("canvas")!;
 
-    canvas.width = 69;
-    canvas.height = 75;
+        canvas.width = 69;
+        canvas.height = 75;
 
-    drawPlayer({
-      canvas,
-      profile,
-      scale: 3,
-    }).then(() => {
-      const link = document.createElement("a");
-      link.download = `${profile.name}.png`;
-      link.href = canvas.toDataURL();
-      link.click();
+        const render = getRenderer();
+        render({ canvas, scale: 3 });
+
+        const link = document.createElement("a");
+        link.download = `${profile.name}.png`;
+        link.href = canvas.toDataURL();
+        link.click();
+      }
     });
   };
 }

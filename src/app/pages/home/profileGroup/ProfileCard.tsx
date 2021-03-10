@@ -5,7 +5,7 @@ import MoreVert from "@material-ui/icons/MoreVert";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import clsx from "clsx";
-import { Player } from "app/widgets/Player";
+import { Portrait } from "app/widgets/Player";
 import {
   useProfileData,
   useSelectProfileDispatcher,
@@ -205,7 +205,7 @@ export const ProfileCard = memo((props: ProfileCardProps) => {
         </div>
       </div>
       <div className={classes.player}>
-        <Player profile={profile} aniFrameIndex={0} scale={3} />
+        <Portrait profile={profile} scale={3} />
       </div>
       <Typography className={classes.name} variant="body1">
         {profile.name}

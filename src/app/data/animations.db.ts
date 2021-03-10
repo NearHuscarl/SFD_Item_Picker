@@ -427,7 +427,7 @@ export const _animations: Record<AnimationName, AnimationData> = {
 
 export type AnimationData = Frame[];
 
-type Frame = {
+export type Frame = {
   parts: Part[];
   collisions: any[];
   frameEvent: string;

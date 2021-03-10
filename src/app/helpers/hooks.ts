@@ -1,12 +1,5 @@
-import {
-  DependencyList,
-  EffectCallback,
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
-import { getAnimation, AnimationName } from "app/data/animations";
+import { DependencyList, EffectCallback, useEffect, useRef } from "react";
+import { getAnimation, AnimationName, Frame } from "app/data/animations";
 
 export function useOnMount(cb: Function) {
   useEffect(() => {
@@ -39,38 +32,65 @@ export function useInterval(callback, delay) {
   }, [delay]);
 }
 
-function clampFrame(frame: number | undefined, min: number, max: number) {
-  if (frame === undefined) {
-    return 0;
-  }
-  return Math.min(Math.max(frame, min), max);
+export function useAnimationLoop(props: {
+  getInterval?: () => number;
+  onLoop: () => void;
+}) {
+  const { getInterval = () => 16.666666, onLoop } = props;
+
+  useEffect(() => {
+    let rafID = 0;
+    let previousTime = 0;
+
+    const loopAnimation = (currentTime: number) => {
+      if (currentTime - previousTime >= getInterval()) {
+        onLoop();
+        previousTime = currentTime;
+      }
+
+      rafID = requestAnimationFrame(loopAnimation);
+    };
+
+    requestAnimationFrame(loopAnimation);
+
+    return () => {
+      cancelAnimationFrame(rafID);
+    };
+  }, []);
 }
+
+type RenderParams = (frame: Frame) => void;
 
 export function useAnimationFrame(
   animationName: AnimationName,
-  aniFrameIndex?: number
+  onChange: RenderParams
 ) {
-  const aniData = getAnimation(animationName);
-  const frameCount = aniData.length;
-  const [frameIndex, setFrameIndex] = useState(
-    clampFrame(aniFrameIndex, 0, frameCount - 1)
-  );
-  const cb = useCallback(() => {
-    if (frameCount === 1 || aniFrameIndex !== undefined) {
-      return;
-    }
-    setFrameIndex((f) => (f === frameCount - 1 ? 0 : ++f));
-  }, [aniFrameIndex, frameCount]);
+  const framesRef = useRef<Frame[]>([]);
+  const frameIndexRef = useRef(0);
+  const getFrameCount = () => framesRef.current.length;
+  const getCurrentFrame = () => {
+    return framesRef.current[frameIndexRef.current];
+  };
 
-  useInterval(cb, [aniData[frameIndex].time]);
+  framesRef.current = getAnimation(animationName);
 
-  useEffect(() => {
-    if (aniFrameIndex !== undefined) {
-      setFrameIndex(clampFrame(aniFrameIndex, 0, frameCount - 1));
-    }
-  }, [aniFrameIndex, frameCount]);
+  useAnimationLoop({
+    getInterval: () => framesRef.current[frameIndexRef.current].time,
+    onLoop: () => {
+      const frameCount = getFrameCount();
+      let frameIndex = frameIndexRef.current;
 
-  return aniData[frameIndex];
+      frameIndexRef.current = frameIndex === frameCount - 1 ? 0 : ++frameIndex;
+      onChange(getCurrentFrame());
+    },
+  });
+
+  return {
+    getCurrentFrame,
+    getAllFrames() {
+      return framesRef.current;
+    },
+  };
 }
 
 export function useDidUpdateEffect(

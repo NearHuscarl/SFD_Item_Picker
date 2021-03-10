@@ -1,3 +1,4 @@
+import { MutableRefObject, useEffect, useReducer, useRef } from "react";
 import { Layer, ProfileSettings } from "app/types";
 import { useTextureData } from "app/data/textures";
 import { SCALE } from "app/widgets/Player";
@@ -5,19 +6,22 @@ import {
   AnimationRenderData,
   getAnimationRenderData,
 } from "app/helpers/animation";
-import { forEachLayer } from "app/helpers";
+import { forEachLayer, unique } from "app/helpers";
 import { getItem } from "app/data/items";
 import { getItemTypeZIndex } from "app/helpers/item";
 import { ItemPartType } from "app/constants";
 import { applyColor } from "app/helpers/color";
-import { useAnimationFrame } from "app/helpers/hooks";
+import { useAnimationFrame, useAnimationLoop } from "app/helpers/hooks";
+import { Frame, getAnimation } from "app/data/animations";
+import { useIndexedDB } from "app/providers/IndexedDBProvider";
 
-type UsePlayerDrawerProps = {
-  aniFrameIndex?: number;
-};
 type DrawPlayerParams = {
-  canvas: HTMLCanvasElement;
+  canvasRef: MutableRefObject<HTMLCanvasElement | undefined>;
   profile: ProfileSettings;
+  scale?: number;
+};
+type RenderParams = {
+  canvas: HTMLCanvasElement;
   scale?: number;
 };
 type RenderLayer = {
@@ -28,43 +32,137 @@ type RenderLayer = {
   layer: number;
 };
 
-export function usePlayerDrawer(props?: UsePlayerDrawerProps) {
-  const { aniFrameIndex } = props || {};
-  const baseIdleAni = useAnimationFrame("BaseIdle", aniFrameIndex);
-  const upperIdleAni = useAnimationFrame("UpperIdle", aniFrameIndex);
+export function usePlayerTextures(
+  props: {
+    profile?: ProfileSettings;
+    onTextureLoaded?: () => void;
+    portrait?: boolean;
+  } = {}
+) {
+  const { profile, onTextureLoaded, portrait = false } = props;
+  const { isLoadingDB } = useIndexedDB();
   const { getTextures } = useTextureData();
+  const texturesRef = useRef<Record<string, ImageData>>({});
+  const profileRef = useRef(profile);
+  const baseIdle = getAnimation("BaseIdle");
+  const upperIdle = getAnimation("UpperIdle");
+  const framesRef = useRef<[Frame, Frame]>([baseIdle[0], upperIdle[0]]);
 
-  return async (props: DrawPlayerParams) => {
-    const { canvas, profile, scale = SCALE } = props;
+  const loadTextures = (profile: ProfileSettings) => {
+    let textureKeys = [] as string[];
+    const getAllKeys = (frame: Frame) => {
+      forEachLayer((layer) => {
+        const itemId = profile[layer].id;
+        const renderData = getAnimationRenderData(itemId, frame.parts);
+
+        renderData.forEach((r) => {
+          if (r.textureKey) {
+            textureKeys.push(r.textureKey);
+          }
+        });
+      });
+    };
+
+    if (portrait) {
+      getAllKeys(baseIdle[0]);
+      getAllKeys(upperIdle[0]);
+    } else {
+      baseIdle.forEach(getAllKeys);
+      upperIdle.forEach(getAllKeys);
+    }
+
+    textureKeys = unique(textureKeys);
+
+    return getTextures(textureKeys).then((results) => {
+      texturesRef.current = {};
+      results.forEach((r) => {
+        if (r) {
+          texturesRef.current[r.name] = r.texture;
+        }
+      });
+      profileRef.current = profile;
+      onTextureLoaded?.();
+      return Promise.resolve(true);
+    });
+  };
+
+  useEffect(() => {
+    if (profile && !isLoadingDB) {
+      loadTextures(profile).then();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [profile, isLoadingDB]);
+
+  return {
+    getFrames: () => framesRef.current,
+    loadTextures,
+    getRenderer() {
+      return getPlayerDrawer(
+        framesRef.current,
+        texturesRef.current,
+        profileRef.current!
+      );
+    },
+  };
+}
+
+export function usePlayerDrawer(props: DrawPlayerParams) {
+  const { canvasRef, profile, scale = SCALE } = props;
+  const { getRenderer, getFrames } = usePlayerTextures({ profile });
+
+  useAnimationFrame("BaseIdle", (frame) => (getFrames()[0] = frame));
+  useAnimationFrame("UpperIdle", (frame) => (getFrames()[1] = frame));
+
+  useAnimationLoop({
+    onLoop: () => {
+      const canvas = canvasRef.current;
+
+      if (canvas) {
+        const render = getRenderer();
+        render({ canvas, scale });
+      }
+    },
+  });
+}
+
+export function usePlayerPortrait(props: DrawPlayerParams) {
+  const { canvasRef, profile, scale = SCALE } = props;
+  const { getRenderer } = usePlayerTextures({
+    profile,
+    portrait: true,
+    onTextureLoaded: () => {
+      const render = getRenderer();
+      render({
+        canvas: canvasRef.current!,
+        scale,
+      });
+    },
+  });
+}
+
+function getPlayerDrawer(
+  frames: [Frame, Frame],
+  textures: Record<string, ImageData>,
+  profile: ProfileSettings
+) {
+  const [baseFrame, upperFrame] = frames;
+
+  return (props: RenderParams) => {
+    const { canvas, scale = SCALE } = props;
     const ctx = canvas.getContext("2d")!;
 
     ctx.imageSmoothingEnabled = false;
 
-    const textureKeys = [] as string[]; // @ts-ignore
+    // @ts-ignore
     const allRenderData: Record<Layer, AnimationRenderData[]> = {};
 
     forEachLayer((layer) => {
       const itemId = profile[layer].id;
-      const renderData = [
-        ...getAnimationRenderData(itemId, baseIdleAni.parts),
-        ...getAnimationRenderData(itemId, upperIdleAni.parts),
+
+      allRenderData[layer] = [
+        ...getAnimationRenderData(itemId, baseFrame.parts),
+        ...getAnimationRenderData(itemId, upperFrame.parts),
       ].reverse();
-
-      allRenderData[layer] = renderData;
-      renderData.forEach((r) => {
-        if (r.textureKey) {
-          textureKeys.push(r.textureKey);
-        }
-      });
-    });
-
-    const results = await getTextures(textureKeys);
-    const textures: Record<string, ImageData> = {};
-
-    results.forEach((r) => {
-      if (r) {
-        textures[r.name] = r.texture;
-      }
     });
 
     const chestOverID = profile.chestOver.id;
@@ -88,7 +186,7 @@ export function usePlayerDrawer(props?: UsePlayerDrawerProps) {
         const aniData = renderData[index];
         const { textureKey, type, localId, x, y } = aniData;
 
-        if (textureKey) {
+        if (textureKey && textures[textureKey]) {
           const imageData = textures[textureKey];
           const layer = (index + 1) * getItemTypeZIndex(type) + layerIndex;
           const identifier = `${itemId}_${ItemPartType[type]}_${localId}`;
