@@ -7,13 +7,13 @@ import {
   Popover,
   Typography,
 } from "@material-ui/core";
-import AddCircle from "@material-ui/icons/AddCircle";
+import LibraryAdd from "@material-ui/icons/LibraryAdd";
 import { makeStyles } from "@material-ui/styles";
-import { useCanAddGroupSelector } from "app/actions/editor";
+import { useGroupSummariesGetter } from "app/actions/profile";
 import {
-  useAddProfileDispatcher,
-  useGroupSummariesGetter,
-} from "app/actions/profile";
+  useGroupToAddSelector,
+  useSetGroupDispatcher,
+} from "app/actions/editor";
 import { MenuData } from "app/types";
 
 const useStyles = makeStyles((theme) => ({
@@ -25,27 +25,23 @@ const useStyles = makeStyles((theme) => ({
 
 export function AddToGroupButton() {
   const classes = useStyles();
-  const canAddGroup = useCanAddGroupSelector();
-  const addProfile = useAddProfileDispatcher();
+  const groupToAdd = useGroupToAddSelector();
+  const setGroupToAdd = useSetGroupDispatcher();
   const getGroupSummaries = useGroupSummariesGetter();
   const [menuData, setMenuData] = useState<MenuData[]>([]);
   const [anchorEl, setAnchorEl] = useState(null);
-
-  if (!canAddGroup) {
-    return null;
-  }
-
   const open = Boolean(anchorEl);
   const onClose = () => setAnchorEl(null);
   const onAddToGroup = (e) => {
     const groups = getGroupSummaries();
 
     setMenuData(
-      groups.map(({ id, name }) => ({
+      groups.map(({ ID, name }) => ({
         name,
+        selected: groupToAdd === ID,
         onClick: () => {
+          setGroupToAdd(ID);
           onClose();
-          addProfile(id);
         },
       }))
     );
@@ -55,11 +51,11 @@ export function AddToGroupButton() {
   return (
     <>
       <IconButton
-        title="add to group"
-        aria-label="add to group"
+        title="select group to add"
+        aria-label="select group to add"
         onClick={onAddToGroup}
       >
-        <AddCircle />
+        <LibraryAdd />
       </IconButton>
       <Popover
         open={open}
@@ -79,8 +75,8 @@ export function AddToGroupButton() {
         </Typography>
         <Divider light />
         <MenuList>
-          {menuData.map(({ name, onClick }) => (
-            <MenuItem key={name} onClick={onClick}>
+          {menuData.map(({ name, onClick, selected }) => (
+            <MenuItem key={name} onClick={onClick} selected={selected}>
               {name}
             </MenuItem>
           ))}

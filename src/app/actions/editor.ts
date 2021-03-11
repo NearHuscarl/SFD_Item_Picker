@@ -1,9 +1,9 @@
 import { useDispatch, useSelector, useStore } from "react-redux";
 import { createSelector } from "@reduxjs/toolkit";
-import { ItemColor, Layer, ProfileSettingsDraft } from "app/types";
+import { ItemColor, Layer } from "app/types";
 import { getValidItemColor } from "app/helpers/item";
 import { getItem } from "app/data/items";
-import { editorActions } from "app/store/rootDuck";
+import { editorActions, profileActions } from "app/store/rootDuck";
 import { createDispatcher } from "app/actions/createDispatcher";
 import { decodeProfile } from "app/helpers/profile.coder";
 import { ColorParams, ItemParams } from "app/store/ducks/editor.duck.util";
@@ -14,6 +14,13 @@ import { COLOR_TYPES } from "app/constants";
 
 export function useDraftSelector() {
   return useSelector((state) => state.editor.draft);
+}
+export function useGroupToAddSelector() {
+  return useSelector((state) => state.editor.groupID);
+}
+
+export function useIsNewProfileSelector() {
+  return useSelector((state) => state.editor.ID === -1);
 }
 
 const selectUnconfirmedDraft = createSelector(
@@ -44,15 +51,18 @@ export function useUnconfirmedDraftSelector() {
   return useSelector(selectUnconfirmedDraft);
 }
 
-export function useCanAddGroupSelector() {
-  return useSelector((state) => state.editor.ID === -1);
-}
-
 export function useCanSaveSelector() {
   const a = useSelector((state) => state.editor.isDirty);
   const b = useSelector((state) => state.editor.isValid);
 
   return a && b;
+}
+export function useCanSaveGetter() {
+  const store = useStore();
+  return () => {
+    const { isDirty, isValid } = store.getState().editor;
+    return isDirty && isValid;
+  };
 }
 
 export function useItemGenderSelector() {
@@ -76,6 +86,7 @@ export function useRandomItemDispatcher() {
 
 export function useSearchItemDispatcher() {
   const dispatch = useDispatch();
+  const clearProfile = useClearProfileDispatcher();
 
   return (urlParams: string) => {
     const profileParams = new URLSearchParams(urlParams).get("p");
@@ -83,16 +94,38 @@ export function useSearchItemDispatcher() {
     if (profileParams) {
       try {
         const profileSettings = decodeProfile(profileParams);
-        dispatch(editorActions.clearProfileData()); // reset profile ID to -1
+        clearProfile(); // reset profile ID to -1
         dispatch(editorActions.setAllItems(profileSettings));
       } catch {}
     }
   };
 }
 
+export function useClearProfileDispatcher() {
+  const dispatch = useDispatch();
+  const store = useStore();
+
+  return () => {
+    const { ID } = store.getState().editor;
+
+    if (ID !== -1) {
+      const { selectedProfile } = store.getState().profiles;
+      const isSelectAction = ID !== selectedProfile;
+
+      if (!isSelectAction) {
+        dispatch(profileActions.selectProfile(selectedProfile));
+      }
+    }
+
+    dispatch(editorActions.clearProfileData());
+  };
+}
+
 export const useItemGenderDispatcher = createDispatcher(
   editorActions.setGender
 );
+
+export const useSetGroupDispatcher = createDispatcher(editorActions.setGroup);
 
 export function useItemDispatcher() {
   const dispatch = useDispatch();
@@ -156,6 +189,7 @@ export function useDraftColorDispatcher() {
 
 export function useParseProfileFromText() {
   const dispatch = useDispatch();
+  const clearProfile = useClearProfileDispatcher();
 
   return (code: string) => {
     const profile = parseProfile(code);
@@ -170,7 +204,7 @@ export function useParseProfileFromText() {
       }
     });
 
-    dispatch(editorActions.clearProfileData());
+    clearProfile();
     dispatch(editorActions.setAllItems(profile));
   };
 }

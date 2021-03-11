@@ -1,6 +1,7 @@
 import { Genders } from "app/constants";
 import {
   ColorType,
+  GroupID,
   ItemColor,
   Layer,
   ProfileID,
@@ -17,6 +18,7 @@ export interface EditorState {
   draftUnconfirmed: ProfileSettingsDraft;
   isDirty: boolean;
   isValid: boolean;
+  groupID: GroupID;
 }
 
 export type ItemParams = { layer: Layer; id: ItemID };

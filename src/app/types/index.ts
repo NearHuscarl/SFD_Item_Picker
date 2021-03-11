@@ -79,4 +79,5 @@ export type MenuData = {
   onClick: () => void;
   disabled?: boolean;
   shortcut?: string;
+  selected?: boolean;
 };

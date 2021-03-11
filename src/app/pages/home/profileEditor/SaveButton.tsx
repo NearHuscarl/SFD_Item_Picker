@@ -1,11 +1,15 @@
 import { Button, useTheme } from "@material-ui/core";
 import { SWATCH_SIZE } from "app/widgets/Swatch";
 import { useSaveProfileDispatcher } from "app/actions/profile";
-import { useCanSaveSelector } from "app/actions/editor";
+import {
+  useCanSaveSelector,
+  useIsNewProfileSelector,
+} from "app/actions/editor";
 
 export function SaveButton() {
   const theme = useTheme();
   const saveProfile = useSaveProfileDispatcher();
+  const isNewProfile = useIsNewProfileSelector();
   const canSave = useCanSaveSelector();
 
   return (
@@ -16,7 +20,7 @@ export function SaveButton() {
       onClick={saveProfile}
       style={{ minWidth: SWATCH_SIZE * 2 + theme.spacing(1) }}
     >
-      Save
+      {isNewProfile ? "Add" : "Save"}
     </Button>
   );
 }

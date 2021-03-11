@@ -4,8 +4,13 @@ import { MigrationManifest } from "redux-persist/es/types";
 import { createMigrate } from "redux-persist";
 import { PersistConfig, persistReducer } from "app/store/persist";
 import { Gender, getItem, getOppositeGender, NULL_ITEM } from "app/data/items";
-import { COLOR_TYPES } from "app/constants";
-import { ProfileData, ProfileSettings, ProfileSettingsDraft } from "app/types";
+import { COLOR_TYPES, DefaultGroup } from "app/constants";
+import {
+  GroupID,
+  ProfileData,
+  ProfileSettings,
+  ProfileSettingsDraft,
+} from "app/types";
 import {
   ColorParams,
   defaultDraft,
@@ -28,6 +33,7 @@ export const initialState: EditorState = {
   draftUnconfirmed: defaultDraft,
   isDirty: false,
   isValid: true,
+  groupID: DefaultGroup.ID,
 };
 
 const slice = createSlice({
@@ -131,6 +137,11 @@ const slice = createSlice({
     clearProfileData(state) {
       state.ID = -1;
       setAllItems(state, undefined);
+      state.isDirty = false;
+      state.isValid = true;
+    },
+    setGroup(state, action: PayloadAction<GroupID>) {
+      state.groupID = action.payload;
     },
   },
 });

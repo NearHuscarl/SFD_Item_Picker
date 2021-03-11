@@ -16,6 +16,7 @@ import {
 import { ShareButton } from "app/widgets/ShareButton";
 import { AddToGroupButton } from "app/pages/home/profileEditor/AddToGroupButton";
 import { useProfileImageDownloader } from "app/actions/profile";
+import { CreateNewProfileButton } from "app/pages/home/profileEditor/CreateNewProfileButton";
 
 const useStyles = makeStyles((theme) => ({
   profilePreview: {
@@ -111,6 +112,7 @@ export function ProfilePreview() {
     <div onClick={onClickProfile} className={classes.profilePreview}>
       <Player profile={profile} />
       <div className={classes.actionLeft}>
+        <CreateNewProfileButton />
         <AddToGroupButton />
       </div>
       <div className={classes.action}>

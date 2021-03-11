@@ -1,7 +1,12 @@
 import { DefaultGroup } from "app/constants";
-import { ProfileGroup } from "app/types";
+import { GroupID, ProfileGroup } from "app/types";
 
-export function groupNameComparer(a: ProfileGroup, b: ProfileGroup) {
+type ProfileGroupLike = {
+  ID: GroupID;
+  name: string;
+};
+
+export function groupNameComparer(a: ProfileGroupLike, b: ProfileGroupLike) {
   if (a.ID === DefaultGroup.ID) {
     return -1;
   }

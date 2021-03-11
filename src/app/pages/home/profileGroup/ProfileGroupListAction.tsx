@@ -31,9 +31,9 @@ export function ProfileGroupListAction() {
   };
   const value = isAllSelect
     ? [ALL_GROUP_ID]
-    : groupSummaries.filter((g) => g.isVisible).map((g) => g.id);
+    : groupSummaries.filter((g) => g.isVisible).map((g) => g.ID);
 
-  groupSummaries.unshift({ id: ALL_GROUP_ID, name: "All", isVisible: false });
+  groupSummaries.unshift({ ID: ALL_GROUP_ID, name: "All", isVisible: false });
 
   return (
     <div className={classes.profileGroupAction}>
@@ -52,8 +52,8 @@ export function ProfileGroupListAction() {
           },
         }}
       >
-        {groupSummaries.map(({ id, name }) => (
-          <MenuItem key={id} value={id}>
+        {groupSummaries.map(({ ID, name }) => (
+          <MenuItem key={ID} value={ID}>
             {name}
           </MenuItem>
         ))}

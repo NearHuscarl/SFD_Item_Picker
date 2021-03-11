@@ -30,16 +30,13 @@ export function useGroupSummariesSelector() {
   const groupRecords = useProfileGroupSelector();
   const groupIDs = useSelector((state) => state.profiles.groupIDs);
 
-  return (
-    groupIDs
-      .map((id) => ({
-        id: groupRecords[id].ID,
-        name: groupRecords[id].name,
-        isVisible: groupRecords[id].isVisible,
-      }))
-      // @ts-ignore
-      .sort(groupNameComparer)
-  );
+  return groupIDs
+    .map((id) => ({
+      ID: groupRecords[id].ID,
+      name: groupRecords[id].name,
+      isVisible: groupRecords[id].isVisible,
+    }))
+    .sort(groupNameComparer);
 }
 
 export function useAllGroupSelectSelector() {
@@ -52,15 +49,12 @@ export function useGroupSummariesGetter() {
   return () => {
     const { groupIDs, group } = store.getState().profiles;
 
-    return (
-      groupIDs
-        .map((id) => ({
-          id: group[id].ID,
-          name: group[id].name,
-        }))
-        // @ts-ignore
-        .sort(groupNameComparer)
-    );
+    return groupIDs
+      .map((id) => ({
+        ID: group[id].ID,
+        name: group[id].name,
+      }))
+      .sort(groupNameComparer);
   };
 }
 
@@ -87,10 +81,10 @@ const selectProfile = createAsyncThunk(
     if (isSelectAction) {
       const profileData = getState().profiles.profile[profileID];
       dispatch(editorActions.setProfileData(profileData));
+      dispatch(editorActions.setDirty(false));
     } else {
       dispatch(editorActions.clearProfileData());
     }
-    dispatch(editorActions.setDirty(false));
   }
 );
 
@@ -104,12 +98,11 @@ export function useSelectProfileDispatcher() {
 const saveProfile = createAsyncThunk(
   `profiles/saveProfile`,
   async (_, { getState, dispatch }) => {
-    const profile = getState().editor.draft;
-    const profileID = getState().editor.ID;
+    const { draft: profile, groupID, ID: profileID } = getState().editor;
 
     if (profileID === -1) {
       const { nextID } = getState().profiles;
-      dispatch(profileActions.addProfile({ profile }));
+      dispatch(profileActions.addProfile({ profile, groupID }));
       dispatch(selectProfile(nextID));
     } else {
       dispatch(profileActions.updateProfile({ id: profileID, profile }));
@@ -121,24 +114,6 @@ const saveProfile = createAsyncThunk(
 export function useSaveProfileDispatcher() {
   const dispatch = useDispatch();
   return () => dispatch(saveProfile());
-}
-
-const addProfile = createAsyncThunk(
-  `profiles/addProfile`,
-  async (groupID: GroupID, { getState, dispatch }) => {
-    const { nextID } = getState().profiles;
-    const profile = getState().editor.draft;
-    dispatch(profileActions.addProfile({ groupID, profile }));
-    dispatch(selectProfile(nextID));
-  }
-);
-
-export function useAddProfileDispatcher() {
-  const dispatch = useDispatch();
-
-  return (groupID: GroupID) => {
-    dispatch(addProfile(groupID));
-  };
 }
 
 export function useRemoveProfileFromGroupDispatcher() {

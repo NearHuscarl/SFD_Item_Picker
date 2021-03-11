@@ -63,12 +63,12 @@ function useMoveMenu() {
       const groups = getGroupSummary();
       setMoveMenu(
         groups
-          .filter((g) => g.id !== groupID)
+          .filter((g) => g.ID !== groupID)
           .map((g) => ({
             name: g.name,
             onClick: () => {
               onCloseMoveMenu();
-              moveProfileToGroup(profileID, g.id);
+              moveProfileToGroup(profileID, g.ID);
             },
           }))
       );
