@@ -172,13 +172,13 @@ const slice = createSlice({
 });
 
 const migrations: MigrationManifest = {
-  4: (state) => initialState as any,
+  5: (state) => initialState as any,
 };
 
 const persistConfig: PersistConfig<ProfileGroupState> = {
   storage,
   key: SLICE_NAME,
-  version: 4,
+  version: 5,
   migrate: createMigrate(migrations, { debug: false }),
 };
 
