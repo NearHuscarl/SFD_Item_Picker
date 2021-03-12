@@ -6,26 +6,13 @@ import {
   MouseEvent,
 } from "react";
 import { __PRODUCTION__ } from "app/constants";
-import {
-  Divider,
-  MenuItem,
-  MenuList,
-  Popover,
-  Typography,
-} from "@material-ui/core";
-import { makeStyles } from "@material-ui/styles";
+import { Popover } from "@material-ui/core";
 import {
   useGroupSummariesGetter,
   useMoveProfileToGroupDispatcher,
 } from "app/actions/profile";
 import { MenuData, GroupID, ProfileID } from "app/types";
-
-const useStyles = makeStyles((theme) => ({
-  popoverText: {
-    padding: `10px ${theme.spacing(2)}px`,
-    color: theme.palette.grey[500],
-  },
-}));
+import { GroupMenu } from "app/widgets/GroupMenu";
 
 type ProfileCardMoveMenuContextValues = {
   openMoveMenu: (params: {
@@ -80,7 +67,6 @@ function useMoveMenu() {
 export function ProfileCardMoveMenuProvider({
   children,
 }: PropsWithChildren<{}>) {
-  const classes = useStyles();
   const {
     openMoveMenu,
     moveMenu,
@@ -106,17 +92,7 @@ export function ProfileCardMoveMenuProvider({
           horizontal: "left",
         }}
       >
-        <Typography variant="body1" className={classes.popoverText}>
-          Select a group to move to
-        </Typography>
-        <Divider light />
-        <MenuList>
-          {moveMenu.map(({ name, onClick }) => (
-            <MenuItem key={name} onClick={onClick}>
-              {name}
-            </MenuItem>
-          ))}
-        </MenuList>
+        <GroupMenu options={moveMenu} placeholder="Select a group to move to" />
       </Popover>
     </ProfileCardMoveMenuContext.Provider>
   );

@@ -1,30 +1,15 @@
 import { useState } from "react";
-import {
-  Divider,
-  IconButton,
-  MenuItem,
-  MenuList,
-  Popover,
-  Typography,
-} from "@material-ui/core";
+import { IconButton, Popover } from "@material-ui/core";
 import LibraryAdd from "@material-ui/icons/LibraryAdd";
-import { makeStyles } from "@material-ui/styles";
 import { useGroupSummariesGetter } from "app/actions/profile";
 import {
   useGroupToAddSelector,
   useSetGroupDispatcher,
 } from "app/actions/editor";
 import { MenuData } from "app/types";
-
-const useStyles = makeStyles((theme) => ({
-  popoverText: {
-    padding: `10px ${theme.spacing(2)}px`,
-    color: theme.palette.grey[500],
-  },
-}));
+import { GroupMenu } from "app/widgets/GroupMenu";
 
 export function AddToGroupButton() {
-  const classes = useStyles();
   const groupToAdd = useGroupToAddSelector();
   const setGroupToAdd = useSetGroupDispatcher();
   const getGroupSummaries = useGroupSummariesGetter();
@@ -70,17 +55,7 @@ export function AddToGroupButton() {
           horizontal: "left",
         }}
       >
-        <Typography variant="body1" className={classes.popoverText}>
-          Select a group to add to
-        </Typography>
-        <Divider light />
-        <MenuList>
-          {menuData.map(({ name, onClick, selected }) => (
-            <MenuItem key={name} onClick={onClick} selected={selected}>
-              {name}
-            </MenuItem>
-          ))}
-        </MenuList>
+        <GroupMenu options={menuData} placeholder="Select a group to add to" />
       </Popover>
     </>
   );
