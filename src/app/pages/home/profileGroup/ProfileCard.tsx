@@ -66,6 +66,18 @@ const useStyles = makeStyles((theme) => ({
   name: {
     textAlign: "center",
     fontWeight: 500,
+    textOverflow: "ellipsis",
+    overflow: "hidden",
+    whiteSpace: "nowrap",
+
+    // align center text with different sizes
+    display: "flex",
+    height: 20,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  nameSmall: {
+    fontSize: 11,
   },
   player: {
     marginTop: theme.spacing(1),
@@ -207,7 +219,13 @@ export const ProfileCard = memo((props: ProfileCardProps) => {
       <div className={classes.player}>
         <Portrait profile={profile} scale={3} />
       </div>
-      <Typography className={classes.name} variant="body1">
+      <Typography
+        className={clsx({
+          [classes.name]: true,
+          [classes.nameSmall]: profile.name.length >= 14,
+        })}
+        variant="body1"
+      >
         {profile.name}
       </Typography>
     </Card>
