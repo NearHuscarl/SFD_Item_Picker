@@ -10,7 +10,7 @@ import { useDraftSelector } from "app/actions/editor";
 const useStyles = makeStyles((theme) => ({
   paper: {
     padding: theme.spacing(2),
-    width: 445,
+    width: 532,
   },
   paperDebug: {
     opacity: "0.9 !important",
@@ -107,7 +107,7 @@ export function ShareButton() {
           inputRef={inputRef}
           InputProps={{ readOnly: true }}
           fullWidth
-          value={window.location.host + "?p=" + urlParams}
+          value={window.location.origin + "?p=" + urlParams}
         />
         {decodedTextForDebugging && (
           <TextField

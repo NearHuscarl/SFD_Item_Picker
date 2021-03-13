@@ -14,7 +14,7 @@ export function fillTemplate(template: string, settings: ProfileSettings) {
   const map = {
     __NAME__: quote(settings.name),
     __GENDER__: isMale ? "Gender.Male" : "Gender.Female",
-    __LINK__: window.location.host + "?p=" + encodeProfile(settings),
+    __LINK__: window.location.origin + "?p=" + encodeProfile(settings),
   };
 
   forEachLayer((layer) => {

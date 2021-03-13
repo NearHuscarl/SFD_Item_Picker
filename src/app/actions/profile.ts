@@ -245,7 +245,7 @@ export function useShareSelectedProfile() {
     setTimeout(() => {
       const urlParams = encodeProfile(profile);
       return navigator.clipboard.writeText(
-        window.location.host + "?p=" + urlParams
+        window.location.origin + "?p=" + urlParams
       );
     });
 
