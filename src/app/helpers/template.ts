@@ -39,8 +39,9 @@ export function fillTemplate(template: string, settings: ProfileSettings) {
 
   return template
     .replace(EMPTY_CLOTHING_ITEM_REGEX, "")
-    .replace(/\s*,\s*""\s*,\s*""\s*\)/g, ")")
-    .replace(/\s*,\s*""\s*\)/g, ")");
+    .replace(/("\w+"\s*,\s*"\w+")\s*,\s*""\s*\)/g, "$1)") // 1 empty color, remove the last param
+    .replace(/("\w+")\s*,\s*""\s*,\s*""\s*\)/g, "$1)") // 2 empty colors, remove 2 last params
+    .replace(/\s*,\s*""\s*,\s*""\s*,\s*""\s*\)/g, ', "")'); // 3 empty colors, remove 2 last params and add one empty string color to prevent ambiguous method call
 }
 
 function replaceAll(str: string, map: object) {
