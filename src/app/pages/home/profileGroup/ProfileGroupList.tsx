@@ -54,7 +54,7 @@ export function ProfileGroupList() {
           <div className={classes.profileGroupList}>
             <Virtuoso
               data={groups}
-              overscan={1}
+              overscan={1200}
               // height of 1 row of ProfileCard
               defaultItemHeight={197}
               itemContent={(index, group) => {
