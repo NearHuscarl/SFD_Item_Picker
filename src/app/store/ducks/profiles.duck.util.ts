@@ -6301,7 +6301,7 @@ export const initialProfiles: ProfileRecords = {
     groupID: 34,
     isSelected: true,
     profile: {
-      name: "BaronVonHauptstein",
+      name: "Baron von Hauptstein",
       gender: 0,
       skin: { id: "Zombie", colors: [null, null, null] },
       head: { id: "SpikedHelmet", colors: ["ClothingCyan", null, null] },

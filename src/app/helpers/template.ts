@@ -37,11 +37,14 @@ export function fillTemplate(template: string, settings: ProfileSettings) {
 
   template = replaceAll(template, map);
 
-  return template
-    .replace(EMPTY_CLOTHING_ITEM_REGEX, "")
-    .replace(/("\w+"\s*,\s*"\w+")\s*,\s*""\s*\)/g, "$1)") // 1 empty color, remove the last param
-    .replace(/("\w+")\s*,\s*""\s*,\s*""\s*\)/g, "$1)") // 2 empty colors, remove 2 last params
-    .replace(/\s*,\s*""\s*,\s*""\s*,\s*""\s*\)/g, ', "")'); // 3 empty colors, remove 2 last params and add one empty string color to prevent ambiguous method call
+  return (
+    template
+      .replace(EMPTY_CLOTHING_ITEM_REGEX, "")
+      .replace(/("\w*"\s*,\s*"\w+")\s*,\s*""\s*\)/g, "$1)") // empty color in 1 last param, remove the last param
+      .replace(/("\w+")\s*,\s*""\s*,\s*""\s*\)/g, "$1)") // empty colors in 2 last params, remove 2 last params
+      // empty colors in 3 last params, remove 2 last params and leave one param intact to prevent ambiguous method call
+      .replace(/\s*,\s*""\s*,\s*""\s*,\s*""\s*\)/g, ', "")')
+  );
 }
 
 function replaceAll(str: string, map: object) {
