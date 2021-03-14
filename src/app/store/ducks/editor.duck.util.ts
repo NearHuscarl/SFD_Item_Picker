@@ -71,7 +71,7 @@ export const defaultProfile: Record<"male" | "female", ProfileSettings> = {
   male: {
     name: "BOT",
     gender: Genders.male,
-    skin: { id: "Normal", colors: ["Skin3", null, null] },
+    skin: { id: "Normal", colors: ["Skin3", "ClothingLightGreen", null] },
     head: { id: "None", colors: [null, null, null] },
     chestOver: { id: "None", colors: [null, null, null] },
     chestUnder: {
@@ -87,7 +87,7 @@ export const defaultProfile: Record<"male" | "female", ProfileSettings> = {
   female: {
     name: "BOT",
     gender: Genders.female,
-    skin: { id: "Normal_fem", colors: ["Skin3", null, null] },
+    skin: { id: "Normal_fem", colors: ["Skin3", "ClothingLightGreen", null] },
     head: { id: "None", colors: [null, null, null] },
     chestOver: { id: "None", colors: [null, null, null] },
     chestUnder: {

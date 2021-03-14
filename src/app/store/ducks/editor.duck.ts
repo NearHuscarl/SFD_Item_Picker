@@ -155,11 +155,12 @@ const migrations: MigrationManifest = {
   },
   3: () => initialState as any,
   4: () => initialState as any,
+  5: () => initialState as any,
 };
 
 const persistConfig: PersistConfig<EditorState> = {
   storage,
-  version: 4,
+  version: 5,
   key: "editor",
   migrate: createMigrate(migrations, { debug: false }),
 };
