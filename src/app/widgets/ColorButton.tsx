@@ -10,6 +10,7 @@ function useColorButton(props: ColorButtonProps) {
     colorName,
     onChange,
     onClose: onCloseProps,
+    onChangeDraft: onChangeDraftProps,
   } = props;
   const colorValue = getMainColor(colorName);
   const [color, setColor] = useState<Color>(colorValue || [0, 0, 0]);
@@ -30,6 +31,11 @@ function useColorButton(props: ColorButtonProps) {
     setColor(color.color);
     onClose();
   };
+  const onChangeDraft = (colorName: ColorName) => {
+    if (open) {
+      onChangeDraftProps?.(colorName);
+    }
+  };
 
   useEffect(() => {
     if (colorValue) {
@@ -45,11 +51,12 @@ function useColorButton(props: ColorButtonProps) {
     buttonColor,
     anchorEl,
     onColorChange,
+    onChangeDraft,
   };
 }
 
 export function ColorButton(props: ColorButtonProps) {
-  const { colors, colorName, onChangeDraft } = props;
+  const { colors, colorName } = props;
   const {
     disabled,
     open,
@@ -58,6 +65,7 @@ export function ColorButton(props: ColorButtonProps) {
     buttonColor,
     anchorEl,
     onColorChange,
+    onChangeDraft,
   } = useColorButton(props);
 
   return (
