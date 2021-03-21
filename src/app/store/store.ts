@@ -25,6 +25,11 @@ function createMiddlewares() {
       // https://github.com/reduxjs/redux-toolkit/issues/121#issuecomment-611641781
       ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
     },
+    immutableCheck: {
+      // don't check very large objects
+      // https://github.com/reduxjs/redux-toolkit/issues/415#issuecomment-596812076
+      ignoredPaths: ['profiles.profile','profiles.group']
+    }
   });
 
   middlewares = middlewares.concat(rtkMiddlewares);
